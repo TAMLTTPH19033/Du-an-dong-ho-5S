@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 21, 2023 at 03:15 PM
+-- Generation Time: May 06, 2023 at 05:13 PM
 -- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- PHP Version: 8.0.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,6 +20,19 @@ SET time_zone = "+00:00";
 --
 -- Database: `database_totnghiep`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `authorities`
+--
+
+CREATE TABLE `authorities` (
+  `IDAuthorities` int(11) NOT NULL,
+  `ID` int(11) NOT NULL,
+  `Name` varchar(50) NOT NULL,
+  `Description` varchar(225) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -41,7 +54,7 @@ CREATE TABLE `brand` (
 
 CREATE TABLE `cart` (
   `IDCart` int(11) NOT NULL,
-  `IDCustomer` int(11) NOT NULL,
+  `IDUser` int(11) NOT NULL,
   `created_date` datetime NOT NULL,
   `status` bit(11) DEFAULT NULL,
   `note` text DEFAULT NULL,
@@ -92,27 +105,6 @@ CREATE TABLE `color` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `customer`
---
-
-CREATE TABLE `customer` (
-  `IDCustomer` int(11) NOT NULL,
-  `IDLocation` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `mobile_phone` varchar(20) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `date_of_birth` date NOT NULL,
-  `gender` varchar(10) NOT NULL,
-  `order_value` double NOT NULL,
-  `registered_at` datetime NOT NULL,
-  `account_status` int(11) NOT NULL,
-  `updated_date` date NOT NULL,
-  `status` bit(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `discount`
 --
 
@@ -133,7 +125,7 @@ CREATE TABLE `discount` (
 
 CREATE TABLE `feedback` (
   `IDFeedback` int(11) NOT NULL,
-  `IDCustomer` int(11) NOT NULL,
+  `IDUser` int(11) NOT NULL,
   `IDProductDetail` int(11) NOT NULL,
   `IDCart` int(11) NOT NULL,
   `content` text DEFAULT NULL,
@@ -180,7 +172,7 @@ CREATE TABLE `material` (
 
 CREATE TABLE `order` (
   `IDOrder` int(11) NOT NULL,
-  `IDCustomer` int(11) NOT NULL,
+  `IDUser` int(11) NOT NULL,
   `created_at` datetime DEFAULT NULL,
   `ordered_at` datetime DEFAULT NULL,
   `delivered_at` datetime DEFAULT NULL,
@@ -261,6 +253,29 @@ CREATE TABLE `product_detail` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `role`
+--
+
+CREATE TABLE `role` (
+  `IDRole` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `role_authorities`
+--
+
+CREATE TABLE `role_authorities` (
+  `IDRole_Authorities` int(11) NOT NULL,
+  `IDRole` int(11) NOT NULL,
+  `IDAuthorities` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `seri`
 --
 
@@ -301,9 +316,41 @@ CREATE TABLE `strap` (
   `material` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user`
+--
+
+CREATE TABLE `user` (
+  `IDUser` int(11) NOT NULL,
+  `IDLocation` int(11) NOT NULL,
+  `IDRole_Authorities` int(11) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `password` varchar(50) NOT NULL,
+  `first_name` varchar(50) NOT NULL,
+  `last_name` varchar(50) NOT NULL,
+  `mobile_phone` int(20) NOT NULL,
+  `email` varchar(225) NOT NULL,
+  `date_of_birth` date NOT NULL,
+  `gender` varchar(50) NOT NULL,
+  `order_value` double NOT NULL,
+  `registered_at` datetime NOT NULL,
+  `account_status` int(11) NOT NULL,
+  `updated_date` date NOT NULL,
+  `created_date` date NOT NULL,
+  `status` bit(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `authorities`
+--
+ALTER TABLE `authorities`
+  ADD PRIMARY KEY (`IDAuthorities`);
 
 --
 -- Indexes for table `brand`
@@ -334,12 +381,6 @@ ALTER TABLE `categories`
 --
 ALTER TABLE `color`
   ADD PRIMARY KEY (`IdColor`);
-
---
--- Indexes for table `customer`
---
-ALTER TABLE `customer`
-  ADD PRIMARY KEY (`IDCustomer`);
 
 --
 -- Indexes for table `discount`
@@ -396,6 +437,18 @@ ALTER TABLE `product_detail`
   ADD PRIMARY KEY (`IdProduct_detail`);
 
 --
+-- Indexes for table `role`
+--
+ALTER TABLE `role`
+  ADD PRIMARY KEY (`IDRole`);
+
+--
+-- Indexes for table `role_authorities`
+--
+ALTER TABLE `role_authorities`
+  ADD PRIMARY KEY (`IDRole_Authorities`);
+
+--
 -- Indexes for table `seri`
 --
 ALTER TABLE `seri`
@@ -414,8 +467,20 @@ ALTER TABLE `strap`
   ADD PRIMARY KEY (`IdStrap`);
 
 --
+-- Indexes for table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`IDUser`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `authorities`
+--
+ALTER TABLE `authorities`
+  MODIFY `IDAuthorities` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `brand`
@@ -446,12 +511,6 @@ ALTER TABLE `categories`
 --
 ALTER TABLE `color`
   MODIFY `IdColor` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `customer`
---
-ALTER TABLE `customer`
-  MODIFY `IDCustomer` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `discount`
@@ -508,6 +567,18 @@ ALTER TABLE `product_detail`
   MODIFY `IdProduct_detail` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `role`
+--
+ALTER TABLE `role`
+  MODIFY `IDRole` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `role_authorities`
+--
+ALTER TABLE `role_authorities`
+  MODIFY `IDRole_Authorities` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `seri`
 --
 ALTER TABLE `seri`
@@ -518,6 +589,12 @@ ALTER TABLE `seri`
 --
 ALTER TABLE `strap`
   MODIFY `IdStrap` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+  MODIFY `IDUser` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
