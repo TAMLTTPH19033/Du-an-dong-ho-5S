@@ -1,0 +1,58 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html">
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/fontawesome/all.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <title>LOGIN - 5SWatch Admin</title>
+</head>
+<body>
+<div class="container-fluid text-center">
+
+    <div>
+        <img style="margin-top: 20px" th:src="@{/images/5SAdminBig.png}">
+    </div>
+    <form th:action="@{/login}" method="post" style="max-width: 350px; margin: 0 auto">
+        <div th:if="${param.error}">
+            <p class="text-danger">[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]</p>
+        </div>
+
+        <div th:if="${param.logout}">
+            <p class="text-warning">Bạn Đã Đăng Xuất</p>
+
+        </div>
+        <div class="border border-secondary rounded p-3">
+            <p>Đăng Nhập với 5SWatch Admin</p>
+
+            <p>
+                <input type="email" name="email" placeholder="email" class="form-control"/>
+            </p>
+            <p>
+                <input type="password" name="password" placeholder="password" class="form-control"/>
+            </p>
+
+            <p>
+                <input type="checkbox" name="remember-me"/> &nbsp; Nhớ Thông Tin Đăng Nhập
+            </p>
+            <p>
+                <input type="submit" value="login" class="btn btn-primary" />
+            </p>
+        </div>
+
+    </form>
+
+    <div class="text-center">
+        <p>5S Watch Control Pannel - copyright &copy; 5S</p>
+    </div>
+
+</div>
+
+
+</body>
+</html>

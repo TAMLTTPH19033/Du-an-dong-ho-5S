@@ -1,0 +1,77 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragment/fragments:: page_head('Danh Mục - 5SWatch ')"/>
+
+<body>
+<div class="container-fluid">
+    <div th:replace="fragment/navigation:: menu"></div>
+    <div>
+        <h2>Quản lý Danh Mục</h2>
+        <a style="text-decoration: none" th:href="@{/categories/new}">Tạo Mới Nhân Viên</a>
+        &nbsp;|&nbsp;
+        <a style="text-decoration: none" th:href="@{/users/export/csv}">Export To CSV</a>
+        &nbsp;|&nbsp;
+    </div>
+
+
+    <div>
+        <form th:action="@{/categories/page/1}" class="form-inline m-3">
+            Filter:&nbsp;
+            <div class="d-flex align-items-center">
+<!--                <input type="hidden" name="sortField" th:value="${sortField}" />-->
+<!--                <input type="hidden" name="sortDir" th:value="${sortDir}" />-->
+<!--                <label class="sr-only">Tìm Kiếm</label>-->
+                <input style="width: 250px; margin-right: 10px" type="search" name="keyword" th:value="${keyword}" placeholder="nhập từ khóa tìm kiếm" class="form-control" required />
+                <button style="margin-right:5px" type="submit" class="btn btn-primary">
+                    <i class="fas fa-search"></i>
+                </button>
+                <button type="button"  class="btn btn-secondary ml-2" onclick="clearFilter()">
+                    <i class="fas fa-eraser"></i>
+                </button>
+            </div>
+        </form>
+
+    </div>
+
+    <div class="full-details">
+        <table class="table table-bordered table-striped table-hover table-responsive-xl">
+            <thead class="thead-dark">
+            <tr>
+                <th>ID</th>
+                <th>Ảnh</th>
+                <th>Tên</th>
+                <th>BíDanh</th>
+                <th>Enabled</th>
+                <Th>Action</Th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="cat :${listDanhMuc}">
+                <td>[[${cat.id}]]</td>
+                <td></td>
+                <td>[[${cat.ten}]]</td>
+                <td>[[${cat.biDanh}]]</td>
+                <td>[[${cat.enabled}]]</td>
+                <td>
+                    <a class="fas fa-edit fa-2x icon-green" th:href="@{'/categories/edit/' + ${cat.id}}"
+                       title="Thay đổi thông tin"></a>
+                    &nbsp;
+                    <a class="fas fa-trash fa-2x icon-dark link-delete"
+                       th:href="@{'/categories/delete/' + ${cat.id}}"
+                       title=" Xóa thông tin"></a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+
+
+    <div th:replace="fragment/fragments::footer"></div>
+
+</div>
+</body>
+</html>
