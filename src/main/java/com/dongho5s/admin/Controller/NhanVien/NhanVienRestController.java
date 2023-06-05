@@ -1,4 +1,4 @@
-package com.dongho5s.admin.Controller;
+package com.dongho5s.admin.Controller.NhanVien;
 
 import com.dongho5s.admin.Service.Impl.NhanVienService;
 import org.springframework.beans.factory.annotation.Autowired;

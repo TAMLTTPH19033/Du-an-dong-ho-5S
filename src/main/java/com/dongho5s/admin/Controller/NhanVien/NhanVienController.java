@@ -1,4 +1,4 @@
-package com.dongho5s.admin.Controller;
+package com.dongho5s.admin.Controller.NhanVien;
 
 import com.dongho5s.admin.Entity.ChucVu;
 import com.dongho5s.admin.Entity.NhanVien;
