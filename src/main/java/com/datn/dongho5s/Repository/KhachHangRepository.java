@@ -1,6 +1,7 @@
 package com.datn.dongho5s.Repository;
 
-import com.example.ProjectDATN.Entity.KhachHang;
+
+import com.datn.dongho5s.Entity.KhachHang;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

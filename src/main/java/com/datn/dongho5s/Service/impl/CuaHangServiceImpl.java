@@ -1,6 +1,7 @@
 package com.datn.dongho5s.Service.impl;
 
-import com.example.ProjectDATN.Service.CuaHangService;
+
+import com.datn.dongho5s.Service.CuaHangService;
 import org.springframework.stereotype.Service;
 
 @Service

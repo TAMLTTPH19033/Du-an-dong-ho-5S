@@ -1,6 +1,6 @@
 package com.datn.dongho5s.Entity;
 
-import com.example.ProjectDATN.Entity.DanhMuc;
+
 import lombok.Data;
 
 import javax.persistence.Column;
