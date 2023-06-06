@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.sql.Timestamp;
 
 @Entity
 @Data
@@ -29,7 +30,7 @@ public class HoaDonChiTiet {
     private ChiTietSanPham chiTietSanPham;
 
     @Column(name = "NgayTao")
-    private java.sql.Timestamp ngayTao;
+    private Timestamp ngayTao;
 
     @Column(name = "SoLuong")
     private Integer soLuong;

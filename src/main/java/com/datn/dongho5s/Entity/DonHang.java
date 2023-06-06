@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.sql.Date;
+import java.sql.Timestamp;
 
 @Entity
 @Data
@@ -30,13 +32,13 @@ public class DonHang {
     private KhachHang khachHang;
 
     @Column(name = "NgayTao")
-    private java.sql.Timestamp ngayTao;
+    private Timestamp ngayTao;
 
     @Column(name = "NgayDatHang")
-    private java.sql.Timestamp ngayDatHang;
+    private Date ngayDatHang;
 
     @Column(name = "NgayGiaoHang")
-    private java.sql.Timestamp ngayGiaoHang;
+    private Timestamp ngayGiaoHang;
 
     @Column(name = "TongTien")
     private Double tongTien;

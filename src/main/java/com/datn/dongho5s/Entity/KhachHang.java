@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.sql.Date;
+import java.sql.Timestamp;
 
 @Entity
 @Data
@@ -43,7 +45,7 @@ public class KhachHang {
     private Double soTienDaChi;
 
     @Column(name = "ThoiGianTaoTaiKhoan")
-    private java.sql.Timestamp thoiGianTaoTaiKhoan;
+    private Timestamp thoiGianTaoTaiKhoan;
 
     @Column(name = "TrangThaiTaiKhoan")
     private Integer trangThaiTaiKhoan;
@@ -52,7 +54,7 @@ public class KhachHang {
     private String matKhau;
 
     @Column(name = "NgaySua")
-    private java.sql.Date ngaySua;
+    private Date ngaySua;
 
     @Column(name = "TrangThai")
     private Integer trangThai;

@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.Date;
 
 @Entity
 @Data
@@ -25,12 +26,12 @@ public class KhuyenMai {
     private String moTaKhuyenMai;
 
     @Column(name = "NgayBatDau")
-    private java.sql.Date ngayBatDau;
+    private Date ngayBatDau;
 
     @Column(name = "NgayKetThuc")
-    private java.sql.Date ngayKetThuc;
+    private Date ngayKetThuc;
 
     @Column(name = "NgaySua")
-    private java.sql.Date ngaySua;
+    private Date ngaySua;
 
 }
