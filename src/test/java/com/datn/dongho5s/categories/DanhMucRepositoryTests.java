@@ -1,4 +1,4 @@
-package com.datn.dongho5s.user;
+package com.datn.dongho5s.categories;
 
 import com.datn.dongho5s.Entity.DanhMuc;
 import com.datn.dongho5s.Repository.DanhMucRepository;
@@ -104,7 +104,7 @@ public class DanhMucRepositoryTests {
         for (DanhMuc loaiDanhMuc : category){
             if(loaiDanhMuc.getCha()==null){
                 System.out.println(loaiDanhMuc.getTen());
-            }
+
 
             Set<DanhMuc> danhMucCon = loaiDanhMuc.getCon();
 
@@ -112,6 +112,7 @@ public class DanhMucRepositoryTests {
                 System.out.println("--" + mucCon.getTen());
                 printDanhMucChau(mucCon,1);
             }
+        }
         }
 
     }
@@ -127,6 +128,12 @@ public class DanhMucRepositoryTests {
 
             printDanhMucChau(danhMucChau,newSubLevel);
         }
+    }
+
+    @Test
+    public void testListRootDanhMuc(){
+        List<DanhMuc> rootDanhMuc = repo.findRootDanhMuc();
+        rootDanhMuc.forEach(cat -> System.out.println(cat.getTen()));
     }
 
 }

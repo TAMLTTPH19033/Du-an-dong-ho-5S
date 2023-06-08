@@ -8,12 +8,14 @@
     <div th:replace="fragment/navigation:: menu"></div>
     <div>
         <h2>Quản lý Danh Mục</h2>
-        <a style="text-decoration: none" th:href="@{/categories/new}">Tạo Mới Nhân Viên</a>
+        <a style="text-decoration: none" th:href="@{/categories/new}">Tạo Mới Danh Mục</a>
         &nbsp;|&nbsp;
-        <a style="text-decoration: none" th:href="@{/users/export/csv}">Export To CSV</a>
+        <a style="text-decoration: none" th:href="@{/categories/export/csv}">Export To CSV</a>
         &nbsp;|&nbsp;
     </div>
-
+    <div th:if="${message != null}" class="alert alert-success text-center">
+        [[${message}]]
+    </div>
 
     <div>
         <form th:action="@{/categories/page/1}" class="form-inline m-3">
@@ -50,10 +52,22 @@
             <tbody>
             <tr th:each="cat :${listDanhMuc}">
                 <td>[[${cat.id}]]</td>
-                <td></td>
+                <td>
+                    <img th:src="@{${cat.imagePath}}" style="width: 100px" class="img-fluid"/>
+                </td>
                 <td>[[${cat.ten}]]</td>
                 <td>[[${cat.biDanh}]]</td>
-                <td>[[${cat.enabled}]]</td>
+                <td>
+<!--                    <a th:if="${cat.enabled == true}" class="fas fa-check-circle fa-2x icon-green"-->
+<!--                       th:href="@{'/categories/' + ${cat.id} + '/enabled/false'}"-->
+<!--                       title="Tắt Trạng Thái"-->
+<!--                    ></a>-->
+                    [[${cat.enabled}]]
+<!--                    <a th:if="${cat.enabled == false}" class="fas fa-circle fa-2x icon-dark"-->
+<!--                       th:href="@{'/categories/' + ${cat.id} + '/enabled/true'}"-->
+<!--                       title="Bật Trạng Thái"-->
+<!--                    ></a>-->
+                </td>
                 <td>
                     <a class="fas fa-edit fa-2x icon-green" th:href="@{'/categories/edit/' + ${cat.id}}"
                        title="Thay đổi thông tin"></a>
