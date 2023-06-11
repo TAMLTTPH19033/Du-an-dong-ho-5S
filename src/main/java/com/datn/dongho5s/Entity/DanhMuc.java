@@ -17,13 +17,12 @@ public class DanhMuc {
     @Column(length = 128, nullable = false)
     private String anh;
 
-    @Column(nullable = false)
     private boolean enabled;
 
-    @Column(length = 128, nullable = false)
+    @Column(length = 64, nullable = false, unique = true)
     private String biDanh;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "cha_id")
     private DanhMuc cha;
 
@@ -37,6 +36,37 @@ public class DanhMuc {
 
     public DanhMuc(Integer id) {
         this.id = id;
+    }
+
+    public static DanhMuc  copyIdVaTen(DanhMuc danhMuc) {
+        DanhMuc copyDanhMuc = new DanhMuc();
+        copyDanhMuc.setId(danhMuc.getId());
+        copyDanhMuc.setTen(danhMuc.getTen());
+        return copyDanhMuc;
+    }
+
+    public static DanhMuc  copyIdVaTen(Integer id, String ten) {
+        DanhMuc copyDanhMuc = new DanhMuc();
+        copyDanhMuc.setId(id);
+        copyDanhMuc.setTen(ten);
+        return copyDanhMuc;
+    }
+
+    public static DanhMuc copyFull(DanhMuc danhMuc){
+        DanhMuc copyDanhMuc = new DanhMuc();
+        copyDanhMuc.setId(danhMuc.getId());
+        copyDanhMuc.setTen(danhMuc.getTen());
+        copyDanhMuc.setAnh(danhMuc.getAnh());
+        copyDanhMuc.setBiDanh(danhMuc.getBiDanh());
+        copyDanhMuc.setEnabled(danhMuc.isEnabled());
+        return copyDanhMuc;
+    }
+
+    public static DanhMuc copyFull(DanhMuc danhMuc, String ten){
+        DanhMuc copyDanhMuc = DanhMuc.copyFull(danhMuc);
+        copyDanhMuc.setTen(ten);
+
+        return copyDanhMuc;
     }
 
     public DanhMuc(String ten) {
@@ -106,5 +136,11 @@ public class DanhMuc {
 
     public void setCon(Set<DanhMuc> con) {
         this.con = con;
+    }
+
+    @Transient
+    public String getImagePath(){
+        if (this.id == null) return "/images/image-thumbnail.png";
+        return "/category-images/" + this.id + "/" + this.anh;
     }
 }
