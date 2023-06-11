@@ -1,5 +1,7 @@
 package com.datn.dongho5s.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -24,10 +26,12 @@ public class DanhMuc {
 
     @OneToOne
     @JoinColumn(name = "cha_id")
+    @JsonIgnore
     private DanhMuc cha;
 
 
     @OneToMany(mappedBy = "cha")
+    @JsonIgnore
     private Set<DanhMuc> con = new HashSet<>();
 
 
