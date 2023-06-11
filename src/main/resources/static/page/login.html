@@ -1,0 +1,160 @@
+
+    <!-- Section: Design Block -->
+    <section class="">
+      <!-- Jumbotron -->
+      <div
+        class="px-4 py-5 px-md-5 text-center text-lg-start"
+        style="background-color: hsl(0, 0%, 96%)"
+      >
+        <div class="container">
+          <div class="row gx-lg-5 justify-content-center">
+            <div class="col-lg-6 mb-0 mb-lg-0">
+              <div class="card">
+                <div class="card-body py-5 px-md-5">
+                  <h2 class="text-center">Login</h2>
+                  <br />
+                  <form>
+                    <!-- 2 column grid layout with text inputs for the first and last names -->
+
+                    <!-- Email input -->
+                    <div class="form-outline mb-4">
+                      <label class="form-label" for="form3Example3"
+                        >Email address</label
+                      >
+                      <input
+                        type="email"
+                        id="form3Example3"
+                        class="form-control"
+                      />
+                    </div>
+
+                    <!-- Password input -->
+                    <div class="form-outline mb-4">
+                      <label class="form-label" for="form3Example4"
+                        >Password</label
+                      >
+                      <input
+                        type="password"
+                        id="form3Example4"
+                        class="form-control"
+                      />
+                    </div>
+
+                    <!-- Checkbox -->
+                    <div class="form-check mb-4">
+                      <input
+                        class="form-check-input me-2"
+                        type="checkbox"
+                        value=""
+                        id="form2Example33"
+                      />
+                      <label class="form-check-label" for="form2Example33">
+                        Remember me
+                      </label>
+                    </div>
+
+                    <!-- Submit button -->
+
+                    <button
+                      class="btn btn-secondary btn-lg col-12"
+                      type="submit"
+                    >
+                      Login
+                    </button>
+
+                    <p class="small text-center">
+                      <br />
+                    <a class="text-black-50" data-bs-toggle="modal" href="#exampleModalToggle" role="button"> Forgot password?
+                    </a>
+                    </p>
+                    </form>
+                  </div>
+                    <!-- Register buttons -->
+                    <div class="text-center">
+                      <p>or login with:</p>
+                      <button
+                        type="button"
+                        class="btn btn-outline-secondary btn-floating mx-1"
+                      >
+                        <i class="fab fa-facebook-f"></i>
+                      </button>
+
+                      <button
+                        type="button"
+                        class="btn btn-outline-secondary btn-floating mx-1"
+                      >
+                        <i class="fab fa-google"></i>
+                      </button>
+                    </div>
+                    <p class="small text-center">
+                      <br />
+                      <a class="text-black-50" href="#signup"
+                        >Don't have account ? Sign up</a
+                      >
+                    </p>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Jumbotron -->
+    </section>
+    <!-- Section: Design Block -->
+
+
+    <!--start modal-->
+    <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Nhập email để xác nhận</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <!-- Email input -->
+              <div class="form-outline mb-4">
+                <input
+                  type="email"
+                  id="form3Example3"
+                  class="form-control"
+                />
+              </div>
+              </form>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-danger" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">Gửi</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Nhập mã xác nhận :</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-outline mb-4">
+                <input
+                  type="email"
+                  id="form3Example3"
+                  class="form-control"
+                />
+              </div>
+              </form>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Quay lại</button>
+            <button type="button" class="btn btn-danger">Xác nhận</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--end modal-->
+
