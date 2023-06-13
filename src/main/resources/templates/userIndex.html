@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trang Chủ</title>
+    <link rel="stylesheet" href="./assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./cssmain/trangchu.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="./assets/fontawesome-free-5.15.4-web/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div ng-include="'layout/header.html'"></div>
+    <div ng-view></div>
+    <div ng-include="'layout/footer.html'"></div>
+    <script>
+      // Lấy tất cả các ảnh có lớp thumbnail-img
+      const images = document.querySelectorAll(".thumbnail-img");
+
+      // Lặp qua từng ảnh và gắn sự kiện di chuột
+      images.forEach((image) => {
+        // Xử lý sự kiện khi di chuột vào
+        image.addEventListener("mouseover", function () {
+          this.style.transform = "scale(1.2)"; // Thay đổi kích thước ảnh
+        });
+
+        // Xử lý sự kiện khi di chuột ra
+        image.addEventListener("mouseout", function () {
+          this.style.transform = "scale(1)"; // Khôi phục kích thước ảnh ban đầu
+        });
+      });
+    </script>
+
+    <!-- end chuyển động ảnh của thương hiệu -->
+
+    <!-- start chuyển động ảnh của banner 1-->
+    <script>
+      setInterval(function () {
+        $(".carousel").carousel("next");
+      }, 3000);
+    </script>
+    <!-- end chuyển động ảnh của banner 1-->
+
+    <script src="./assets/angular/angular.js"></script>
+    <script src="./assets/angular/angular-route.js"></script>
+    <script src="./assets/js/bootstrap.min.js"></script>
+    <script src="./assets/js/bootstrap.bundle.js"></script>
+    <script src="./controller/index.js"></script>
+    <script src="./controller/trangchu.js"></script>
+  </body>
+</html>

@@ -35,5 +35,13 @@ public interface SanPhamRepository extends JpaRepository<SanPham,Integer> {
                     AND (:#{#req.tenSanPham} is null or :#{#req.tenSanPham} like sp.tenSanPham )
             """)
     List<SanPham> getListSanPhamByCondition(@Param("req") TimKiemRequest req);
+           
+    @Query(value = "SELECT  * FROM sanpham ORDER BY sanpham.id_san_pham DESC LIMIT 8",nativeQuery = true)
+    List<SanPham> getSPnew();
+
+
+    @Query(value = "SELECT h.chiTietSanPham.sanPham  FROM HoaDonChiTiet h " +
+            "group by h.chiTietSanPham.sanPham  ORDER BY  SUM(h.soLuong) DESC")
+    List<SanPham> getSPchay();
 
 }
