@@ -20,6 +20,7 @@ myApp.config(function ($routeProvider, $locationProvider) {
     })
     .when("/sanpham", {
       templateUrl: "page/sanpham.html",
+      controller: "SanPhamController"
     })
     .when("/info", {
       templateUrl: "page/thongTinCaNhan.html",
