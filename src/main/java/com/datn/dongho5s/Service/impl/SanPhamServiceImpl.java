@@ -21,11 +21,9 @@ public class SanPhamServiceImpl implements SanPhamService {
     SanPhamRepository sanPhamRepository;
 
     @Override
-    public List<TimKiemResponse> getSanPhamByCondition(TimKiemRequest timKiemRequest,Integer page , Integer size) {
+    public List<TimKiemResponse> getSanPhamByCondition(TimKiemRequest timKiemRequest) {
 
-        Pageable pageable = PageRequest.of(page,size);
-        Page<SanPham> pageSanPham = sanPhamRepository.getListSanPhamByCondition(timKiemRequest,pageable);
-        List<SanPham> listSanPham = pageSanPham.getContent();
+        List<SanPham> listSanPham = sanPhamRepository.getListSanPhamByCondition(timKiemRequest);
         List<TimKiemResponse> result = new ArrayList<>();
         listSanPham.forEach(sanPham -> result.add(toTimKiemResponse(sanPham)));
         return result;

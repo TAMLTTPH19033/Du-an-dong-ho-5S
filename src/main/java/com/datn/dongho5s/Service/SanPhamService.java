@@ -6,5 +6,5 @@ import com.datn.dongho5s.Response.TimKiemResponse;
 import java.util.List;
 
 public interface SanPhamService {
-    List<TimKiemResponse> getSanPhamByCondition(TimKiemRequest timKiemRequest,Integer page , Integer size);
+    List<TimKiemResponse> getSanPhamByCondition(TimKiemRequest timKiemRequest);
 }
