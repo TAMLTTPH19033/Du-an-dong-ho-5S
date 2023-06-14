@@ -2,9 +2,10 @@ package com.datn.dongho5s;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-//@EnableJpaRepositories
+@EnableJpaRepositories
 public class ProjectDatnApplication {
 
 	public static void main(String[] args) {

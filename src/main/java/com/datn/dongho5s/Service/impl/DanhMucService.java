@@ -3,6 +3,7 @@ package com.datn.dongho5s.Service.impl;
 import com.datn.dongho5s.Entity.DanhMuc;
 import com.datn.dongho5s.Exception.CustomException.DanhMucNotFoundException;
 import com.datn.dongho5s.Repository.DanhMucRepository;
+import com.datn.dongho5s.Service.DanhmucService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +14,7 @@ import java.util.NoSuchElementException;
 import java.util.Set;
 
 @Service
-public class DanhMucService {
+public class DanhMucService implements DanhmucService {
     @Autowired
     private DanhMucRepository repo;
 
