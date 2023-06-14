@@ -3,15 +3,15 @@ package com.datn.dongho5s.Controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
-@Controller
+//@Controller
 public class MainController {
-    @GetMapping
-    public String viewHomePage(){
-        return "index";
-    }
-
-    @GetMapping("/login")
-    public String viewLoginPage(){
-        return "login";
-    }
+//    @GetMapping
+//    public String viewHomePage(){
+//        return "index";
+//    }
+//
+//    @GetMapping("/login")
+//    public String viewLoginPage(){
+//        return "login";
+//    }
 }
