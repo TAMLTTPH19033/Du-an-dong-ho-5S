@@ -1,237 +1,82 @@
 <br />
 <br />
 <!-- start product -->
-<div class="container-fluid">
+<div class="container" ng-model="SanPhamController">
   <div class="row">
     <div class="col-md-3 ps-5">
-      <h2>Bộ lọc</h2>
-      <br />
-      <br />
+      <form ng-submit="searchList()">
+        <h2>Bộ lọc</h2>
+        <br />
+        <br />
+        <!--Filter Tên-->
+        <p>Nhập tên</p>
+        <input
+                class="form-control"
+                type="text"
+                ng-model="tenSanPham"
+                id="flexCheckDefault"
+        />
+        <!-- //Filter Danh Muc -->
+        <p>Danh Mục</p>
+        <select class="form-select" aria-label="Default select example"
+                ng-model="danhMucId">
+          <option value="" selected="true">Chọn danh mục</option>
+          <option
+                  value="{{danhMuc.id}}"
+                  ng-repeat="danhMuc in listSetting.listDanhMuc"
+          >
+            {{danhMuc.ten}}
+          </option>
+        </select>
+        <!-- Filter Thuong Hieu -->
+        <p>Thương Hiệu</p>
+        <select class="form-select" aria-label="Default select example" >
+          <option value="" selected>Chọn thương hiệu</option>
+          <option
+                  value="{{thuongHieu.id}}"
+                  ng-repeat="thuongHieu in listSetting.listThuongHieu"
+          >
+            {{thuongHieu.tenThuonghieu}}
+          </option>
+        </select>
+        <br />
+        <!-- Filter Màu Sắc -->
+        <p>Màu sắc</p>
+        <select class="form-select" aria-label="Default select example" >
+          <option value="null" selected>Chọn màu sắc</option>
+          <option value="{{ms.id}}" ng-repeat="ms in listSetting.listMauSac">
+            {{ms.tenMauSac}}
+          </option>
+        </select>
+        <!--Filter dây đeo-->
+        <p>Dây đeo</p>
+        <select class="form-select" aria-label="Default select example" >
+          <option value="null" selected>Chọn dây đeo</option>
+          <option value="{{dd.id}}" ng-repeat="dd in listSetting.listDayDeo">
+            {{dd.tenDayDeo}}
+          </option>
+        </select>
+        <!--Filter Vật Liệu-->
+        <p>Vật Liệu</p>
+        <select class="form-select" aria-label="Default select example" >
+          <option value="null" selected>Chọn Vật liệu</option>
+          <option value="{{vl.id}}" ng-repeat="vl in listSetting.listVatLieu">
+            {{vl.tenVatLieu}}
+          </option>
+        </select>
 
-      <p>Các hãng đồng hồ</p>
-      <div class="form-check">
-        <input
-          class="form-check-input"
-          type="checkbox"
-          value=""
-          id="flexCheckDefault"
-        />
-        <label class="form-check-label" for="flexCheckDefault"> Cartier </label>
-      </div>
-      <div class="form-check">
-        <input
-          class="form-check-input"
-          type="checkbox"
-          value=""
-          id="flexCheckDefault"
-        />
-        <label class="form-check-label" for="flexCheckDefault">
-          Franck Muller
-        </label>
-      </div>
-      <div class="form-check">
-        <input
-          class="form-check-input"
-          type="checkbox"
-          value=""
-          id="flexCheckDefault"
-        />
-        <label class="form-check-label" for="flexCheckDefault"> Hublot </label>
-      </div>
-      <div class="form-check">
-        <input
-          class="form-check-input"
-          type="checkbox"
-          value=""
-          id="flexCheckDefault"
-        />
-        <label class="form-check-label" for="flexCheckDefault"> Omega </label>
-      </div>
-      <div class="form-check">
-        <input
-          class="form-check-input"
-          type="checkbox"
-          value=""
-          id="flexCheckDefault"
-        />
-        <label class="form-check-label" for="flexCheckDefault">
-          Patek Phillpe
-        </label>
-      </div>
-      <div class="form-check">
-        <input
-          class="form-check-input"
-          type="checkbox"
-          value=""
-          id="flexCheckChecked"
-          checked
-        />
-        <label class="form-check-label" for="flexCheckChecked"> Rolex </label>
-      </div>
-      <br />
-
-      <p>Các loại đồng hồ</p>
-      <div class="form-check">
-        <input
-          class="form-check-input"
-          type="checkbox"
-          value=""
-          id="flexCheckDefault"
-        />
-        <label class="form-check-label" for="flexCheckDefault"> Quartz </label>
-      </div>
-      <div class="form-check">
-        <input
-          class="form-check-input"
-          type="checkbox"
-          value=""
-          id="flexCheckChecked"
-          checked
-        />
-        <label class="form-check-label" for="flexCheckChecked">
-          Đồng hồ cơ
-        </label>
-      </div>
-      <div class="form-check">
-        <input
-          class="form-check-input"
-          type="checkbox"
-          value=""
-          id="flexCheckDefault"
-        />
-        <label class="form-check-label" for="flexCheckDefault">
-          Đồng hồ Chronograph
-        </label>
-      </div>
-      <div class="form-check">
-        <input
-          class="form-check-input"
-          type="checkbox"
-          value=""
-          id="flexCheckDefault"
-        />
-        <label class="form-check-label" for="flexCheckDefault">
-          Đồng hồ solar
-        </label>
-      </div>
-      <div class="form-check">
-        <input
-          class="form-check-input"
-          type="checkbox"
-          value=""
-          id="flexCheckDefault"
-        />
-        <label class="form-check-label" for="flexCheckDefault">
-          Đồng hồ Hybrid
-        </label>
-      </div>
-      <div class="form-check">
-        <input
-          class="form-check-input"
-          type="checkbox"
-          value=""
-          id="flexCheckDefault"
-        />
-        <label class="form-check-label" for="flexCheckDefault">
-          Đồng hồ thông minh
-        </label>
-      </div>
-      <br />
-      <p>Giới tính</p>
-      <div class="form-check">
-        <input
-          class="form-check-input"
-          type="checkbox"
-          value=""
-          id="flexCheckDefault"
-        />
-        <label class="form-check-label" for="flexCheckDefault"> Nam </label>
-      </div>
-      <div class="form-check">
-        <input
-          class="form-check-input"
-          type="checkbox"
-          value=""
-          id="flexCheckChecked"
-          checked
-        />
-        <label class="form-check-label" for="flexCheckChecked"> Nữ </label>
-      </div>
-      <br />
-      <p>Dây đeo</p>
-      <div class="form-check">
-        <input
-          class="form-check-input"
-          type="checkbox"
-          value=""
-          id="flexCheckDefault"
-        />
-        <label class="form-check-label" for="flexCheckDefault">
-          Dây kim loại
-        </label>
-      </div>
-      <div class="form-check">
-        <input
-          class="form-check-input"
-          type="checkbox"
-          value=""
-          id="flexCheckChecked"
-          checked
-        />
-        <label class="form-check-label" for="flexCheckChecked"> Dây da </label>
-      </div>
-
-      <br />
-      <p>Giá</p>
-      <div class="form-check">
-        <input
-          class="form-check-input"
-          type="checkbox"
-          value=""
-          id="flexCheckDefault"
-        />
-        <label class="form-check-label" for="flexCheckDefault">
-          $0-$10000
-        </label>
-      </div>
-      <div class="form-check">
-        <input
-          class="form-check-input"
-          type="checkbox"
-          value=""
-          id="flexCheckChecked"
-          checked
-        />
-        <label class="form-check-label" for="flexCheckChecked">
-          $10000-$20000
-        </label>
-      </div>
-      <div class="form-check">
-        <input
-          class="form-check-input"
-          type="checkbox"
-          value=""
-          id="flexCheckDefault"
-        />
-        <label class="form-check-label" for="flexCheckDefault">
-          $20000-$50000
-        </label>
-      </div>
-      <br />
-      <h4>Khoảng giá</h4>
-      <br />
-      <div class="col">
-        <p style="float: left; padding-right: 8">Từ</p>
-        <input
-          type="text; "
-          maxlength="5"
-          size="5"
-          style="float: left; padding-right: 8"
-        />
-        <p style="float: left; padding-right: 8">-</p>
-        <p style="float: left; padding-right: 8">Đến</p>
-        <input type="text" maxlength="5" size="5" />
-      </div>
+        <br />
+        <!--Filter giá-->
+        <p>Giá</p>
+        <label >Đến :</label>
+        <input class="form-control" type="text" ng-model="giaSanPham" />
+        <button
+                type="submit"
+                class="btn btn-primary"
+        >
+          Tìm kiếm
+        </button>
+    </form>
     </div>
     <div class="col-md-9">
       <!--start banner 1 -->
@@ -239,40 +84,41 @@
         <div class="carousel-inner">
           <div class="carousel-item active">
             <img
-              src="assets/images/Banner1.jpg"
-              class="d-block w-100"
-              alt="..."
+                    src="assets/images/Banner1.jpg"
+                    class="d-block w-100"
+                    alt="..."
             />
           </div>
           <div class="carousel-item">
             <img
-              src="assets/images/Banner2.jpg"
-              class="d-block w-100"
-              alt="..."
+                    src="assets/images/Banner2.jpg"
+                    class="d-block w-100"
+                    alt="..."
             />
           </div>
         </div>
         <button
-          class="carousel-control-prev"
-          type="button"
-          data-bs-target="#carouselExample"
-          data-bs-slide="prev"
+                class="carousel-control-prev"
+                type="button"
+                data-bs-target="#carouselExample"
+                data-bs-slide="prev"
         ></button>
         <button
-          class="carousel-control-next"
-          type="button"
-          data-bs-target="#carouselExample"
-          data-bs-slide="next"
+                class="carousel-control-next"
+                type="button"
+                data-bs-target="#carouselExample"
+                data-bs-slide="next"
         ></button>
       </div>
       <!--end banner 1 -->
       <br />
       <br />
+      <!--Sort-->
       <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
           <div
-            class="collapse navbar-collapse justify-content-center navbar-boder"
-            id="navbarNav"
+                  class="collapse navbar-collapse justify-content-center navbar-boder"
+                  id="navbarNav"
           >
             <ul class="navbar-nav float-left">
               <li class="nav-item p-3">
@@ -282,232 +128,69 @@
               </li>
               <li class="nav-item p-3">
                 <a class="nav-link active" aria-current="page" href="#"
-                  >Giá Thấp - Cao</a
+                >Giá Thấp - Cao</a
                 >
               </li>
               <li class="nav-item p-3">
                 <a class="nav-link active" aria-current="page" href="#"
-                  >Giá Cao - Thấp</a
+                >Giá Cao - Thấp</a
                 >
               </li>
               <li class="nav-item p-3">
                 <a class="nav-link active" aria-current="page" href="#"
-                  >Mới nhất</a
+                >Mới nhất</a
                 >
               </li>
               <li class="nav-item p-3">
                 <a class="nav-link active" aria-current="page" href="#"
-                  >Bán chạy nhất</a
+                >Bán chạy nhất</a
                 >
               </li>
               <li class="nav-item p-5 pt-3 pe-1">
                 <a class="nav-link active" aria-current="page" href="#"
-                  >Tìm kiếm:</a
+                >Tìm kiếm:</a
                 >
               </li>
               <li class="nav-item p-3 ps-1">
                 <a class="nav-link active" aria-current="page" href="#"
-                  ><input type="text"
+                ><input type="text"
                 /></a>
               </li>
             </ul>
           </div>
         </div>
       </nav>
-
+      <!--Sản phẩm-->
       <div class="row row-cols-1 row-cols-md-3 g-4">
-        <div class="col-4">
+
+        <div class="col-4" ng-repeat="sp in displayedItems">
           <div class="col p-3">
             <div class="card">
               <div class="m-5">
                 <img
-                  src="/assets/images/dongho1.png"
-                  class="card-img-top"
-                  alt="..."
+                        src="/assets/images/{{sp.linkAnh}}"
+                        class="card-img-top"
+                        alt="..."
                 />
               </div>
               <div class="card-body">
-                <h5 class="card-title">Card title</h5>
+                <h5 class="card-title">{{sp.tenSanPham}}</h5>
                 <p class="card-text">
-                  This is a longer card with supporting text below as a natural
-                  lead-in to additional content. This content is a little bit
-                  longer.
+                  {{sp.giaSanPham}}
                 </p>
               </div>
+              <a class="btn btn-primary" ng-click="detail(sp.sanPhamID)">Detail</a>
             </div>
           </div>
-          <div class="col p-3">
-            <div class="card">
-              <div class="m-5">
-                <img
-                  src="/assets/images/dongho1.png"
-                  class="card-img-top"
-                  alt="..."
-                />
-              </div>
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">
-                  This is a longer card with supporting text below as a natural
-                  lead-in to additional content. This content is a little bit
-                  longer.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="col p-3">
-            <div class="card">
-              <div class="m-5">
-                <img
-                  src="/assets/images/dongho1.png"
-                  class="card-img-top"
-                  alt="..."
-                />
-              </div>
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">
-                  This is a longer card with supporting text below as a natural
-                  lead-in to additional content. This content is a little bit
-                  longer.
-                </p>
-              </div>
-            </div>
-          </div>
+
+
         </div>
-        <div class="col-4">
-          <div class="col p-3">
-            <div class="card">
-              <div class="m-5">
-                <img
-                  src="/assets/images/dongho1.png"
-                  class="card-img-top"
-                  alt="..."
-                />
-              </div>
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">
-                  This is a longer card with supporting text below as a natural
-                  lead-in to additional content. This content is a little bit
-                  longer.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="col p-3">
-            <div class="card">
-              <div class="m-5">
-                <img
-                  src="/assets/images/dongho1.png"
-                  class="card-img-top"
-                  alt="..."
-                />
-              </div>
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">
-                  This is a longer card with supporting text below as a natural
-                  lead-in to additional content. This content is a little bit
-                  longer.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="col p-3">
-            <div class="card">
-              <div class="m-5">
-                <img
-                  src="/assets/images/dongho1.png"
-                  class="card-img-top"
-                  alt="..."
-                />
-              </div>
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">
-                  This is a longer card with supporting text below as a natural
-                  lead-in to additional content. This content is a little bit
-                  longer.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-4">
-          <div class="col p-3">
-            <div class="card">
-              <div class="m-5">
-                <img
-                  src="/assets/images/dongho1.png"
-                  class="card-img-top"
-                  alt="..."
-                />
-              </div>
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">
-                  This is a longer card with supporting text below as a natural
-                  lead-in to additional content. This content is a little bit
-                  longer.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="col p-3">
-            <div class="card">
-              <div class="m-5">
-                <img
-                  src="/assets/images/dongho1.png"
-                  class="card-img-top"
-                  alt="..."
-                />
-              </div>
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">
-                  This is a longer card with supporting text below as a natural
-                  lead-in to additional content. This content is a little bit
-                  longer.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="col p-3">
-            <div class="card">
-              <div class="m-5">
-                <img
-                  src="/assets/images/dongho1.png"
-                  class="card-img-top"
-                  alt="..."
-                />
-              </div>
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">
-                  This is a longer card with supporting text below as a natural
-                  lead-in to additional content. This content is a little bit
-                  longer.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-12 text-center">
-          <nav aria-label="Page navigation example">
-            <ul class="pagination justify-content-center">
-              <li class="page-item disabled">
-                <a class="page-link" href="#" tabindex="-1">Previous</a>
-              </li>
-              <li class="page-item"><a class="page-link" href="#">1</a></li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item">
-                <a class="page-link" href="#">Next</a>
-              </li>
-            </ul>
-          </nav>
-        </div>
+      </div>
+      <!--Page-->
+      <div class="pagination">
+        <button ng-click="previousPage()">Previous</button>
+        <button ng-repeat="page in pages" ng-click="changePage(page)">{{ page }}</button>
+        <button ng-click="nextPage()">Next</button>
       </div>
     </div>
   </div>
