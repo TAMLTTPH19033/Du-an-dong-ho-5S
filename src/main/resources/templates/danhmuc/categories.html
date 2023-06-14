@@ -8,27 +8,26 @@
     <div th:replace="fragment/navigation:: menu"></div>
     <div>
         <h2>Quản lý Danh Mục</h2>
-        <a style="text-decoration: none" th:href="@{/categories/new}">Tạo Mới Nhân Viên</a>
+        <a style="text-decoration: none" th:href="@{/categories/new}">Tạo Mới Danh Mục</a>
         &nbsp;|&nbsp;
-        <a style="text-decoration: none" th:href="@{/users/export/csv}">Export To CSV</a>
+        <a style="text-decoration: none" th:href="@{/categories/export/csv}">Export To CSV</a>
         &nbsp;|&nbsp;
+    </div>
+
+    <div th:if="${message != null}" class="alert alert-success text-center">
+        [[${message}]]
     </div>
 
 
     <div>
         <form th:action="@{/categories/page/1}" class="form-inline m-3">
-            Filter:&nbsp;
             <div class="d-flex align-items-center">
-<!--                <input type="hidden" name="sortField" th:value="${sortField}" />-->
-<!--                <input type="hidden" name="sortDir" th:value="${sortDir}" />-->
-<!--                <label class="sr-only">Tìm Kiếm</label>-->
+                <input type="hidden" name="sortField" th:value="${sortField}" />
+                <input type="hidden" name="sortDir" th:value="${sortDir}" />
+                <label class="sr-only">Tìm Kiếm</label>
                 <input style="width: 250px; margin-right: 10px" type="search" name="keyword" th:value="${keyword}" placeholder="nhập từ khóa tìm kiếm" class="form-control" required />
-                <button style="margin-right:5px" type="submit" class="btn btn-primary">
-                    <i class="fas fa-search"></i>
-                </button>
-                <button type="button"  class="btn btn-secondary ml-2" onclick="clearFilter()">
-                    <i class="fas fa-eraser"></i>
-                </button>
+                <input style="margin-right: 10px" type="submit" value="Search" class="btn btn-primary ml-2" />
+                <input type="button" value="Clear" class="btn btn-secondary ml-2" onclick="clearFilter()"/>
             </div>
         </form>
 
@@ -38,11 +37,9 @@
         <table class="table table-bordered table-striped table-hover table-responsive-xl">
             <thead class="thead-dark">
             <tr>
-                <th>ID</th>
-                <th>Ảnh</th>
-                <th>Tên</th>
-                <th>BíDanh</th>
-                <th>Enabled</th>
+                <th th:replace="fragment/fragments::danhmuc_link('id', 'ID')"></th>
+                <th th:replace="fragment/fragments::danhmuc_link('ten', 'Tên')"></th>
+                <th th:replace="fragment/fragments::danhmuc_link('enabled', 'Enabled')"></th>
                 <Th>Action</Th>
 
             </tr>
@@ -50,21 +47,57 @@
             <tbody>
             <tr th:each="cat :${listDanhMuc}">
                 <td>[[${cat.id}]]</td>
-                <td></td>
                 <td>[[${cat.ten}]]</td>
-                <td>[[${cat.biDanh}]]</td>
-                <td>[[${cat.enabled}]]</td>
+                <td>
+                    <a th:if="${cat.enabled == true}" class="fas fa-check-circle fa-2x icon-green"
+                       th:href="@{'/categories/' + ${cat.id} + '/enabled/false'}"
+                       title="Tắt Trạng Thái"
+                    ></a>
+
+
+                    <a th:if="${cat.enabled == false}" class="fas fa-circle fa-2x icon-dark"
+                       th:href="@{'/categories/' + ${cat.id} + '/enabled/true'}"
+                       title="Bật Trạng Thái"
+                    ></a>
+                </td>
                 <td>
                     <a class="fas fa-edit fa-2x icon-green" th:href="@{'/categories/edit/' + ${cat.id}}"
                        title="Thay đổi thông tin"></a>
-                    &nbsp;
-                    <a class="fas fa-trash fa-2x icon-dark link-delete"
-                       th:href="@{'/categories/delete/' + ${cat.id}}"
-                       title=" Xóa thông tin"></a>
                 </td>
             </tr>
             </tbody>
         </table>
+    </div>
+
+    <div class="text-center m-1" th:if="${totalItem > 0}">
+        <span>Hiển thị Danh Mục # [[${startCount}]] to [[${endCount}]] of [[${totalItem}]] </span>
+    </div>
+    <div class="text-center m-1" th:unless="${totalItem > 0}">
+        <span>Không có Danh Mục trang này</span>
+    </div>
+
+    <div th:if="${totalPages > 1}">
+        <nav>
+            <ul class="pagination justify-content-center">
+                <li th:class="${currentPage > 1 ?'page-item' : 'page-item disabled'}">
+                    <a th:replace="fragment/fragments::pagecategory_link(1, 'Trang Đầu')" ></a>
+                </li>
+                <li th:class="${currentPage > 1 ?'page-item' : 'page-item disabled'}">
+                    <a th:replace="fragment/fragments::pagecategory_link(${currentPage - 1}, Trước)"></a>
+                </li>
+                <li th:class="${currentPage != i ? 'page-item': 'page-item active' }"
+                    th:each="i : ${#numbers.sequence(1,totalPages)}">
+                    <a th:replace="fragment/fragments::pagecategory_link(${i}, ${i})"></a>
+                </li>
+
+                <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
+                    <a th:replace="fragment/fragments::pagecategory_link(${currentPage + 1}, Sau)"></a>
+                </li>
+                <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
+                    <a th:replace="fragment/fragments::pagecategory_link(${totalPages}, 'Trang Cuối')"></a>
+                </li>
+            </ul>
+        </nav>
     </div>
 
 
