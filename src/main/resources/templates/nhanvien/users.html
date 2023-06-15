@@ -10,11 +10,7 @@
         <h2>Quản lý nhân viên</h2>
         <a style="text-decoration: none" th:href="@{/users/new}">Tạo Mới Nhân Viên</a>
         &nbsp;|&nbsp;
-        <a style="text-decoration: none" th:href="@{/users/export/csv}">Export To CSV</a>
-        &nbsp;|&nbsp;
         <a style="text-decoration: none" th:href="@{/users/export/excel}">Export To Excel</a>
-        &nbsp;|&nbsp;
-        <a style="text-decoration: none" th:href="@{/users/export/pdf}">Export To PDF</a>
     </div>
 
     <div th:if="${message != null}" class="alert alert-success text-center">

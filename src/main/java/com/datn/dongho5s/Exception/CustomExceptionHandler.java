@@ -48,35 +48,35 @@ public class CustomExceptionHandler {
     }
 
     //    Xử lý các exception chưa được khai báo
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<?> handlerException(Exception ex, WebRequest request) {
+    @ExceptionHandler(DanhMucNotFoundException.class)
+    public ResponseEntity<?> handlerException(DanhMucNotFoundException ex, WebRequest request) {
         ErrorResponse error = new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR,ex.getMessage());
         return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<?> processValidateError(MethodArgumentNotValidException ex) {
-        BindingResult result = ex.getBindingResult();
-        List<FieldError> fieldErrors = result.getFieldErrors();
-        String message = "";
-        for (FieldError error : fieldErrors) {
-            String temp = processFieldError(error);
-            message += temp + " ; ";
-        }
-        ErrorResponse error = new ErrorResponse(HttpStatus.BAD_REQUEST, message);
-        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
-    }
+//    @ExceptionHandler(MethodArgumentNotValidException.class)
+//    public ResponseEntity<?> processValidateError(MethodArgumentNotValidException ex) {
+//        BindingResult result = ex.getBindingResult();
+//        List<FieldError> fieldErrors = result.getFieldErrors();
+//        String message = "";
+//        for (FieldError error : fieldErrors) {
+//            String temp = processFieldError(error);
+//            message += temp + " ; ";
+//        }
+//        ErrorResponse error = new ErrorResponse(HttpStatus.BAD_REQUEST, message);
+//        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+//    }
 
-    private String processFieldError(FieldError error) {
-        String msg = "";
-        if (error != null) {
-            Locale currentLocale = LocaleContextHolder.getLocale();
-            try {
-                msg = msgSource.getMessage(error.getDefaultMessage(), null, currentLocale);
-            } catch (Exception e) {
-                msg = error.getDefaultMessage();
-            }
-        }
-        return msg;
-    }
+//    private String processFieldError(FieldError error) {
+//        String msg = "";
+//        if (error != null) {
+//            Locale currentLocale = LocaleContextHolder.getLocale();
+//            try {
+//                msg = msgSource.getMessage(error.getDefaultMessage(), null, currentLocale);
+//            } catch (DanhMucNotFoundException e) {
+//                msg = error.getDefaultMessage();
+//            }
+//        }
+//        return msg;
+//    }
 }

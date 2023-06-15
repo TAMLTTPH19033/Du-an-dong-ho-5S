@@ -142,12 +142,12 @@ public class NhanVienController {
         return "redirect:/users";
     }
 
-    @GetMapping("/users/export/csv")
-    public void exportToCSV(HttpServletResponse response) throws IOException {
-        List<NhanVien> listNhanVien = service.listAll();
-        NhanVienCsvExporter exporter = new NhanVienCsvExporter();
-        exporter.export(listNhanVien,response);
-    }
+//    @GetMapping("/users/export/csv")
+//    public void exportToCSV(HttpServletResponse response) throws IOException {
+//        List<NhanVien> listNhanVien = service.listAll();
+//        NhanVienCsvExporter exporter = new NhanVienCsvExporter();
+//        exporter.export(listNhanVien,response);
+//    }
 
     @GetMapping("/users/export/excel")
     public void exportToExcel(HttpServletResponse response) throws IOException {
