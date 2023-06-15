@@ -29,14 +29,14 @@ public class SanPhamServiceImpl implements SanPhamService {
         return result;
     }
 
-    private TimKiemResponse toTimKiemResponse (SanPham sp){
+    private TimKiemResponse toTimKiemResponse (SanPham sp) {
         TimKiemResponse result = new TimKiemResponse();
         result.setSanPhamID(sp.getIdSanPham());
         result.setTenSanPham(sp.getTenSanPham());
         result.setGiaSanPham(sp.getGiaSanPham());
         result.setLinkAnh(sp.getAnhSanPham().getLink());
         return result;
-
+    }
     @Override
     public List<SanPham> getSPnew() {
         return sanPhamRepository.getSPnew();

@@ -5,6 +5,10 @@ import com.datn.dongho5s.Entity.DanhMuc;
 import com.datn.dongho5s.Entity.NhanVien;
 import com.datn.dongho5s.Exception.DanhMucNotFoundException;
 import com.datn.dongho5s.Exception.NhanVienNotFoundException;
+import com.datn.dongho5s.Export.DanhMucCsvExporter;
+import com.datn.dongho5s.Export.DanhMucExcelExporter;
+import com.datn.dongho5s.Export.NhanVienCsvExporter;
+import com.datn.dongho5s.Export.NhanVienExcelExporter;
 import com.datn.dongho5s.Service.impl.DanhMucService;
 import com.datn.dongho5s.Service.impl.NhanVienService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +21,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -100,6 +106,21 @@ public class DanhMucController {
             redirectAttributes.addFlashAttribute("message",ex.getMessage());
             return "redirect:/categories";
         }
+
+    }
+
+    @GetMapping("/categories/export/csv")
+    public void exportToCSV(HttpServletResponse response) throws IOException {
+        List<DanhMuc> listDanhMuc = service.listAll();
+        DanhMucCsvExporter exporter = new DanhMucCsvExporter();
+        exporter.export(listDanhMuc,response);
+    }
+
+    @GetMapping("/categories/export/excel")
+    public void exportToExcel(HttpServletResponse response) throws IOException {
+        List<DanhMuc> listDanhMuc = service.listAll();
+        DanhMucExcelExporter exporter = new DanhMucExcelExporter();
+        exporter.export(listDanhMuc,response);
 
     }
 }

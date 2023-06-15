@@ -12,14 +12,20 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
+@Transactional
 public class DanhMucService {
     public static final int CATEGORIES_PER_PAGE = 4;
     @Autowired
     private DanhMucRepository repo;
+
+//    public List<DanhMuc> listAll(){
+//        return (List<DanhMuc>) repo.findAll();
+//    }
 
     public List<DanhMuc> listAll(){
         return (List<DanhMuc>) repo.findAll(Sort.by("ten").ascending());
