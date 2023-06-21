@@ -1,16 +1,11 @@
 package com.datn.dongho5s.Controller.DanhMuc;
 
-import com.datn.dongho5s.Entity.ChucVu;
 import com.datn.dongho5s.Entity.DanhMuc;
-import com.datn.dongho5s.Entity.NhanVien;
 import com.datn.dongho5s.Exception.DanhMucNotFoundException;
-import com.datn.dongho5s.Exception.NhanVienNotFoundException;
 import com.datn.dongho5s.Export.DanhMucCsvExporter;
 import com.datn.dongho5s.Export.DanhMucExcelExporter;
-import com.datn.dongho5s.Export.NhanVienCsvExporter;
-import com.datn.dongho5s.Export.NhanVienExcelExporter;
-import com.datn.dongho5s.Service.impl.DanhMucService;
-import com.datn.dongho5s.Service.impl.NhanVienService;
+import com.datn.dongho5s.Service.DanhmucService;
+import com.datn.dongho5s.Service.impl.DanhMucServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
@@ -28,7 +23,7 @@ import java.util.List;
 @Controller
 public class DanhMucController {
     @Autowired
-    private DanhMucService service;
+    private DanhmucService service;
 
     @GetMapping("/categories")
     public String listFirstPage(Model model){
@@ -45,8 +40,8 @@ public class DanhMucController {
         Page<DanhMuc> page = service.listByPage(pageNum, sortField, sortDir,keyword);
         List<DanhMuc> listDanhMuc = page.getContent();
 
-        long startCount = (pageNum -1) * DanhMucService.CATEGORIES_PER_PAGE + 1;
-        long endCount = startCount + DanhMucService.CATEGORIES_PER_PAGE-1;
+        long startCount = (pageNum -1) * DanhMucServiceImpl.CATEGORIES_PER_PAGE + 1;
+        long endCount = startCount + DanhMucServiceImpl.CATEGORIES_PER_PAGE-1;
 
         if(endCount > page.getTotalElements()){
             endCount = page.getTotalElements();
@@ -105,6 +100,9 @@ public class DanhMucController {
         }catch (DanhMucNotFoundException ex){
             redirectAttributes.addFlashAttribute("message",ex.getMessage());
             return "redirect:/categories";
+        } catch (Exception ex) {
+            redirectAttributes.addFlashAttribute("error", "Đã xảy ra lỗi trong quá trình xử lý. Vui lòng thử lại sau.");
+            return "redirect:/error";
         }
 
     }
