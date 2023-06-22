@@ -23,8 +23,8 @@ public class ChiTietSanPhamServiceImpl implements ChiTietSanPhamService {
     KichCoService kichCoService;
     @Autowired
     MauSacService mauSacService;
-    @Autowired
-    ThuongHieuService thuongHieuService;
+//    @Autowired
+//    ThuongHieuService thuongHieuService;
     @Autowired
     VatLieuService vatLieuService;
 
@@ -35,7 +35,7 @@ public class ChiTietSanPhamServiceImpl implements ChiTietSanPhamService {
         result.setListDayDeo(dayDeoService.getAllDayDeo());
         result.setListKichCo(kichCoService.getAllKichCo());
         result.setListMauSac(mauSacService.getAllMauSac());
-        result.setListThuongHieu(thuongHieuService.getAllThuongHieu());
+//        result.setListThuongHieu(thuongHieuService.getAllThuongHieu());
         result.setListVatLieu(vatLieuService.getAllVatLieu());
         return result;
     }
