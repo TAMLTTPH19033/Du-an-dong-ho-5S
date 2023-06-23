@@ -33,6 +33,7 @@ public class KhachHangRestController {
             @RequestBody ThongTinCaNhanResponse thongTinCaNhanResponse
     ){
             return ResponseEntity.ok(khachHangServiceImpl.updateThongTinCaNhan(thongTinCaNhanResponse));
+    
     }
-
+	
 }
