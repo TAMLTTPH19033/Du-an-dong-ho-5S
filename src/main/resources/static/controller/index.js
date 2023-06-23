@@ -27,6 +27,7 @@ myApp.config(function ($routeProvider, $locationProvider) {
     })
     .when("/cart", {
       templateUrl: "page/giohang.html",
+      controller :"cartCtrl"
     })
     .when("/signup", {
       templateUrl: "page/signup.html",

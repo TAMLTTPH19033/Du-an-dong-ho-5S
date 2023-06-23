@@ -3,8 +3,14 @@ package com.datn.dongho5s.Repository;
 
 import com.datn.dongho5s.Entity.ChiTietGioHang;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public interface ChiTietGioHangRepository extends JpaRepository<ChiTietGioHang,Integer> {
+    @Query("select ctgh from ChiTietGioHang ctgh where ctgh.gioHang.khachHang.idKhachHang = ?1")
+    List<ChiTietGioHang> giohangChiTiet(Integer idKhachhang);
+
 }
