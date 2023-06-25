@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 public interface KhachHangService {
     public KhachHang findKhachHangById(Integer id);
-    public ThongTinCaNhanResponse updateThongTinCaNhan(ThongTinCaNhanResponse thongTinCaNhanResponse);
+    public KhachHang updateThongTinCaNhan(ThongTinCaNhanResponse thongTinCaNhanResponse);
     public ThongTinCaNhanResponse getThongTinCaNhanById(Integer id);
 
 }

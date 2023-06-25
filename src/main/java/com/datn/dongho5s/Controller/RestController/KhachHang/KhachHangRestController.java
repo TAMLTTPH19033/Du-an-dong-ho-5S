@@ -29,7 +29,7 @@ public class KhachHangRestController {
         }
     }
     @PutMapping("/thong-tin-ca-nhan")
-    public ResponseEntity<ThongTinCaNhanResponse> updateThongTinCaNhan (
+    public ResponseEntity<KhachHang> updateThongTinCaNhan (
             @RequestBody ThongTinCaNhanResponse thongTinCaNhanResponse
     ){
             return ResponseEntity.ok(khachHangServiceImpl.updateThongTinCaNhan(thongTinCaNhanResponse));

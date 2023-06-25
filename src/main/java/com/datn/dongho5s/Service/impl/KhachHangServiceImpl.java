@@ -7,48 +7,39 @@ import com.datn.dongho5s.Repository.DiaChiRepository;
 import com.datn.dongho5s.Repository.KhachHangRepository;
 import com.datn.dongho5s.Response.ThongTinCaNhanResponse;
 import com.datn.dongho5s.Service.KhachHangService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
+@AllArgsConstructor
 public class KhachHangServiceImpl implements KhachHangService {
 
-    @Autowired
-    KhachHangRepository khachHangRepository;
+    private final KhachHangRepository khachHangRepository;
 
-    @Autowired
-    DiaChiRepository diaChiRepository;
+    private final DiaChiRepository diaChiRepository;
 
     @Override
     public KhachHang findKhachHangById(Integer id) {
-
         if (id == null) return null;
-        KhachHang khachHang = khachHangRepository.findById(id).get();
-        System.out.println(khachHang.getIdKhachHang());
-        System.out.println(khachHang.getTenKhachHang());
-        System.out.println(khachHangRepository.findById(id).get().getTenKhachHang());
-        return khachHang;
+        return khachHangRepository.findById(id).get();
     }
 
     @Override
-    public ThongTinCaNhanResponse updateThongTinCaNhan(ThongTinCaNhanResponse thongTinCaNhanResponse) {
-
+    public KhachHang updateThongTinCaNhan(ThongTinCaNhanResponse thongTinCaNhanResponse) {
         KhachHang khachHangExist = this.findKhachHangById(thongTinCaNhanResponse.getId());
         if (khachHangExist == null) {
             return null;
         }
-
-        khachHangExist.setGioiTinh(thongTinCaNhanResponse.getGioiTinh());
-        khachHangExist.setEmail(thongTinCaNhanResponse.getEmail());
-        khachHangExist.setTenKhachHang(thongTinCaNhanResponse.getTenKhachHang());
-        khachHangExist.setNgaySinh(thongTinCaNhanResponse.getNgaySinh());
-        khachHangExist.setSoDienThoai(thongTinCaNhanResponse.getSoDienThoai());
-        khachHangExist.setIdKhachHang(thongTinCaNhanResponse.getId());
-//        khachHangExist.setDiaChi(diaChiRepository.findDiaChiByDiaChi(thongTinCaNhanResponse.getDiaChi()));
-
-        khachHangRepository.save(khachHangExist);
-
-        return thongTinCaNhanResponse;
+        return khachHangRepository.save(khachHangExist.builder()
+                .gioiTinh(thongTinCaNhanResponse.getGioiTinh())
+                .email(thongTinCaNhanResponse.getEmail())
+                .tenKhachHang(thongTinCaNhanResponse.getTenKhachHang())
+                .ngaySinh(thongTinCaNhanResponse.getNgaySinh())
+                .soDienThoai(thongTinCaNhanResponse.getSoDienThoai())
+                .idKhachHang(thongTinCaNhanResponse.getId())
+                .diaChi(diaChiRepository.findByDiaChi(thongTinCaNhanResponse.getDiaChi()))
+                .build());
     }
 
     @Override
@@ -58,18 +49,14 @@ public class KhachHangServiceImpl implements KhachHangService {
 
         if (khachHangExist == null) return null;
 
-        ThongTinCaNhanResponse thongTinCaNhanResponse = new ThongTinCaNhanResponse();
-
-        thongTinCaNhanResponse.setId(khachHangExist.getIdKhachHang());
-        thongTinCaNhanResponse.setGioiTinh(khachHangExist.getGioiTinh());
-        thongTinCaNhanResponse.setDiaChi(khachHangExist.getDiaChi().getDiaChi());
-        thongTinCaNhanResponse.setNgaySinh(khachHangExist.getNgaySinh());
-        thongTinCaNhanResponse.setSoDienThoai(khachHangExist.getSoDienThoai());
-        thongTinCaNhanResponse.setEmail(khachHangExist.getEmail());
-        thongTinCaNhanResponse.setTenKhachHang(khachHangExist.getTenKhachHang());
-
-        return thongTinCaNhanResponse;
+        return ThongTinCaNhanResponse.builder()
+                .id(khachHangExist.getIdKhachHang())
+                .gioiTinh(khachHangExist.getGioiTinh())
+                .diaChi(khachHangExist.getDiaChi().getDiaChi())
+                .ngaySinh(khachHangExist.getNgaySinh())
+                .soDienThoai(khachHangExist.getSoDienThoai())
+                .email(khachHangExist.getEmail())
+                .tenKhachHang(khachHangExist.getTenKhachHang())
+                .build();
     }
-
-
 }
