@@ -93,8 +93,8 @@ myApp.controller("SanPhamController", function ($scope, $rootScope, $http) {
             $scope.displayedItems = $scope.listSanPham.slice(startIndex, endIndex);
         }
     };
-    $scope.detail = function (sanPhamId) {
-        $rootScope.sanPhamDetail = sanPhamId;
-        $location.path("/chitietsanpham");
-    };
+    // $scope.detail = function (sanPhamId) {
+    //     $rootScope.sanPhamDetail = sanPhamId;
+    //     $location.path("/chitietsanpham");
+    // };
 });
