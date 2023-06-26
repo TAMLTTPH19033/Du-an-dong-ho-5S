@@ -3,6 +3,7 @@ package com.datn.dongho5s.Service;
 import com.datn.dongho5s.Entity.DanhMuc;
 import com.datn.dongho5s.Exception.DanhMucNotFoundException;
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.List;
 
@@ -17,5 +18,6 @@ public interface DanhmucService {
 
     public DanhMuc get(Integer id) throws DanhMucNotFoundException, Exception;
 
-    public String checkUnique(Integer id, String ten);
+    public boolean checkUnique(Integer id, String ten);
+
 }

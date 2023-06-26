@@ -60,20 +60,23 @@ public class DanhMucServiceImpl implements DanhmucService {
             throw new Exception(ex.getMessage()); // Xử lý ngoại lệ bằng cách throws Exception
         }
     }
-    @Override
-    public String checkUnique(Integer id, String ten){
-        boolean isCreatingNew = (id == null || id == 0);
-        DanhMuc danhMucTheoTen = repo.findByTen(ten);
 
+    @Override
+    public boolean checkUnique(Integer id, String ten){
+        DanhMuc danhMucTheoTen = repo.findByTen(ten);
+        if (danhMucTheoTen == null) return true;
+        boolean isCreatingNew = (id == null);
         if(isCreatingNew){
             if(danhMucTheoTen != null){
-                return "DuplicateTen";
+                return false;
             }
         }else{
-            if(danhMucTheoTen != null && danhMucTheoTen.getId() != id){
-                return "DuplicateTen";
+            if(danhMucTheoTen.getId() != id){
+                return false;
             }
         }
-        return "OK";
+        return true;
     }
+
+
 }

@@ -8,6 +8,6 @@ $(document).ready(function (){
 
 function customizeDropDownMenu(){
     $(".dropdown > a").click(function (){
-        location.href = thí.href;
+        location.href = this.href;
     })
 }
