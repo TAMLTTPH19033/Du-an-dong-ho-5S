@@ -17,7 +17,7 @@ public interface ThuongHieuService {
 
     public ThuongHieu get(Integer id) throws ThuongHieuNotFoundException, Exception;
 
-    public String checkUnique(Integer id, String ten);
+    public boolean checkUnique(Integer id, String ten);
 
     public void updateThuongHieuEnabledStatus(Integer id, boolean enabled);
 }

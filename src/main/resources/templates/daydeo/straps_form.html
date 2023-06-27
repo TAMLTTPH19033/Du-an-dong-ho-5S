@@ -5,25 +5,38 @@
 <div class="container-fluid">
     <div th:replace="fragment/navigation:: menu"></div>
     <div>
-        <h2>Quản lý Thương Hiệu | [[${pageTitle}]]</h2>
+        <h2>Quản lý Dây Đeo | [[${pageTitle}]]</h2>
     </div>
 
-    <form th:action="@{/brands/save}" method="post" style="max-width: 500px;margin: 0 auto"
-          enctype="multipart/form-data"
-          th:object="${thuongHieu}" onsubmit="return checkBrandNameUnique(this);">
-        <input type="hidden" th:field="*{idThuongHieu}"/>
+    <form th:action="@{/straps/save}" method="post" style="max-width: 500px;margin: 0 auto"
+          th:object="${dayDeo}" onsubmit="return checkStrapNameUnique(this);">
+        <input type="hidden" th:field="*{idDayDeo}"/>
         <div class="border border-secondary rounded p-3">
             <div class="form-group-row">
-                <label class="col-sm-4 col-form-label">Tên Thương Hiệu:</label>
+                <label class="col-sm-4 col-form-label">Tên Dây Đeo :</label>
                 <div class="col-sm-12">
-                    <input type="text" class="form-control" th:field="*{tenThuonghieu}" id="tenThuongHieuInput" required minlength="3" maxlength="128"/>
+                    <input type="text" class="form-control" th:field="*{tenDayDeo}" id="tenDayDeoInput" required minlength="3" maxlength="128"/>
                 </div>
             </div>
 
             <div class="form-group-row">
-                <label class="col-sm-4 col-form-label">Mô Tả Thương Hiệu:</label>
+                <label class="col-sm-4 col-form-label">Mô Tả Dây Đeo :</label>
                 <div class="col-sm-12">
-                    <input type="text" class="form-control" th:field="*{moTaThuongHieu}" required minlength="3" maxlength="128"/>
+                    <input type="text" class="form-control" th:field="*{moTaDayDeo}" required minlength="3" maxlength="128"/>
+                </div>
+            </div>
+
+            <div class="form-group-row">
+                <label class="col-sm-4 col-form-label">Chiều Dài Dây Đeo :</label>
+                <div class="col-sm-12">
+                    <input type="number" class="form-control" th:field="*{chieuDai}" required minlength="3" maxlength="20"/>
+                </div>
+            </div>
+
+            <div class="form-group-row">
+                <label class="col-sm-4 col-form-label">Chất Liệu Dây Đeo :</label>
+                <div class="col-sm-12">
+                    <input type="text" class="form-control" th:field="*{chatLieu}" required minlength="3" maxlength="128"/>
                 </div>
             </div>
 
@@ -63,16 +76,16 @@
 </div>
 
 <script type="text/javascript">
-    moduleURL= "[[@{/brands}]]";
+    moduleURL= "[[@{/straps}]]";
 
-    function checkBrandNameUnique(form) {
-        var url = "[[@{/brands/check_name}]]";
-        var thuongHieuName = form.tenThuonghieu.value;
-        var thuongHieuId = form.idThuongHieu.value;
+    function checkStrapNameUnique(form) {
+        var url = "[[@{/straps/check_name}]]";
+        var dayDeoName = form.tenDayDeo.value;
+        var dayDeoId = form.idDayDeo.value;
         var csrfValue = $("input[name='_csrf']").val();
         var params = {
-            id: thuongHieuId,
-            ten: thuongHieuName,
+            id: dayDeoId,
+            ten: dayDeoName,
             _csrf: csrfValue
         };
 

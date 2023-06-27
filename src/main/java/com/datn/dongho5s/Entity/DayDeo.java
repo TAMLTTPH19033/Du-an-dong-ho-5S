@@ -14,20 +14,82 @@ import javax.persistence.Table;
 @Table(name = "daydeo")
 public class DayDeo {
     @Id
-    @Column(name = "IdDayDeo")
+    @Column(name = "id_day_deo")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idDayDeo;
 
-    @Column(name = "TenDayDeo")
+    @Column(name = "ten_day_deo",length = 128, nullable = false, unique = true)
     private String tenDayDeo;
 
-    @Column(name = "MoTaDayDeo")
+    @Column(name = "mo_ta_day_deo")
     private String moTaDayDeo;
 
-    @Column(name = "ChieuDai")
+    @Column(name = "chieu_dai")
     private Float chieuDai;
 
-    @Column(name = "ChatLieu")
+    @Column(name = "chat_lieu")
     private String chatLieu;
 
+    @Column(nullable = false)
+    private boolean enabled;
+
+    public DayDeo() {
+    }
+
+    public DayDeo(Integer idDayDeo, String tenDayDeo, String moTaDayDeo, Float chieuDai, String chatLieu, boolean enabled) {
+        this.idDayDeo = idDayDeo;
+        this.tenDayDeo = tenDayDeo;
+        this.moTaDayDeo = moTaDayDeo;
+        this.chieuDai = chieuDai;
+        this.chatLieu = chatLieu;
+        this.enabled = enabled;
+    }
+
+    public Integer getIdDayDeo() {
+        return idDayDeo;
+    }
+
+    public void setIdDayDeo(Integer idDayDeo) {
+        this.idDayDeo = idDayDeo;
+    }
+
+    public String getTenDayDeo() {
+        return tenDayDeo;
+    }
+
+    public void setTenDayDeo(String tenDayDeo) {
+        this.tenDayDeo = tenDayDeo;
+    }
+
+    public String getMoTaDayDeo() {
+        return moTaDayDeo;
+    }
+
+    public void setMoTaDayDeo(String moTaDayDeo) {
+        this.moTaDayDeo = moTaDayDeo;
+    }
+
+    public Float getChieuDai() {
+        return chieuDai;
+    }
+
+    public void setChieuDai(Float chieuDai) {
+        this.chieuDai = chieuDai;
+    }
+
+    public String getChatLieu() {
+        return chatLieu;
+    }
+
+    public void setChatLieu(String chatLieu) {
+        this.chatLieu = chatLieu;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
 }
