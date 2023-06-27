@@ -6,6 +6,7 @@ import com.datn.dongho5s.Request.TimKiemRequest;
 import com.datn.dongho5s.Response.SanPhamDetailResponse;
 import com.datn.dongho5s.Response.TimKiemResponse;
 import com.datn.dongho5s.Service.SanPhamService;
+import com.datn.dongho5s.mapper.SanPhamMapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 import com.datn.dongho5s.Entity.ChiTietSanPham;
 import com.datn.dongho5s.Repository.ChiTietSanPhamRepository;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class SanPhamServiceImpl implements SanPhamService {
@@ -34,18 +36,21 @@ public class SanPhamServiceImpl implements SanPhamService {
         TimKiemResponse result = new TimKiemResponse();
         result.setSanPhamID(sp.getIdSanPham());
         result.setTenSanPham(sp.getTenSanPham());
-        result.setGiaSanPham(sp.getGiaSanPham());
+//        result.setGiaSanPham(sp.getGiaSanPham());
         result.setLinkAnh(sp.getAnhSanPham().getLink());
         return result;
     }
     @Override
     public List<SanPham> getSPnew() {
-        return sanPhamRepository.getSPnew();
+         sanPhamRepository.getSPnew();
+        return  sanPhamRepository.getSPnew();
     }
 
     @Override
-    public List<SanPham> getSPchay() {
-        return sanPhamRepository.getSPchay();
+    public List<SanPhamDetailResponse> getSPchay() {
+        List<SanPham> listSanPham =  sanPhamRepository.getSPchay();
+        List<SanPhamDetailResponse> responseList = listSanPham.stream().map(SanPhamMapping::mapEntitytoResponse).collect(Collectors.toList());
+        return responseList;
 
     }
     @Override

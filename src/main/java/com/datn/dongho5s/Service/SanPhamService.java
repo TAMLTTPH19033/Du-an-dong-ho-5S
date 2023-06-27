@@ -16,7 +16,7 @@ public interface SanPhamService {
 
     List<SanPham> getSPnew();
 
-    List<SanPham> getSPchay();
+    List<SanPhamDetailResponse> getSPchay();
 
     SanPhamDetailResponse getDetailSanPhamById(Integer sanPhamId);
 

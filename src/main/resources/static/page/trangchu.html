@@ -384,8 +384,15 @@
             <h5 class="card-title" style="color: #2a6496">{{item.maSanPham}}</h5>
             <p class="card-text">
               {{item.moTaSanPham}}
-            <h5 class="text-center" style="color: red"> đ <span ng-disabled="getGiaNN(item.chiTietSanPhams)"></span> ~
-            <span ng-disabled="getGiaLN(item.chiTietSanPhams)"></span> </h5>
+            <h5 class="text-center" style="color: red">
+            <p ng-if="item.listChiTietSanPham.length == 1">
+            <span ng-bind="getGiaNN(item.listChiTietSanPham)"></span>
+            </p>
+            <p ng-if="item.listChiTietSanPham.length > 1">
+            <span ng-bind="getGiaNN(item.listChiTietSanPham)"></span> ~
+            <span ng-bind="getGiaLN(item.listChiTietSanPham)"></span>
+            </p>
+          </h5>
             </p>
           </div>
         </div>

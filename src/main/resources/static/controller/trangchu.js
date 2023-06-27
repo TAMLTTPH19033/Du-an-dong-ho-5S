@@ -5,7 +5,7 @@ myApp.controller("homeCtrl", function ($scope, $http) {
         //load product
         $http.get(`/api/index`).then((resp) => {
             $scope.hotSanPhams = resp.data.listSPbanChay;
-            console.log(resp.data,"newSanPham")
+            console.log(resp.data.listSPbanChay);
             $scope.newSanPhams = resp.data.listSPmoiNhat;
         });
     };
@@ -13,10 +13,12 @@ myApp.controller("homeCtrl", function ($scope, $http) {
     $scope.getGiaNN = function (listCT){
         console.log(listCT,"listCT")
         listCT.sort(function(a, b){return a.giaSanPham - b.giaSanPham})
-        return listCT[0];
+        return listCT[0].giaSanPham;
     }
     $scope.getGiaLN = function (listCT){
-        listCT.sort(function(a, b){return b.giaSanPham - a.giaSanPham})
-        return listCT[listCT.length-1];
+        listCT.sort(function(a, b){return a.giaSanPham - b.giaSanPham})
+        return listCT[listCT.length-1].giaSanPham;
     }
+
+    // $scope.getGiaLN();
 })
