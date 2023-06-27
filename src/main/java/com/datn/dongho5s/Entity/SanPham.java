@@ -40,7 +40,7 @@ public class SanPham {
     private ThuongHieu thuongHieu;
 
     @ManyToOne
-    @JoinColumn(name = "Iid_danh_muc")
+    @JoinColumn(name = "id_danh_muc")
     private DanhMuc danhMuc;
 
     @Column(name = "ten_san_pham")
@@ -62,7 +62,7 @@ public class SanPham {
     private List<ChiTietSanPham> listChiTietSanPham ;
 
 
-    @OneToMany( fetch = FetchType.EAGER,mappedBy = "sanPham", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "sanPham")
     private List<AnhSanPham> listAnhSanPham;
 
 }
