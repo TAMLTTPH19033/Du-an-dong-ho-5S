@@ -3,6 +3,7 @@ package com.datn.dongho5s.Service.impl;
 import com.datn.dongho5s.Entity.SanPham;
 import com.datn.dongho5s.Repository.SanPhamRepository;
 import com.datn.dongho5s.Request.TimKiemRequest;
+import com.datn.dongho5s.Response.SanPhamDetailResponse;
 import com.datn.dongho5s.Response.TimKiemResponse;
 import com.datn.dongho5s.Service.SanPhamService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,5 +47,24 @@ public class SanPhamServiceImpl implements SanPhamService {
     public List<SanPham> getSPchay() {
         return sanPhamRepository.getSPchay();
 
+    }
+    @Override
+    public SanPhamDetailResponse getDetailSanPhamById(Integer sanPhamId) {
+        SanPham sanPham = sanPhamRepository.findById(sanPhamId).get();
+        return toSanPhamRepository(sanPham);
+    }
+
+    private SanPhamDetailResponse toSanPhamRepository(SanPham sp){
+        return SanPhamDetailResponse.builder()
+                .idSanPham(sp.getIdSanPham())
+                .anhSanPham(sp.getAnhSanPham())
+                .giaSanPham(sp.getGiaSanPham())
+                .moTaSanPham(sp.getMoTaSanPham())
+                .tenSanPham(sp.getMoTaSanPham())
+                .danhMuc(sp.getDanhMuc())
+                .listChiTietSanPham(sp.getListChiTietSanPham())
+                .thuongHieu(sp.getThuongHieu())
+                .trangThai(sp.getTrangThai())
+                .build();
     }
 }

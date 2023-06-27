@@ -8,10 +8,11 @@ import java.util.Set;
 @Table(name = "danhmuc")
 public class DanhMuc {
     @Id
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(length = 128, nullable = false, unique = true)
+    @Column(name = "ten",length = 128, nullable = false, unique = true)
     private String ten;
 
     @Column(nullable = false)

@@ -42,6 +42,24 @@
               th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>
     </th>
 
+    <th th:fragment="thuonghieu_link(fieldThuongHieu, columnLabel)">
+        <a style="text-decoration: none; color: black"
+           th:href="@{'/brands/page/' + ${currentPage} + '?sortField=' + ${fieldThuongHieu} + '&sortDir=' + ${sortField != fieldThuongHieu ? sortDir : reverseSortDir} + ${keyword !=null ? '&keyword=' + keyword:''}}">
+            [[${columnLabel}]]
+        </a>
+        <span th:if="${sortField == fieldThuongHieu}" style="text-decoration: none; color: black"
+              th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>
+    </th>
+
+    <th th:fragment="daydeo_link(fieldDayDeo, columnLabel)">
+        <a style="text-decoration: none; color: black"
+           th:href="@{'/straps/page/' + ${currentPage} + '?sortField=' + ${fieldDayDeo} + '&sortDir=' + ${sortField != fieldDayDeo ? sortDir : reverseSortDir} + ${keyword !=null ? '&keyword=' + keyword:''}}">
+            [[${columnLabel}]]
+        </a>
+        <span th:if="${sortField == fieldDayDeo}" style="text-decoration: none; color: black"
+              th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>
+    </th>
+
     <!-- fragment cho phân trang-->
     <a th:fragment="page_link(pageNum, label)"
         class="page-link"
@@ -50,5 +68,13 @@
     <a th:fragment="pagecategory_link(pageNum, label)"
        class="page-link"
        th:href="@{'/categories/page/' + ${pageNum} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword' + keyword : ''}}"> [[${label}]]</a>
+
+    <a th:fragment="pagebrand_link(pageNum, label)"
+       class="page-link"
+       th:href="@{'/brands/page/' + ${pageNum} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword' + keyword : ''}}"> [[${label}]]</a>
+
+    <a th:fragment="pagestraps_link(pageNum, label)"
+       class="page-link"
+       th:href="@{'/straps/page/' + ${pageNum} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword' + keyword : ''}}"> [[${label}]]</a>
 </body>
 </html>

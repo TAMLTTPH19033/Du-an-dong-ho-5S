@@ -15,8 +15,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class ChiTietSanPhamServiceImpl implements ChiTietSanPhamService {
 
-//    @Autowired
-//    DanhmucService danhmucService;
+    @Autowired
+    DanhmucService danhmucService;
     @Autowired
     DayDeoService dayDeoService;
     @Autowired
@@ -31,7 +31,7 @@ public class ChiTietSanPhamServiceImpl implements ChiTietSanPhamService {
     @Override
     public TimKiemSettingResponse getTimKiemSetting() {
         TimKiemSettingResponse result = new TimKiemSettingResponse();
-//        result.setListDanhMuc(danhmucService.listAll());
+        result.setListDanhMuc(danhmucService.listAll());
         result.setListDayDeo(dayDeoService.getAllDayDeo());
         result.setListKichCo(kichCoService.getAllKichCo());
         result.setListMauSac(mauSacService.getAllMauSac());

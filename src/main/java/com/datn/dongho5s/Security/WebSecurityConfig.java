@@ -42,10 +42,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception{
-        http.authorizeRequests()
-                .antMatchers("/users/**").hasAuthority("Admin")
-                .antMatchers("/categories/**").hasAnyAuthority("Admin","Staff")
-                .anyRequest().authenticated()
+        http.authorizeRequests().antMatchers("/").permitAll()
+//                .antMatchers("/users/**").hasAuthority("Admin")
+//                .antMatchers("/categories/**").hasAnyAuthority("Admin","Staff")
+//                .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login")
@@ -56,7 +56,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().rememberMe()
                         .key("AbcDefgHijKlmnOpqrs_1234567890")
                         .tokenValiditySeconds(7 * 24 * 60 * 60);
-
     }
 
 
@@ -64,4 +63,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception{
         web.ignoring().antMatchers("/images/**","/js/**","/webjars/**");
     }
+
 }

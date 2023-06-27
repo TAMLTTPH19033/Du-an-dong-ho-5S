@@ -1,10 +1,9 @@
 package com.datn.dongho5s.Service.impl;
 
 import com.datn.dongho5s.Entity.DanhMuc;
-import com.datn.dongho5s.Entity.NhanVien;
 import com.datn.dongho5s.Exception.DanhMucNotFoundException;
-import com.datn.dongho5s.Exception.NhanVienNotFoundException;
 import com.datn.dongho5s.Repository.DanhMucRepository;
+import com.datn.dongho5s.Service.DanhmucService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,23 +13,20 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @Service
 @Transactional
-public class DanhMucService {
+public class DanhMucServiceImpl implements DanhmucService {
     public static final int CATEGORIES_PER_PAGE = 4;
     @Autowired
     private DanhMucRepository repo;
 
-//    public List<DanhMuc> listAll(){
-//        return (List<DanhMuc>) repo.findAll();
-//    }
-
+    @Override
     public List<DanhMuc> listAll(){
         return (List<DanhMuc>) repo.findAll(Sort.by("ten").ascending());
     }
 
+    @Override
     public Page<DanhMuc> listByPage(int pageNumber, String sortField, String sortDir, String keyword){
         Sort sort = Sort.by(sortField);
 
@@ -45,35 +41,42 @@ public class DanhMucService {
         return repo.findAll(pageable);
     }
 
+    @Override
     public void updateDanhMucEnabledStatus(Integer id, boolean enabled) {
         repo.updateEnabledStatus(id,enabled);
     }
 
+    @Override
     public DanhMuc save(DanhMuc danhMuc){
         return repo.save(danhMuc);
     }
 
-    public DanhMuc get(Integer id) throws DanhMucNotFoundException {
-        try{
-            return repo.findById(id).get();
-        }catch (NoSuchElementException ex){
-            throw  new DanhMucNotFoundException("không tìm thấy danh mục nào theo ID :" +id);
+    @Override
+    public DanhMuc get(Integer id) throws DanhMucNotFoundException, Exception {
+        try {
+            return repo.findById(id)
+                    .orElseThrow(() -> new DanhMucNotFoundException("Không tìm thấy danh mục nào theo ID: " + id));
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage()); // Xử lý ngoại lệ bằng cách throws Exception
         }
     }
 
-    public String checkUnique(Integer id, String ten){
-        boolean isCreatingNew = (id == null || id == 0);
+    @Override
+    public boolean checkUnique(Integer id, String ten){
         DanhMuc danhMucTheoTen = repo.findByTen(ten);
-
+        if (danhMucTheoTen == null) return true;
+        boolean isCreatingNew = (id == null);
         if(isCreatingNew){
             if(danhMucTheoTen != null){
-                return "DuplicateTen";
+                return false;
             }
         }else{
-            if(danhMucTheoTen != null && danhMucTheoTen.getId() != id){
-                return "DuplicateTen";
+            if(danhMucTheoTen.getId() != id){
+                return false;
             }
         }
-        return "OK";
+        return true;
     }
+
+
 }

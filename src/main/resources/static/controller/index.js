@@ -24,6 +24,7 @@ myApp.config(function ($routeProvider, $locationProvider) {
     })
     .when("/info", {
       templateUrl: "page/thongTinCaNhan.html",
+      controller: "ThongTinCaNhanController"
     })
     .when("/cart", {
       templateUrl: "page/giohang.html",
@@ -42,8 +43,13 @@ myApp.config(function ($routeProvider, $locationProvider) {
     .when("/thanhtoan", {
       templateUrl: "page/thanhtoan.html",
     })
-    .when("/chitietsanpham", {
+    .when("/chitietsanpham/:idSp", {
       templateUrl: "page/chitietsanpham.html",
+      controller: "TrangChiTietSanPhamController"
+    })
+    .when("/suathongtincanhan", {
+      templateUrl: "page/suathongtincanhan.html",
+      controller: "ThongTinCaNhanController"
     })
     .otherwise({
       redirectTo: "/",

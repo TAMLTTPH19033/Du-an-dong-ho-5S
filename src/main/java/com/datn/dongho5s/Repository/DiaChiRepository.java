@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface DiaChiRepository extends JpaRepository<DiaChi,Integer> {
+    public DiaChi findByDiaChi(String diaChi);
 }

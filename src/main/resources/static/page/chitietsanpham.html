@@ -1,7 +1,19 @@
 
 
     <!--Start Ảnh và thông tin sản phẩm-->
-
+    <style>
+      .radio-button {
+        display: inline-block;
+        padding: 10px;
+        border: 1px solid #ccc;
+        background-color: #fff;
+        cursor: pointer;
+      }
+    
+      .radio-button.selected {
+        background-color: #ccc;
+      }
+    </style>
     <div class="container text-center" style="margin-top: 80px; margin-bottom: 80px;">
       <div class="row">
         <div class="col d-flex justify-content-center">
@@ -15,7 +27,7 @@
         </div>
         <div class="col">
           <div style="margin-bottom: 20px;">
-            <span style="color: #000000; font-size: 30px;">AUTHORIZED WATCH RETAILER</span>
+            <span style="color: #000000; font-size: 30px;">{{sanPhamDetail.tenSanPham}}</span>
           </div>
           
           <div class="d-flex justify-content-between mb-3" style="width: 200px;">
@@ -35,29 +47,46 @@
           <div class="d-flex flex-column mb-3">
             <div class="d-flex justify-content">
               <label style="margin-right: 20px;font-size: 20px;font-weight:500 ;">Giá Tiền:</label>
-              <div class="ml-2" style="font-weight: 500; font-size: 20px;">5.000.000</div>
+              <div class="ml-2" style="font-weight: 500; font-size: 20px;">{{sanPhamDetail.giaSanPham}}</div>
             </div>
           </div>
           
           <div class="d-flex justify-content-between mb-3" style="width: 500px;">
-            <label style="margin-right: 20px;font-size: 15px;font-weight:500 ;">Màu Sắc</label>
+            <label style="margin-right: 20px;font-size: 15px;font-weight:500 ;">Dây đeo</label>
             <div class="d-flex align-items-center">
-              <input style="margin-right: 10px;" type="checkbox" id="black" name="color" value="black">
-              <label for="black" style="width: 20px; height: 20px; background-color: black; margin-right: 5px;"></label>
-              <span>Màu Đen</span>
-            </div>
-            <div class="d-flex align-items-center">
-              <input style="margin-right: 10px;" type="checkbox" id="yellow" name="color" value="yellow">
-              <label for="yellow" style="width: 20px; height: 20px; background-color: yellow; margin-right: 5px;"></label>
-              <span>Màu Vàng</span>
-            </div>
-            <div class="d-flex align-items-center">
-              <input style="margin-right: 10px;" type="checkbox" id="green" name="color" value="green">
-              <label for="green" style="width: 20px; height: 20px; background-color: green; margin-right: 5px;"></label>
-              <span>Màu Xanh</span>
+              <div class="form-check form-check-inline" ng-repeat="dd in listDayDeo">
+                <input type="radio" class="btn-check" name="daydeoOption" id="daydeo{{dd}}" ng-model="$parent.selectedDD" ng-value="dd" ng-disabled="!setAvaiableDayDeo.has(dd)">
+                <label class="btn btn-outline-primary" for="daydeo{{dd}}">{{dd}}</label>
+              </div>
             </div>
           </div>
-          
+          <div class="d-flex justify-content-between mb-3" style="width: 500px;">
+            <label style="margin-right: 20px;font-size: 15px;font-weight:500 ;">Vật liệu</label>
+            <div class="d-flex align-items-center">
+              <div class="form-check form-check-inline" ng-repeat="vl in listVatLieu">
+                <input type="radio" class="btn-check" name="vatlieuOption" id="vatlieu{{vl}}" ng-model="$parent.selectedVL" ng-value="vl" ng-disabled="!setAvaiableVatLieu.has(vl)">
+                <label class="btn btn-outline-primary" for="vatlieu{{vl}}">{{vl}}</label>
+              </div>
+            </div>
+          </div>
+          <div class="d-flex justify-content-between mb-3" style="width: 500px;">
+            <label style="margin-right: 20px;font-size: 15px;font-weight:500 ;">Màu sắc</label>
+            <div class="d-flex align-items-center">
+              <div class="form-check form-check-inline" ng-repeat="ms in listMauSac">
+                <input type="radio" class="btn-check" name="mausacOption" id="mausac{{ms}}" ng-model="$parent.selectedMS" ng-value="ms">
+                <label class="btn btn-outline-primary" for="mausac{{ms}}">{{ms}}</label>
+              </div>
+            </div>
+          </div>
+          <div class="d-flex justify-content-between mb-3" style="width: 500px;">
+            <label style="margin-right: 20px;font-size: 15px;font-weight:500 ;">Kích cỡ</label>
+            <div class="d-flex align-items-center">
+              <div class="form-check form-check-inline" ng-repeat="kc in listKichCo">
+                <input type="radio" class="btn-check" name="kickcoOption" id="kichco{{kc}}" ng-model="$parent.selectedKC" ng-value="kc">
+                <label class="btn btn-outline-primary" for="kichco{{kc}}">{{kc}}</label>
+              </div>
+            </div>
+          </div>
           
           <div class="text-center" style="margin-top: 50px;margin-left: 220px;">
             <nav aria-label="...">
@@ -109,24 +138,21 @@
       <div class="row">
         <div class="col" style="border-right:1px solid #000000;text-align: left;line-height:30px">
           <span>
-            Chiếc Dual Time đã qua sử dụng này được chế tác từ thép không gỉ với mặt số màu bạc có các vạch đánh dấu. Được trang bị đầy đủ dây đeo cá sấu màu nâu với móc cài triển khai, đây là một lựa chọn đặc biệt cho bất kỳ bộ sưu tập nào.
+            {{sanPhamDetail.moTaSanPham}} 
           </span>
         </div>
         <div class="col" style="text-align: left;">
           <ul>
-            <li>Tham khảo nhà sản xuất #: 3343-126/91</li>
-            <li>Kích thước vỏ: Đường kính 42 mm</li>
-            <li>Chất liệu vỏ: Thép không gỉ</li>
+            <li>Thương hiệu: {{sanPhamDetail.thuongHieu.tenThuonghieu}}</li>
+            <li>Danh mục: {{sanPhamDetail.danhMuc.ten}}</li>
+            <li>Chất liệu: {{chiTietSanPham.vatLieu.tenVatLieu}}</li>
             <li>Chuyển động: Tự động</li>
-            <li>Độ dày vỏ: 13 mm</li>
-            <li>Chống nước: 30 mét</li>
-            <li>Chất liệu dây đeo/Vòng tay: Alligator/Cá sấu</li>
-            <li>Khoảng: Những năm 2000</li>
-            <li>Tình trạng: Xuất sắc</li>
+            <li>Đường kính: {{chiTietSanPham.duongKinhMatDongHo}}</li>
+            <li>Độ dày vỏ: {{chiTietSanPham.doDayMatDongHo}}</li>
+            <li>Chống nước: {{chiTietSanPham.doChiuNuoc}} mét</li>
+            <li>Chất liệu dây đeo/Vòng tay: {{chiTietSanPham.dayDeo.tenDayDeo}}</li>
+            <li>Tình trạng: {{chiTietSanPham.trangThai}}</li>
             <li>Mã sản phẩm: VUL00476</li>
-            <li>Các tính năng: Ngày lớn, Giờ kép/GMT, Kim giây</li>
-            <li>Giới tính: Nam</li>
-            <li>Hình dạng vỏ: Tròn</li>
           </ul>
         </div>
       </div>

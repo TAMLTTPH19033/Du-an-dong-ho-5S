@@ -9,50 +9,13 @@
     </div>
 
     <form th:action="@{/categories/save}" method="post" style="max-width: 500px;margin: 0 auto"
-          enctype="multipart/form-data"
-        th:object="${danhMuc}">
+        th:object="${danhMuc}" onsubmit="return checkCategoryNameUnique(this);">
         <input type="hidden" th:field="*{id}"/>
         <div class="border border-secondary rounded p-3">
             <div class="form-group-row">
                 <label class="col-sm-4 col-form-label">Tên Danh Mục:</label>
                 <div class="col-sm-12">
-                    <input type="text" class="form-control" th:field="*{ten}" required minlength="3" maxlength="128"/>
-                </div>
-            </div>
-
-            <div class="form-group-row">
-                <label class="col-sm-4 col-form-label">Bí Danh:</label>
-                <div class="col-sm-12">
-                    <input type="text" class="form-control" th:field="*{biDanh}" required minlength="3" maxlength="64"/>
-                </div>
-            </div>
-
-            <div class="form-group-row">
-                <label class="col-sm-4 col-form-label">Danh Mục Cha:</label>
-                <div class="col-sm-12">
-                    <select class="form-control" th:field="*{cha}">
-                        <option value="0">[No parent]</option>
-                        <th:block th:each="cat : ${listDanhMucs}">
-                            <option th:value="${cat.id}" th:text="${cat.ten}"></option>
-                        </th:block>
-                    </select>
-                </div>
-            </div>
-
-
-            <div class="form-group-row">
-                <label class="col-sm-4 col-form-label">Image:</label>
-                <div class="col-sm-12">
-                    <input type="hidden" th:field="*{anh}">
-                    <input type="file" id="fileImage" name="fileImage" accept="image/png, images/jpeg"
-                          th:required="${danhMuc.imagePath == null}"
-                        class="mb-2"
-                    />
-                    <div class="mt-2">
-                        <img id="thumbnail" alt="Anh priview" th:src="@{${danhMuc.imagePath}}"
-                             class="img-fluid"/>
-                    </div>
-
+                    <input type="text" class="form-control" th:field="*{ten}" id="tenDanhMucInput" required minlength="3" maxlength="128"/>
                 </div>
             </div>
 
@@ -93,6 +56,36 @@
 
 <script type="text/javascript">
     moduleURL= "[[@{/categories}]]";
+
+    function checkCategoryNameUnique(form) {
+        var url = "[[@{/categories/check_name}]]";
+        var danhMucName = form.ten.value;
+        var danhMucId = form.id.value;
+        var csrfValue = $("input[name='_csrf']").val();
+        var params = {
+            id: danhMucId,
+            ten: danhMucName,
+            _csrf: csrfValue
+        };
+
+        $.post(url, params)
+            .done(function(response) {
+                if (response == "OK") {
+                    form.submit();
+                } else if (response == "Duplicated") {
+                    showWarningModal("Tên đã tồn tại hoặc là Tên này thuộc về id khác");
+                } else {
+                    showErrorModal("Lỗi phản hồi từ server");
+                }
+            })
+            .fail(function() {
+                showErrorModal("Không thể kết nối đến server");
+            });
+
+        return false;
+
+    }
+
 
 </script>
 <script th:src="@{/js/index_form.js}"></script>
