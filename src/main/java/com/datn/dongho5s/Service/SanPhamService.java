@@ -9,10 +9,11 @@ import com.datn.dongho5s.Entity.SanPham;
 
 
 import java.util.List;
+import java.util.Set;
 
 public interface SanPhamService {
 
-    List<TimKiemResponse> getSanPhamByCondition(TimKiemRequest timKiemRequest);
+    Set<TimKiemResponse> getSanPhamByCondition(TimKiemRequest timKiemRequest);
 
     List<SanPham> getSPnew();
 

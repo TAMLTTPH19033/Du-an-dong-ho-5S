@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Set;
+
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/san-pham")
@@ -32,7 +34,7 @@ public class SanPhamRestController {
     @PostMapping("/tim-kiem")
     public ResponseEntity<?> TimKiemSanPham (@RequestBody TimKiemRequest timKiemRequest){
 //        try {
-            List<TimKiemResponse> result = sanPhamService.getSanPhamByCondition(timKiemRequest);
+            Set<TimKiemResponse> result = sanPhamService.getSanPhamByCondition(timKiemRequest);
             return ResponseEntity.status(HttpStatus.OK).body(result);
 //        }catch(Exception e){
 //            return ResponseEntity.status(HttpStatus.OK).body(e.getMessage());
