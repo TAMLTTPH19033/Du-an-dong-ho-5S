@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class TrangChuController {
     @GetMapping("/index")
     public String home(){
-
         return "userIndex";
     }
 }

@@ -1,6 +1,9 @@
 package com.datn.dongho5s.Entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,11 +13,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.Date;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Table(name = "khachhang")
 public class KhachHang {
     @Id
@@ -36,19 +42,13 @@ public class KhachHang {
     private String email;
 
     @Column(name = "NgaySinh")
-    private String ngaySinh;
+    private Date ngaySinh;
 
     @Column(name = "GioiTinh")
     private Integer gioiTinh;
 
-    @Column(name = "SoTienDaChi")
-    private Double soTienDaChi;
-
     @Column(name = "ThoiGianTaoTaiKhoan")
     private Timestamp thoiGianTaoTaiKhoan;
-
-    @Column(name = "TrangThaiTaiKhoan")
-    private Integer trangThaiTaiKhoan;
 
     @Column(name = "MatKhau")
     private String matKhau;
