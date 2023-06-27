@@ -13,6 +13,6 @@ import java.util.List;
 @Setter
 @Getter
 public class TrangChuResponse {
-    private List<SanPham> listSPbanChay;
+    private List<SanPhamDetailResponse> listSPbanChay;
     private List<SanPham> listSPmoiNhat;
 }

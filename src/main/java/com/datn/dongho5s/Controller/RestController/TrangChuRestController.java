@@ -2,6 +2,7 @@ package com.datn.dongho5s.Controller.RestController;
 
 import com.datn.dongho5s.Entity.ChiTietSanPham;
 import com.datn.dongho5s.Entity.SanPham;
+import com.datn.dongho5s.Response.SanPhamDetailResponse;
 import com.datn.dongho5s.Response.TrangChuResponse;
 import com.datn.dongho5s.Service.ChiTietSanPhamService;
 import com.datn.dongho5s.Service.SanPhamService;
@@ -25,9 +26,10 @@ public class TrangChuRestController {
     @ResponseBody
     @GetMapping("")
    public ResponseEntity<?> home(){
-         List<SanPham> listSPbanChay = sanPhamService.getSPchay();
+         List<SanPhamDetailResponse> listSPbanChay = sanPhamService.getSPchay();
          List<SanPham> listSPmoiNhat = sanPhamService.getSPnew();
         TrangChuResponse trangChuResponse = new TrangChuResponse(listSPbanChay,listSPmoiNhat);
+//        System.out.println(trangChuResponse);
         return ResponseEntity.status(HttpStatus.OK).body(trangChuResponse);
     }
 }

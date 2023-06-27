@@ -1,6 +1,9 @@
 package com.datn.dongho5s.Entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,6 +16,9 @@ import javax.persistence.Table;
 
 @Entity
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "chitietsanpham")
 public class ChiTietSanPham {
     @Id
@@ -59,4 +65,9 @@ public class ChiTietSanPham {
     @Column(name = "TrangThai")
     private Integer trangThai;
 
+    @Column(name = "GiaSanPham")
+    private Double giaSanPham;
+
+    @Column(name = "SoLuong")
+    private Integer soLuong;
 }
