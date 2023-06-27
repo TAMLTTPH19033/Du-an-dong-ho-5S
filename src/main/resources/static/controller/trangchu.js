@@ -5,9 +5,18 @@ myApp.controller("homeCtrl", function ($scope, $http) {
         //load product
         $http.get(`/api/index`).then((resp) => {
             $scope.hotSanPhams = resp.data.listSPbanChay;
-            console.log($scope.newSanPhams)
+            console.log(resp.data,"newSanPham")
             $scope.newSanPhams = resp.data.listSPmoiNhat;
         });
     };
     $scope.init();
+    $scope.getGiaNN = function (listCT){
+        console.log(listCT,"listCT")
+        listCT.sort(function(a, b){return a.giaSanPham - b.giaSanPham})
+        return listCT[0];
+    }
+    $scope.getGiaLN = function (listCT){
+        listCT.sort(function(a, b){return b.giaSanPham - a.giaSanPham})
+        return listCT[listCT.length-1];
+    }
 })

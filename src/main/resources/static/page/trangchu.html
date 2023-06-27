@@ -384,7 +384,8 @@
             <h5 class="card-title" style="color: #2a6496">{{item.maSanPham}}</h5>
             <p class="card-text">
               {{item.moTaSanPham}}
-            <h5 class="text-center" style="color: red">{{item.giaSanPham}} đ</h5>
+            <h5 class="text-center" style="color: red"> đ <span ng-disabled="getGiaNN(item.chiTietSanPhams)"></span> ~
+            <span ng-disabled="getGiaLN(item.chiTietSanPhams)"></span> </h5>
             </p>
           </div>
         </div>
