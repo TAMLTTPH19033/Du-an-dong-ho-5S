@@ -22,52 +22,52 @@ import javax.persistence.Table;
 @Table(name = "chitietsanpham")
 public class ChiTietSanPham {
     @Id
-    @Column(name = "IdChiTietSanPham")
+    @Column(name = "id_chi_tiet_san_pham")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idChiTietSanPham;
 
     @ManyToOne
-    @JoinColumn(name = "IdSanPham")
+    @JoinColumn(name = "id_san_pham")
     private SanPham sanPham;
 
     @ManyToOne
-    @JoinColumn(name = "IdDayDeo")
+    @JoinColumn(name = "id_day_deo")
     private DayDeo dayDeo;
 
     @ManyToOne
-    @JoinColumn(name = "IdKhuyenMai")
+    @JoinColumn(name = "id_khuyen_mai")
     private KhuyenMai khuyenMai;
 
     @ManyToOne
-    @JoinColumn(name = "IdMauSac")
+    @JoinColumn(name = "id_mau_sac")
     private MauSac mauSac;
 
     @ManyToOne
-    @JoinColumn(name = "IdVatLieu")
+    @JoinColumn(name = "id_vat_lieu")
     private VatLieu vatLieu;
 
     @ManyToOne
-    @JoinColumn(name = "IdKichCo")
+    @JoinColumn(name = "id_kich_co")
     private KichCo kichCo;
 
-    @Column(name = "ChieuDaiDayDeo")
+    @Column(name = "chieu_dai_day_deo")
     private Double chieuDaiDayDeo;
 
-    @Column(name = "DuongKinhMatDongHo")
+    @Column(name = "duong_kinh_mat_dong_ho")
     private Double duongKinhMatDongHo;
 
-    @Column(name = "DoDayMatDongHo")
+    @Column(name = "do_day_mat_dong_ho")
     private Double doDayMatDongHo;
 
-    @Column(name = "DoChiuNuoc")
+    @Column(name = "do_chiu_nuoc")
     private Integer doChiuNuoc;
 
-    @Column(name = "TrangThai")
+    @Column(name = "trang_thai")
     private Integer trangThai;
 
-    @Column(name = "GiaSanPham")
+    @Column(name = "gia_san_pham")
     private Double giaSanPham;
 
-    @Column(name = "SoLuong")
+    @Column(name = "so_luong")
     private Integer soLuong;
 }

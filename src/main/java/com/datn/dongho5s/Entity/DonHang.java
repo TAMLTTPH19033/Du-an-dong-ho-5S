@@ -1,7 +1,10 @@
 package com.datn.dongho5s.Entity;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,43 +19,46 @@ import java.sql.Timestamp;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Table(name = "donhang")
 public class DonHang {
     @Id
-    @Column(name = "IdDonHang")
+    @Column(name = "id_don_hang")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idDonHang;
 
     @ManyToOne
-    @JoinColumn(name = "IdNhanVien")
+    @JoinColumn(name = "id_nhan_vien")
     private NhanVien nhanVien;
 
     @ManyToOne
-    @JoinColumn(name = "IdKhachHang")
+    @JoinColumn(name = "id_khach_hang")
     private KhachHang khachHang;
 
-    @Column(name = "NgayTao")
+    @Column(name = "ngay_tao")
     private Timestamp ngayTao;
 
-    @Column(name = "NgayDatHang")
+    @Column(name = "ngay_dat_hang")
     private Date ngayDatHang;
 
-    @Column(name = "NgayGiaoHang")
+    @Column(name = "ngay_giao_hang")
     private Timestamp ngayGiaoHang;
 
-    @Column(name = "TongTien")
+    @Column(name = "tong_tien")
     private Double tongTien;
 
-    @Column(name = "TrangThaiDonHang")
+    @Column(name = "trang_thai_don_hang")
     private Integer trangThaiDonHang;
 
-    @Column(name = "DiaChiGiaoHang")
+    @Column(name = "dia_chi_giao_hang")
     private String diaChiGiaoHang;
 
-    @Column(name = "PhiVanChuyen")
+    @Column(name = "phi_van_chuyen")
     private Double phiVanChuyen;
 
-    @Column(name = "GhiChu")
+    @Column(name = "ghi_chu")
     private String ghiChu;
 
 }

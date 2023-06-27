@@ -1,6 +1,9 @@
 package com.datn.dongho5s.Entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,38 +17,41 @@ import java.util.Date;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Table(name = "chitietgiohang")
 public class ChiTietGioHang {
     @Id
-    @Column(name = "IdChiTietGioHang")
+    @Column(name = "id_chi_tiet_gio_hang")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idChiTietGioHang;
 
     @ManyToOne
-    @JoinColumn(name = "IdDonHang")
+    @JoinColumn(name = "id_don_hang")
     private DonHang donHang;
 
     @ManyToOne
-    @JoinColumn(name = "IdGioHang")
+    @JoinColumn(name = "id_gio_hang")
     private GioHang gioHang;
 
     @ManyToOne
-    @JoinColumn(name = "IdChiTietSanPham")
+    @JoinColumn(name = "id_chi_tiet_san_pham")
     private ChiTietSanPham chiTietSanPham;
 
-    @Column(name = "SoLuongSanPham")
+    @Column(name = "so_luong_san_pham")
     private Integer soLuongSanPham;
 
-    @Column(name = "GiaBan")
+    @Column(name = "gia_ban")
     private Double giaBan;
 
-    @Column(name = "ThanhTien")
+    @Column(name = "thanh_tien")
     private Double thanhTien;
 
-    @Column(name = "NgayTao")
+    @Column(name = "ngay_tao")
     private Date ngayTao;
 
-    @Column(name = "GhiChu")
+    @Column(name = "ghi_chu")
     private String ghiChu;
 
 

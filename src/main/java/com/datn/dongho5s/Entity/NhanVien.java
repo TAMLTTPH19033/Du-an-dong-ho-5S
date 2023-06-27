@@ -1,46 +1,52 @@
 package com.datn.dongho5s.Entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@AllArgsConstructor
+@Builder
 @Table(name = "NhanVien")
 public class NhanVien {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "Ho", length = 45,nullable = false)
+    @Column(name = "ho", length = 45,nullable = false)
     private String ho;
 
-    @Column(name = "Ten", length = 45,nullable = false)
+    @Column(name = "ten", length = 45,nullable = false)
     private String ten;
 
-    @Column(name = "GioiTinh")
+    @Column(name = "gioi_tinh")
     private Integer gioiTinh;
 
-    @Column(name = "NgaySinh")
+    @Column(name = "ngay_sinh")
     private String ngaySinh;
 
-    @Column(name = "DiaChi")
+    @Column(name = "dia_chi")
     private String diaChi;
 
-    @Column(name = "SoDienThoai")
+    @Column(name = "so_dien_thoai")
     private String soDienThoai;
 
-    @Column(name = "Email",length = 128,nullable = false,unique = true)
+    @Column(name = "email",length = 128,nullable = false,unique = true)
     private String email;
 
-    @Column(name = "MatKhau")
+    @Column(name = "mat_khau")
     private String matKhau;
 
     private boolean enabled;
 
-    @Column(name = "MoTa")
+    @Column(name = "moTa")
     private String moTa;
 
-    @Column(name = "Anh", length = 64)
+    @Column(name = "anh", length = 64)
     private String anh;
 
     @ManyToMany(fetch = FetchType.EAGER)

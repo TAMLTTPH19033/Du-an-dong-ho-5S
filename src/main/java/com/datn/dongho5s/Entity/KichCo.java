@@ -1,6 +1,9 @@
 package com.datn.dongho5s.Entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,26 +11,30 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.Date;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Table(name = "kichco")
 public class KichCo {
     @Id
-    @Column(name = "IdKichCo")
+    @Column(name = "id_kich_co")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idKichCo;
 
-    @Column(name = "TenKichCo")
+    @Column(name = "ten_kich_co")
     private String tenKichCo;
 
-    @Column(name = "MoTaKichCo")
+    @Column(name = "mo_ta_kich_co")
     private String moTaKichCo;
 
-    @Column(name = "NgayTaoKichCo")
-    private java.sql.Date ngayTaoKichCo;
+    @Column(name = "ngay_tao_kich_co")
+    private Date ngayTaoKichCo;
 
-    @Column(name = "NgayCapNhapKichCo")
-    private java.sql.Date ngayCapNhapKichCo;
+    @Column(name = "ngay_cap_nhat_kich_co")
+    private Date ngayCapNhapKichCo;
 
 }
