@@ -60,19 +60,21 @@ public class ThuongHieuServiceImpl implements ThuongHieuService {
     }
 
     @Override
-    public String checkUnique(Integer id, String ten) {
-        boolean isCreatingNew = (id == null || id == 0);
+    public boolean checkUnique(Integer id, String ten) {
         ThuongHieu thuongHieuTheoTen = thuongHieuRepository.findByTen(ten);
+        if (thuongHieuTheoTen == null) return true;
+        boolean isCreatingNew = (id == null);
+
 
         if (isCreatingNew) {
             if (thuongHieuTheoTen != null) {
-                return "Duplicate";
+                return false;
             }
         }else {
-                if (thuongHieuTheoTen != null && thuongHieuTheoTen.getIdThuongHieu() != id) {
-                    return "Duplicate";
+                if (thuongHieuTheoTen.getIdThuongHieu() != id) {
+                    return false;
                 }
             }
-            return "OK";
+            return true;
         }
     }
