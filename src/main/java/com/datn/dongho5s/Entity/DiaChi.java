@@ -20,23 +20,23 @@ import javax.persistence.Table;
 @Table(name = "diachi")
 public class DiaChi {
     @Id
-    @Column(name = "IdDiaChi")
+    @Column(name = "id_dia_chi")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idDiaChi;
 
-    @Column(name = "DiaChi")
+    @Column(name = "dia_chi")
     private String diaChi;
 
-    @Column(name = "MaBuuChinh")
+    @Column(name = "ma_buu_chinh")
     private Integer maBuuChinh;
 
-    @Column(name = "SoDienThoai")
+    @Column(name = "so_dien_thoai")
     private String soDienThoai;
 
-    @Column(name = "GhiChu")
+    @Column(name = "ghi_chu")
     private String ghiChu;
 
-    @Column(name = "TrangThaiMacDinh")
+    @Column(name = "trang_thai_mac_dinh")
     private Integer trangThaiMacDinh;
 
 }

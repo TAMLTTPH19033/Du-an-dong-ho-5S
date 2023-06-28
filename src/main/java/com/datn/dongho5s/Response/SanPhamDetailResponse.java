@@ -18,7 +18,7 @@ public class SanPhamDetailResponse {
     private Integer idSanPham;
     private ThuongHieu thuongHieu;
     private DanhMuc danhMuc;
-    private AnhSanPham anhSanPham;
+    private List<AnhSanPham> listAnhSanPham;
     private String tenSanPham;
     private String moTaSanPham;
     private Double giaSanPham;

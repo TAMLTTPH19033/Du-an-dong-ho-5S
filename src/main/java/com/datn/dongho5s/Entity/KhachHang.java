@@ -24,39 +24,39 @@ import java.util.Date;
 @Table(name = "khachhang")
 public class KhachHang {
     @Id
-    @Column(name = "IdKhachHang")
+    @Column(name = "id_khach_hang")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idKhachHang;
 
     @ManyToOne
-    @JoinColumn(name = "IdDiaChi")
+    @JoinColumn(name = "id_dia_chi")
     private DiaChi diaChi;
 
-    @Column(name = "TenKhachHang")
+    @Column(name = "Tten_khach_hang")
     private String tenKhachHang;
 
-    @Column(name = "SoDienThoai")
+    @Column(name = "so_dien_thoai")
     private String soDienThoai;
 
-    @Column(name = "Email")
+    @Column(name = "email")
     private String email;
 
-    @Column(name = "NgaySinh")
+    @Column(name = "ngay_sinh")
     private Date ngaySinh;
 
-    @Column(name = "GioiTinh")
+    @Column(name = "gioi_tinh")
     private Integer gioiTinh;
 
-    @Column(name = "ThoiGianTaoTaiKhoan")
+    @Column(name = "thoi_gian_tao_tai_khoan")
     private Timestamp thoiGianTaoTaiKhoan;
 
-    @Column(name = "MatKhau")
+    @Column(name = "mat_khau")
     private String matKhau;
 
-    @Column(name = "NgaySua")
+    @Column(name = "ngay_sua")
     private Date ngaySua;
 
-    @Column(name = "TrangThai")
+    @Column(name = "trang_thai")
     private Integer trangThai;
 
 }

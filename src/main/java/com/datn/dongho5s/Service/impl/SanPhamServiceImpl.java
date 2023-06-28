@@ -15,7 +15,10 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import com.datn.dongho5s.Entity.ChiTietSanPham;
 import com.datn.dongho5s.Repository.ChiTietSanPhamRepository;
+
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,10 +27,10 @@ public class SanPhamServiceImpl implements SanPhamService {
     SanPhamRepository sanPhamRepository;
 
     @Override
-    public List<TimKiemResponse> getSanPhamByCondition(TimKiemRequest timKiemRequest) {
+    public Set<TimKiemResponse> getSanPhamByCondition(TimKiemRequest timKiemRequest) {
 
         List<SanPham> listSanPham = sanPhamRepository.getListSanPhamByCondition(timKiemRequest);
-        List<TimKiemResponse> result = new ArrayList<>();
+        Set<TimKiemResponse> result = new HashSet<>();
         listSanPham.forEach(sanPham -> result.add(toTimKiemResponse(sanPham)));
         return result;
     }
@@ -37,7 +40,7 @@ public class SanPhamServiceImpl implements SanPhamService {
         result.setSanPhamID(sp.getIdSanPham());
         result.setTenSanPham(sp.getTenSanPham());
 //        result.setGiaSanPham(sp.getGiaSanPham());
-        result.setLinkAnh(sp.getAnhSanPham().getLink());
+        result.setLinkAnh(sp.getListAnhSanPham().get(0).getLink());
         return result;
     }
     @Override
@@ -62,7 +65,7 @@ public class SanPhamServiceImpl implements SanPhamService {
     private SanPhamDetailResponse toSanPhamRepository(SanPham sp){
         return SanPhamDetailResponse.builder()
                 .idSanPham(sp.getIdSanPham())
-                .anhSanPham(sp.getAnhSanPham())
+                .listAnhSanPham(sp.getListAnhSanPham())
                 .giaSanPham(sp.getGiaSanPham())
                 .moTaSanPham(sp.getMoTaSanPham())
                 .tenSanPham(sp.getMoTaSanPham())

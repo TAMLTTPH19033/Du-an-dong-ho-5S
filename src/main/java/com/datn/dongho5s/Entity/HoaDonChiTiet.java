@@ -1,6 +1,9 @@
 package com.datn.dongho5s.Entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,31 +17,34 @@ import java.sql.Timestamp;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Table(name = "hoadonchitiet")
 public class HoaDonChiTiet {
     @Id
-    @Column(name = "IdHoaDonChiTiet")
+    @Column(name = "id_hoa_don_chi_tiet")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idHoaDonChiTiet;
 
     @ManyToOne
-    @JoinColumn(name = "IdDonHang")
+    @JoinColumn(name = "id_don_hang")
     private DonHang donHang;
 
     @ManyToOne
-    @JoinColumn(name = "IdChiTietSanPham")
+    @JoinColumn(name = "id_chi_tiet_san_pham")
     private ChiTietSanPham chiTietSanPham;
 
-    @Column(name = "NgayTao")
+    @Column(name = "ngay_tao")
     private Timestamp ngayTao;
 
-    @Column(name = "SoLuong")
+    @Column(name = "so_luong")
     private Integer soLuong;
 
-    @Column(name = "GiaBan")
+    @Column(name = "gia_ban")
     private Integer giaBan;
 
-    @Column(name = "ThanhTien")
+    @Column(name = "thanh_tien")
     private Double thanhTien;
 
 }

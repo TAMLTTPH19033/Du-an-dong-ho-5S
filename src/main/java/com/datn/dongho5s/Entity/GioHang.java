@@ -1,7 +1,10 @@
 package com.datn.dongho5s.Entity;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,34 +19,37 @@ import java.util.Date;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Table(name = "giohang")
 public class GioHang {
     @Id
-    @Column(name = "IdGioHang")
+    @Column(name = "id_gio_hang")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idGioHang;
 
     @ManyToOne
-    @JoinColumn(name = "IdNhanVien")
+    @JoinColumn(name = "id_nhan_vien")
     private NhanVien nhanVien;
 
     @ManyToOne
-    @JoinColumn(name = "IdKhachHang")
+    @JoinColumn(name = "id_khach_hang")
     private KhachHang khachHang;
 
-    @Column(name = "NgayTaoGioHang")
+    @Column(name = "ngay_tao_gio_hang")
     private Date ngayTaoGioHang;
 
-    @Column(name = "TrangThaiGioHang")
+    @Column(name = "trang_thai_gio_hang")
     private Integer trangThaiGioHang;
 
-    @Column(name = "GhiChu")
+    @Column(name = "ghi_chu")
     private String ghiChu;
 
-    @Column(name = "ThoiGianCapNhapGioHang")
+    @Column(name = "Tthoi_gian_cap_nhap_don_hang")
     private Timestamp thoiGianCapNhapGioHang;
 
-    @Column(name = "NgaySua")
+    @Column(name = "ngay_sua")
     private Date ngaySua;
 
 }

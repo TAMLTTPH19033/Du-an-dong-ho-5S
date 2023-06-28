@@ -1,10 +1,15 @@
 package com.datn.dongho5s.Entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Builder
 @Table(name = "danhmuc")
 public class DanhMuc {
     @Id
@@ -15,7 +20,7 @@ public class DanhMuc {
     @Column(name = "ten",length = 128, nullable = false, unique = true)
     private String ten;
 
-    @Column(nullable = false)
+    @Column(name = "enabled",nullable = false)
     private boolean enabled;
 
     public DanhMuc() {

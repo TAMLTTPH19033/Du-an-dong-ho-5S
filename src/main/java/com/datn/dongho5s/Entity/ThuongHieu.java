@@ -1,6 +1,9 @@
 package com.datn.dongho5s.Entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +14,7 @@ import javax.persistence.Table;
 
 @Entity
 @Data
+@Builder
 @Table(name = "thuonghieu")
 public class ThuongHieu {
     @Id
@@ -18,8 +22,8 @@ public class ThuongHieu {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idThuongHieu;
 
-    @Column(name = "ten_thuonghieu",length = 128, nullable = false, unique = true)
-    private String ten;
+    @Column(name = "ten_thuong_hieu",length = 128, nullable = false, unique = true)
+    private String tenThuongHieu;
 
     @Column(name = "mo_ta_thuong_hieu",length = 128, nullable = false, unique = true)
     private String moTaThuongHieu;
@@ -32,7 +36,7 @@ public class ThuongHieu {
 
     public ThuongHieu(Integer idThuongHieu, String tenThuonghieu, String moTaThuongHieu, boolean enabled) {
         this.idThuongHieu = idThuongHieu;
-        this.ten = tenThuonghieu;
+        this.tenThuongHieu = tenThuonghieu;
         this.moTaThuongHieu = moTaThuongHieu;
         this.enabled = enabled;
     }
@@ -46,11 +50,11 @@ public class ThuongHieu {
     }
 
     public String getTenThuonghieu() {
-        return ten;
+        return tenThuongHieu;
     }
 
     public void setTenThuonghieu(String tenThuonghieu) {
-        this.ten = tenThuonghieu;
+        this.tenThuongHieu = tenThuonghieu;
     }
 
     public String getMoTaThuongHieu() {

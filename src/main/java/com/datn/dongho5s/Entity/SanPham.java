@@ -2,8 +2,11 @@ package com.datn.dongho5s.Entity;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.apache.commons.lang3.builder.EqualsExclude;
 
@@ -22,35 +25,34 @@ import java.util.List;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Table(name = "sanpham")
 public class SanPham {
     @Id
-    @Column(name = "IdSanPham")
+    @Column(name = "id_san_pham")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idSanPham;
 
     @ManyToOne
-    @JoinColumn(name = "IdThuongHieu")
+    @JoinColumn(name = "id_thuong_hieu")
     private ThuongHieu thuongHieu;
 
     @ManyToOne
-    @JoinColumn(name = "IdDanhMuc")
+    @JoinColumn(name = "id_danh_muc")
     private DanhMuc danhMuc;
 
-    @ManyToOne
-    @JoinColumn(name = "IdAnhSanPham")
-    private AnhSanPham anhSanPham;
-
-    @Column(name = "TenSanPham")
+    @Column(name = "ten_san_pham")
     private String tenSanPham;
 
-    @Column(name = "MoTaSanPham")
+    @Column(name = "mo_ta_san_pham")
     private String moTaSanPham;
 
-    @Column(name = "GiaSanPham")
+    @Column(name = "gia_san_pham")
     private Double giaSanPham;
 
-    @Column(name = "TrangThai")
+    @Column(name = "trang_thai")
     private Integer trangThai;
 
     @OneToMany( fetch = FetchType.EAGER,mappedBy = "sanPham", cascade = CascadeType.ALL)
@@ -58,5 +60,9 @@ public class SanPham {
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private List<ChiTietSanPham> listChiTietSanPham ;
+
+
+    @OneToMany(mappedBy = "sanPham")
+    private List<AnhSanPham> listAnhSanPham;
 
 }

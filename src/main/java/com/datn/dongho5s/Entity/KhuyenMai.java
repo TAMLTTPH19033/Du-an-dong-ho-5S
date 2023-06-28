@@ -1,6 +1,9 @@
 package com.datn.dongho5s.Entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,26 +15,32 @@ import java.util.Date;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Table(name = "khuyenmai")
 public class KhuyenMai {
     @Id
-    @Column(name = "IdKhuyenMai")
+    @Column(name = "id_khuyen_mai")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idKhuyenMai;
 
-    @Column(name = "TenKhuyenMai")
+    @Column(name = "ten_khuyen_mai")
     private String tenKhuyenMai;
 
-    @Column(name = "MoTaKhuyenMai")
+    @Column(name = "mo_ta_khuyen_mai")
     private String moTaKhuyenMai;
 
-    @Column(name = "NgayBatDau")
+    @Column(name = "ngay_bat_dau")
     private Date ngayBatDau;
 
-    @Column(name = "NgayKetThuc")
+    @Column(name = "ngay_ket_thuc")
     private Date ngayKetThuc;
 
-    @Column(name = "NgaySua")
+    @Column(name = "ngay_sua")
     private Date ngaySua;
+
+    @Column(name = "enabled",nullable = false)
+    private boolean enabled;
 
 }
