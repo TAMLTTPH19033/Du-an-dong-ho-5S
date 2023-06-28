@@ -28,10 +28,6 @@ public class ChiTietGioHang {
     private Integer idChiTietGioHang;
 
     @ManyToOne
-    @JoinColumn(name = "id_don_hang")
-    private DonHang donHang;
-
-    @ManyToOne
     @JoinColumn(name = "id_gio_hang")
     private GioHang gioHang;
 
