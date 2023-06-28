@@ -34,7 +34,7 @@ public class DayDeo {
     @Column(name = "chat_lieu")
     private String chatLieu;
 
-    @Column(nullable = false)
+    @Column(name = "enabled",nullable = false)
     private boolean enabled;
 
     public DayDeo() {

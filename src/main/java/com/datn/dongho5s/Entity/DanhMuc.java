@@ -20,7 +20,7 @@ public class DanhMuc {
     @Column(name = "ten",length = 128, nullable = false, unique = true)
     private String ten;
 
-    @Column(nullable = false)
+    @Column(name = "enabled",nullable = false)
     private boolean enabled;
 
     public DanhMuc() {

@@ -37,4 +37,7 @@ public class KichCo {
     @Column(name = "ngay_cap_nhat_kich_co")
     private Date ngayCapNhapKichCo;
 
+    @Column(name = "enabled",nullable = false)
+    private boolean enabled;
+
 }

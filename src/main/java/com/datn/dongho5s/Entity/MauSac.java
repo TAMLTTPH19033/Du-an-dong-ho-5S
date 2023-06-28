@@ -27,4 +27,6 @@ public class MauSac {
     @Column(name = "ten_mau_sac")
     private String tenMauSac;
 
+    @Column(name = "enabled",nullable = false)
+    private boolean enabled;
 }

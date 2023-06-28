@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Entity
 @AllArgsConstructor
-@NoArgsConstructor
+//@NoArgsConstructor
 @Builder
 @Table(name = "chucvu")
 public class ChucVu {

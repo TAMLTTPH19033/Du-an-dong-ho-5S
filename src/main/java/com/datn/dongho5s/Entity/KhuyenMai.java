@@ -40,4 +40,7 @@ public class KhuyenMai {
     @Column(name = "ngay_sua")
     private Date ngaySua;
 
+    @Column(name = "enabled",nullable = false)
+    private boolean enabled;
+
 }

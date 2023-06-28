@@ -30,4 +30,6 @@ public class VatLieu {
     @Column(name = "mo_ta_vat_lieu")
     private String moTaVatLieu;
 
+    @Column(name = "enabled",nullable = false)
+    private boolean enabled;
 }

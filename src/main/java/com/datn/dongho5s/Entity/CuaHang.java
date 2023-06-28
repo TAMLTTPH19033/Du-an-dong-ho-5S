@@ -39,4 +39,6 @@ public class CuaHang {
     @Column(name = "quoc_gia")
     private String quocGia;
 
+    @Column(name = "enabled",nullable = false)
+    private boolean enabled;
 }

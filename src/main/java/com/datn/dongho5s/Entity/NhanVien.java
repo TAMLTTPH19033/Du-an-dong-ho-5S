@@ -41,6 +41,7 @@ public class NhanVien {
     @Column(name = "mat_khau")
     private String matKhau;
 
+    @Column(nullable = false)
     private boolean enabled;
 
     @Column(name = "moTa")
