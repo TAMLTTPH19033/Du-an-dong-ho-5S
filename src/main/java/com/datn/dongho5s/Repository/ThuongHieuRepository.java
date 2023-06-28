@@ -16,10 +16,10 @@ public interface ThuongHieuRepository extends JpaRepository<ThuongHieu,Integer> 
     @Modifying
     void updateEnabledStatus(Integer id, boolean enabled);
 
-    @Query("SELECT th FROM ThuongHieu th WHERE UPPER(CONCAT(th.idThuongHieu, ' ', th.ten, ' ', th.moTaThuongHieu)) LIKE %?1%")
+    @Query("SELECT th FROM ThuongHieu th WHERE UPPER(CONCAT(th.idThuongHieu, ' ', th.tenThuongHieu, ' ', th.moTaThuongHieu)) LIKE %?1%")
     public Page<ThuongHieu> findAll(String keyword, Pageable pageable);
 
-    public ThuongHieu findByTen(String ten);
+    public ThuongHieu findByTenThuongHieu(String ten);
 
 
 }

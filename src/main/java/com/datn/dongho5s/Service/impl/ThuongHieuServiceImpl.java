@@ -25,7 +25,7 @@ public class ThuongHieuServiceImpl implements ThuongHieuService {
 
     @Override
     public List<ThuongHieu> getAllThuongHieu() {
-        return thuongHieuRepository.findAll(Sort.by("ten").ascending());
+        return thuongHieuRepository.findAll(Sort.by("tenThuongHieu").ascending());
     }
 
     @Override
@@ -61,7 +61,7 @@ public class ThuongHieuServiceImpl implements ThuongHieuService {
 
     @Override
     public boolean checkUnique(Integer id, String ten) {
-        ThuongHieu thuongHieuTheoTen = thuongHieuRepository.findByTen(ten);
+        ThuongHieu thuongHieuTheoTen = thuongHieuRepository.findByTenThuongHieu(ten);
         if (thuongHieuTheoTen == null) return true;
         boolean isCreatingNew = (id == null);
 

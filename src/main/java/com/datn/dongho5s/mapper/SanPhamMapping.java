@@ -9,7 +9,7 @@ public class SanPhamMapping {
     public  static SanPhamDetailResponse mapEntitytoResponse(SanPham sp){
         SanPhamDetailResponse sanPhamDetailResponse =  SanPhamDetailResponse.builder()
                 .idSanPham(sp.getIdSanPham())
-                .anhSanPham(sp.getAnhSanPham())
+                .listAnhSanPham(sp.getListAnhSanPham())
                 .giaSanPham(sp.getGiaSanPham())
                 .moTaSanPham(sp.getMoTaSanPham())
                 .tenSanPham(sp.getMoTaSanPham())
