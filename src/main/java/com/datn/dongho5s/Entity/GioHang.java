@@ -30,10 +30,6 @@ public class GioHang {
     private Integer idGioHang;
 
     @ManyToOne
-    @JoinColumn(name = "id_nhan_vien")
-    private NhanVien nhanVien;
-
-    @ManyToOne
     @JoinColumn(name = "id_khach_hang")
     private KhachHang khachHang;
 
