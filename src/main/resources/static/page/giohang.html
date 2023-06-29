@@ -22,7 +22,7 @@
                     </thead>
                     <tbody>
                     <tr ng-repeat="item in cart" style="vertical-align: baseline" ng-init = "setTotals(item)">
-                        <td> <a href="#"> <img src="../assets/images/{{item.chiTietSanPham.sanPham.anhSanPham.link}}" alt="" width="60px" ></a>  </td>
+                        <td> <a href="#"> <img src="../assets/images/{{item.chiTietSanPham.sanPham.listAnhSanPham[0].link}}" alt="" width="60px" ></a>  </td>
                         <td>{{item.chiTietSanPham.sanPham.tenSanPham}}</td>
                         <td>
                             <span class="price">{{item.giaBan}}</span> &#273;

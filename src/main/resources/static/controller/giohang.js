@@ -52,14 +52,10 @@ myApp.controller("cartCtrl", function ($scope, $http) {
     };
     $scope.tang = function (item) {
         if (item) {
-            // if (item.soLuongSanPham < 1) {
-            //     Swal.fire({
-            //         icon: "error",
-            //         title: "Số lượng > 0",
-            //         timer: 1600,
-            //     });
-            //     return;
-            // }
+            if (item.soLuongSanPham < 1) {
+               $scope.remove(item);
+               return;
+            }
             item.soLuongSanPham = Number(item.soLuongSanPham) + 1;
             $scope.update(item);
             $scope.total += item.giaBan ;
