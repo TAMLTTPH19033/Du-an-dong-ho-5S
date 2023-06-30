@@ -5,25 +5,39 @@
 <div class="container-fluid">
     <div th:replace="fragment/navigation:: menu"></div>
     <div>
-        <h2>Quản lý Thương Hiệu | [[${pageTitle}]]</h2>
+        <h2>Quản lý Khuyến Mãi | [[${pageTitle}]]</h2>
     </div>
 
-    <form th:action="@{/brands/save}" method="post" style="max-width: 500px;margin: 0 auto"
-          enctype="multipart/form-data"
-          th:object="${thuongHieu}" onsubmit="return checkBrandNameUnique(this);">
-        <input type="hidden" th:field="*{idThuongHieu}"/>
+    <form th:action="@{/discounts/save}" method="post" style="max-width: 500px;margin: 0 auto"
+          th:object="${khuyenMai}" onsubmit="return checkDiscountNameUnique(this);">
+        <input type="hidden" th:field="*{idKhuyenMai}"/>
         <div class="border border-secondary rounded p-3">
             <div class="form-group-row">
-                <label class="col-sm-4 col-form-label">Tên Thương Hiệu:</label>
+                <label class="col-sm-4 col-form-label">Tên Khuyến Mãi:</label>
                 <div class="col-sm-12">
-                    <input type="text" class="form-control" th:field="*{tenThuongHieu}" id="tenThuongHieuInput" required minlength="3" maxlength="128"/>
+                    <input type="text" class="form-control" th:field="*{tenKhuyenMai}" id="tenDanhMucInput" required minlength="3" maxlength="128"/>
                 </div>
             </div>
 
             <div class="form-group-row">
-                <label class="col-sm-4 col-form-label">Mô Tả Thương Hiệu:</label>
+                <label class="col-sm-4 col-form-label">Mô tả khuyến mãi:</label>
                 <div class="col-sm-12">
-                    <input type="text" class="form-control" th:field="*{moTaThuongHieu}" required minlength="3" maxlength="128"/>
+                    <input class="form-control" th:field="*{moTaKhuyenMai}" required minlength="3" maxlength="256" />
+                </div>
+            </div>
+
+            <div class="form-group-row">
+                <label class="col-sm-4 col-form-label">Ngày bắt đầu:</label>
+                <div class="col-sm-12">
+                    <input type="date" class="form-control" th:field="*{ngayBatDau}" required id="ngayBatDauInput" onchange="validateDate()" min="2010-01-01" max="2030-12-31"/>
+                </div>
+            </div>
+
+            <div class="form-group-row">
+                <label class="col-sm-4 col-form-label">Ngày kết thúc:</label>
+                <div class="col-sm-12">
+                    <input type="date" class="form-control" th:field="*{ngayKetThuc}" required id="ngayKetThucInput" onchange="validateDate()" min="2010-01-01" max="2030-12-31"/>
+                    <span class="text-danger" id="endDateError"></span>
                 </div>
             </div>
 
@@ -63,16 +77,35 @@
 </div>
 
 <script type="text/javascript">
-    moduleURL= "[[@{/brands}]]";
+    moduleURL= "[[@{/discounts}]]";
 
-    function checkBrandNameUnique(form) {
-        var url = "[[@{/brands/check_name}]]";
-        var thuongHieuName = form.tenThuongHieu.value;
-        var thuongHieuId = form.idThuongHieu.value;
+    function validateDate() {
+        var startDate = new Date(document.getElementById("ngayBatDauInput").value);
+        var endDate = new Date(document.getElementById("ngayKetThucInput").value);
+        var endDateError = document.getElementById("endDateError");
+
+        if (startDate >= endDate) {
+            endDateError.innerText = "Ngày kết thúc phải lớn hơn ngày bắt đầu";
+            return false;
+        }
+
+        endDateError.innerText = ""; // Xóa thông báo lỗi nếu ngày hợp lệ
+        return true;
+    }
+
+
+    function checkDiscountNameUnique(form) {
+        var url = "[[@{/discounts/check_name}]]";
+        var khuyenMaiName = form.tenKhuyenMai.value;
+        var khuyenMaiId = form.idKhuyenMai.value;
         var csrfValue = $("input[name='_csrf']").val();
+
+        if (!validateDate()) {
+            return false;
+        }
         var params = {
-            id: thuongHieuId,
-            ten: thuongHieuName,
+            id: khuyenMaiId,
+            ten: khuyenMaiName,
             _csrf: csrfValue
         };
 

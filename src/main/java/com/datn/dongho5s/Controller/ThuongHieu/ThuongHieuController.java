@@ -29,7 +29,7 @@ public class ThuongHieuController {
 
     @GetMapping("/brands")
     public String listFirstPage(Model model){
-        return listByPage(1,model,"ten","asc",null);
+        return listByPage(1,model,"tenThuongHieu","asc",null);
     }
 
     @GetMapping("/brands/page/{pageNum}")
