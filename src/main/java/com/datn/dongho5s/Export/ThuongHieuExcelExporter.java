@@ -76,7 +76,7 @@ public class ThuongHieuExcelExporter extends AbstractExporter{
             Row row = sheet.createRow(rowIndex++);
             int columnIndex = 0;
             createCell(row, columnIndex++, thuongHieu.getIdThuongHieu(), cellStyle);
-            createCell(row, columnIndex++, thuongHieu.getTenThuonghieu(), cellStyle);
+            createCell(row, columnIndex++, thuongHieu.getTenThuongHieu(), cellStyle);
             createCell(row, columnIndex++, thuongHieu.getMoTaThuongHieu(), cellStyle);
             createCell(row, columnIndex++, thuongHieu.isEnabled(), cellStyle);
 
