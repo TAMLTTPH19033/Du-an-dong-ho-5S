@@ -8,6 +8,7 @@ myApp.controller(
     $scope.chiTietSanPham;
     $scope.sanPhamDetail;
     $scope.isFirstRun = 0;
+    $scope.soLuong =1;
 
     var setDayDeo = new Set();
     var setVatLieu = new Set();
@@ -62,6 +63,7 @@ myApp.controller(
     $scope.$watchGroup(
       ["selectedDD", "selectedVL", "selectedMS", "selectedKC"],
       function (newValues, oldValues) {
+          $scope.soLuong=1;
         $scope.isFirstRun++;
         if ($scope.isFirstRun <= 1) {
           return;
@@ -108,6 +110,30 @@ myApp.controller(
       console.log($scope.setAvaiableVatLieu);
       console.log($scope.setAvaiableMauSac);
       console.log($scope.setAvaiableKichCo);
-    };
+    }
+
+     $scope.addToCart = function (){
+
+       var item= {
+         chiTietSanPham : $scope.chiTietSanPham,
+          soLuong :  $scope.soLuong
+       }
+         console.log(item);
+        if($scope.chiTietSanPham){
+          //api add gio hang
+                $http.post(`/api/giohang/addToCart`,item)
+                    .then(resp =>{
+                       console.log(resp)
+                        alert("Them thanh cong");
+                    })
+                    .catch(error =>{
+                        alert("Loi roi",error);
+                    })
+        }else{
+            alert("Khong có sp")
+            return
+        }
+
+        }
   }
 );

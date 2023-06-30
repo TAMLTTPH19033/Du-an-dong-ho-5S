@@ -7,6 +7,8 @@ myApp.controller("cartCtrl", function ($scope, $http) {
         $http.get(`/api/giohang/`).then((resp) => {
             $scope.cart = resp.data;
             // console.log($scope.cart);
+        }).catch(error =>{
+            alert("Loi roi",error);
         });
     };
     $scope.index();

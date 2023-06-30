@@ -87,23 +87,36 @@
               </div>
             </div>
           </div>
-          
-          <div class="text-center" style="margin-top: 50px;margin-left: 220px;">
-            <nav aria-label="...">
-              <ul class="pagination pagination-lg">
-                <li class="page-item" aria-current="page">
-                  <a class="page-link" href="#"><i style="color: #424242;" class="fas fa-minus"></i></a>
-                </li>
-                <li class="page-item"><a style="color: #424242;" class="page-link" href="#">2</a></li>
-                <li class="page-item">
-                  <a class="page-link" href="#"><i style="color: #424242;" class="fas fa-plus"></i></a>
-                </li>
-              </ul>
-            </nav>
-          </div>
-          
+<!--          -->
+<!--          <div class="text-center" style="margin-top: 50px;margin-left: 220px;">-->
+<!--            <nav aria-label="...">-->
+<!--              <ul class="pagination pagination-lg">-->
+<!--                <li class="page-item" aria-current="page">-->
+<!--                  <a class="page-link" ><i style="color: #424242;" class="fas fa-minus"></i></a>-->
+<!--                </li>-->
+<!--                <li class="page-item"><input style="color: #424242; width: 50px" class="page-link" type="text" name="soLuong"/></li>-->
+<!--                <li class="page-item">-->
+<!--                  <a class="page-link" ><i style="color: #424242;" class="fas fa-plus"></i></a>-->
+<!--                </li>-->
+<!--              </ul>-->
+<!--            </nav>-->
+<!--          </div>-->
+<!--          -->
+          <input class="minus is-form" type="button" value="-" style="width:30px" ng-click="giam(item)"/>
+          <input
+                  aria-label="quantity"
+                  class="input-qty"
+                  max=10
+                  min=1
+                  ng-model="soLuong"
+                  name="soLuong"
+                  type="text"
+                  value="1"
+                  style="width:30px"
+          />
+          <input class="plus is-form" type="button" value="+" style="width:30px" ng-click="tang(item)"/>
           <div>
-            <button type="button" class="btn btn-secondary"onclick="addToCart(p)">Thêm Vào Giỏ Hàng</button>
+            <button type="button" class="btn btn-secondary" ng-click="addToCart()">Thêm Vào Giỏ Hàng</button>
             <button type="button" class="btn btn-danger">Mua Ngay</button>
           </div>
           </div>
