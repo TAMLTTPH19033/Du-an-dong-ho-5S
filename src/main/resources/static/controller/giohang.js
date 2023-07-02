@@ -2,9 +2,10 @@ myApp.controller("cartCtrl", function ($scope, $http) {
     $scope.cart = [];
     $scope.total = 0;
     $scope.totalSp = 0;
+    $scope.idkhachHang = Number(1);
     //load cart
     $scope.index = function () {
-        $http.get(`/api/giohang/`).then((resp) => {
+        $http.get(`/api/giohang/1`).then((resp) => {
             $scope.cart = resp.data;
             // console.log($scope.cart);
         }).catch(error =>{
@@ -97,6 +98,7 @@ myApp.controller("cartCtrl", function ($scope, $http) {
         if (item) {
             $scope.delete(item);
             $scope.total -= item.giaBan * item.soLuongSanPham;
+            $scope.totalSp -= item.soLuongSanPham;
             // console.log($scope.cart);
         }
     };
@@ -105,6 +107,8 @@ myApp.controller("cartCtrl", function ($scope, $http) {
         if ($scope.cart) {
             $scope.deleteAll($scope.cart);
             $scope.total = 0;
+            $scope.totalSp = 0;
+
             // console.log($scope.cart);
         }
     };

@@ -5,6 +5,7 @@ import com.datn.dongho5s.Request.CartRequest;
 import com.datn.dongho5s.Response.ChiTietGioHangResponse;
 import com.datn.dongho5s.Service.ChiTietGioHangService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.websocket.server.PathParam;
 import java.util.List;
 
 @CrossOrigin("*")
@@ -26,9 +28,10 @@ public class GioHangRestController {
     @Autowired
     ChiTietGioHangService chiTietGioHangService;
 
-    @GetMapping("")
-    public ResponseEntity<?> getchiTiet(){
-        List<ChiTietGioHangResponse> chiTietGioHangList = chiTietGioHangService.getChiTietGioHang();
+    @GetMapping("/{idKhachHang}")
+    public ResponseEntity<?> getchiTiet(@PathVariable("idKhachHang") Integer idKhachHang){
+        System.out.println(idKhachHang+"id");
+        List<ChiTietGioHangResponse> chiTietGioHangList = chiTietGioHangService.getChiTietGioHang(idKhachHang);
         return ResponseEntity.status(HttpStatus.OK).body(chiTietGioHangList);
     }
 
@@ -50,7 +53,7 @@ public class GioHangRestController {
     @PostMapping("/addToCart")
     public ResponseEntity<?> addGioHang(@RequestBody CartRequest cartResponse){
         System.out.println(cartResponse + "chiTiet");
-        return ResponseEntity.status(HttpStatus.OK).body(chiTietGioHangService.addToCart(cartResponse.getChiTietSanPham(), cartResponse.getSoLuong()));
+        return ResponseEntity.status(HttpStatus.OK).body(chiTietGioHangService.addToCart(cartResponse.getChiTietSanPham(), cartResponse.getSoLuong(), cartResponse.getIdKhachHang()));
     }
 
 }

@@ -13,4 +13,5 @@ import lombok.NoArgsConstructor;
 public class CartRequest {
     ChiTietSanPhamRequest chiTietSanPham;
     Integer soLuong;
+    Integer idKhachHang;
 }

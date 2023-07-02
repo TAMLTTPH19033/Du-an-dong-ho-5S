@@ -34,8 +34,8 @@ public class ChiTietGioHangServiceImpl implements ChiTietGioHangService {
     KhachHangRepository khachHangRepository;
 
     @Override
-    public List<ChiTietGioHangResponse> getChiTietGioHang() {
-        List<ChiTietGioHang> chiTietGioHangList = chiTietGioHangRepository.giohangChiTiet(1);
+    public List<ChiTietGioHangResponse> getChiTietGioHang( Integer idKhachHang) {
+        List<ChiTietGioHang> chiTietGioHangList = chiTietGioHangRepository.giohangChiTiet(idKhachHang);
         List<ChiTietGioHangResponse> responseList = chiTietGioHangList.stream().map(ChiTietGioHangMapping::mapEntitytoResponse).collect(Collectors.toList());
         return responseList;
     }
@@ -52,8 +52,8 @@ public class ChiTietGioHangServiceImpl implements ChiTietGioHangService {
     }
 
     @Override
-    public ChiTietGioHangResponse add(ChiTietSanPhamRequest chiTietSanPhamRequest,Integer soLuong) {
-        KhachHang khachHang = khachHangRepository.findById(1).get();
+    public ChiTietGioHangResponse add(ChiTietSanPhamRequest chiTietSanPhamRequest,Integer soLuong, Integer idKhachHang) {
+        KhachHang khachHang = khachHangRepository.findById(idKhachHang).get();
         GioHang gioHang = GioHang.builder()
                 .idGioHang(1)
                 .ngayTaoGioHang(new Date())
@@ -78,11 +78,11 @@ public class ChiTietGioHangServiceImpl implements ChiTietGioHangService {
     }
 
     @Override
-    public ChiTietGioHangResponse addToCart(ChiTietSanPhamRequest chiTietSanPhamRequest, Integer  soLuong) {
+    public ChiTietGioHangResponse addToCart(ChiTietSanPhamRequest chiTietSanPhamRequest, Integer  soLuong, Integer idKhachHang) {
         try {
-            GioHang gioHang = gioHangRepository.findGioHang(1);
+            GioHang gioHang = gioHangRepository.findGioHang(idKhachHang);
             if (gioHang == null) {
-                return add(chiTietSanPhamRequest,soLuong);
+                return add(chiTietSanPhamRequest,soLuong,idKhachHang);
             } else {
                 ChiTietSanPham chiTietSanPham = ChiTietSanPhamMapping.mapRequestToEntity(chiTietSanPhamRequest);
                 ChiTietGioHang chiTietGioHang = chiTietGioHangRepository.findChiTietGioHangByCTSP(chiTietSanPhamRequest.getIdChiTietSanPham());

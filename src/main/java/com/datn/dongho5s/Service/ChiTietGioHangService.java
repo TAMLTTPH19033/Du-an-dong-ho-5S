@@ -8,13 +8,13 @@ import java.util.List;
 
 public interface ChiTietGioHangService {
 
-    List<ChiTietGioHangResponse> getChiTietGioHang();
+    List<ChiTietGioHangResponse> getChiTietGioHang( Integer idKhachhnag);
 
     ChiTietGioHangResponse update(ChiTietGioHangRequest chiTietGioHangRequest);
 
     void delete(Integer id);
     void deleteAll();
-    ChiTietGioHangResponse add(ChiTietSanPhamRequest sanPhamDetailRequest, Integer  soLuong);
+    ChiTietGioHangResponse add(ChiTietSanPhamRequest sanPhamDetailRequest, Integer  soLuong, Integer idKhachHang);
 
-    ChiTietGioHangResponse addToCart(ChiTietSanPhamRequest sanPhamDetailRequest, Integer  soLuong);
+    ChiTietGioHangResponse addToCart(ChiTietSanPhamRequest sanPhamDetailRequest, Integer  soLuong, Integer idKhachHang);
 }
