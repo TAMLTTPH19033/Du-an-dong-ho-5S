@@ -21,5 +21,9 @@ public interface KhuyenMaiService {
 
     public KhuyenMai get(Integer id) throws KhuyenMaiNotFoundException, Exception;
 
-    public boolean checkUnique(Integer id, String ten);
+    public boolean checkUnique(Integer id, String ten, String ma);
+
+//    boolean checkUniqueMa(Integer id, String ma);
+
+
 }
