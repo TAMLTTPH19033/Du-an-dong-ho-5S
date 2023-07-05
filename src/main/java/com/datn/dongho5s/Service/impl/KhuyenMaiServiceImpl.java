@@ -12,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import java.util.UUID;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -62,20 +63,28 @@ public class KhuyenMaiServiceImpl implements KhuyenMaiService {
     }
 
     @Override
-    public boolean checkUnique(Integer id, String ten) {
+    public boolean checkUnique(Integer id, String ten, String ma) {
         KhuyenMai khuyenMaiTheoTen = repo.findByTenKhuyenMai(ten);
-        if(khuyenMaiTheoTen == null) return true;
-        boolean isCreatingNew = (id == null);
-        if(isCreatingNew){
-            if(khuyenMaiTheoTen != null){
-                return false;
-            }
-        }else{
-            if(khuyenMaiTheoTen.getIdKhuyenMai() != id){
+        KhuyenMai khuyenMaiTheoMa = repo.findByMaKhuyenMai(ma);
+
+        if (khuyenMaiTheoTen != null) {
+            // Kiểm tra tính duy nhất của tên khuyến mãi
+            boolean isCreatingNew = (id == null);
+            if (isCreatingNew || !khuyenMaiTheoTen.getIdKhuyenMai().equals(id)) {
                 return false;
             }
         }
+
+        if (khuyenMaiTheoMa != null) {
+            // Kiểm tra tính duy nhất của mã khuyến mãi
+            boolean isCreatingNew = (id == null);
+            if (isCreatingNew || !khuyenMaiTheoMa.getIdKhuyenMai().equals(id)) {
+                return false;
+            }
+        }
+
         return true;
     }
+
 }
 

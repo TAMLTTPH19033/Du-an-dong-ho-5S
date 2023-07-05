@@ -1,39 +1,47 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragment/fragments:: page_head(${pageTitle})"/>
+<head th:replace="fragment/fragments::page_head(${pageTitle})"/>
 <body>
 <div class="container-fluid">
-    <div th:replace="fragment/navigation:: menu"></div>
+    <div th:replace="fragment/navigation::menu"></div>
     <div>
         <h2>Quản lý Khuyến Mãi | [[${pageTitle}]]</h2>
     </div>
 
     <form th:action="@{/discounts/save}" method="post" style="max-width: 500px;margin: 0 auto"
-          th:object="${khuyenMai}" onsubmit="return checkDiscountNameUnique(this);">
+          th:object="${khuyenMai}" onsubmit="return checkDiscountNameUnique(this)">
         <input type="hidden" th:field="*{idKhuyenMai}"/>
         <div class="border border-secondary rounded p-3">
-            <div class="form-group-row">
+
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Mã Khuyến Mãi:</label>
+                <div class="col-sm-12">
+                    <input type="text" class="form-control" th:field="*{maKhuyenMai}" id="makhuyenMaiInput" minlength="3" maxlength="10" readonly="readonly"/>
+                </div>
+            </div>
+
+            <div class="form-group row">
                 <label class="col-sm-4 col-form-label">Tên Khuyến Mãi:</label>
                 <div class="col-sm-12">
-                    <input type="text" class="form-control" th:field="*{tenKhuyenMai}" id="tenDanhMucInput" required minlength="3" maxlength="128"/>
+                    <input type="text" class="form-control" th:field="*{tenKhuyenMai}" id="tenKhuyenMaiInput" required minlength="3" maxlength="128"/>
                 </div>
             </div>
 
-            <div class="form-group-row">
+            <div class="form-group row">
                 <label class="col-sm-4 col-form-label">Mô tả khuyến mãi:</label>
                 <div class="col-sm-12">
-                    <input class="form-control" th:field="*{moTaKhuyenMai}" required minlength="3" maxlength="256" />
+                    <input class="form-control" th:field="*{moTaKhuyenMai}" required minlength="3" maxlength="256"/>
                 </div>
             </div>
 
-            <div class="form-group-row">
+            <div class="form-group row">
                 <label class="col-sm-4 col-form-label">Ngày bắt đầu:</label>
                 <div class="col-sm-12">
-                    <input type="date" class="form-control" th:field="*{ngayBatDau}" required id="ngayBatDauInput" onchange="validateDate()" min="2010-01-01" max="2030-12-31"/>
+                    <input type="date" class="form-control" th:field="*{ngayBatDau}" id="ngayBatDauInput" onchange="validateDate()" min="2010-01-01" max="2030-12-31"/>
                 </div>
             </div>
 
-            <div class="form-group-row">
+            <div class="form-group row">
                 <label class="col-sm-4 col-form-label">Ngày kết thúc:</label>
                 <div class="col-sm-12">
                     <input type="date" class="form-control" th:field="*{ngayKetThuc}" required id="ngayKetThucInput" onchange="validateDate()" min="2010-01-01" max="2030-12-31"/>
@@ -41,7 +49,7 @@
                 </div>
             </div>
 
-            <div class="form-group-row">
+            <div class="form-group row">
                 <label class="col-sm-4 col-form-label">Trạng Thái:</label>
                 <div class="col-sm-12">
                     <input type="checkbox" th:field="*{enabled}">
@@ -59,7 +67,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="modalTitle" >Warning</h4>
+                    <h4 class="modal-title" id="modalTitle">Warning</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
@@ -72,13 +80,34 @@
         </div>
     </div>
 
-
     <div th:replace="fragment/fragments::footer"></div>
 </div>
 
 <script type="text/javascript">
-    moduleURL= "[[@{/discounts}]]";
+    moduleURL = "[[@{/discounts}]]";
 
+    // Hàm tự động tạo mã khuyến mãi
+    function generateDiscountCode() {
+        var length = 10;
+        var charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        var code = "";
+
+        for (var i = 0; i < length; i++) {
+            var randomIndex = Math.floor(Math.random() * charset.length);
+            code += charset.charAt(randomIndex);
+        }
+
+        return code;
+    }
+
+    // Tự động tạo mã khuyến mãi khi tải form
+    window.onload = function() {
+        if (document.getElementById("makhuyenMaiInput").value === '') {
+            document.getElementById("makhuyenMaiInput").value = generateDiscountCode();
+        }
+    };
+
+    //check date
     function validateDate() {
         var startDate = new Date(document.getElementById("ngayBatDauInput").value);
         var endDate = new Date(document.getElementById("ngayKetThucInput").value);
@@ -93,7 +122,7 @@
         return true;
     }
 
-
+    //check trùng tên
     function checkDiscountNameUnique(form) {
         var url = "[[@{/discounts/check_name}]]";
         var khuyenMaiName = form.tenKhuyenMai.value;
@@ -103,30 +132,33 @@
         if (!validateDate()) {
             return false;
         }
+
+        // Kiểm tra mã khuyến mãi
+        var maKhuyenMai = document.getElementById("makhuyenMaiInput").value;
+        var maKhuyenMaiBanDau = document.getElementById("maKhuyenMaiBanDauInput").value;
         var params = {
-            id: khuyenMaiId,
-            ten: khuyenMaiName,
+            maKhuyenMai: maKhuyenMai,
+            maKhuyenMaiBanDau: maKhuyenMaiBanDau,
             _csrf: csrfValue
         };
 
+        // Gửi yêu cầu AJAX để kiểm tra mã khuyến mãi
         $.post(url, params)
             .done(function(response) {
-                if (response == "OK") {
+                if (response === "OK") {
                     form.submit();
-                } else if (response == "Duplicated") {
-                    showWarningModal("Tên đã tồn tại hoặc là Tên này thuộc về id khác");
+                } else if (response === "Duplicated") {
+                    showWarningModal("Mã khuyến mãi đã tồn tại trong cơ sở dữ liệu.");
                 } else {
-                    showErrorModal("Lỗi phản hồi từ server");
+                    showErrorModal("Lỗi phản hồi từ server.");
                 }
             })
             .fail(function() {
-                showErrorModal("Không thể kết nối đến server");
+                showErrorModal("Không thể kết nối đến server.");
             });
 
         return false;
-
     }
-
 </script>
 <script th:src="@{/js/index_form.js}"></script>
 
