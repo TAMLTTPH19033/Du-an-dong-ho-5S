@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.sql.Timestamp;
+import java.util.Date;
 
 @Entity
 @Data
@@ -30,10 +31,6 @@ public class PhanHoi {
     @ManyToOne
     @JoinColumn(name = "id_khach_hang")
     private KhachHang khachHang;
-
-    @ManyToOne
-    @JoinColumn(name = "id_gio_hang")
-    private GioHang gioHang;
 
     @ManyToOne
     @JoinColumn(name = "id_chi_tiet_san_pham")
@@ -55,9 +52,9 @@ public class PhanHoi {
     private String ghiChu;
 
     @Column(name = "ngay_tao")
-    private Timestamp ngayTao;
+    private Date ngayTao;
 
     @Column(name = "ngay_sua")
-    private Timestamp ngaySua;
+    private Date ngaySua;
 
 }
