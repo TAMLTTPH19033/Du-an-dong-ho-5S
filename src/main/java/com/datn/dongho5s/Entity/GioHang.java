@@ -42,8 +42,7 @@ public class GioHang {
     @Column(name = "ghi_chu")
     private String ghiChu;
 
-    @Column(name = "Tthoi_gian_cap_nhap_don_hang")
+    @Column(name = "thoi_gian_cap_nhap_gio_hang")
     private Timestamp thoiGianCapNhapGioHang;
-
 
 }

@@ -1,21 +1,21 @@
-package com.datn.dongho5s.Request;
+package com.datn.dongho5s.Response;
 
 import com.datn.dongho5s.Entity.ChiTietSanPham;
 import com.datn.dongho5s.Entity.DonHang;
 import com.datn.dongho5s.Entity.GioHang;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import java.util.Date;
+
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ChiTietGioHangRequest {
+@Builder
+public class ChiTietGioHangResponse {
     private Integer idChiTietGioHang;
 
     private GioHang gioHang;

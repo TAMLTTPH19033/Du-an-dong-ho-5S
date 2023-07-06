@@ -2,6 +2,8 @@ package com.datn.dongho5s.Repository;
 
 
 import com.datn.dongho5s.Entity.ChiTietGioHang;
+import com.datn.dongho5s.Entity.ChiTietSanPham;
+import com.datn.dongho5s.Entity.GioHang;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -12,5 +14,8 @@ import java.util.List;
 public interface ChiTietGioHangRepository extends JpaRepository<ChiTietGioHang,Integer> {
     @Query("select ctgh from ChiTietGioHang ctgh where ctgh.gioHang.khachHang.idKhachHang = ?1")
     List<ChiTietGioHang> giohangChiTiet(Integer idKhachhang);
+
+    @Query("select ctgh from ChiTietGioHang ctgh where ctgh.chiTietSanPham.idChiTietSanPham = ?1")
+    ChiTietGioHang findChiTietGioHangByCTSP(Integer idChiTietSanPham);
 
 }

@@ -1,12 +1,15 @@
-myApp.controller("cartCtrl", function ($scope, $http) {
+myApp.controller("cartCtrl", function ($scope,$rootScope, $http) {
     $scope.cart = [];
     $scope.total = 0;
     $scope.totalSp = 0;
+    $rootScope.idkhachHang = 1;
     //load cart
     $scope.index = function () {
-        $http.get(`/api/giohang/`).then((resp) => {
+        $http.get(`/api/giohang/${$rootScope.idkhachHang}`).then((resp) => {
             $scope.cart = resp.data;
             // console.log($scope.cart);
+        }).catch(error =>{
+            alert("Loi roi",error);
         });
     };
     $scope.index();
@@ -95,6 +98,7 @@ myApp.controller("cartCtrl", function ($scope, $http) {
         if (item) {
             $scope.delete(item);
             $scope.total -= item.giaBan * item.soLuongSanPham;
+            $scope.totalSp -= item.soLuongSanPham;
             // console.log($scope.cart);
         }
     };
@@ -103,6 +107,8 @@ myApp.controller("cartCtrl", function ($scope, $http) {
         if ($scope.cart) {
             $scope.deleteAll($scope.cart);
             $scope.total = 0;
+            $scope.totalSp = 0;
+
             // console.log($scope.cart);
         }
     };
