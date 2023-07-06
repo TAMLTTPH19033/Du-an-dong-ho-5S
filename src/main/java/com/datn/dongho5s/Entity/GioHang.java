@@ -45,7 +45,5 @@ public class GioHang {
     @Column(name = "Tthoi_gian_cap_nhap_don_hang")
     private Timestamp thoiGianCapNhapGioHang;
 
-    @Column(name = "ngay_sua")
-    private Date ngaySua;
 
 }

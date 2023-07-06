@@ -41,9 +41,6 @@ public class ChiTietGioHang {
     @Column(name = "gia_ban")
     private Double giaBan;
 
-    @Column(name = "thanh_tien")
-    private Double thanhTien;
-
     @Column(name = "ngay_tao")
     private Date ngayTao;
 
