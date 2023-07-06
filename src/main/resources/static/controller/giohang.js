@@ -1,11 +1,11 @@
-myApp.controller("cartCtrl", function ($scope, $http) {
+myApp.controller("cartCtrl", function ($scope,$rootScope, $http) {
     $scope.cart = [];
     $scope.total = 0;
     $scope.totalSp = 0;
-    $scope.idkhachHang = Number(1);
+    $rootScope.idkhachHang = 1;
     //load cart
     $scope.index = function () {
-        $http.get(`/api/giohang/1`).then((resp) => {
+        $http.get(`/api/giohang/${$rootScope.idkhachHang}`).then((resp) => {
             $scope.cart = resp.data;
             // console.log($scope.cart);
         }).catch(error =>{
