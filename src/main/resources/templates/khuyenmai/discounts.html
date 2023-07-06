@@ -1,16 +1,16 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="fragment/fragments:: page_head('Dây Đeo - 5SWatch ')"/>
+<head th:replace="fragment/fragments:: page_head('Khuyến Mãi - 5SWatch ')"/>
 
 <body>
 <div class="container-fluid">
     <div th:replace="fragment/navigation:: menu"></div>
     <div>
-        <h2>Quản lý Dây Đeo</h2>
-        <a style="text-decoration: none" th:href="@{/straps/new}">Tạo Mới Dây Đeo</a>
+        <h2>Quản lý Danh Mục</h2>
+        <a style="text-decoration: none" th:href="@{/discounts/new}">Tạo Mới Khuyến Mãi</a>
         &nbsp;|&nbsp;
-        <a style="text-decoration: none" th:href="@{/straps/export/excel}">Export To Excel</a>
+        <a style="text-decoration: none" th:href="@{/discounts/export/excel}">Export To Excel</a>
     </div>
 
     <div th:if="${message != null}" class="alert alert-success text-center">
@@ -19,7 +19,7 @@
 
 
     <div>
-        <form th:action="@{/straps/page/1}" class="form-inline m-3">
+        <form th:action="@{/discounts/page/1}" class="form-inline m-3">
             <div class="d-flex align-items-center">
                 <input type="hidden" name="sortField" th:value="${sortField}" />
                 <input type="hidden" name="sortDir" th:value="${sortDir}" />
@@ -36,28 +36,29 @@
         <table class="table table-bordered table-striped table-hover table-responsive-xl">
             <thead class="thead-dark">
             <tr>
-                <th th:replace="fragment/fragments::daydeo_link('idDayDeo', 'ID')"></th>
-                <th th:replace="fragment/fragments::daydeo_link('tenDayDeo', 'Tên')"></th>
-                <th th:replace="fragment/fragments::daydeo_link('moTaDayDeo', 'Mô Tả')"></th>
-                <th th:replace="fragment/fragments::daydeo_link('chieuDai', 'Chiều Dài')"></th>
-                <th th:replace="fragment/fragments::daydeo_link('chatLieu', 'Chất Liệu')"></th>
-                <th th:replace="fragment/fragments::daydeo_link('enabled', 'Enabled')"></th>
+                <th th:replace="fragment/fragments::khuyenmai_link('idKhuyenMai', 'ID')"></th>
+                <th th:replace="fragment/fragments::khuyenmai_link('maKhuyenMai', 'Mã Khuyến Mãi')"></th>
+                <th th:replace="fragment/fragments::khuyenmai_link('tenKhuyenMai', 'Tên Khuyến Mãi')"></th>
+                <th th:replace="fragment/fragments::khuyenmai_link('moTaKhuyenMai', 'Mô Tả Khuyến Mãi')"></th>
+                <th th:replace="fragment/fragments::khuyenmai_link('ngayBatDau', 'Ngày Bắt Đầu')"></th>
+                <th th:replace="fragment/fragments::khuyenmai_link('ngayKetThuc', 'Ngày Kết Thúc')"></th>
+                <th th:replace="fragment/fragments::khuyenmai_link('enabled', 'Enabled')"></th>
 
                 <Th>Action</Th>
 
             </tr>
             </thead>
             <tbody>
-            <tr th:each="str :${listDayDeo}">
-                <td>[[${str.idDayDeo}]]</td>
-                <td>[[${str.tenDayDeo}]]</td>
-                <td>[[${str.moTaDayDeo}]]</td>
-                <td>[[${str.chieuDai}]]</td>
-                <td>[[${str.chatLieu}]]</td>
-                <td>[[${str.enabled}]]</td>
-
+            <tr th:each="km :${listKhuyenMai}">
+                <td>[[${km.idKhuyenMai}]]</td>
+                <td>[[${km.maKhuyenMai}]]</td>
+                <td>[[${km.tenKhuyenMai}]]</td>
+                <td>[[${km.moTaKhuyenMai}]]</td>
+                <td>[[${km.ngayBatDau}]]</td>
+                <td>[[${km.ngayKetThuc}]]</td>
+                <td>[[${km.enabled}]]</td>
                 <td>
-                    <a class="icon-green" style="text-decoration: none" th:href="@{'/straps/edit/' + ${str.idDayDeo}}"
+                    <a class="icon-green" style="text-decoration: none" th:href="@{'/discounts/edit/' + ${km.idKhuyenMai}}"
                        title="Thay đổi thông tin">Update</a>
                 </td>
             </tr>
@@ -66,31 +67,31 @@
     </div>
 
     <div class="text-center m-1" th:if="${totalItem > 0}">
-        <span>Hiển thị Dây Đeo # [[${startCount}]] to [[${endCount}]] of [[${totalItem}]] </span>
+        <span>Hiển thị Khuyến Mãi # [[${startCount}]] to [[${endCount}]] of [[${totalItem}]] </span>
     </div>
     <div class="text-center m-1" th:unless="${totalItem > 0}">
-        <span>Không có Dây Đeo trang này</span>
+        <span>Không có Khuyến Mãi trang này</span>
     </div>
 
     <div th:if="${totalPages > 1}">
         <nav>
             <ul class="pagination justify-content-center">
                 <li th:class="${currentPage > 1 ?'page-item' : 'page-item disabled'}">
-                    <a th:replace="fragment/fragments::pagestraps_link(1, 'Trang Đầu')" ></a>
+                    <a th:replace="fragment/fragments::pagesdiscounts_link(1, 'Trang Đầu')" ></a>
                 </li>
                 <li th:class="${currentPage > 1 ?'page-item' : 'page-item disabled'}">
-                    <a th:replace="fragment/fragments::pagestraps_link(${currentPage - 1}, Trước)"></a>
+                    <a th:replace="fragment/fragments::pagesdiscounts_link(${currentPage - 1}, Trước)"></a>
                 </li>
                 <li th:class="${currentPage != i ? 'page-item': 'page-item active' }"
                     th:each="i : ${#numbers.sequence(1,totalPages)}">
-                    <a th:replace="fragment/fragments::pagestraps_link(${i}, ${i})"></a>
+                    <a th:replace="fragment/fragments::pagesdiscounts_link(${i}, ${i})"></a>
                 </li>
 
                 <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
-                    <a th:replace="fragment/fragments::pagestraps_link(${currentPage + 1}, Sau)"></a>
+                    <a th:replace="fragment/fragments::pagesdiscounts_link(${currentPage + 1}, Sau)"></a>
                 </li>
                 <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
-                    <a th:replace="fragment/fragments::pagestraps_link(${totalPages}, 'Trang Cuối')"></a>
+                    <a th:replace="fragment/fragments::pagesdiscounts_link(${totalPages}, 'Trang Cuối')"></a>
                 </li>
             </ul>
         </nav>

@@ -17,7 +17,7 @@ public class ThuongHieuCsvExporter extends AbstractExporter{
         ICsvBeanWriter csvBeanWriter = new CsvBeanWriter(response.getWriter(),
                 CsvPreference.STANDARD_PREFERENCE);
         String[] csvHeader = {"ID","Name","Description","Enabled"};
-        String[] filedMapping = {"idThuongHieu","ten","moTaThuongHieu","enabled"};
+        String[] filedMapping = {"idThuongHieu","tenThuongHieu","moTaThuongHieu","enabled"};
 
         csvBeanWriter.writeHeader(csvHeader);
         for (ThuongHieu thuongHieu: listThuongHieu){

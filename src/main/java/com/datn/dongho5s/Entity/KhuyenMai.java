@@ -4,14 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.Random;
 
 @Entity
 @Data
@@ -21,26 +18,95 @@ import java.util.Date;
 @Table(name = "khuyenmai")
 public class KhuyenMai {
     @Id
-    @Column(name = "id_khuyen_mai")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_khuyen_mai")
     private Integer idKhuyenMai;
 
-    @Column(name = "ten_khuyen_mai")
+    @Column(name = "ma_khuyen_mai", unique = true)
+    private String maKhuyenMai;
+
+    @Column(name = "ten_khuyen_mai", unique = true)
     private String tenKhuyenMai;
 
     @Column(name = "mo_ta_khuyen_mai")
     private String moTaKhuyenMai;
 
     @Column(name = "ngay_bat_dau")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date ngayBatDau;
 
     @Column(name = "ngay_ket_thuc")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date ngayKetThuc;
 
     @Column(name = "ngay_sua")
     private Date ngaySua;
 
-    @Column(name = "enabled",nullable = false)
+    @Column(name = "enabled", nullable = false)
     private boolean enabled;
 
+    // Getters and setters
+    public Integer getIdKhuyenMai() {
+        return idKhuyenMai;
+    }
+
+    public void setIdKhuyenMai(Integer idKhuyenMai) {
+        this.idKhuyenMai = idKhuyenMai;
+    }
+
+    public String getMaKhuyenMai() {
+        return maKhuyenMai;
+    }
+
+    public void setMaKhuyenMai(String maKhuyenMai) {
+        this.maKhuyenMai = maKhuyenMai;
+    }
+
+    public String getTenKhuyenMai() {
+        return tenKhuyenMai;
+    }
+
+    public void setTenKhuyenMai(String tenKhuyenMai) {
+        this.tenKhuyenMai = tenKhuyenMai;
+    }
+
+    public String getMoTaKhuyenMai() {
+        return moTaKhuyenMai;
+    }
+
+    public void setMoTaKhuyenMai(String moTaKhuyenMai) {
+        this.moTaKhuyenMai = moTaKhuyenMai;
+    }
+
+    public Date getNgayBatDau() {
+        return ngayBatDau;
+    }
+
+    public void setNgayBatDau(Date ngayBatDau) {
+        this.ngayBatDau = ngayBatDau;
+    }
+
+    public Date getNgayKetThuc() {
+        return ngayKetThuc;
+    }
+
+    public void setNgayKetThuc(Date ngayKetThuc) {
+        this.ngayKetThuc = ngayKetThuc;
+    }
+
+    public Date getNgaySua() {
+        return ngaySua;
+    }
+
+    public void setNgaySua(Date ngaySua) {
+        this.ngaySua = ngaySua;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
 }

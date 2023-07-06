@@ -16,7 +16,7 @@
             <div class="form-group-row">
                 <label class="col-sm-4 col-form-label">Tên Thương Hiệu:</label>
                 <div class="col-sm-12">
-                    <input type="text" class="form-control" th:field="*{tenThuonghieu}" id="tenThuongHieuInput" required minlength="3" maxlength="128"/>
+                    <input type="text" class="form-control" th:field="*{tenThuongHieu}" id="tenThuongHieuInput" required minlength="3" maxlength="128"/>
                 </div>
             </div>
 
@@ -67,7 +67,7 @@
 
     function checkBrandNameUnique(form) {
         var url = "[[@{/brands/check_name}]]";
-        var thuongHieuName = form.tenThuonghieu.value;
+        var thuongHieuName = form.tenThuongHieu.value;
         var thuongHieuId = form.idThuongHieu.value;
         var csrfValue = $("input[name='_csrf']").val();
         var params = {

@@ -34,9 +34,9 @@ public class ThuongHieu {
     public ThuongHieu() {
     }
 
-    public ThuongHieu(Integer idThuongHieu, String tenThuonghieu, String moTaThuongHieu, boolean enabled) {
+    public ThuongHieu(Integer idThuongHieu, String tenThuongHieu, String moTaThuongHieu, boolean enabled) {
         this.idThuongHieu = idThuongHieu;
-        this.tenThuongHieu = tenThuonghieu;
+        this.tenThuongHieu = tenThuongHieu;
         this.moTaThuongHieu = moTaThuongHieu;
         this.enabled = enabled;
     }
@@ -49,12 +49,12 @@ public class ThuongHieu {
         this.idThuongHieu = idThuongHieu;
     }
 
-    public String getTenThuonghieu() {
+    public String getTenThuongHieu() {
         return tenThuongHieu;
     }
 
-    public void setTenThuonghieu(String tenThuonghieu) {
-        this.tenThuongHieu = tenThuonghieu;
+    public void setTenThuongHieu(String tenThuongHieu) {
+        this.tenThuongHieu = tenThuongHieu;
     }
 
     public String getMoTaThuongHieu() {

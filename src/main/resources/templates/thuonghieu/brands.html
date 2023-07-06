@@ -37,7 +37,7 @@
                 <thead class="thead-dark">
                 <tr>
                     <th th:replace="fragment/fragments::thuonghieu_link('idThuongHieu', 'ID')"></th>
-                    <th th:replace="fragment/fragments::thuonghieu_link('ten', 'Tên')"></th>
+                    <th th:replace="fragment/fragments::thuonghieu_link('tenThuongHieu', 'Tên')"></th>
                     <th th:replace="fragment/fragments::thuonghieu_link('moTaThuongHieu', 'Mô Tả')"></th>
                     <th th:replace="fragment/fragments::thuonghieu_link('enabled', 'Enabled')"></th>
                     <Th>Action</Th>
@@ -47,23 +47,13 @@
                 <tbody>
                 <tr th:each="bra :${listThuongHieu}">
                     <td>[[${bra.idThuongHieu}]]</td>
-                    <td>[[${bra.ten}]]</td>
+                    <td>[[${bra.tenThuongHieu}]]</td>
                     <td>[[${bra.moTaThuongHieu}]]</td>
-                    <td>
-                        <a th:if="${bra.enabled == true}" class="fas fa-check-circle fa-2x icon-green"
-                           th:href="@{'/brands/' + ${bra.idThuongHieu} + '/enabled/false'}"
-                           title="Tắt Trạng Thái"
-                        ></a>
+                    <td>[[${bra.enabled}]]</td>
 
-
-                        <a th:if="${bra.enabled == false}" class="fas fa-circle fa-2x icon-dark"
-                           th:href="@{'/brands/' + ${bra.idThuongHieu} + '/enabled/true'}"
-                           title="Bật Trạng Thái"
-                        ></a>
-                    </td>
                     <td>
-                        <a class="fas fa-edit fa-2x icon-green" th:href="@{'/brands/edit/' + ${bra.idThuongHieu}}"
-                           title="Thay đổi thông tin"></a>
+                        <a class="icon-green" style="text-decoration: none" th:href="@{'/brands/edit/' + ${bra.idThuongHieu}}"
+                           title="Thay đổi thông tin">Update</a>
                     </td>
                 </tr>
                 </tbody>
