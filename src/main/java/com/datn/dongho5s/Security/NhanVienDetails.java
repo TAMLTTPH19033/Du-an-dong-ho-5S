@@ -11,7 +11,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
-public class NhanVienDetails implements UserDetails {
+public class NhanVienDetails implements  UserDetails{
     private NhanVien nhanVien;
 
     public NhanVienDetails(NhanVien nhanVien) {
@@ -59,9 +59,6 @@ public class NhanVienDetails implements UserDetails {
         return nhanVien.isEnabled();
     }
 
-    public String getFullName(){
-        return this.nhanVien.getHo() + " " +this.nhanVien.getTen();
-    }
 
     public void setHo(String ho){
         this.nhanVien.setHo(ho);
@@ -71,5 +68,9 @@ public class NhanVienDetails implements UserDetails {
     public void setTen(String ten){
         this.nhanVien.setTen(ten);
 
+    }
+
+    public String getFullname() {
+        return this.nhanVien.getTen();
     }
 }

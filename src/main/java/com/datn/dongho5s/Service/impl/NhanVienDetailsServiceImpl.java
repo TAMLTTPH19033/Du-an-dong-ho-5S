@@ -10,16 +10,16 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class NhanVienDetailsService implements UserDetailsService {
+public class NhanVienDetailsServiceImpl implements UserDetailsService {
     @Autowired
-    private NhanVienRepository nhanVienRepo;
+    private NhanVienRepository nhanVienRepository;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        NhanVien nhanVien =  nhanVienRepo.getNhanVienByEmail(email);
+        NhanVien nhanVien =  nhanVienRepository.findNhanVienByEmail(email);
         if(nhanVien!= null){
             return new NhanVienDetails(nhanVien);
         }
-        throw new UsernameNotFoundException("không tìm thấy nhân viên theo email: " + email);
+        throw new UsernameNotFoundException("Can not find Employee by email is: " + email);
     }
 }
