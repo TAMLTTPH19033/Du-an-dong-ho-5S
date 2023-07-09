@@ -1,0 +1,101 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragment/fragments:: page_head(${pageTitle})"/>
+<body>
+<div class="container-fluid">
+    <div th:replace="fragment/navigation:: menu"></div>
+    <div>
+        <h2>Quản lý Thương Hiệu | [[${pageTitle}]]</h2>
+    </div>
+
+    <form th:action="@{/materials/save}" method="post" style="max-width: 500px;margin: 0 auto"
+          enctype="multipart/form-data"
+          th:object="${vatLieu}" onsubmit="return checkMaterialNameUnique(this);">
+        <input type="hidden" th:field="*{idVatLieu}"/>
+        <div class="border border-secondary rounded p-3">
+            <div class="form-group-row">
+                <label class="col-sm-4 col-form-label">Tên Vật Liệu:</label>
+                <div class="col-sm-12">
+                    <input type="text" class="form-control" th:field="*{tenVatLieu}" id="tenVatLieuInput" required minlength="3" maxlength="128"/>
+                </div>
+            </div>
+
+            <div class="form-group-row">
+                <label class="col-sm-4 col-form-label">Mô Tả Vật Liệu:</label>
+                <div class="col-sm-12">
+                    <input type="text" class="form-control" th:field="*{moTaVatLieu}" required minlength="3" maxlength="128"/>
+                </div>
+            </div>
+
+            <div class="form-group-row">
+                <label class="col-sm-4 col-form-label">Trạng Thái:</label>
+                <div class="col-sm-12">
+                    <input type="checkbox" th:field="*{enabled}">
+                </div>
+            </div>
+
+            <div class="text-center">
+                <input type="submit" value="Save" class="btn btn-primary m-3" id="submitButton"/>
+                <input type="button" value="Cancel" class="btn btn-secondary" id="buttonCancel">
+            </div>
+        </div>
+    </form>
+
+    <div class="modal fade text-center" id="modalDialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="modalTitle" >Warning</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <span id="modalBody"></span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div th:replace="fragment/fragments::footer"></div>
+</div>
+
+<script type="text/javascript">
+    moduleURL= "[[@{/materials}]]";
+
+    function checkMaterialNameUnique(form) {
+        var url = "[[@{/materials/check_name}]]";
+        var vatLieuName = form.tenVatLieu.value;
+        var vatLieuId = form.idVatLieu.value;
+        var csrfValue = $("input[name='_csrf']").val();
+        var params = {
+            id: vatLieuId,
+            ten: vatLieuName,
+            _csrf: csrfValue
+        };
+
+        $.post(url, params)
+            .done(function(response) {
+                if (response == "OK") {
+                    form.submit();
+                } else if (response == "Duplicated") {
+                    showWarningModal("Tên đã tồn tại hoặc là Tên này thuộc về id khác");
+                } else {
+                    showErrorModal("Lỗi phản hồi từ server");
+                }
+            })
+            .fail(function() {
+                showErrorModal("Không thể kết nối đến server");
+            });
+
+        return false;
+
+    }
+
+</script>
+<script th:src="@{/js/index_form.js}"></script>
+
+</body>
+</html>
