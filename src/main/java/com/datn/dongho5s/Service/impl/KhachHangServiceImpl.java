@@ -6,6 +6,7 @@ import com.datn.dongho5s.Entity.KhachHang;
 import com.datn.dongho5s.Repository.DiaChiRepository;
 import com.datn.dongho5s.Repository.KhachHangRepository;
 import com.datn.dongho5s.Response.ThongTinCaNhanResponse;
+import com.datn.dongho5s.Response.ThongTinToCheckoutResponse;
 import com.datn.dongho5s.Service.KhachHangService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,6 @@ public class KhachHangServiceImpl implements KhachHangService {
                 .ngaySinh(thongTinCaNhanResponse.getNgaySinh())
                 .soDienThoai(thongTinCaNhanResponse.getSoDienThoai())
                 .idKhachHang(thongTinCaNhanResponse.getId())
-                .diaChi(diaChiRepository.findByDiaChi(thongTinCaNhanResponse.getDiaChi()))
                 .build());
     }
 
@@ -52,10 +52,25 @@ public class KhachHangServiceImpl implements KhachHangService {
         return ThongTinCaNhanResponse.builder()
                 .id(khachHangExist.getIdKhachHang())
                 .gioiTinh(khachHangExist.getGioiTinh())
-                .diaChi(khachHangExist.getDiaChi().getDiaChi())
+//                .diaChi(khachHangExist.getDiaChi().getDiaChi())
                 .ngaySinh(khachHangExist.getNgaySinh())
                 .soDienThoai(khachHangExist.getSoDienThoai())
                 .email(khachHangExist.getEmail())
+                .tenKhachHang(khachHangExist.getTenKhachHang())
+                .build();
+    }
+
+    @Override
+    public ThongTinToCheckoutResponse getThongTinToCheckout(Integer id) {
+
+        KhachHang khachHangExist = this.findKhachHangById(id);
+
+        if (khachHangExist == null) return null;
+
+        return ThongTinToCheckoutResponse.builder()
+                .id(khachHangExist.getIdKhachHang())
+                .listDiaChi(khachHangExist.getListDiaChi())
+                .soDienThoai(khachHangExist.getSoDienThoai())
                 .tenKhachHang(khachHangExist.getTenKhachHang())
                 .build();
     }
