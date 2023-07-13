@@ -71,7 +71,7 @@ public class ChiTietGioHangServiceImpl implements ChiTietGioHangService {
                 .giaBan(chiTietSanPham.getGiaSanPham())
                 .ngayTao(new Date())
                 .soLuongSanPham(soLuong)
-                .thanhTien(null)
+//                .thanhTien(null)
                 .build();
         ChiTietGioHangResponse chiTietGioHangResponse = ChiTietGioHangMapping.mapEntitytoResponse(chiTietGioHangRepository.save(chiTietGioHang));
         return chiTietGioHangResponse;
@@ -95,7 +95,7 @@ public class ChiTietGioHangServiceImpl implements ChiTietGioHangService {
                             .giaBan(chiTietSanPham.getGiaSanPham())
                             .ngayTao(new Date())
                             .soLuongSanPham(soLuong)
-                            .thanhTien(null)
+//                            .thanhTien(null)
                             .build();
                     ChiTietGioHangResponse chiTietGioHangResponse = ChiTietGioHangMapping.mapEntitytoResponse(chiTietGioHangRepository.save(chiTietGioHang1));
                     return chiTietGioHangResponse;

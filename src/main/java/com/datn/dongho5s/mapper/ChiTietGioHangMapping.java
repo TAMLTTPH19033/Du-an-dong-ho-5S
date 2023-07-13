@@ -16,7 +16,7 @@ public class ChiTietGioHangMapping {
                 .giaBan(chiTietGioHang.getGiaBan())
                 .ngayTao(chiTietGioHang.getNgayTao())
                 .soLuongSanPham(chiTietGioHang.getSoLuongSanPham())
-                .thanhTien(chiTietGioHang.getThanhTien())
+//                .thanhTien(chiTietGioHang.getThanhTien())
                 .build();
         return chiTietGioHangResponse;
     }
@@ -30,7 +30,7 @@ public class ChiTietGioHangMapping {
                 .giaBan(chiTietGioHangRequest.getGiaBan())
                 .ngayTao(chiTietGioHangRequest.getNgayTao())
                 .soLuongSanPham(chiTietGioHangRequest.getSoLuongSanPham())
-                .thanhTien(chiTietGioHangRequest.getThanhTien())
+//                .thanhTien(chiTietGioHangRequest.getThanhTien())
                 .build();
         return chiTietGioHang;
     }
