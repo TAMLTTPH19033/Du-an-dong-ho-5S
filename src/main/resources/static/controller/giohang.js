@@ -9,7 +9,13 @@ myApp.controller("cartCtrl", function ($scope,$rootScope, $http) {
             $scope.cart = resp.data;
             // console.log($scope.cart);
         }).catch(error =>{
-            alert("Loi roi",error);
+          console.log("loi")
+            Swal.fire({
+                icon: "warning",
+                title: "Bạn chưa đăng nhập !",
+                text: "Hãy đăng nhập để tiếp tục shopping!",
+                timer: 1600,
+            });
         });
     };
     $scope.index();

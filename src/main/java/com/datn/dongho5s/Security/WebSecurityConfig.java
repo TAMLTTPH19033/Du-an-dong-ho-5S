@@ -76,7 +76,7 @@ public class WebSecurityConfig  {
                 .csrf()
                 .disable()
                 .authorizeRequests()
-                .antMatchers("/api/v1/customer/**").hasAuthority("ROLE_CUSTOMER")
+                .antMatchers("/api/giohang/**").hasAuthority("ROLE_CUSTOMER")
                 .antMatchers("/users/**").hasAuthority("ROLE_ADMIN")
                 .antMatchers("/categories/**").hasAnyAuthority("ROLE_ADMIN","ROLE_STAFF")
                 .antMatchers("/users/**", "/categories/**")
