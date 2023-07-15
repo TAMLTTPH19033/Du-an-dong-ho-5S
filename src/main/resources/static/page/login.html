@@ -1,4 +1,4 @@
-
+<div ng-controller="loginCtrl">
     <!-- Section: Design Block -->
     <section class="">
       <!-- Jumbotron -->
@@ -13,7 +13,7 @@
                 <div class="card-body py-5 px-md-5">
                   <h2 class="text-center">Login</h2>
                   <br />
-                  <form>
+                  <form ng-submit="login()">
                     <!-- 2 column grid layout with text inputs for the first and last names -->
 
                     <!-- Email input -->
@@ -23,8 +23,9 @@
                       >
                       <input
                         type="email"
-                        id="form3Example3"
+                        id="form3Example"
                         class="form-control"
+                        id="username" name="username" ng-model="username"
                       />
                     </div>
 
@@ -37,6 +38,7 @@
                         type="password"
                         id="form3Example4"
                         class="form-control"
+                        id="password" name="password"  ng-model="password"
                       />
                     </div>
 
@@ -54,7 +56,9 @@
                     </div>
 
                     <!-- Submit button -->
-
+                    <span class="text-danger" ng-show="error">
+                      {{error}}
+                    </span>
                     <button
                       class="btn btn-secondary btn-lg col-12"
                       type="submit"
@@ -118,7 +122,7 @@
               <div class="form-outline mb-4">
                 <input
                   type="email"
-                  id="form3Example3"
+                  id="form3Exampl"
                   class="form-control"
                 />
               </div>
@@ -158,3 +162,4 @@
     </div>
     <!--end modal-->
 
+</div>

@@ -38,7 +38,7 @@ public class KhachHangServiceImpl implements KhachHangService {
                 .ngaySinh(thongTinCaNhanResponse.getNgaySinh())
                 .soDienThoai(thongTinCaNhanResponse.getSoDienThoai())
                 .idKhachHang(thongTinCaNhanResponse.getId())
-                .diaChi(diaChiRepository.findByDiaChi(thongTinCaNhanResponse.getDiaChi()))
+//                .diaChi(diaChiRepository.findByDiaChi(thongTinCaNhanResponse.getDiaChi()))
                 .build());
     }
 
@@ -52,7 +52,7 @@ public class KhachHangServiceImpl implements KhachHangService {
         return ThongTinCaNhanResponse.builder()
                 .id(khachHangExist.getIdKhachHang())
                 .gioiTinh(khachHangExist.getGioiTinh())
-                .diaChi(khachHangExist.getDiaChi().getDiaChi())
+//                .diaChi(khachHangExist.getDiaChi().getDiaChi())
                 .ngaySinh(khachHangExist.getNgaySinh())
                 .soDienThoai(khachHangExist.getSoDienThoai())
                 .email(khachHangExist.getEmail())
