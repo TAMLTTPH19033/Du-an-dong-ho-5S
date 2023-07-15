@@ -1,6 +1,7 @@
 package com.datn.dongho5s.Security;
 
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -31,9 +32,10 @@ public class AccountFilterService {
     }
     private Claims getClaims(String token){
         return Jwts
-                .parserBuilder()
+//                .parserBuilder()
+                .parser()
                 .setSigningKey(getSignInKey())
-                .build()
+//                .build()
                 .parseClaimsJws(token)
                 .getBody();
     }
@@ -46,18 +48,19 @@ public class AccountFilterService {
         return extractClaim(token,Claims::getSubject);
     }
 
-    private String generateToken(HashMap<String, Objects> claims, UserDetails account){
+    private String generateToken(HashMap<String, Objects> claims, Authentication account){
+        UserDetails userDetails = (UserDetails) account.getPrincipal();
         return Jwts
                 .builder()
-                .setClaims(claims)
-                .setSubject(account.getUsername())
+                .setClaims(new HashMap<>())
+                .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis()+1000*2*60*60))
                 .signWith(getSignInKey())
                 .compact();
     }
 
-    public String generateToken(UserDetails account){
+    public String generateToken(Authentication account){
         return generateToken(new HashMap<>(),account);
     }
 

@@ -38,10 +38,11 @@ public class SecurityConfiguration {
             public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
                 KhachHang customer = khachHangRepository.getKhachHangByEmail(username);
                 NhanVien staff = nhanVienRepository.getNhanVienByEmail(username);
-                if(customer==null){
+                if(customer != null){
                     return customer.get();
+                }else {
+                    return staff.get();
                 }
-                return staff.get();
             }
         };
     }

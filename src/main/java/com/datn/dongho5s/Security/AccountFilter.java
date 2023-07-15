@@ -31,7 +31,7 @@ public class AccountFilter extends OncePerRequestFilter {
         }
         final String token=header.substring(7);
         final String username=accountFilterService.getUsername(token);
-        if(username!=null&& SecurityContextHolder.getContext().getAuthentication()==null){
+        if(username!=null && SecurityContextHolder.getContext().getAuthentication()==null){
             UserDetails account=userDetailsService.loadUserByUsername(username);
             if(accountFilterService.isTokenValid(token,account)){
                 UsernamePasswordAuthenticationToken authToken

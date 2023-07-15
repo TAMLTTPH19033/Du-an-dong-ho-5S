@@ -36,6 +36,8 @@ myApp.config(function ($routeProvider, $locationProvider,$httpProvider) {
     })
     .when("/login", {
       templateUrl: "page/login.html",
+      controller:"loginCtrl"
+
     })
 
     .when("/changepass", {
