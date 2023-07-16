@@ -1,0 +1,100 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragment/fragments:: page_head('Màu sắc - 5SWatch ')"/>
+
+<body>
+<div class="container-fluid">
+    <div th:replace="fragment/navigation:: menu"></div>
+    <div>
+        <h2>Quản lý Danh Mục</h2>
+        <a style="text-decoration: none" th:href="@{/colors/new}">Thêm Mới Màu Sắc</a>
+    </div>
+
+    <div th:if="${message != null}" class="alert alert-success text-center">
+        [[${message}]]
+    </div>
+
+
+    <div>
+        <form th:action="@{/colors/page/1}" class="form-inline m-3">
+            <div class="d-flex align-items-center">
+                <input type="hidden" name="sortField" th:value="${sortField}" />
+                <input type="hidden" name="sortDir" th:value="${sortDir}" />
+                <label class="sr-only">Tìm Kiếm</label>
+                <input style="width: 250px; margin-right: 10px" type="search" name="keyword" th:value="${keyword}" placeholder="nhập từ khóa tìm kiếm" class="form-control" required />
+                <input style="margin-right: 10px" type="submit" value="Search" class="btn btn-primary ml-2" />
+                <input type="button" value="Clear" class="btn btn-secondary ml-2" onclick="clearFilter()"/>
+            </div>
+        </form>
+
+    </div>
+
+    <div class="full-details">
+        <table class="table table-bordered table-striped table-hover table-responsive-xl">
+            <thead class="thead-dark">
+            <tr>
+                <th th:replace="fragment/fragments::mausac_link('idMauSac', 'ID')"></th>
+                <th th:replace="fragment/fragments::mausac_link('tenMauSac', 'Tên')"></th>
+                <th th:replace="fragment/fragments::mausac_link('enabled', 'Enabled')"></th>
+                <th th:replace="fragment/fragments::mausac_link('tenMauSac', 'Màu')"></th>
+                <Th>Action</Th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="cat :${listMauSac}">
+                <td>[[${cat.idMauSac}]]</td>
+                <td>[[${cat.tenMauSac}]]</td>
+                <td>[[${cat.enabled}]]</td>
+                <td>
+                    <input type="color" disabled th:value="${cat.tenMauSac}">
+                </td>
+                <td>
+                    <a class="icon-green" style="text-decoration: none" th:href="@{'/colors/edit/' + ${cat.idMauSac}}"
+                       title="Thay đổi thông tin">Update</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="text-center m-1" th:if="${totalItem > 0}">
+        <span>Hiển thị Danh Mục # [[${startCount}]] to [[${endCount}]] of [[${totalItem}]] </span>
+    </div>
+    <div class="text-center m-1" th:unless="${totalItem > 0}">
+        <span>Không có Danh Mục trang này</span>
+    </div>
+
+    <div th:if="${totalPages > 1}">
+        <nav>
+            <ul class="pagination justify-content-center">
+                <li th:class="${currentPage > 1 ?'page-item' : 'page-item disabled'}">
+                    <a th:replace="fragment/fragments::pagemausac_link(1, 'Trang Đầu')" ></a>
+                </li>
+                <li th:class="${currentPage > 1 ?'page-item' : 'page-item disabled'}">
+                    <a th:replace="fragment/fragments::pagemausac_link(${currentPage - 1}, Trước)"></a>
+                </li>
+                <li th:class="${currentPage != i ? 'page-item': 'page-item active' }"
+                    th:each="i : ${#numbers.sequence(1,totalPages)}">
+                    <a th:replace="fragment/fragments::pagemausac_link(${i}, ${i})"></a>
+                </li>
+
+                <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
+                    <a th:replace="fragment/fragments::pagemausac_link(${currentPage + 1}, Sau)"></a>
+                </li>
+                <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
+                    <a th:replace="fragment/fragments::pagemausac_link(${totalPages}, 'Trang Cuối')"></a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+
+
+
+    <div th:replace="fragment/fragments::footer"></div>
+
+</div>
+</body>
+</html>
