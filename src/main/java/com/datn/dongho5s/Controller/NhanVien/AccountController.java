@@ -1,29 +1,29 @@
-package com.datn.dongho5s.Controller.NhanVien;
-
-import com.datn.dongho5s.Entity.NhanVien;
-import com.datn.dongho5s.Security.NhanVienDetails;
-import com.datn.dongho5s.UploadFile.FileUploadUtil;
-import com.datn.dongho5s.Service.impl.NhanVienService;
-import org.springframework.beans.factory.annotation.Autowired;
+//package com.datn.dongho5s.Controller.NhanVien;
+//
+//import com.datn.dongho5s.Entity.NhanVien;
+//import com.datn.dongho5s.Security.NhanVienDetails;
+//import com.datn.dongho5s.UploadFile.FileUploadUtil;
+//import com.datn.dongho5s.Service.impl.NhanVienService;
+//import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.io.IOException;
-
-@Controller
-public class AccountController {
+//import org.springframework.stereotype.Controller;
+//import org.springframework.ui.Model;
+//import org.springframework.util.StringUtils;
+//import org.springframework.web.bind.annotation.GetMapping;
+//import org.springframework.web.bind.annotation.PostMapping;
+//import org.springframework.web.bind.annotation.RequestParam;
+//import org.springframework.web.multipart.MultipartFile;
+//import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+//
+//import java.io.IOException;
+//
+//@Controller
+//public class AccountController {
 //    @Autowired
 //    private NhanVienService service;
 //
 //    @GetMapping("/account")
-//    public String viewDetails(@AuthenticationPrincipal NhanVienDetails loggerdNhanVien,
+//    public String viewDetails(@AuthenticationPrincipal NhanVien loggerdNhanVien,
 //                              Model model){
 //        String email =  loggerdNhanVien.getUsername();
 //        NhanVien nhanVien =  service.getByEmail(email);
@@ -49,9 +49,9 @@ public class AccountController {
 //            if(nhanVien.getAnh().isEmpty()) nhanVien.setAnh(null);
 //            service.nhanVienUpdateAccount(nhanVien);
 //        }
-//        loggedNhanVien.setHo(nhanVien.getHo());
-//        loggedNhanVien.setTen(nhanVien.getTen());
-//        redirectAttributes.addFlashAttribute("message","Thay Đổi Thành Công");
-//        return "redirect:/account";
-//    }
-}
+////        loggedNhanVien.setHo(nhanVien.getHo());
+////        loggedNhanVien.setTen(nhanVien.getTen());
+////        redirectAttributes.addFlashAttribute("message","Thay Đổi Thành Công");
+////        return "redirect:/account";
+////    }
+//}

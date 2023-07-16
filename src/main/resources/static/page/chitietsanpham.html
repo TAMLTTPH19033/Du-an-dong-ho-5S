@@ -1,90 +1,126 @@
-
-
-    <!--Start Ảnh và thông tin sản phẩm-->
-    <style>
-      .radio-button {
+<!--Start Ảnh và thông tin sản phẩm-->
+<style>
+    .radio-button {
         display: inline-block;
         padding: 10px;
         border: 1px solid #ccc;
         background-color: #fff;
         cursor: pointer;
-      }
-    
-      .radio-button.selected {
+    }
+
+    .radio-button.selected {
         background-color: #ccc;
-      }
-    </style>
-    <div class="container text-center" style="margin-top: 80px; margin-bottom: 80px;">
-      <div class="row">
+    }
+</style>
+<div ng-controller="TrangChiTietSanPhamController">
+<div class="container text-center" style="margin-top: 80px; margin-bottom: 80px;">
+    <div class="row">
         <div class="col d-flex justify-content-center">
-          <div class="card border-0" style="width: 18rem">
-            <img
-              src="assets/images/dongho1.png"
-              class="card-img-top zoom-img"
-              alt="..."
-            />
-          </div>
+            <div class="card border-0" style="width: 18rem">
+                <img
+                        src="assets/images/dongho1.png"
+                        class="card-img-top zoom-img"
+                        alt="..."
+                />
+            </div>
         </div>
         <div class="col">
-          <div style="margin-bottom: 20px;">
-            <span style="color: #000000; font-size: 30px;">{{sanPhamDetail.tenSanPham}}</span>
-          </div>
-          
-          <div class="d-flex justify-content-between mb-3" style="width: 200px;">
-            <div><span style="color: red;font-size: 20px;font-weight: 500;">4.0</span></div>
-            <div><span style="color: #000000;font-size: 20px;font-weight: 500;">1,5k</span></div>
-            <div><span style="color: #000000;font-size: 20px;font-weight: 500;">7K.Đã Bán</span></div>
-          </div>
-          
-          <div class="d-flex flex-column mb-3">
-            <div class="d-flex">
-              <label style="margin-right: 20px;font-size: 20px;font-weight:500 ;">Khuyến Mãi:</label>
-              <input type="text" placeholder="Nhập Zipcode" />
+            <div style="margin-bottom: 20px;">
+                <span style="color: #000000; font-size: 30px;">{{sanPhamDetail.tenSanPham}}</span>
             </div>
-            <div class="">Tên Khuyến Mãi</div>
-          </div>
-          
-          <div class="d-flex flex-column mb-3">
-            <div class="d-flex justify-content">
-              <label style="margin-right: 20px;font-size: 20px;font-weight:500 ;">Giá Tiền:</label>
-              <div class="ml-2" style="font-weight: 500; font-size: 20px;">{{sanPhamDetail.giaSanPham}}</div>
+
+            <div class="d-flex justify-content-between mb-3" style="width: 200px;">
+                <div><span style="color: red;font-size: 20px;font-weight: 500;">4.0</span></div>
+                <div><span style="color: #000000;font-size: 20px;font-weight: 500;">1,5k</span></div>
+                <div><span style="color: #000000;font-size: 20px;font-weight: 500;">7K.Đã Bán</span></div>
             </div>
-          </div>
-          
-          <div class="d-flex justify-content-between mb-3" style="width: 500px;">
-            <label style="margin-right: 20px;font-size: 15px;font-weight:500 ;">Dây đeo</label>
-            <div class="d-flex align-items-center">
-              <div class="form-check form-check-inline" ng-repeat="dd in listDayDeo">
-                <input type="radio" class="btn-check" name="daydeoOption" id="daydeo{{dd}}" ng-model="$parent.selectedDD" ng-value="dd" ng-disabled="!setAvaiableDayDeo.has(dd)">
-                <label class="btn btn-outline-primary" for="daydeo{{dd}}">{{dd}}</label>
-              </div>
+
+            <div class="d-flex flex-column mb-3">
+                <div class="d-flex">
+                    <label style="margin-right: 20px;font-size: 20px;font-weight:500 ;">Khuyến Mãi:</label>
+                    <input type="text" placeholder="Nhập Zipcode"/>
+                </div>
+                <div class="">Tên Khuyến Mãi</div>
             </div>
-          </div>
-          <div class="d-flex justify-content-between mb-3" style="width: 500px;">
-            <label style="margin-right: 20px;font-size: 15px;font-weight:500 ;">Vật liệu</label>
-            <div class="d-flex align-items-center">
-              <div class="form-check form-check-inline" ng-repeat="vl in listVatLieu">
-                <input type="radio" class="btn-check" name="vatlieuOption" id="vatlieu{{vl}}" ng-model="$parent.selectedVL" ng-value="vl" ng-disabled="!setAvaiableVatLieu.has(vl)">
-                <label class="btn btn-outline-primary" for="vatlieu{{vl}}">{{vl}}</label>
-              </div>
+
+            <div class="d-flex flex-column mb-3">
+                <div class="d-flex justify-content">
+                    <label style="margin-right: 20px;font-size: 20px;font-weight:500 ;">Giá Tiền:</label>
+                    <div class="ml-2" style="font-weight: 500; font-size: 20px;">{{sanPhamDetail.giaSanPham}}</div>
+                </div>
             </div>
-          </div>
-          <div class="d-flex justify-content-between mb-3" style="width: 500px;">
-            <label style="margin-right: 20px;font-size: 15px;font-weight:500 ;">Màu sắc</label>
-            <div class="d-flex align-items-center">
-              <div class="form-check form-check-inline" ng-repeat="ms in listMauSac">
-                <input type="radio" class="btn-check" name="mausacOption" id="mausac{{ms}}" ng-model="$parent.selectedMS" ng-value="ms">
-                <label class="btn btn-outline-primary" for="mausac{{ms}}">{{ms}}</label>
-              </div>
+
+            <div class="d-flex justify-content-between mb-3" style="width: 500px;">
+                <label style="margin-right: 20px;font-size: 15px;font-weight:500 ;">Dây đeo</label>
+                <div class="d-flex align-items-center">
+                    <div class="form-check form-check-inline" ng-repeat="dd in listDayDeo">
+                        <input type="radio" class="btn-check" name="daydeoOption" id="daydeo{{dd}}"
+                               ng-model="$parent.selectedDD" ng-value="dd" ng-disabled="!setAvaiableDayDeo.has(dd)">
+                        <label class="btn btn-outline-primary" for="daydeo{{dd}}">{{dd}}</label>
+                    </div>
+                </div>
             </div>
-          </div>
-          <div class="d-flex justify-content-between mb-3" style="width: 500px;">
-            <label style="margin-right: 20px;font-size: 15px;font-weight:500 ;">Kích cỡ</label>
-            <div class="d-flex align-items-center">
-              <div class="form-check form-check-inline" ng-repeat="kc in listKichCo">
-                <input type="radio" class="btn-check" name="kickcoOption" id="kichco{{kc}}" ng-model="$parent.selectedKC" ng-value="kc">
-                <label class="btn btn-outline-primary" for="kichco{{kc}}">{{kc}}</label>
-              </div>
+            <div class="d-flex justify-content-between mb-3" style="width: 500px;">
+                <label style="margin-right: 20px;font-size: 15px;font-weight:500 ;">Vật liệu</label>
+                <div class="d-flex align-items-center">
+                    <div class="form-check form-check-inline" ng-repeat="vl in listVatLieu">
+                        <input type="radio" class="btn-check" name="vatlieuOption" id="vatlieu{{vl}}"
+                               ng-model="$parent.selectedVL" ng-value="vl" ng-disabled="!setAvaiableVatLieu.has(vl)">
+                        <label class="btn btn-outline-primary" for="vatlieu{{vl}}">{{vl}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-between mb-3" style="width: 500px;">
+                <label style="margin-right: 20px;font-size: 15px;font-weight:500 ;">Màu sắc</label>
+                <div class="d-flex align-items-center">
+                    <div class="form-check form-check-inline" ng-repeat="ms in listMauSac">
+                        <input type="radio" class="btn-check" name="mausacOption" id="mausac{{ms}}"
+                               ng-model="$parent.selectedMS" ng-value="ms">
+                        <label class="btn btn-outline-primary" for="mausac{{ms}}">{{ms}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-between mb-3" style="width: 500px;">
+                <label style="margin-right: 20px;font-size: 15px;font-weight:500 ;">Kích cỡ</label>
+                <div class="d-flex align-items-center">
+                    <div class="form-check form-check-inline" ng-repeat="kc in listKichCo">
+                        <input type="radio" class="btn-check" name="kickcoOption" id="kichco{{kc}}"
+                               ng-model="$parent.selectedKC" ng-value="kc">
+                        <label class="btn btn-outline-primary" for="kichco{{kc}}">{{kc}}</label>
+                    </div>
+                </div>
+            </div>
+            <!--          -->
+            <!--          <div class="text-center" style="margin-top: 50px;margin-left: 220px;">-->
+            <!--            <nav aria-label="...">-->
+            <!--              <ul class="pagination pagination-lg">-->
+            <!--                <li class="page-item" aria-current="page">-->
+            <!--                  <a class="page-link" ><i style="color: #424242;" class="fas fa-minus"></i></a>-->
+            <!--                </li>-->
+            <!--                <li class="page-item"><input style="color: #424242; width: 50px" class="page-link" type="text" name="soLuong"/></li>-->
+            <!--                <li class="page-item">-->
+            <!--                  <a class="page-link" ><i style="color: #424242;" class="fas fa-plus"></i></a>-->
+            <!--                </li>-->
+            <!--              </ul>-->
+            <!--            </nav>-->
+            <!--          </div>-->
+            <!--          -->
+            <input class="minus is-form" type="button" value="-" style="width:30px" ng-click="giam(item)"/>
+            <input
+                    aria-label="quantity"
+                    class="input-qty"
+                    max=10
+                    min=1
+                    ng-model="soLuong"
+                    name="soLuong"
+                    type="text"
+                    value="1"
+                    style="width:30px"
+            />
+            <input class="plus is-form" type="button" value="+" style="width:30px" ng-click="tang(item)"/>
+            <div>
+                <button type="button" class="btn btn-secondary" ng-click="addToCart()">Thêm Vào Giỏ Hàng</button>
+                <button type="button" class="btn btn-danger">Mua Ngay</button>
             </div>
           </div>
 <!--          -->
@@ -120,235 +156,199 @@
             <button type="button" class="btn btn-danger" ng-click="buyNow()">Mua Ngay</button>
           </div>
           </div>
+
         </div>
-      </div>
     </div>
+</div>
 
-    <!--End Ảnh và thông tin sản phẩm-->
+<!--End Ảnh và thông tin sản phẩm-->
 
-    <!--Start text chi tiết sản phẩm-->
-    <div class="container text-center" style="margin-bottom: 50px;">
-      <div class="row">
-        <div class="col"style="border-top: 1px solid #000000;border-right: 1px solid #000000;border-left: 1px solid #000000">
-          <span style="font-size: 20px;font-weight: 500;">Chi Tiết Sản Phẩm</span>
+<!--Start text chi tiết sản phẩm-->
+<div class="container text-center" style="margin-bottom: 50px;">
+    <div class="row">
+        <div class="col"
+             style="border-top: 1px solid #000000;border-right: 1px solid #000000;border-left: 1px solid #000000">
+            <span style="font-size: 20px;font-weight: 500;">Chi Tiết Sản Phẩm</span>
         </div>
         <div class="col" style="border-bottom: 1px solid #000000;">
-          
+
         </div>
-        <div class="col"style="border-bottom: 1px solid #000000;">
-          
+        <div class="col" style="border-bottom: 1px solid #000000;">
+
         </div>
-        <div class="col"style="border-bottom: 1px solid #000000;">
-          
+        <div class="col" style="border-bottom: 1px solid #000000;">
+
         </div>
-      </div>
     </div>
+</div>
 
-    <!--End text chi tiết sản phẩm-->
+<!--End text chi tiết sản phẩm-->
 
-    <!--Start nội dung chi tiết sản phẩm-->
-    <div class="container text-center" style="margin-bottom: 50px;">
-      <div class="row">
+<!--Start nội dung chi tiết sản phẩm-->
+<div class="container text-center" style="margin-bottom: 50px;">
+    <div class="row">
         <div class="col" style="border-right:1px solid #000000;text-align: left;line-height:30px">
           <span>
             {{sanPhamDetail.moTaSanPham}} 
           </span>
         </div>
         <div class="col" style="text-align: left;">
-          <ul>
-            <li>Thương hiệu: {{sanPhamDetail.thuongHieu.tenThuonghieu}}</li>
-            <li>Danh mục: {{sanPhamDetail.danhMuc.ten}}</li>
-            <li>Chất liệu: {{chiTietSanPham.vatLieu.tenVatLieu}}</li>
-            <li>Chuyển động: Tự động</li>
-            <li>Đường kính: {{chiTietSanPham.duongKinhMatDongHo}}</li>
-            <li>Độ dày vỏ: {{chiTietSanPham.doDayMatDongHo}}</li>
-            <li>Chống nước: {{chiTietSanPham.doChiuNuoc}} mét</li>
-            <li>Chất liệu dây đeo/Vòng tay: {{chiTietSanPham.dayDeo.tenDayDeo}}</li>
-            <li>Tình trạng: {{chiTietSanPham.trangThai}}</li>
-            <li>Mã sản phẩm: VUL00476</li>
-          </ul>
+            <ul>
+                <li>Thương hiệu: {{sanPhamDetail.thuongHieu.tenThuonghieu}}</li>
+                <li>Danh mục: {{sanPhamDetail.danhMuc.ten}}</li>
+                <li>Chất liệu: {{chiTietSanPham.vatLieu.tenVatLieu}}</li>
+                <li>Chuyển động: Tự động</li>
+                <li>Đường kính: {{chiTietSanPham.duongKinhMatDongHo}}</li>
+                <li>Độ dày vỏ: {{chiTietSanPham.doDayMatDongHo}}</li>
+                <li>Chống nước: {{chiTietSanPham.doChiuNuoc}} mét</li>
+                <li>Chất liệu dây đeo/Vòng tay: {{chiTietSanPham.dayDeo.tenDayDeo}}</li>
+                <li>Tình trạng: {{chiTietSanPham.trangThai}}</li>
+                <li>Mã sản phẩm: VUL00476</li>
+            </ul>
         </div>
-      </div>
     </div>
-    
-    
-    <!--End nội dung chi tiết sản phẩm-->
+</div>
 
-    <!--Start tiêu đề đánh Giá chi tiết sản phẩm-->
-    <div class="container text-center" style="margin-bottom: 50px;">
-      <div class="row">
-        
-        <div class="col"style="border-top: 1px solid #000000;border-right: 1px solid #000000;border-left: 1px solid #000000">
-          <span style="font-size: 20px;font-weight: 500;">Bình Luận Và Đánh Giá</span>
+
+<!--End nội dung chi tiết sản phẩm-->
+
+<!--Start tiêu đề đánh Giá chi tiết sản phẩm-->
+<div class="container text-center" style="margin-bottom: 50px;">
+    <div class="row">
+
+        <div class="col"
+             style="border-top: 1px solid #000000;border-right: 1px solid #000000;border-left: 1px solid #000000">
+            <span style="font-size: 20px;font-weight: 500;">Bình Luận Và Đánh Giá</span>
         </div>
         <div class="col" style="border-bottom: 1px solid #000000;">
-          
+
         </div>
-        <div class="col"style="border-bottom: 1px solid #000000;">
-          
+        <div class="col" style="border-bottom: 1px solid #000000;">
+
         </div>
-        <div class="col"style="border-bottom: 1px solid #000000;">
-          
+        <div class="col" style="border-bottom: 1px solid #000000;">
+
         </div>
-      </div>
     </div>
+</div>
 
-    <!--End đánh Giá chi tiết sản phẩm-->
+<!--End đánh Giá chi tiết sản phẩm-->
 
-    <!--Start nội dung đánh Giá chi tiết sản phẩm-->
-    <div class="container text-center" style="margin-bottom: 30px;">
-      <div class="row">
+<!--Start nội dung đánh Giá chi tiết sản phẩm-->
+<div class="container text-center" style="margin-bottom: 30px;">
+    <div class="row">
         <div class="col" style="text-align: left;">
-          
-          <div class="product-reviews">
-            <h3>Đánh Giá Sản Phẩm</h3>
-            
-            <div class="rating-selection">
-              <label>Chọn số sao:</label>
-              <div class="rating-buttons d-flex">
-                <button class="rating-button" style="margin-right: 20px;" value="1">1 sao</button>
-                <button class="rating-button" style="margin-right: 20px;" value="2">2 sao</button>
-                <button class="rating-button" style="margin-right: 20px;" value="3">3 sao</button>
-                <button class="rating-button" style="margin-right: 20px;" value="4">4 sao</button>
-                <button class="rating-button" style="margin-right: 20px;" value="5">5 sao</button>
-              </div>
-            </div>
-            
-            <div class="review" style="margin: 50px 0px;">
-              <div class="review-header">
-                <div class="rating">
-                  <i class="fas fa-star text-danger"></i>
-                  <i class="fas fa-star text-danger"></i>
-                  <i class="fas fa-star text-danger"></i>
-                  <i class="fas fa-star text-danger"></i>
-                  <i class="fas fa-star text-danger"></i>
+
+            <div class="product-reviews">
+                <h3>Đánh Giá Sản Phẩm</h3>
+
+                <div ng-if="check == true">
                 </div>
-                <div class="reviewer">Người dùng A</div>
-                <div class="date">10/05/2023</div>
-              </div>
-              <div class="review-content">
-                Đánh giá sản phẩm rất tốt. Chất lượng tốt, giao hàng nhanh chóng. Rất hài lòng với sản phẩm này.
-              </div>
-            </div>
-            
-            <div class="review" style="margin: 50px 0px;">
-              <div class="review-header">
-                <div class="rating">
-                  <i class="fas fa-star text-danger"></i>
-                  <i class="fas fa-star text-danger"></i>
-                  <i class="fas fa-star text-danger"></i>
-                  <i class="fas fa-star text-danger"></i>
+                <div ng-if="check == false">
+                    <div class="rating-selection">
+                        <form ng-submit="sendRate()">
+                            <div star-ratings rating-value="ratings.current" max="5"></div>
+                            <input type="text" id="noiDungPhanHoi" name="noiDungPhanHoi" ng-model="noiDungPhanHoi"/>
+                            <button>Submit</button>
+                        </form>
+                    </div>
+
                 </div>
-                <div class="reviewer">Người dùng B</div>
-                <div class="date">08/05/2023</div>
-              </div>
-              <div class="review-content">
-                Sản phẩm tốt, nhưng giao hàng hơi chậm. Tuy nhiên, vẫn hài lòng với chất lượng của sản phẩm.
-              </div>
+
+                <div>
+                    <div class="review" style="margin: 50px 0px;" ng-repeat="p in Items">
+                        <div class="review-header">
+                            <div star-rating rating-value="p.danhGia" max="5"></div>
+                            <div class="reviewer">{{p.khachHang.tenKhachHang}}</div>
+                            <div class="date">{{p.thoiGianPhanHoi | date: 'dd/MM/yyyy'}}</div>
+                        </div>
+                        <div class="review-content">
+                            {{p.noiDungPhanHoi}}
+                        </div>
+                    </div>
+                </div>
+                <!-- Thêm các đánh giá khác tại đây -->
+
+                <nav aria-label="Page navigation">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item">
+                            <button class="page-link" style="color: #000000;" ng-click="previousPage()">Trước</button>
+                        </li>
+                        <li class="page-item" ng-repeat="page in pages">
+                            <button class="page-link" style="color: #000000;" ng-click="changePage(page)">{{ page }}
+                            </button>
+                        </li>
+                        <li class="page-item">
+                            <button class="page-link" style="color: #000000;" ng-click="nextPage()">Tiếp</button>
+                        </li>
+                    </ul>
+                </nav>
+
             </div>
 
-            <div class="review" style="margin: 50px 0px;">
-              <div class="review-header">
-                <div class="rating">
-                  <i class="fas fa-star text-danger"></i>
-                  <i class="fas fa-star text-danger"></i>
-                  <i class="fas fa-star text-danger"></i>
-                  <i class="fas fa-star text-danger"></i>
-                </div>
-                <div class="reviewer">Người dùng C</div>
-                <div class="date">08/05/2023</div>
-              </div>
-              <div class="review-content">
-                Sản phẩm tốt, nhưng giao hàng hơi chậm. Tuy nhiên, vẫn hài lòng với chất lượng của sản phẩm.
-              </div>
-            </div>
-            
-            <!-- Thêm các đánh giá khác tại đây -->
-
-            <nav aria-label="Page navigation">
-              <ul class="pagination justify-content-center">
-                <li class="page-item">
-                  <a class="page-link" style="color: #000000;" href="#">Trước</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link"style="color: #000000;" href="#">1</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link"style="color: #000000;" href="#">2</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link"style="color: #000000;" href="#">3</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link"style="color: #000000;" href="#">Tiếp</a>
-                </li>
-              </ul>
-            </nav>
-            
-          </div>
-          
         </div>
-        
-      </div>
-    </div>
-    
-    <!--End nội dung đánh Giá chi tiết sản phẩm-->
 
-     <!--Start tiêu đề các sản phẩm khác của shop-->
-     <div class="container text-center" style="margin-bottom: 50px;">
-      <div class="row">
-        
-        <div class="col"style="border-top: 1px solid #000000;border-right: 1px solid #000000;border-left: 1px solid #000000">
-          <span style="font-size: 20px;font-weight: 500;">Các Sản Phẩm Khác</span>
+    </div>
+</div>
+
+<!--End nội dung đánh Giá chi tiết sản phẩm-->
+
+<!--Start tiêu đề các sản phẩm khác của shop-->
+<div class="container text-center" style="margin-bottom: 50px;">
+    <div class="row">
+
+        <div class="col"
+             style="border-top: 1px solid #000000;border-right: 1px solid #000000;border-left: 1px solid #000000">
+            <span style="font-size: 20px;font-weight: 500;">Các Sản Phẩm Khác</span>
         </div>
         <div class="col" style="border-bottom: 1px solid #000000;">
-          
+
         </div>
-        <div class="col"style="border-bottom: 1px solid #000000;">
-          
+        <div class="col" style="border-bottom: 1px solid #000000;">
+
         </div>
-        <div class="col"style="border-bottom: 1px solid #000000;">
-          
+        <div class="col" style="border-bottom: 1px solid #000000;">
+
         </div>
-      </div>
     </div>
-     <!--End tiêu đề các sản phẩm khác của shop-->
+</div>
+<!--End tiêu đề các sản phẩm khác của shop-->
 
 
-    <!--Start card các sản phẩm khác của shop-->
-    <div class="container text-center">
-      <div class="row">
+<!--Start card các sản phẩm khác của shop-->
+<div class="container text-center">
+    <div class="row">
         <div class="col">
-          <a href="">
-            <div class="card border-0" style="width: 200px; height: 300px;">
-              <img src="assets/images/dongho2.png" class="card-img-top" alt="..." />
-            </div>
-          </a>
+            <a href="">
+                <div class="card border-0" style="width: 200px; height: 300px;">
+                    <img src="assets/images/dongho2.png" class="card-img-top" alt="..."/>
+                </div>
+            </a>
         </div>
         <div class="col">
-          <a href="">
-            <div class="card border-0" style="width: 200px; height: 300px;">
-              <img src="assets/images/dongho3.png" class="card-img-top" alt="..." />
-            </div>
-          </a>
+            <a href="">
+                <div class="card border-0" style="width: 200px; height: 300px;">
+                    <img src="assets/images/dongho3.png" class="card-img-top" alt="..."/>
+                </div>
+            </a>
         </div>
         <div class="col">
-          <a href="">
-            <div class="card border-0" style="width: 200px; height: 300px;">
-              <img src="assets/images/dongho4.png" class="card-img-top" alt="..." />
-            </div>
-          </a>
+            <a href="">
+                <div class="card border-0" style="width: 200px; height: 300px;">
+                    <img src="assets/images/dongho4.png" class="card-img-top" alt="..."/>
+                </div>
+            </a>
         </div>
         <div class="col">
-          <a href="">
-            <div class="card border-0" style="width: 200px; height: 300px;">
-              <img src="assets/images/dongho6.png" class="card-img-top" alt="..." />
-            </div>
-          </a>
+            <a href="">
+                <div class="card border-0" style="width: 200px; height: 300px;">
+                    <img src="assets/images/dongho6.png" class="card-img-top" alt="..."/>
+                </div>
+            </a>
         </div>
-      </div>
     </div>
-    
+</div>
 
-    <!--End card các sản phẩm khác của shop-->
-    
+
+<!--End card các sản phẩm khác của shop-->
+</div>

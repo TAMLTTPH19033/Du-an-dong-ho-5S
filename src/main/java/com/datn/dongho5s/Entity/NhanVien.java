@@ -3,16 +3,19 @@ package com.datn.dongho5s.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @AllArgsConstructor
 @Builder
-@Table(name = "nhanvien")
-public class NhanVien {
+@Table(name = "NhanVien")
+public class NhanVien implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -141,6 +144,43 @@ public class NhanVien {
         this.matKhau = matKhau;
     }
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        Set<ChucVu> chucVu = this.getChucVu();
+        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+
+        for(ChucVu cv : chucVu ){
+            authorities.add(new SimpleGrantedAuthority(cv.getTenChucVu()));
+        }
+        return authorities;
+    }
+
+    @Override
+    public String getPassword() {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        return passwordEncoder.encode(this.getMatKhau());
+    }
+
+    @Override
+    public String getUsername() {
+        return this.getEmail();
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
     public boolean isEnabled() {
         return enabled;
     }
@@ -193,5 +233,9 @@ public class NhanVien {
         if(id == null || anh == null) return "/images/default-user.png";
 
         return "/user-photos/" + this.id + "/" + this.anh;
+    }
+
+    public NhanVien get() {
+        return this;
     }
 }
