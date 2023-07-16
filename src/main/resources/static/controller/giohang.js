@@ -2,21 +2,26 @@ myApp.controller("cartCtrl", function ($scope,$rootScope, $http) {
     $scope.cart = [];
     $scope.total = 0;
     $scope.totalSp = 0;
-    $rootScope.idkhachHang = 1;
+
     //load cart
     $scope.index = function () {
-        $http.get(`/api/giohang/${$rootScope.idkhachHang}`).then((resp) => {
-            $scope.cart = resp.data;
-            // console.log($scope.cart);
-        }).catch(error =>{
-          console.log("loi")
+        console.log($rootScope.idkhachHang)
+        if($rootScope.idkhachHang != null) {
+            $http.get(`/api/giohang/${$rootScope.idkhachHang}`).then((resp) => {
+                $scope.cart = resp.data;
+                // console.log($scope.cart);
+            }).catch(error => {
+                console.log(error)
+
+            });
+        }else{
             Swal.fire({
                 icon: "warning",
                 title: "Bạn chưa đăng nhập !",
                 text: "Hãy đăng nhập để tiếp tục shopping!",
                 timer: 1600,
             });
-        });
+        }
     };
     $scope.index();
 
