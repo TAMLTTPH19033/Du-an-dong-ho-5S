@@ -18,8 +18,23 @@
                   </p>
                 </div>
                 <div class="col-9">
-                  <b> Lê Thị Thanh Tâm (0816134100)</b>
-                  <span> Đại mỗ nam từ liêm Hà nội</span>
+                  <b>
+                    {{thongtincanhan.tenKhachHang}} (
+                    {{thongtincanhan.soDienThoai}} )</b
+                  >
+                  <select
+                    class="form-select"
+                    aria-label="Default select example"
+                    ng-model="diaChiGiaoHangs"
+                  >
+                    <option value="" selected="true">Chọn nơi nhận</option>
+                    <option
+                      value="{{diaChiGiaoHang.idDiaChi}}"
+                      ng-repeat="diaChiGiaoHang in diaChiGiaoHangs"
+                    >
+                      {{diaChiGiaoHang.diaChi}}
+                    </option>
+                  </select>
 
                   <a
                     href=""
@@ -41,127 +56,29 @@
                 </p>
               </div>
               <br />
+              <!--Thông tin list sản phẩm-->
               <div class="card-body pt-0">
-                <div class="row justify-content-between">
-                  <div class="col-auto col-md-7">
-                    <div class="media flex-column flex-sm-row">
-                      <p>Sản phẩm</p>
-                    </div>
-                  </div>
-                  <div class="pl-0 flex-sm-col col-auto my-auto">
-                    <p>Đơn giá</p>
-                  </div>
-                  <div class="pl-0 flex-sm-col col-auto my-auto">
-                    <p class="boxed-1">Số lượng</p>
-                  </div>
-
-                  <div class="pl-0 flex-sm-col col-auto my-auto">
-                    <p>Thành tiền</p>
-                  </div>
-                </div>
-                <div class="row justify-content-between">
-                  <div class="col-auto col-md-7">
-                    <div class="media flex-column flex-sm-row">
-                      <img
-                        class="img-fluid"
-                        src="assets/images/dongho5.png"
-                        width="62"
-                        height="62"
-                      />
-                      <div class="media-body my-auto">
-                        <div class="row">
-                          <div class="col-auto">
-                            <p class="mb-0">
-                              <b>EC-GO Bag Standard</b>
-                              <small class="text-muted"
-                                >1 Week Subscription</small
-                              >
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="pl-0 flex-sm-col col-auto my-auto">
-                    <p class="boxed-1">98</p>
-                  </div>
-                  <div class="pl-0 flex-sm-col col-auto my-auto">
-                    <p class="boxed-1">2</p>
-                  </div>
-                  <div class="pl-0 flex-sm-col col-auto my-auto">
-                    <p><b>179 SEK</b></p>
-                  </div>
-                </div>
-                <hr class="my-2" />
-                <div class="row justify-content-between">
-                  <div class="col-auto col-md-7">
-                    <div class="media flex-column flex-sm-row">
-                      <img
-                        class="img-fluid"
-                        src="assets/images/dongho4.png"
-                        width="62"
-                        height="62"
-                      />
-                      <div class="media-body my-auto">
-                        <div class="row">
-                          <div class="col">
-                            <p class="mb-0">
-                              <b>EC-GO Standard</b>
-                              <small class="text-muted"
-                                >2 Week Subscription</small
-                              >
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="pl-0 flex-sm-col col-auto my-auto">
-                    <p class="boxed-1">64</p>
-                  </div>
-                  <div class="pl-0 flex-sm-col col-auto my-auto">
-                    <p class="boxed">3</p>
-                  </div>
-                  <div class="pl-0 flex-sm-col col-auto my-auto">
-                    <p><b>179 SEK</b></p>
-                  </div>
-                </div>
-                <hr class="my-2" />
-                <div class="row justify-content-between">
-                  <div class="col-auto col-md-7">
-                    <div class="media flex-column flex-sm-row">
-                      <img
-                        class="img-fluid"
-                        src="assets/images/dongho8.png"
-                        width="62"
-                        height="62"
-                      />
-                      <div class="media-body my-auto">
-                        <div class="row">
-                          <div class="col">
-                            <p class="mb-0">
-                              <b>EC-GO Standard</b>
-                              <small class="text-muted"
-                                >2 Week Subscription</small
-                              >
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="pl-0 flex-sm-col col-auto my-auto">
-                    <p class="boxed-1">98</p>
-                  </div>
-                  <div class="pl-0 flex-sm-col col-auto my-auto">
-                    <p class="boxed-1">2</p>
-                  </div>
-                  <div class="pl-0 flex-sm-col col-auto my-auto">
-                    <p><b>179 SEK</b></p>
-                  </div>
-                </div>
+                <table class="table table-borderless">
+                  <thead>
+                    <tr>
+                      <th scope="col">Sản phẩm</th>
+                      <th scope="col">Đơn giá</th>
+                      <th scope="col">Số lượng</th>
+                      <th scope="col">Thành tiền</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="item in listHoaDonChiTietRequest">
+                      <th>{{item.chiTietSanPham.sanPham.tenSanPham}}</th>
+                      <td>{{item.giaBan}}</td>
+                      <td>{{item.soLuong}}</td>
+                      <td>{{item.giaBan * item.soLuong}}</td>
+                    </tr>
+                  </tbody>
+                </table>
                 <hr class="my-2" />
               </div>
+              <!--End list sản phẩm-->
             </div>
           </div>
           <!--thong tin-->
@@ -183,34 +100,16 @@
                     id="NAME"
                     aria-describedby="helpId"
                     placeholder="BBBootstrap Team"
-                    value="30.000đ"
+                    value="fee"
                     readonly
                   />
                 </div>
-                <div class="mb-3">
-                  <label for="NAME" class="text mb-1">Đơn vị vận chuyển</label>
-                  <input
-                    type="text"
-                    class="form-control form-control-sm"
-                    name="NAME"
-                    id="NAME"
-                    aria-describedby="helpId"
-                    placeholder="BBBootstrap Team"
-                    value="Nhanh"
-                    readonly
-                  />
-                  <span class="small text-muted mb-1"
-                    >Nhận hàng từ 11 th5-14 th5
-                  </span>
-                </div>
-
                 <div class="mb-3">
                   <label for="NAME" class="text mb-1">Lời nhắn</label>
                   <input
                     type="text"
                     class="form-control form-control-sm"
-                    name="NAME"
-                    id="NAME"
+                    ng-model="ghiChu"
                     aria-describedby="helpId"
                     placeholder="Lưu ý tới người bán..."
                   />
@@ -222,9 +121,12 @@
                       <label for="NAME" class="text mb-1"
                         >Phương thức thanh toán</label
                       >
-                      <select class="form-control form-control-sm">
-                        <option value="">Thanh toán khi nhận</option>
-                        <option value="">Thanh toán khi nhận</option>
+                      <select
+                        class="form-control form-control-sm"
+                        ng-model="isVNPAY"
+                      >
+                        <option value="false">Thanh toán khi nhận</option>
+                        <option value="true">Thanh toán bằng VNPay</option>
                       </select>
                     </div>
                   </div>
@@ -233,10 +135,10 @@
                   <div class="col">
                     <div class="row justify-content-between">
                       <div class="col-4">
-                        <p class="mb-1"><b>Tổng sản phẩm</b></p>
+                        <p class="mb-1"><b>Tổng tiền sản phẩm</b></p>
                       </div>
                       <div class="flex-sm-col col-auto">
-                        <p class="mb-1"><b>179.000.000</b></p>
+                        <p class="mb-1">{{tongTien}}</p>
                       </div>
                     </div>
                     <div class="row justify-content-between">
@@ -244,7 +146,15 @@
                         <p class="mb-1"><b>Phí vận chuyển </b></p>
                       </div>
                       <div class="flex-sm-col col-auto">
-                        <p class="mb-1"><b>30.000</b></p>
+                        <p class="mb-1"><b>{{fee}}</b></p>
+                      </div>
+                    </div>
+                    <div class="row justify-content-between">
+                      <div class="col">
+                        <p class="mb-1"><b>Đơn vị vận chuyển </b></p>
+                      </div>
+                      <div class="flex-sm-col col-auto">
+                        <p class="mb-1"><b>Giao Hàng Nhanh</b></p>
                       </div>
                     </div>
                     <div class="row justify-content-between">
@@ -252,7 +162,7 @@
                         <p><b>Tổng</b></p>
                       </div>
                       <div class="flex-sm-col col-auto">
-                        <p class="mb-1"><b>209.000.000 </b></p>
+                        <p class="mb-1"><b>{{tongTien + fee}}</b></p>
                       </div>
                     </div>
                     <hr class="my-0" />
@@ -263,6 +173,7 @@
                     <button
                       type="button"
                       class="btn btn-block btn-outline-secondary btn-lg"
+                      ng-click="thanhToan()"
                     >
                       THANH TOÁN
                     </button>

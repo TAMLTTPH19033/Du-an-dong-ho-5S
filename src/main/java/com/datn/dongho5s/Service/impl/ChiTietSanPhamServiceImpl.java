@@ -1,6 +1,8 @@
 package com.datn.dongho5s.Service.impl;
 
 
+import com.datn.dongho5s.Entity.ChiTietSanPham;
+import com.datn.dongho5s.Repository.ChiTietSanPhamRepository;
 import com.datn.dongho5s.Response.TimKiemSettingResponse;
 import com.datn.dongho5s.Service.ChiTietSanPhamService;
 import com.datn.dongho5s.Service.DanhmucService;
@@ -27,6 +29,8 @@ public class ChiTietSanPhamServiceImpl implements ChiTietSanPhamService {
     ThuongHieuService thuongHieuService;
     @Autowired
     VatLieuService vatLieuService;
+    @Autowired
+    ChiTietSanPhamRepository chiTietSanPhamRepository;
 
     @Override
     public TimKiemSettingResponse getTimKiemSetting() {
@@ -38,5 +42,10 @@ public class ChiTietSanPhamServiceImpl implements ChiTietSanPhamService {
         result.setListThuongHieu(thuongHieuService.getAllThuongHieu());
         result.setListVatLieu(vatLieuService.getAllVatLieu());
         return result;
+    }
+
+    @Override
+    public ChiTietSanPham getChiTietSanPhamById(Integer id) {
+        return chiTietSanPhamRepository.findById(id).get();
     }
 }

@@ -49,8 +49,14 @@ public class DonHang {
     @Column(name = "trang_thai_don_hang")
     private Integer trangThaiDonHang;
 
-    @Column(name = "dia_chi_giao_hang")
-    private String diaChiGiaoHang;
+    @Column(name = "id_quan_huyen")
+    private Integer idQuanHuyen;
+
+    @Column(name = "id_phuong_xa")
+    private Integer idPhuongXa;
+
+    @Column(name = "dia_chi")
+    private String diaChi;
 
     @Column(name = "phi_van_chuyen")
     private Double phiVanChuyen;
