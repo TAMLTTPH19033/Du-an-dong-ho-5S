@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
 import java.util.Date;
 import java.util.List;
 
@@ -12,8 +13,10 @@ import java.util.List;
 @Data
 public class ThemDonHangRequest {
     private Integer khachHangId;
-    private Date ngayTao;
-    private List<ChiTietSanPhamRequest> listChiTietSanPhamRequest;
-    private String diaChiGiaoHang;
+    private List<HoaDonChiTietRequest> listHoaDonChiTietRequest;
+    private Integer idQuanHuyen;
+    private Integer idPhuongXa;
+    private String diaChi;
     private String ghiChu;
+    private Integer soLuongSanPham;
 }

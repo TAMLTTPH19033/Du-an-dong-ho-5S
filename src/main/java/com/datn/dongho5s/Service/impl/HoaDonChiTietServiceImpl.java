@@ -5,6 +5,7 @@ import com.datn.dongho5s.Entity.ChiTietSanPham;
 import com.datn.dongho5s.Entity.HoaDonChiTiet;
 import com.datn.dongho5s.Repository.HoaDonChiTietRepository;
 import com.datn.dongho5s.Request.ChiTietSanPhamRequest;
+import com.datn.dongho5s.Request.HoaDonChiTietRequest;
 import com.datn.dongho5s.Service.ChiTietSanPhamService;
 import com.datn.dongho5s.Service.DonHangService;
 import com.datn.dongho5s.Service.HoaDonChiTietService;
@@ -28,7 +29,7 @@ public class HoaDonChiTietServiceImpl implements HoaDonChiTietService {
     }
 
     @Override
-    public List<HoaDonChiTiet> convertToListHoaDonChiTiet(List<ChiTietSanPhamRequest> list, Integer idDonHang) {
+    public List<HoaDonChiTiet> convertToListHoaDonChiTiet(List<HoaDonChiTietRequest> list, Integer idDonHang) {
         List<HoaDonChiTiet> result = new ArrayList<>();
         list.forEach(item->{
             ChiTietSanPham ctsp = chiTietSanPhamService.getChiTietSanPhamById(item.getIdChiTietSanPham());
@@ -42,6 +43,12 @@ public class HoaDonChiTietServiceImpl implements HoaDonChiTietService {
             result.add(hdct);
         });
         return result;
+    }
+
+    @Override
+    public List<HoaDonChiTiet> saveAll(List<HoaDonChiTiet> listHDCT) {
+        hoaDonChiTietRepository.saveAll(listHDCT);
+        return null;
     }
 
 }

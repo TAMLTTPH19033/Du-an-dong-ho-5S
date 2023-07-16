@@ -12,12 +12,10 @@ public class ProjectDatnApplication {
 
 
 	public static void main(String[] args) throws Exception {
-		DiaChiAPI.callGetTinhThanhAPI();
-		DiaChiAPI.callGetQuanHuyenAPI();
+//		DiaChiAPI.callGetTinhThanhAPI();
+//		DiaChiAPI.callGetQuanHuyenAPI();
 		SpringApplication.run(ProjectDatnApplication.class, args);
-		System.out.println(DiaChiCache.hashMapTinhThanh.size());
-		System.out.println(DiaChiCache.hashMapQuanHuyen.size());
-		System.out.println(DiaChiCache.hashMapPhuongXa.size());
+
 	}
 
 }

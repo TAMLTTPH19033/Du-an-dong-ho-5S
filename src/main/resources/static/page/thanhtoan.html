@@ -57,27 +57,27 @@
               </div>
               <br />
               <!--Thông tin list sản phẩm-->
-                <div class="card-body pt-0">
-                  <table class="table table-borderless">
-                    <thead>
-                      <tr>
-                        <th scope="col">Sản phẩm</th>
-                        <th scope="col">Đơn giá</th>
-                        <th scope="col">Số lượng</th>
-                        <th scope="col">Thành tiền</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr ng-repeat="sanPham in sanPhams">
-                        <th>{{sanPham.link}}</th>
-                        <td>{{sanPham.giaSanPham}}</td>
-                        <td>{{sanPham.soLuong}}</td>
-                        <td>{{sanPham.giaSanPham * sanPham.soLuong}}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  <hr class="my-2" />
-                </div>
+              <div class="card-body pt-0">
+                <table class="table table-borderless">
+                  <thead>
+                    <tr>
+                      <th scope="col">Sản phẩm</th>
+                      <th scope="col">Đơn giá</th>
+                      <th scope="col">Số lượng</th>
+                      <th scope="col">Thành tiền</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="item in listHoaDonChiTietRequest">
+                      <th>{{item.chiTietSanPham.sanPham.tenSanPham}}</th>
+                      <td>{{item.giaBan}}</td>
+                      <td>{{item.soLuong}}</td>
+                      <td>{{item.giaBan * item.soLuong}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <hr class="my-2" />
+              </div>
               <!--End list sản phẩm-->
             </div>
           </div>
@@ -100,27 +100,10 @@
                     id="NAME"
                     aria-describedby="helpId"
                     placeholder="BBBootstrap Team"
-                    value="30.000đ"
+                    value="fee"
                     readonly
                   />
                 </div>
-                <div class="mb-3">
-                  <label for="NAME" class="text mb-1">Đơn vị vận chuyển</label>
-                  <input
-                    type="text"
-                    class="form-control form-control-sm"
-                    name="NAME"
-                    id="NAME"
-                    aria-describedby="helpId"
-                    placeholder="BBBootstrap Team"
-                    value="Nhanh"
-                    readonly
-                  />
-                  <span class="small text-muted mb-1"
-                    >Nhận hàng từ 11 th5-14 th5
-                  </span>
-                </div>
-
                 <div class="mb-3">
                   <label for="NAME" class="text mb-1">Lời nhắn</label>
                   <input
@@ -138,9 +121,12 @@
                       <label for="NAME" class="text mb-1"
                         >Phương thức thanh toán</label
                       >
-                      <select class="form-control form-control-sm" ng-model="isVNPay">
-                        <option value=false>Thanh toán khi nhận</option>
-                        <option value=true>Thanh toán bằng VNPay</option>
+                      <select
+                        class="form-control form-control-sm"
+                        ng-model="isVNPAY"
+                      >
+                        <option value="false">Thanh toán khi nhận</option>
+                        <option value="true">Thanh toán bằng VNPay</option>
                       </select>
                     </div>
                   </div>
@@ -160,7 +146,15 @@
                         <p class="mb-1"><b>Phí vận chuyển </b></p>
                       </div>
                       <div class="flex-sm-col col-auto">
-                        <p class="mb-1"><b>{{phiVanChuyen}}</b></p>
+                        <p class="mb-1"><b>{{fee}}</b></p>
+                      </div>
+                    </div>
+                    <div class="row justify-content-between">
+                      <div class="col">
+                        <p class="mb-1"><b>Đơn vị vận chuyển </b></p>
+                      </div>
+                      <div class="flex-sm-col col-auto">
+                        <p class="mb-1"><b>Giao Hàng Nhanh</b></p>
                       </div>
                     </div>
                     <div class="row justify-content-between">
@@ -168,7 +162,7 @@
                         <p><b>Tổng</b></p>
                       </div>
                       <div class="flex-sm-col col-auto">
-                        <p class="mb-1"><b>{{tongTien + phiVanChuyen}}</b></p>
+                        <p class="mb-1"><b>{{tongTien + fee}}</b></p>
                       </div>
                     </div>
                     <hr class="my-0" />
