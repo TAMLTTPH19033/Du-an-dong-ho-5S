@@ -13,20 +13,25 @@
                 <div class="card-body py-5 px-md-5">
                   <h2 class="text-center">Login</h2>
                   <br />
-                  <form ng-submit="login()">
+                  <form ng-submit="login()" name="formLogin">
                     <!-- 2 column grid layout with text inputs for the first and last names -->
-
                     <!-- Email input -->
                     <div class="form-outline mb-4">
                       <label class="form-label" for="form3Example3"
                         >Email address</label
                       >
                       <input
-                        type="email"
+                        type="text"
                         id="form3Example"
                         class="form-control"
                         id="username" name="username" ng-model="username"
                       />
+                      <small
+                              id="ussername"
+                              ng-show="formLogin.username.$invalid"
+                              class="form-text text-muted"
+                      >Vui lòng nhập Email</small
+                      >
                     </div>
 
                     <!-- Password input -->
@@ -40,6 +45,12 @@
                         class="form-control"
                         id="password" name="password"  ng-model="password"
                       />
+                      <small
+                              id="passwor"
+                              ng-show="formLogin.password.$invalid"
+                              class="form-text text-muted"
+                      >Vui lòng nhập Pass</small
+                      >
                     </div>
 
                     <!-- Checkbox -->
@@ -57,7 +68,7 @@
 
                     <!-- Submit button -->
                     <span class="text-danger" ng-show="error">
-                      {{error}}
+                      {{errorMessages}}
                     </span>
                     <button
                       class="btn btn-secondary btn-lg col-12"
@@ -102,7 +113,6 @@
             </div>
           </div>
         </div>
-      </div>
       <!-- Jumbotron -->
     </section>
     <!-- Section: Design Block -->
