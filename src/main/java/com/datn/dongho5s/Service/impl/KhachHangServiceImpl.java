@@ -39,6 +39,7 @@ public class KhachHangServiceImpl implements KhachHangService {
                 .ngaySinh(thongTinCaNhanResponse.getNgaySinh())
                 .soDienThoai(thongTinCaNhanResponse.getSoDienThoai())
                 .idKhachHang(thongTinCaNhanResponse.getId())
+//                .diaChi(diaChiRepository.findByDiaChi(thongTinCaNhanResponse.getDiaChi()))
                 .build());
     }
 
