@@ -42,7 +42,7 @@ public class HoaDonChiTiet {
     private Integer soLuong;
 
     @Column(name = "gia_ban")
-    private Double giaBan;
+    private Integer giaBan;
 
 
 }
