@@ -53,23 +53,22 @@ public class DiaChiAPI {
         }
     }
 
-    public static void callGetQuanHuyenAPI() throws Exception {
-
+    public static HashMap<Integer,String> callGetQuanHuyenAPI(Integer idTinhThanh) throws Exception {
+        if(DiaChiCache.hashMapQuanHuyen.containsKey(idTinhThanh)){
+            return DiaChiCache.hashMapQuanHuyen.get(idTinhThanh);
+        }
 
         HttpClient httpClient = HttpClientBuilder.create().build();
         HttpPost httpPost = new HttpPost(apiQuanHuyen);
         httpPost.setHeader("Token", Constant.TOKEN);
         httpPost.setHeader("Content-Type", Constant.CONTENT_TYPE);
-        DiaChiCache.hashMapTinhThanh.keySet().forEach(idThanhPho -> {
             try {
-                String body = "{ \"province_id\":" + idThanhPho + " }";
+                String body = "{ \"province_id\":" + idTinhThanh + " }";
                 StringEntity requestEntity = new StringEntity(body);
                 httpPost.setEntity(requestEntity);
                 HttpResponse response = httpClient.execute(httpPost);
                 HttpEntity entity = response.getEntity();
                 String responseBody = EntityUtils.toString(entity);
-                System.out.println(responseBody);
-
                 ObjectMapper objectMapper = new ObjectMapper();
                 BaseListResponse<QuanHuyenResponse> responseObject = objectMapper.readValue(responseBody, new TypeReference<>() {
                 });
@@ -78,11 +77,11 @@ public class DiaChiAPI {
                 for (QuanHuyenResponse data : listQuanHuyen) {
                     hashMapQuanHuyenByTP.put(data.getDistrictID(), data.getDistrictName());
                 }
-                DiaChiCache.hashMapQuanHuyen.put(idThanhPho, hashMapQuanHuyenByTP);
+                DiaChiCache.hashMapQuanHuyen.put(idTinhThanh, hashMapQuanHuyenByTP);
             } catch (Exception e) {
                 System.out.println(e);
             }
-        });
+        return DiaChiCache.hashMapQuanHuyen.get(idTinhThanh);
     }
 
     public static HashMap<Integer,String> callGetPhuongXaAPI(Integer idQuanHuyen) throws Exception {
