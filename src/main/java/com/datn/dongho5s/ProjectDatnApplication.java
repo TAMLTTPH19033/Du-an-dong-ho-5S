@@ -12,8 +12,7 @@ public class ProjectDatnApplication {
 
 
 	public static void main(String[] args) throws Exception {
-//		DiaChiAPI.callGetTinhThanhAPI();
-//		DiaChiAPI.callGetQuanHuyenAPI();
+		DiaChiAPI.callGetTinhThanhAPI();
 		SpringApplication.run(ProjectDatnApplication.class, args);
 
 	}
