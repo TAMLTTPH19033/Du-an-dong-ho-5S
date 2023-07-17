@@ -26,8 +26,6 @@ public class ChiTietGioHangResponse {
 
     private Double giaBan;
 
-    private Double thanhTien;
-
     private Date ngayTao;
 
     private String ghiChu;
