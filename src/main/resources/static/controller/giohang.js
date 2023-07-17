@@ -5,7 +5,6 @@ myApp.controller("cartCtrl", function ($scope,$rootScope, $http) {
 
     //load cart
     $scope.index = function () {
-        console.log($rootScope.idkhachHang)
         if($rootScope.idkhachHang != null) {
             $http.get(`/api/giohang/${$rootScope.idkhachHang}`).then((resp) => {
                 $scope.cart = resp.data;
@@ -35,14 +34,23 @@ myApp.controller("cartCtrl", function ($scope,$rootScope, $http) {
 
     // api update soLuongtronggiohang
     $scope.update = function (cart){
-        $http.put(`/api/giohang/update/${cart.idChiTietGioHang}`,cart)
-            .then(resp =>{
-                // $scope.cart = resp.data;
-                // alert("cap nhap thanh cong");
-            })
-            .catch(error =>{
-                alert("Loi roi",error);
-            })
+        if($rootScope.idkhachHang != null) {
+            $http.put(`/api/giohang/update/${cart.idChiTietGioHang}`, cart)
+                .then(resp => {
+                    // $scope.cart = resp.data;
+                    // alert("cap nhap thanh cong");
+                })
+                .catch(error => {
+                    alert("Loi roi", error);
+                })
+        }else{
+            Swal.fire({
+                icon: "warning",
+                title: "Bạn chưa đăng nhập !",
+                text: "Hãy đăng nhập để tiếp tục shopping!",
+                timer: 1600,
+            });
+        }
     }
 
 
