@@ -31,8 +31,6 @@ public class MauSacController {
                              @Param("sortField")String sortField , @Param("sortDir")String sortDir,
                              @Param("keyword")String keyword
     ){
-        System.out.println("SortField: " + sortField);
-        System.out.println("sortOrder: " + sortDir);
         Page<MauSac> page = mauSacService.listByPage(pageNum, sortField, sortDir,keyword);
         List<MauSac> listMauSac = page.getContent();
 
@@ -92,13 +90,12 @@ public class MauSacController {
             model.addAttribute("mauSac", mauSac);
             model.addAttribute("pageTitle","Update Màu Sắc (ID : " + id + ")");
             return "mausac/colors_form";
-        }catch (MauSacNotFoundException ex){
+        } catch (MauSacNotFoundException ex){
             redirectAttributes.addFlashAttribute("message",ex.getMessage());
             return "redirect:/colors";
         } catch (Exception ex) {
             redirectAttributes.addFlashAttribute("error", "Đã xảy ra lỗi trong quá trình xử lý. Vui lòng thử lại sau.");
             return "redirect:/error";
         }
-
     }
 }
