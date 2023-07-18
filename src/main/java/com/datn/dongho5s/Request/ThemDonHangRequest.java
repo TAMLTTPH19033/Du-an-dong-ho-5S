@@ -19,4 +19,5 @@ public class ThemDonHangRequest {
     private String diaChi;
     private String ghiChu;
     private Integer soLuongSanPham;
+    private Double phiVanChuyen;
 }

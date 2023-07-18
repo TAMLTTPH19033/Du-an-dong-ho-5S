@@ -10,7 +10,6 @@ myApp.controller("SanPhamController", function ($scope, $rootScope, $http) {
   $scope.mauSacId = "";
   $scope.vatLieuId = "";
   $scope.dayDeoId = "";
-  $scope.giaSanPham = "";
   $scope.tenSanPham;
   $scope.pageSize = 1;
   $scope.currentPage = 1;
@@ -36,13 +35,13 @@ myApp.controller("SanPhamController", function ($scope, $rootScope, $http) {
       mauSacId: $scope.mauSacId,
       vatLieuId: $scope.vatLieuId,
       dayDeoId: $scope.dayDeoId,
-      giaSanPham: $scope.giaSanPham,
       tenSanPham: $scope.tenSanPham,
     };
     $http
       .post(searchAPI, $scope.conditionRequest)
       .then(function (response) {
         $scope.listSanPham = response.data;
+        console.log($scope.listSanPham);
         $scope.totalPages = Math.ceil(
           $scope.listSanPham.length / $scope.pageSize
         );

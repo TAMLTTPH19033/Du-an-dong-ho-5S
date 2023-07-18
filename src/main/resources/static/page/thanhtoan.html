@@ -25,11 +25,10 @@
                   <select
                     class="form-select"
                     aria-label="Default select example"
-                    ng-model="diaChiGiaoHangs"
+                    ng-model="diaChiGiaoHang"
                   >
-                    <option value="" selected="true">Chọn nơi nhận</option>
                     <option
-                      value="{{diaChiGiaoHang.idDiaChi}}"
+                      ng-value="{{diaChiGiaoHang.idDiaChi}}"
                       ng-repeat="diaChiGiaoHang in diaChiGiaoHangs"
                     >
                       {{diaChiGiaoHang.diaChi}}
@@ -49,10 +48,7 @@
 
               <div class="card-header card-2">
                 <p class="card-text text-muted mt-md-4 mb-2 space">
-                  YOUR ORDER
-                  <span class="small text-muted ml-2 cursor-pointer"
-                    >EDIT SHOPPING BAG</span
-                  >
+                  YOUR ORDER >
                 </p>
               </div>
               <br />
@@ -92,16 +88,17 @@
                   </div>
                 </div>
                 <div class="mb-3">
-                  <label for="NAME" class="text mb-1">Phí vận chuyển</label>
+                  <label for="fee" class="text mb-1">Phí vận chuyển</label>
                   <input
                     type="text"
                     class="form-control form-control-sm"
-                    name="NAME"
-                    id="NAME"
+                    name="fee"
+                    id="fee"
                     aria-describedby="helpId"
                     placeholder="BBBootstrap Team"
-                    value="fee"
+                    value="{{fee}}"
                     readonly
+                    disabled
                   />
                 </div>
                 <div class="mb-3">
@@ -122,11 +119,11 @@
                         >Phương thức thanh toán</label
                       >
                       <select
-                        class="form-control form-control-sm"
+                        class="form-select form-select-sm"
                         ng-model="isVNPAY"
                       >
-                        <option value="false">Thanh toán khi nhận</option>
-                        <option value="true">Thanh toán bằng VNPay</option>
+                        <option ng-value="false">Thanh toán khi nhận</option>
+                        <option ng-value="true">Thanh toán bằng VNPay</option>
                       </select>
                     </div>
                   </div>

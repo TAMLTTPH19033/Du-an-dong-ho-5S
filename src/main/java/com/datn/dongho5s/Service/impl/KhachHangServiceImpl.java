@@ -19,7 +19,8 @@ public class KhachHangServiceImpl implements KhachHangService {
     private final KhachHangRepository khachHangRepository;
 
     private final DiaChiRepository diaChiRepository;
-
+    @Autowired
+    private KhachHangRepository khachHangRepo;
     @Override
     public KhachHang findKhachHangById(Integer id) {
         if (id == null) return null;
@@ -63,8 +64,8 @@ public class KhachHangServiceImpl implements KhachHangService {
 
     @Override
     public ThongTinToCheckoutResponse getThongTinToCheckout(Integer id) {
-
-        KhachHang khachHangExist = this.findKhachHangById(id);
+        System.out.println(id);
+        KhachHang khachHangExist = khachHangRepo.findById(id).get();
 
         if (khachHangExist == null) return null;
 

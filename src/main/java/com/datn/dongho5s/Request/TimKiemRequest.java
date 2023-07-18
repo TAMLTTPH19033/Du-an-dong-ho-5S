@@ -21,8 +21,6 @@ public class TimKiemRequest{
     private Integer vatLieuId;
     @JsonProperty("dayDeoId")
     private Integer dayDeoId;
-    @JsonProperty("giaSanPham")
-    private Double giaSanPham;
     @JsonProperty("tenSanPham")
     private String tenSanPham;
 }

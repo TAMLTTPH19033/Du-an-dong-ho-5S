@@ -31,8 +31,7 @@ public interface SanPhamRepository extends JpaRepository<SanPham,Integer> {
                     "AND (:#{#req.sizeId} is null or :#{#req.sizeId}= ctsp.kichCo.idKichCo) " +
                     "AND (:#{#req.vatLieuId} is null or :#{#req.vatLieuId}= ctsp.vatLieu.idVatLieu) " +
                     "AND (:#{#req.mauSacId} is null or :#{#req.mauSacId}= ctsp.mauSac.idMauSac) " +
-                    "AND (:#{#req.giaSanPham} is null or :#{#req.giaSanPham}>= sp.giaSanPham) " +
-                    "AND (:#{#req.tenSanPham} is null or :#{#req.tenSanPham} like sp.tenSanPham)")
+                    "AND (:#{#req.tenSanPham} is null or :#{#req.tenSanPham} like '%' || :#{#req.tenSanPham} || '%')")
     List<SanPham> getListSanPhamByCondition(@Param("req") TimKiemRequest req);
            
     @Query(value = "SELECT  * FROM sanpham ORDER BY sanpham.id_san_pham DESC LIMIT 8",nativeQuery = true)
