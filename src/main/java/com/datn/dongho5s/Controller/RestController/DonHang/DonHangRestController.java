@@ -1,9 +1,11 @@
 package com.datn.dongho5s.Controller.RestController.DonHang;
 
+import com.datn.dongho5s.Cache.DiaChiCache;
 import com.datn.dongho5s.Entity.DonHang;
 import com.datn.dongho5s.Entity.HoaDonChiTiet;
 import com.datn.dongho5s.Entity.KhachHang;
 import com.datn.dongho5s.GiaoHangNhanhService.APIResponseEntity.ThemDonHangResponseGHN;
+import com.datn.dongho5s.GiaoHangNhanhService.DiaChiAPI;
 import com.datn.dongho5s.GiaoHangNhanhService.DonHangAPI;
 import com.datn.dongho5s.GiaoHangNhanhService.Request.ChiTietItemRequestGHN;
 import com.datn.dongho5s.GiaoHangNhanhService.Request.PhiVanChuyenRequest;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -46,7 +49,7 @@ public class DonHangRestController {
                     .idQuanHuyen(themDonHangRequest.getIdQuanHuyen())
                     .idPhuongXa(themDonHangRequest.getIdPhuongXa())
                     .diaChi(themDonHangRequest.getDiaChi())
-                    .phiVanChuyen((double) 0)
+                    .phiVanChuyen(themDonHangRequest.getPhiVanChuyen())
                     .ghiChu(themDonHangRequest.getGhiChu())
                     .build();
             DonHang savedDonHang = donHangService.save(donHang);
@@ -63,7 +66,7 @@ public class DonHangRestController {
                     .listItems(toListChiTietItem(listHoaDonChiTiet))
                     .build();
             ThemDonHangResponseGHN responseGHN = DonHangAPI.createOrder(requestGHN) ;
-            return ResponseEntity.status(HttpStatus.OK).body(savedDonHang.getNgayTao());
+            return ResponseEntity.status(HttpStatus.OK).body(responseGHN);
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
@@ -86,11 +89,21 @@ public class DonHangRestController {
                     .giaBan(hdct.getGiaBan())
                     .soLuong(hdct.getSoLuong())
                     .ctsp(hdct.getChiTietSanPham())
+                    .name(hdct.getChiTietSanPham().getSanPham().getTenSanPham())
                     .build();
             result.add(item);
         });
         return result;
     }
+
+    private HashMap<Integer,String> getListTP (){
+         return DiaChiCache.hashMapTinhThanh;
+    }
+
+    private HashMap<Integer,String> getListPX (Integer idTP) throws Exception {
+        return DiaChiAPI.callGetPhuongXaAPI(idTP);
+    }
+
 
 
 }

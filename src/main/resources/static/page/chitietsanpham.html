@@ -46,7 +46,7 @@
             <div class="d-flex flex-column mb-3">
                 <div class="d-flex justify-content">
                     <label style="margin-right: 20px;font-size: 20px;font-weight:500 ;">Giá Tiền:</label>
-                    <div class="ml-2" style="font-weight: 500; font-size: 20px;">{{sanPhamDetail.giaSanPham}}</div>
+                    <div class="ml-2" style="font-weight: 500; font-size: 20px;">{{chiTietSanPham.giaSanPham}}</div>
                 </div>
             </div>
 
@@ -55,7 +55,7 @@
                 <div class="d-flex align-items-center">
                     <div class="form-check form-check-inline" ng-repeat="dd in listDayDeo">
                         <input type="radio" class="btn-check" name="daydeoOption" id="daydeo{{dd}}"
-                               ng-model="$parent.selectedDD" ng-value="dd" ng-disabled="!setAvaiableDayDeo.has(dd)">
+                               ng-model="$parent.selectedDD" ng-value="dd" >
                         <label class="btn btn-outline-primary" for="daydeo{{dd}}">{{dd}}</label>
                     </div>
                 </div>
@@ -75,7 +75,7 @@
                 <div class="d-flex align-items-center">
                     <div class="form-check form-check-inline" ng-repeat="ms in listMauSac">
                         <input type="radio" class="btn-check" name="mausacOption" id="mausac{{ms}}"
-                               ng-model="$parent.selectedMS" ng-value="ms">
+                               ng-model="$parent.selectedMS" ng-value="ms" ng-disabled="!setAvaiableMauSac.has(ms)">
                         <label class="btn btn-outline-primary" for="mausac{{ms}}">{{ms}}</label>
                     </div>
                 </div>
@@ -85,12 +85,12 @@
                 <div class="d-flex align-items-center">
                     <div class="form-check form-check-inline" ng-repeat="kc in listKichCo">
                         <input type="radio" class="btn-check" name="kickcoOption" id="kichco{{kc}}"
-                               ng-model="$parent.selectedKC" ng-value="kc">
+                               ng-model="$parent.selectedKC" ng-value="kc" ng-disabled="!setAvaiableKichCo.has(kc)">
                         <label class="btn btn-outline-primary" for="kichco{{kc}}">{{kc}}</label>
                     </div>
                 </div>
             </div>
-          <input class="minus is-form" type="button" value="-" style="width:30px" ng-click="giam(item)"/>
+          <input class="minus is-form" type="button" value="-" style="width:30px" ng-click="giam()"/>
           <input
                   aria-label="quantity"
                   class="input-qty"
@@ -102,7 +102,7 @@
                   value="1"
                   style="width:30px"
           />
-          <input class="plus is-form" type="button" value="+" style="width:30px" ng-click="tang(item)"/>
+          <input class="plus is-form" type="button" value="+" style="width:30px" ng-click="tang()"/>
           <div>
             <button type="button" class="btn btn-secondary" ng-click="addToCart()">Thêm Vào Giỏ Hàng</button>
             <button type="button" class="btn btn-danger" ng-click="buyNow()">Mua Ngay</button>
