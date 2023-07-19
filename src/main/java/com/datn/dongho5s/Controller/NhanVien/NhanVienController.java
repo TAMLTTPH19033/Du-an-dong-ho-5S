@@ -5,12 +5,13 @@ import com.datn.dongho5s.Entity.NhanVien;
 import com.datn.dongho5s.Exception.NhanVienNotFoundException;
 import com.datn.dongho5s.Export.NhanVienCsvExporter;
 import com.datn.dongho5s.Export.NhanVienExcelExporter;
-import com.datn.dongho5s.Export.NhanVienPdfExporter;
+import com.datn.dongho5s.Service.NhanVienService;
 import com.datn.dongho5s.UploadFile.FileUploadUtil;
-import com.datn.dongho5s.Service.impl.NhanVienService;
+import com.datn.dongho5s.Service.impl.NhanVienServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -28,7 +29,7 @@ import java.util.List;
 public class NhanVienController {
 
     @Autowired
-    private NhanVienService service;
+    NhanVienService service;
 
     @GetMapping("/users")
     public String listFirstPage(Model model){
@@ -45,8 +46,8 @@ public class NhanVienController {
         Page<NhanVien> page = service.listByPage(pageNum, sortField, sortDir,keyword);
         List<NhanVien> listNhanVien = page.getContent();
 
-        long startCount = (pageNum -1) * NhanVienService.USERS_PER_PAGE + 1;
-        long endCount = startCount + NhanVienService.USERS_PER_PAGE-1;
+        long startCount = (pageNum -1) * NhanVienServiceImpl.USERS_PER_PAGE + 1;
+        long endCount = startCount + NhanVienServiceImpl.USERS_PER_PAGE-1;
 
         if(endCount > page.getTotalElements()){
             endCount = page.getTotalElements();
@@ -98,48 +99,48 @@ public class NhanVienController {
         return "redirect:/users";
     }
 
-    @GetMapping("/users/edit/{id}")
-    public String editUser(@PathVariable(name = "id") Integer id,
-                           Model model,
-                           RedirectAttributes redirectAttributes){
-        try{
-            NhanVien nhanVien = service.get(id);
-            List<ChucVu> listChucVu = service.listChucVu();
-            model.addAttribute("nhanVien", nhanVien);
-            model.addAttribute("pageTitle","Update Nhân Viên (ID : " + id + ")");
-            model.addAttribute("listChucVu",listChucVu);
-            return "nhanvien/user_form";
-        }catch (NhanVienNotFoundException ex){
-            redirectAttributes.addFlashAttribute("message",ex.getMessage());
-            return "redirect:/users";
-        }
+//    @GetMapping("/users/edit/{id}")
+//    public String editUser(@PathVariable(name = "id") Integer id,
+//                           Model model,
+//                           RedirectAttributes redirectAttributes){
+//        try{
+//            NhanVien nhanVien = service.get(id);
+//            List<ChucVu> listChucVu = service.listChucVu();
+//            model.addAttribute("nhanVien", nhanVien);
+//            model.addAttribute("pageTitle","Update Nhân Viên (ID : " + id + ")");
+//            model.addAttribute("listChucVu",listChucVu);
+//            return "nhanvien/user_form";
+//        }catch (NhanVienNotFoundException ex){
+//            redirectAttributes.addFlashAttribute("message",ex.getMessage());
+//            return "redirect:/users";
+//        }
+//
+//    }
 
-    }
 
-
-    @GetMapping("/users/delete/{id}")
-    public String deleteUser(@PathVariable(name = "id") Integer id,
-                           Model model,
-                           RedirectAttributes redirectAttributes){
-        try{
-            service.delete(id);
-            redirectAttributes.addFlashAttribute("message","Người dùng ID" + id + "đã xóa thành công");
-        }catch (NhanVienNotFoundException ex){
-            redirectAttributes.addFlashAttribute("message",ex.getMessage());
-        }
-        return "redirect:/users";
-    }
-
-    @GetMapping("/users/{id}/enabled/{status}")
-    public String updateNhanVienEnabledStatus(@PathVariable("id") Integer id,
-                                              @PathVariable("status") boolean enabled,
-                                              RedirectAttributes redirectAttributes){
-        service.updateNhanVienEnabledStatus(id, enabled);
-        String status = enabled ? "online" : "offline";
-        String message = "Nhân viên có id " + id + " thay đổi trạng thái thành " + status;
-        redirectAttributes.addFlashAttribute("message",message);
-        return "redirect:/users";
-    }
+//    @GetMapping("/users/delete/{id}")
+//    public String deleteUser(@PathVariable(name = "id") Integer id,
+//                           Model model,
+//                           RedirectAttributes redirectAttributes){
+//        try{
+//            service.delete(id);
+//            redirectAttributes.addFlashAttribute("message","Người dùng ID" + id + "đã xóa thành công");
+//        }catch (NhanVienNotFoundException ex){
+//            redirectAttributes.addFlashAttribute("message",ex.getMessage());
+//        }
+//        return "redirect:/users";
+//    }
+//
+//    @GetMapping("/users/{id}/enabled/{status}")
+//    public String updateNhanVienEnabledStatus(@PathVariable("id") Integer id,
+//                                              @PathVariable("status") boolean enabled,
+//                                              RedirectAttributes redirectAttributes){
+//        service.updateNhanVienEnabledStatus(id, enabled);
+//        String status = enabled ? "online" : "offline";
+//        String message = "Nhân viên có id " + id + " thay đổi trạng thái thành " + status;
+//        redirectAttributes.addFlashAttribute("message",message);
+//        return "redirect:/users";
+//    }
 
     @GetMapping("/users/export/csv")
     public void exportToCSV(HttpServletResponse response) throws IOException {

@@ -1,5 +1,6 @@
 package com.datn.dongho5s.Service.impl;
 
+import com.datn.dongho5s.Entity.DanhMuc;
 import com.datn.dongho5s.Entity.SanPham;
 import com.datn.dongho5s.Repository.SanPhamRepository;
 import com.datn.dongho5s.Request.TimKiemRequest;
@@ -74,5 +75,30 @@ public class SanPhamServiceImpl implements SanPhamService {
                 .thuongHieu(sp.getThuongHieu())
                 .trangThai(sp.getTrangThai())
                 .build();
+    }
+
+    public List<SanPham> listAll(){
+        return (List<SanPham>) sanPhamRepository.findAll();
+    }
+
+    public SanPham save(SanPham sanPham){
+        return sanPhamRepository.save(sanPham);
+    }
+
+    @Override
+    public boolean checkUnique(Integer id, String ten){
+        SanPham sanPhamTheoTen = sanPhamRepository.findByTenSanPham(ten);
+        if (sanPhamTheoTen == null) return true;
+        boolean isCreatingNew = (id == null);
+        if(isCreatingNew){
+            if(sanPhamTheoTen != null){
+                return false;
+            }
+        }else{
+            if(sanPhamTheoTen.getIdSanPham() != id){
+                return false;
+            }
+        }
+        return true;
     }
 }

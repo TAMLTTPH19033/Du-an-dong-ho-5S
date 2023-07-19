@@ -1,6 +1,7 @@
 package com.datn.dongho5s.Repository;
 
 
+import com.datn.dongho5s.Entity.DanhMuc;
 import com.datn.dongho5s.Entity.SanPham;
 import com.datn.dongho5s.Request.TimKiemRequest;
 import org.springframework.data.domain.Page;
@@ -42,5 +43,8 @@ public interface SanPhamRepository extends JpaRepository<SanPham,Integer> {
     @Query(value = "SELECT h.chiTietSanPham.sanPham  FROM HoaDonChiTiet h " +
             "group by h.chiTietSanPham.sanPham  ORDER BY  SUM(h.soLuong) DESC")
     List<SanPham> getSPchay();
+
+    public SanPham findByTenSanPham(String ten);
+
 
 }

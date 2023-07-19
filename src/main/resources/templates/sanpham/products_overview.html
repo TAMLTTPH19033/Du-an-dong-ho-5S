@@ -1,0 +1,59 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+    <div th:fragment="content" th:remove="tag">
+        <div class="form-group-row">
+            <label class="col-sm-2 col-form-label">Tên Sản Phẩm:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" th:field="*{tenSanPham}" required minlength="3" maxlength="256"/>
+            </div>
+        </div>
+
+        <div class="form-group-row">
+            <label class="col-sm-2 col-form-label">Mô Tả Sản Phẩm:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" th:field="*{moTaSanPham}" required minlength="3" maxlength="256"/>
+            </div>
+        </div>
+
+        <div class="form-group-row">
+            <label class="col-sm-2 col-form-label">Thương Hiệu:</label>
+            <div class="col-sm-10">
+                <select th:field="*{thuongHieu}" class="form-control" required>
+                    <th:block th:each="brand : ${listThuongHieu}">
+                        <option th:value="${brand.idThuongHieu}">[[${brand.tenThuongHieu}]]</option>
+                    </th:block>
+                </select>
+            </div>
+        </div>
+
+
+        <div class="form-group-row">
+            <label class="col-sm-2 col-form-label">Danh Mục:</label>
+            <div class="col-sm-10">
+                <select th:field="*{danhMuc}" class="form-control" required>
+                    <th:block th:each="categories : ${listDanhMuc}">
+                        <option th:value="${categories.id}">[[${categories.ten}]]</option>
+                    </th:block>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group-row">
+            <label class="col-sm-4 col-form-label">Trạng Thái:</label>
+            <div class="col-sm-12">
+                <input type="radio" th:field="*{trangThai}" th:value="${T(com.datn.dongho5s.Entity.SanPham).TRANG_THAI_OPTION_1}">
+                <label>On</label>
+
+                <input type="radio" th:field="*{trangThai}" th:value="${T(com.datn.dongho5s.Entity.SanPham).TRANG_THAI_OPTION_2}">
+                <label>Off</label>
+            </div>
+        </div>
+
+
+
+
+    </div>
+
+</body>
+</html>

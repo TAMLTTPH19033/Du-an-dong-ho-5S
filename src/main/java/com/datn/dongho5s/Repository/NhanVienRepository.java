@@ -9,10 +9,12 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface NhanVienRepository extends PagingAndSortingRepository<NhanVien,Integer> {
     @Query("SELECT nv FROM NhanVien nv WHERE nv.email = :email")
-    public  NhanVien getNhanVienByEmail(@Param("email") String email);
+    public Optional<NhanVien> getNhanVienByEmail(@Param("email") String email);
 
     public Long countById(Integer id);
 

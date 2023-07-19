@@ -1,0 +1,78 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragment/fragments:: page_head('Sản Phẩm - 5SWatch ')"/>
+
+<body>
+<div class="container-fluid">
+    <div th:replace="fragment/navigation:: menu"></div>
+    <div>
+        <h2>Quản lý Sản Phẩm</h2>
+        <a style="text-decoration: none" th:href="@{/products/new}">Tạo Mới Sản Phẩm</a>
+        &nbsp;|&nbsp;
+        <a style="text-decoration: none" th:href="@{/products/export/excel}">Export To Excel</a>
+    </div>
+
+    <div th:if="${message != null}" class="alert alert-success text-center">
+        [[${message}]]
+    </div>
+
+
+    <div>
+        <form th:action="@{/products/page/1}" class="form-inline m-3">
+            <div class="d-flex align-items-center">
+                <input type="hidden" name="sortField" th:value="${sortField}" />
+                <input type="hidden" name="sortDir" th:value="${sortDir}" />
+                <label class="sr-only">Tìm Kiếm</label>
+                <input style="width: 250px; margin-right: 10px" type="search" name="keyword" th:value="${keyword}" placeholder="nhập từ khóa tìm kiếm" class="form-control" required />
+                <input style="margin-right: 10px" type="submit" value="Search" class="btn btn-primary ml-2" />
+                <input type="button" value="Clear" class="btn btn-secondary ml-2" onclick="clearFilter()"/>
+            </div>
+        </form>
+
+    </div>
+
+    <div class="full-details">
+        <table class="table table-bordered table-striped table-hover table-responsive-xl">
+            <thead class="thead-dark">
+            <tr>
+                <th>Id</th>
+                <th>Main Ảnh</th>
+                <th>Tên</th>
+                <th>Mô Tả</th>
+                <th>Thương Hiệu</th>
+                <th>Thể Loại</th>
+                <th>Trạng Thái</th>
+                <Th>Action</Th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="product :${listSanPhams}">
+                <td>[[${product.idSanPham}]]</td>
+                <td>Image</td>
+                <td>[[${product.tenSanPham}]]</td>
+                <td>[[${product.moTaSanPham}]]</td>
+                <td>[[${product.thuongHieu.tenThuongHieu}]]</td>
+                <td>[[${product.danhMuc.ten}]]</td>
+                <td th:text="${product.trangThai == 1 ? 'On' : 'Off'}"></td>
+
+
+                <td>
+                    <a class="icon-green" style="text-decoration: none" th:href="@{'/products/edit/' + ${product.idSanPham}}"
+                       title="Thay đổi thông tin">Update</a>
+                    &nbsp;
+                    <a class="icon-green" style="text-decoration: none" th:href="@{'/products/detail/' + ${product.idSanPham}}"
+                       title="Thay đổi thông tin">Detail</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <div th:replace="fragment/fragments::footer"></div>
+
+</div>
+</body>
+</html>

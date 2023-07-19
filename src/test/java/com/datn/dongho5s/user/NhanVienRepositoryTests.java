@@ -9,9 +9,12 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.annotation.Rollback;
 
 import java.util.List;
@@ -23,6 +26,8 @@ import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 @Rollback(false)
 public class NhanVienRepositoryTests {
+    PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
     @Autowired
     private NhanVienRepository repo;
 
@@ -32,20 +37,22 @@ public class NhanVienRepositoryTests {
     @Test
     public void testCreateUser(){
         ChucVu chucVuAdmin =  entityManager.find(ChucVu.class,1);
-        NhanVien userAnnt = new NhanVien("Nguyen","TruongAn","anntph18823@gmail.com","annt123");
-        userAnnt.addChucVu(chucVuAdmin);
+        passwordEncoder.encode("annt123");
+        NhanVien userAnntaa = new NhanVien("Nguyen","An","an25051997@gmail.com",passwordEncoder.encode("annt123"));
+        userAnntaa.addChucVu(chucVuAdmin);
 
-        NhanVien savedNhanVien = repo.save(userAnnt);
+        NhanVien savedNhanVien = repo.save(userAnntaa);
         assertThat(savedNhanVien.getId()).isGreaterThan(0);
     }
 
     @Test
     public void testCreateNewUser(){
         ChucVu chucVuAdmin =  entityManager.find(ChucVu.class,2);
-        NhanVien userHuong = new NhanVien("Nguyen","ThuHuong","huongntph18824@gmail.com","huongnt123");
-        userHuong.addChucVu(chucVuAdmin);
+        passwordEncoder.encode("annt123");
+        NhanVien userHuonggg = new NhanVien("Nguyen","Huong","huong24@gmail.com",passwordEncoder.encode("annt123"));
+        userHuonggg.addChucVu(chucVuAdmin);
 
-        NhanVien savedNhanVien = repo.save(userHuong);
+        NhanVien savedNhanVien = repo.save(userHuonggg);
         assertThat(savedNhanVien.getId()).isGreaterThan(0);
     }
 

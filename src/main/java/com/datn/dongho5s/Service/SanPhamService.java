@@ -21,4 +21,10 @@ public interface SanPhamService {
 
     SanPhamDetailResponse getDetailSanPhamById(Integer sanPhamId);
 
+    List<SanPham> listAll();
+
+    SanPham save(SanPham sanPham);
+
+    public boolean checkUnique(Integer id, String ten);
+
 }

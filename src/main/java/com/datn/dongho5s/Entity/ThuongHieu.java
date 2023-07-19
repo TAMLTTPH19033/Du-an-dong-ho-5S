@@ -41,6 +41,11 @@ public class ThuongHieu {
         this.enabled = enabled;
     }
 
+    public ThuongHieu(Integer idThuongHieu, String tenThuongHieu) {
+        this.idThuongHieu = idThuongHieu;
+        this.tenThuongHieu = tenThuongHieu;
+    }
+
     public Integer getIdThuongHieu() {
         return idThuongHieu;
     }

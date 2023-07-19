@@ -86,8 +86,7 @@ public class KhachHang implements UserDetails {
 
     @Override
     public String getPassword() {
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        return passwordEncoder.encode(this.getMatKhau());
+       return this.matKhau;
     }
 
     @Override

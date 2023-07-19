@@ -30,6 +30,9 @@ import java.util.List;
 @Builder
 @Table(name = "sanpham")
 public class SanPham {
+
+    public static final int TRANG_THAI_OPTION_1 = 1;
+    public static final int TRANG_THAI_OPTION_2 = 0;
     @Id
     @Column(name = "id_san_pham")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,7 +46,7 @@ public class SanPham {
     @JoinColumn(name = "id_danh_muc")
     private DanhMuc danhMuc;
 
-    @Column(name = "ten_san_pham")
+    @Column(name = "ten_san_pham", nullable = false,unique = true,length = 256)
     private String tenSanPham;
 
     @Column(name = "mo_ta_san_pham")
@@ -52,8 +55,9 @@ public class SanPham {
     @Column(name = "gia_san_pham")
     private Double giaSanPham;
 
-    @Column(name = "trang_thai")
+    @Column(name = "trang_thai",nullable = false)
     private Integer trangThai;
+
 
     @OneToMany( fetch = FetchType.EAGER,mappedBy = "sanPham", cascade = CascadeType.ALL)
     @JsonIgnore

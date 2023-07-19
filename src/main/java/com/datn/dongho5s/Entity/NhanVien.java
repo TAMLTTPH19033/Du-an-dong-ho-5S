@@ -150,6 +150,7 @@ public class NhanVien implements UserDetails {
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
 
         for(ChucVu cv : chucVu ){
+            System.out.println(cv.getTenChucVu());
             authorities.add(new SimpleGrantedAuthority(cv.getTenChucVu()));
         }
         return authorities;
@@ -157,8 +158,7 @@ public class NhanVien implements UserDetails {
 
     @Override
     public String getPassword() {
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        return passwordEncoder.encode(this.getMatKhau());
+       return this.matKhau;
     }
 
     @Override

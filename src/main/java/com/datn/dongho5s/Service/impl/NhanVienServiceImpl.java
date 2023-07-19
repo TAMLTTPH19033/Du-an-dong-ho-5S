@@ -4,6 +4,7 @@ import com.datn.dongho5s.Entity.NhanVien;
 import com.datn.dongho5s.Exception.NhanVienNotFoundException;
 import com.datn.dongho5s.Repository.ChucVuRepository;
 import com.datn.dongho5s.Repository.NhanVienRepository;
+import com.datn.dongho5s.Service.NhanVienService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,7 +19,7 @@ import java.util.NoSuchElementException;
 
 @Service
 @Transactional
-public class NhanVienService {
+public class NhanVienServiceImpl implements NhanVienService {
     public static final int USERS_PER_PAGE = 4;
 
     @Autowired
@@ -30,9 +31,9 @@ public class NhanVienService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public NhanVien getByEmail(String email){
-        return nhanVienrepo.getNhanVienByEmail(email);
-    }
+//    public NhanVien getByEmail(String email){
+//        return nhanVienrepo.getNhanVienByEmail(email);
+//    }
 
     public List<NhanVien> listAll(){
 
@@ -92,25 +93,25 @@ public class NhanVienService {
 
     }
 
-    private void encodePassword(NhanVien nhanVien){
+    public void encodePassword(NhanVien nhanVien){
         String encodedPassword = passwordEncoder.encode(nhanVien.getMatKhau());
         nhanVien.setMatKhau(encodedPassword);
     }
 
-    public boolean isEmailUnique(Integer id ,String email){
-        NhanVien nhanVienByEmail = nhanVienrepo.getNhanVienByEmail(email);
-        if(nhanVienByEmail == null) return true;
-        boolean isCreateingNew = (id == null);
-        if(isCreateingNew){
-            if(nhanVienByEmail != null) return  false;
-        }else {
-            if(nhanVienByEmail.getId() != id){
-                return false;
-            }
-        }
-
-        return true;
-    }
+//    public boolean isEmailUnique(Integer id ,String email){
+//        NhanVien nhanVienByEmail = nhanVienrepo.getNhanVienByEmail(email);
+//        if(nhanVienByEmail == null) return true;
+//        boolean isCreateingNew = (id == null);
+//        if(isCreateingNew){
+//            if(nhanVienByEmail != null) return  false;
+//        }else {
+//            if(nhanVienByEmail.getId() != id){
+//                return false;
+//            }
+//        }
+//
+//        return true;
+//    }
 
     public NhanVien get(Integer id) throws NhanVienNotFoundException {
         try{

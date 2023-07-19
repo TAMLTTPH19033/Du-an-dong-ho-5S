@@ -2,6 +2,7 @@ package com.datn.dongho5s.Repository;
 
 import com.datn.dongho5s.Entity.DanhMuc;
 import com.datn.dongho5s.Entity.NhanVien;
+import com.datn.dongho5s.Entity.ThuongHieu;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -26,5 +27,7 @@ public interface DanhMucRepository extends JpaRepository<DanhMuc,Integer> {
 
     public DanhMuc findByTen(String ten);
 
+    @Query("SELECT NEW DanhMuc (dm.id, dm.ten) FROM DanhMuc dm ORDER BY dm.ten ASC")
+    public List<DanhMuc> listAll();
 
 }

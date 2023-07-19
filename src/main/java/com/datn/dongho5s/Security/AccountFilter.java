@@ -31,9 +31,11 @@ public class AccountFilter extends OncePerRequestFilter {
         }
         final String token=header.substring(7);
         final String username=accountFilterService.getUsername(token);
+        System.out.println(token);
         if(username!=null && SecurityContextHolder.getContext().getAuthentication()==null){
             UserDetails account=userDetailsService.loadUserByUsername(username);
             if(accountFilterService.isTokenValid(token,account)){
+                System.out.println("đã vào valid token");
                 UsernamePasswordAuthenticationToken authToken
                         =new UsernamePasswordAuthenticationToken(account,null,account.getAuthorities());
                 authToken.setDetails(new WebAuthenticationDetails(request));

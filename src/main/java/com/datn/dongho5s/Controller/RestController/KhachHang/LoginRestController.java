@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin("*")
@@ -46,20 +47,26 @@ public class LoginRestController {
                     )
             );
             SecurityContextHolder.getContext().setAuthentication(authentication);
-            KhachHang userEntity = khachHangRepository.getKhachHangByEmail(authentication.getName());
-            System.out.println(userEntity+ " userEntity");
-            String jwt = tokenProvider.generateToken(authentication);
-            System.out.println(jwt +"jwt");
-            LoginResponse loginResponse = new LoginResponse();
-            loginResponse.setToken(jwt);
-            loginResponse.setStatus(200);
-            loginResponse.setIdKhachHang(userEntity.getIdKhachHang());
-            loginResponse.setMessage("Đăng nhập thành công");
-            loginResponse.setUsername(userEntity.getEmail());
-            return ResponseEntity.status(HttpStatus.OK).body(loginResponse);
+            Optional<KhachHang> optionalUserEntity = khachHangRepository.getKhachHangByEmail(authentication.getName());
+            if (optionalUserEntity.isPresent()) {
+                KhachHang userEntity = optionalUserEntity.get();
+                System.out.println(userEntity + " userEntity");
+                String jwt = tokenProvider.generateToken(authentication);
+                System.out.println(jwt + "jwt");
+                LoginResponse loginResponse = new LoginResponse();
+                loginResponse.setToken(jwt);
+                loginResponse.setStatus(200);
+                loginResponse.setIdKhachHang(userEntity.getIdKhachHang());
+                loginResponse.setMessage("Đăng nhập thành công");
+                loginResponse.setUsername(userEntity.getEmail());
+                return ResponseEntity.status(HttpStatus.OK).body(loginResponse);
+            } else {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse(HttpStatus.BAD_REQUEST, "Sai mật khẩu hoặc email "));
+            }
         } catch (Exception e) {
             System.out.println(e);
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse(HttpStatus.BAD_REQUEST,"Sai mật khẩu hoặc email "));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse(HttpStatus.BAD_REQUEST, "Sai mật khẩu hoặc email "));
         }
     }
+
 }
