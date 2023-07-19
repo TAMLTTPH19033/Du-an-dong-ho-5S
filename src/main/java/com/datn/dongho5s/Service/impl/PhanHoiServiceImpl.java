@@ -43,7 +43,7 @@ public class PhanHoiServiceImpl implements PhanHoiService {
 
     @Override
     public boolean checkPhanHoi(Integer idKhachHang, Integer idSanPham) {
-        Optional<List<DonHang>> donHangList = donHangRepository.findDonHang(idKhachHang,idKhachHang);
+        Optional<List<DonHang>> donHangList = donHangRepository.findDonHang(idKhachHang,idSanPham);
         if(donHangList.isPresent()){
             Optional<PhanHoi> phanHoi = phanHoiRepository.findPhanHoi(idKhachHang,idSanPham);
             if (phanHoi.isPresent()){

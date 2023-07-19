@@ -65,14 +65,12 @@ public class KhachHang implements UserDetails {
     @Column(name = "thoi_gian_tao_tai_khoan")
     private Timestamp thoiGianTaoTaiKhoan;
 
-    @Column(name = "mat_khau")
-    private String matKhau;
+    @JsonIgnore
+    @Column(name = "password")
+    private String password;
 
     @Column(name = "ngay_sua")
     private Date ngaySua;
-
-    @Column(name = "trang_thai")
-    private Integer trangThai;
 
     @Column(name = "enabled",nullable = false)
     private boolean enabled;
@@ -86,8 +84,7 @@ public class KhachHang implements UserDetails {
 
     @Override
     public String getPassword() {
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        return passwordEncoder.encode(this.getMatKhau());
+      return this.password;
     }
 
     @Override
@@ -174,28 +171,12 @@ public class KhachHang implements UserDetails {
         this.thoiGianTaoTaiKhoan = thoiGianTaoTaiKhoan;
     }
 
-    public String getMatKhau() {
-        return matKhau;
-    }
-
-    public void setMatKhau(String matKhau) {
-        this.matKhau = matKhau;
-    }
-
     public Date getNgaySua() {
         return ngaySua;
     }
 
     public void setNgaySua(Date ngaySua) {
         this.ngaySua = ngaySua;
-    }
-
-    public Integer getTrangThai() {
-        return trangThai;
-    }
-
-    public void setTrangThai(Integer trangThai) {
-        this.trangThai = trangThai;
     }
 
     public boolean isEnabled() {
@@ -208,5 +189,9 @@ public class KhachHang implements UserDetails {
 
     public KhachHang get() {
         return this;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
