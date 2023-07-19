@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -27,7 +28,7 @@ public class SecurityConfiguration {
     private final KhachHangRepository khachHangRepository;
 
     @Bean
-    public PasswordEncoder getPasswordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
@@ -50,14 +51,15 @@ public class SecurityConfiguration {
     @Bean
     public AuthenticationProvider getProvider() {
         DaoAuthenticationProvider provider=new DaoAuthenticationProvider();
-        provider.setPasswordEncoder(getPasswordEncoder());
+        provider.setPasswordEncoder(passwordEncoder());
         provider.setUserDetailsService(userDetailsService());
         return provider;
     }
-
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
     }
+
+
 
 }

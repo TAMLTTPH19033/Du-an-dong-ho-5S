@@ -33,6 +33,7 @@ myApp.config(function ($routeProvider, $locationProvider,$httpProvider) {
     })
     .when("/signup", {
       templateUrl: "page/signup.html",
+      controller: "registerCtrl"
     })
     .when("/login", {
       templateUrl: "page/login.html",

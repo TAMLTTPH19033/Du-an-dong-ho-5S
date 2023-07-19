@@ -20,6 +20,7 @@ myApp.controller("cartCtrl", function ($scope,$rootScope, $http) {
                 text: "Hãy đăng nhập để tiếp tục shopping!",
                 timer: 1600,
             });
+            $window.location.href = '#login';
         }
     };
     $scope.index();

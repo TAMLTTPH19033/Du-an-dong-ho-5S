@@ -3,9 +3,12 @@ package com.datn.dongho5s.Security;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -17,10 +20,7 @@ public class WebSecurityConfig  {
 //        return new NhanVienDetailsService();
 //    }
 //
-//    @Bean
-//    public PasswordEncoder passwordEncoder(){
-//        return new BCryptPasswordEncoder();
-//    }
+
 //
 //    @Bean
 //    public DaoAuthenticationProvider authenticationProvider(){
@@ -60,6 +60,7 @@ public class WebSecurityConfig  {
 //        web.ignoring().antMatchers("/images/**","/js/**","/webjars/**");
 //    }
 
+
     private final AuthenticationProvider authenticationProvider;
     private final AccountFilter accountFilter;
 
@@ -67,6 +68,7 @@ public class WebSecurityConfig  {
         this.authenticationProvider = authenticationProvider;
         this.accountFilter = accountFilter;
     }
+
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
@@ -76,7 +78,7 @@ public class WebSecurityConfig  {
                 .csrf()
                 .disable()
                 .authorizeRequests()
-                .antMatchers("/api/giohang/**").hasAuthority("ROLE_CUSTOMER")
+                .antMatchers("/api/giohang/**","/api/phan-hoi/**").hasAuthority("ROLE_CUSTOMER")
                 .antMatchers("/users/**").hasAuthority("ROLE_ADMIN")
                 .antMatchers("/categories/**").hasAnyAuthority("ROLE_ADMIN","ROLE_STAFF")
                 .antMatchers("/users/**", "/categories/**")

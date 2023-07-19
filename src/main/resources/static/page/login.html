@@ -13,43 +13,60 @@
                 <div class="card-body py-5 px-md-5">
                   <h2 class="text-center">Login</h2>
                   <br />
-                  <form ng-submit="login()" name="formLogin">
+                  <form ng-submit="login()" name="formLogin" novalidate method="post">
                     <!-- 2 column grid layout with text inputs for the first and last names -->
                     <!-- Email input -->
+
                     <div class="form-outline mb-4">
-                      <label class="form-label" for="form3Example3"
-                        >Email address</label
-                      >
+                      <label for="exampleInputEmail1" class="form-label">Email *</label>
                       <input
-                        type="text"
-                        id="form3Example"
-                        class="form-control"
-                        id="username" name="username" ng-model="username"
+                              type="email"
+                              name="txtTen"
+                              ng-model="username"
+                              required
+                              class="form-control"
+                              maxlength="60"
+                              id="exampleInputEmail1"
+                              aria-describedby="emailHelp"
                       />
                       <small
-                              id="ussername"
-                              ng-show="formLogin.username.$invalid"
-                              class="form-text text-muted"
-                      >Vui lòng nhập Email</small
+                              id="fullnae"
+                              ng-show="formLogin.txtTen.$error.required"
+                              class="form-text text-danger"
+                      >Vui lòng nhập email</small
                       >
                     </div>
 
                     <!-- Password input -->
                     <div class="form-outline mb-4">
-                      <label class="form-label" for="form3Example4"
-                        >Password</label
-                      >
+                      <label for="exampleInputPassword1" class="form-label">Password *</label>
                       <input
-                        type="password"
-                        id="form3Example4"
-                        class="form-control"
-                        id="password" name="password"  ng-model="password"
+                              type="password"
+                              class="form-control"
+                              id="exampleInputPassword1"
+                              name="txtPass"
+                              ng-model="password"
+                              maxlength="30"
+                              minlength="4"
+                              required
                       />
                       <small
-                              id="passwor"
-                              ng-show="formLogin.password.$invalid"
-                              class="form-text text-muted"
-                      >Vui lòng nhập Pass</small
+                              id="passwrd"
+                              ng-show="formLogin.txtPass.$error.required"
+                              class="form-text text-danger"
+                      >Vui lòng nhập pass</small
+                      >
+                      <small
+                              id="passrd"
+                              ng-show="formLogin.txtPass.$error.maxlength"
+                              class="form-text text-danger"
+                      >Không nhập mật khẩu quá 30 kí tự</small
+                      >
+                      <small
+                              id="pasword"
+                              ng-show="formLogin.txtPass.$error.maxlength"
+                              class="form-text text-danger"
+                      >Không nhập mật khẩu ít hơn 4 kí tự</small
                       >
                     </div>
 
@@ -58,10 +75,10 @@
                       <input
                         class="form-check-input me-2"
                         type="checkbox"
-                        value=""
-                        id="form2Example33"
+                        ng-model="a"
+                        id="remember"
                       />
-                      <label class="form-check-label" for="form2Example33">
+                      <label class="form-check-label" for="remember">
                         Remember me
                       </label>
                     </div>

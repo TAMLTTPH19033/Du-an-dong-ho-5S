@@ -22,25 +22,24 @@ import java.util.List;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/phan-hoi")
 public class PhanHoiRestController {
 
     @Autowired
     PhanHoiService phanHoiService;
 
-    @GetMapping("/get/{idSanPham}")
+    @GetMapping("/phan-hoi/get/{idSanPham}")
     public ResponseEntity<?> findAll(@PathVariable("idSanPham") Integer idSanPham){
        List<PhanHoiResponse> phanHoiResponses = phanHoiService.findAll(idSanPham);
         return ResponseEntity.status(HttpStatus.OK).body(phanHoiResponses);
     }
 
-    @GetMapping("/checkPhanHoi")
+    @GetMapping("/phan-hoi/checkPhanHoi")
     public ResponseEntity<?> checkPhanHoi(@Param("idKhachHang") Integer idKhachHang , @Param("idSanPham") Integer idSanPham){
        boolean checkPhanHoi = phanHoiService.checkPhanHoi(idKhachHang,idSanPham);
         return ResponseEntity.status(HttpStatus.OK).body(checkPhanHoi);
     }
 
-    @PostMapping("/add")
+    @PostMapping("/api/phan-hoi/add")
     public ResponseEntity<?> add(@RequestBody PhanHoiRequest phanHoiRequest){
         PhanHoiResponse phanHoiResponse = phanHoiService.addPhanHoi(phanHoiRequest);
         return ResponseEntity.status(HttpStatus.OK).body(phanHoiResponse);
