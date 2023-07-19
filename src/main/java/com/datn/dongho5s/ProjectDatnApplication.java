@@ -12,7 +12,7 @@ public class ProjectDatnApplication {
 
 
 	public static void main(String[] args) throws Exception {
-//		DiaChiAPI.callGetTinhThanhAPI();
+		DiaChiAPI.callGetTinhThanhAPI();
 //		Integer idTP = 207;
 //		Integer idQH = 2118;
 //		Integer idPX = 381301;,381308,381306
