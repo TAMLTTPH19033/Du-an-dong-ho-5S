@@ -39,11 +39,15 @@ public class KhuyenMai {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date ngayKetThuc;
 
+
     @Column(name = "ngay_sua")
     private Date ngaySua;
 
     @Column(name = "enabled", nullable = false)
     private boolean enabled;
+
+    @Column(name = "chiet_khau")
+    private Integer chietKhau;
 
     // Getters and setters
     public Integer getIdKhuyenMai() {

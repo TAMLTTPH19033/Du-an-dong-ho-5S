@@ -37,16 +37,17 @@
 
             <div class="d-flex flex-column mb-3">
                 <div class="d-flex">
-                    <label style="margin-right: 20px;font-size: 20px;font-weight:500 ;">Khuyến Mãi:</label>
-                    <input type="text" placeholder="Nhập Zipcode"/>
+            <span style="color: red">{{chiTietSanPham.khuyenMai.tenKhuyenMai}}</span>
                 </div>
-                <div class="">Tên Khuyến Mãi</div>
             </div>
 
             <div class="d-flex flex-column mb-3">
                 <div class="d-flex justify-content">
                     <label style="margin-right: 20px;font-size: 20px;font-weight:500 ;">Giá Tiền:</label>
-                    <div class="ml-2" style="font-weight: 500; font-size: 20px;">{{chiTietSanPham.giaSanPham}}</div>
+                    <div class="ml-2" style="font-weight: 500; font-size: 20px;">
+                        <del style="color: red">{{chiTietSanPham.giaSanPham}} đ</del>
+                        <span style="color: red">{{chiTietSanPham.giaSanPham - chiTietSanPham.giaSanPham * chiTietSanPham.khuyenMai.chietKhau/100}} đ</span>
+                    </div>
                 </div>
             </div>
 
@@ -103,6 +104,7 @@
                   style="width:30px"
           />
           <input class="plus is-form" type="button" value="+" style="width:30px" ng-click="tang()"/>
+            <br>
           <div>
             <button type="button" class="btn btn-secondary" ng-click="addToCart()">Thêm Vào Giỏ Hàng</button>
             <button type="button" class="btn btn-danger" ng-click="buyNow()">Mua Ngay</button>

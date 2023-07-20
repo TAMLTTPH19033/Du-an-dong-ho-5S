@@ -36,3 +36,24 @@ margin-top: 20px;
 .tieude:hover{
   color: #2e2ecc;
 }
+.icon-sale {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  height: initial;
+  line-height: initial;
+}
+
+.icon-sale .item span {
+  color: #ffffff;
+  font-size: 13px;
+  padding-top: 11px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+  text-transform: uppercase;
+  text-align: center;
+}

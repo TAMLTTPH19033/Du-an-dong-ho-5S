@@ -2,6 +2,7 @@ package com.datn.dongho5s.Service;
 
 
 import com.datn.dongho5s.Request.TimKiemRequest;
+import com.datn.dongho5s.Response.ChiTietSanPhamResponse;
 import com.datn.dongho5s.Response.SanPhamDetailResponse;
 import com.datn.dongho5s.Response.TimKiemResponse;
 import com.datn.dongho5s.Entity.ChiTietSanPham;
@@ -20,5 +21,7 @@ public interface SanPhamService {
     List<SanPhamDetailResponse> getSPchay();
 
     SanPhamDetailResponse getDetailSanPhamById(Integer sanPhamId);
+
+     List<ChiTietSanPhamResponse> getSPchayKM(Integer idChiTietSanPham);
 
 }
