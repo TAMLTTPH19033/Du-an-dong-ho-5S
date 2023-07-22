@@ -1,31 +1,31 @@
-myApp.controller("loginCtrl", function ($scope,$rootScope ,$http,$location) {
-
-    if (window.localStorage.checkbox != "" && window.localStorage.checkbox != "") {
-        $scope.a = true ;
-        $scope.username = window.localStorage.username;
-    } else {
-        $scope.a = false ;
-        $scope.username = "";
+myApp.controller("loginCtrl", function ($scope,$rootScope ,$http,$location, $window) {
+    let currentUser = localStorage.getItem("currentUser");
+    if(currentUser){
+        $location.path("/");
     }
     $scope.errorMessages="";
 
+    $scope.currentUser ={
+        idKhachHang:"",
+        username :"",
+        token :""
+    };
     $scope.login = function() {
         $scope.loginRequest = {
             username : $scope.username,
             password : $scope.password
         }
+
+
         $http.post('/api/login', $scope.loginRequest ).then((resp) => {
-            console.log(resp.data)
             if ( resp.data.status == 200) {
-                $rootScope.idkhachHang = resp.data.idKhachHang;
+                $scope.currentUser.username = resp.data.username
+                $scope.currentUser.token =resp.data.token
+                $scope.currentUser.idKhachHang =resp.data.idKhachHang
+                $rootScope.currentUser =$scope.currentUser;
+                $window.localStorage.setItem('currentUser', JSON.stringify($scope.currentUser));
                 $http.defaults.headers.common.Authorization = "Bearer " + resp.data.token;
-                if ($scope.a == true && $scope.username != "") {
-                    window.localStorage.username = $scope.username;
-                    window.localStorage.checkbox = true;
-                } else {
-                    window.localStorage.username = "";
-                    window.localStorage.checkbox = "";
-                }
+
                 Swal.fire({
                     icon: "success",
                     title:  resp.data.message,
@@ -34,6 +34,7 @@ myApp.controller("loginCtrl", function ($scope,$rootScope ,$http,$location) {
                 });
 
                 window.location.href = '#index';
+                // window.location.reload();
                 $scope.error = false;
             }
         }).catch(error =>{
@@ -50,3 +51,5 @@ myApp.controller("loginCtrl", function ($scope,$rootScope ,$http,$location) {
 
 
 })
+
+

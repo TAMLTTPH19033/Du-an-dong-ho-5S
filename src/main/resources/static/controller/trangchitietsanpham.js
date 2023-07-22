@@ -12,6 +12,7 @@ myApp.controller(
     checkOutDataService,
     $location
   ) {
+
     $scope.idSp = $routeParams.idSp;
     $scope.chiTietSanPham;
     $scope.sanPhamDetail;
@@ -149,29 +150,62 @@ myApp.controller(
           $scope.setAvaiableKichCo.add(item.kichCo.tenKichCo);
         });
     };
+    let currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    var giaSanPham= 0;
+    const getGia = function (){
+      if($scope.chiTietSanPham.khuyenMai == null){
+        return giaSanPham = $scope.chiTietSanPham.giaSanPham ;
+      }else{
+        return giaSanPham =$scope.chiTietSanPham.giaSanPham - $scope.chiTietSanPham.giaSanPham * $scope.chiTietSanPham.khuyenMai.chietKhau/100;
+      }
+    }
 
     $scope.addToCart = function () {
-      $rootScope.idKhachhang = 1;
-      var item = {
-        chiTietSanPham: $scope.chiTietSanPham,
-        soLuong: $scope.soLuong,
-        idKhachHang: $rootScope.idKhachhang,
-      };
-      console.log(item);
-      if ($scope.chiTietSanPham) {
-        //api add gio hang
-        $http
-          .post(`/api/giohang/addToCart`, item)
-          .then((resp) => {
-            console.log(resp);
-            alert("Them thanh cong");
-          })
-          .catch((error) => {
-            alert("Loi roi", error);
-          });
-      } else {
-        alert("Khong có sp");
-        return;
+      if(currentUser) {
+        var item = {
+          idChiTietSanPham: $scope.chiTietSanPham.idChiTietSanPham,
+          soLuong: $scope.soLuong,
+          idKhachHang: currentUser.idKhachHang,
+          giaSanPham: getGia()
+        };
+        if ($scope.chiTietSanPham) {
+          //api add gio hang
+          console.log(item);
+          $http
+              .post(`/api/giohang/addToCart`, item)
+              .then((resp) => {
+                if (resp == null) {
+                  Swal.fire({
+                    icon: "warning",
+                    title: "Thông báo !",
+                    text: "Quá số lượng sản phẩm!",
+                    timer: 1600,
+                  });
+                } else {
+                  console.log(resp);
+                  Swal.fire({
+                    icon: "success",
+                    title: "Thành công",
+                    text: "Đã thêm vào giỏ hàng!",
+                    timer: 1600,
+                  });
+                }
+              })
+              .catch((error) => {
+                alert("Loi roi", error);
+              });
+        } else {
+          alert("Khong có sp");
+          return;
+        }
+      }else{
+        Swal.fire({
+          icon: "warning",
+          title: "Chưa đăng nhập",
+          text: "Bạn hãy đăng nhập !",
+          timer: 1600,
+        });
+        $window.location.href = '#login';
       }
     };
     $scope.buyNow = () => {
@@ -247,17 +281,21 @@ myApp.controller(
     };
 
     $scope.checkPhanHoiAPI = function () {
-      $http
-        .get(
-          `phan-hoi/checkPhanHoi?idKhachHang=${$rootScope.idKhachhang}&idSanPham=${$scope.idSp}`
-        )
-        .then(function (response) {
-          $scope.check = response.data;
-          console.log(response.data);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+      if(currentUser) {
+        $http
+            .get(
+                `phan-hoi/checkPhanHoi?idKhachHang=${currentUser.idKhachHang}&idSanPham=${$scope.idSp}`
+            )
+            .then(function (response) {
+              $scope.check = response.data;
+              console.log(response.data);
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+      }else{
+        $scope.check = true;
+      }
     };
     $scope.checkPhanHoiAPI();
     //binhluan
