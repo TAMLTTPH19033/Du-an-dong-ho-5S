@@ -1,4 +1,5 @@
-myApp.controller("homeCtrl", function ($scope, $http) {
+myApp.controller("homeCtrl", function ($scope, $http,$window,$rootScope) {
+
     $scope.newSanPhams = [];
     $scope.hotSanPhams = [];
     $scope.itemWithGiaNN = new Map();

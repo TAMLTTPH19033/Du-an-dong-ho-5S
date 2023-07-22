@@ -1,5 +1,9 @@
 
 myApp.controller("registerCtrl", function ($scope,$rootScope, $http,$location) {
+    let currentUser = localStorage.getItem("currentUser");
+    if(currentUser){
+        $location.path("/");
+    }
     $scope.tpMap =[];
     $scope.qhMap =[];
     $scope.pxMap=[];
