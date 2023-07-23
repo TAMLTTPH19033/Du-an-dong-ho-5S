@@ -36,7 +36,6 @@ public class HoaDonChiTietServiceImpl implements HoaDonChiTietService {
             HoaDonChiTiet hdct = HoaDonChiTiet.builder()
                     .donHang(donHangService.getById(idDonHang))
                     .chiTietSanPham(ctsp)
-//                    .ngayTao()
                     .soLuong(item.getSoLuong())
                     .giaBan(ctsp.getGiaSanPham())
                     .build();
