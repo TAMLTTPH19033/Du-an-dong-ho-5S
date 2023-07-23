@@ -1,5 +1,6 @@
 package com.datn.dongho5s.Security;
 
+import io.jsonwebtoken.ExpiredJwtException;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -30,7 +31,17 @@ public class AccountFilter extends OncePerRequestFilter {
             return;
         }
         final String token=header.substring(7);
-        final String username=accountFilterService.getUsername(token);
+         String username = null;
+            try {
+                 username= accountFilterService.getUsername(token);
+            } catch (IllegalArgumentException e) {
+                filterChain.doFilter(request,response);
+                return;
+            } catch (ExpiredJwtException e) {
+                filterChain.doFilter(request,response);
+                return;
+            }
+
         if(username!=null && SecurityContextHolder.getContext().getAuthentication()==null){
             UserDetails account=userDetailsService.loadUserByUsername(username);
             if(accountFilterService.isTokenValid(token,account)){

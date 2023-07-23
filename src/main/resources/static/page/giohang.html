@@ -22,12 +22,20 @@
                     </thead>
                     <tbody>
                     <tr ng-repeat="item in cart" style="vertical-align: baseline" ng-init = "setTotals(item)">
-                        <td> <a href="#"> <img src="../assets/images/{{item.chiTietSanPham.sanPham.listAnhSanPham[0].link}}" alt="" width="60px" ></a>  </td>
-                        <td>{{item.chiTietSanPham.sanPham.tenSanPham}}</td>
+                        <td> <a href="#/chitietsanpham/{{item.chiTietSanPham.sanPham.idSanPham}}"> <img src="../assets/images/{{item.chiTietSanPham.sanPham.listAnhSanPham[0].link}}" alt="" width="60px" ></a>  </td>
+                        <td> <a href="#/chitietsanpham/{{item.chiTietSanPham.sanPham.idSanPham}}"  class="text-dark" style="text-decoration: none">{{item.chiTietSanPham.sanPham.tenSanPham}} </a>
+                        </td>
                         <td>
-                            <span class="price">{{item.giaBan}}</span> &#273;
+                            <div  class="price"> {{item.giaBan | number}} đ</div>
+                            <span ng-if="item.giaBan == item.chiTietSanPham.giaSanPham"></span>
+                            <span ng-if="item.giaBan != item.chiTietSanPham.giaSanPham">
+                                <span class="text-danger"> - {{item.chiTietSanPham.khuyenMai.chietKhau}} % </span>
+                            <del class="text-danger">{{item.chiTietSanPham.giaSanPham | number}} đ</del>
+                            </span>
+
                             <input type="hidden" name="txtPrice" value="0"/>
                             <input type="hidden" name="totalTxtPrice"/>
+
                         </td>
                         <td>
                             <input class="minus is-form" type="button" value="-" style="width:30px" ng-click="giam(item)"/>
@@ -37,12 +45,16 @@
                                     max=10
                                     min=1
                                     name="soLuongSanPham"
-
                                     type="text"
                                     value="{{item.soLuongSanPham}}"
                                    style="width:30px"
                             />
                             <input class="plus is-form" type="button" value="+" style="width:30px" ng-click="tang(item)"/>
+
+                            <div ng-if="item.chiTietSanPham.soLuong <= 10">
+                                <i class="text-danger" style="font-size: 8px"> </i>
+                            </div>
+
                         </td>
                         <td><button type="button" class="btn btn-danger" ng-click="remove(item)">Xóa hàng</button></td>
                     </tr>
@@ -62,12 +74,8 @@
                 <h6>Tổng tiền</h6>
                 <p>
                     Tạm tính :
-                    <span class="tien" ng-model="total">{{total}} đ</span>
+                    <span class="tien" ng-model="total">{{total  | number}} đ</span>
                 </p>
-                <hr/>
-                <p>Vận chuyển : <span class="tien">Miễn phí vận chuyển</span></p>
-                <hr/>
-                <p>Thành tiền : <span class="tien">1,000,000 VND</span></p>
                 <hr/>
                 <a href="#thanhtoan" class="btn btn-danger" style="width: 300px"
                 >Thanh toán</a

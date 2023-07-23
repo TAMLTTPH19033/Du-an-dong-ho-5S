@@ -11,7 +11,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class CartRequest {
-    ChiTietSanPhamRequest chiTietSanPham;
+    Integer idChiTietSanPham;
     Integer soLuong;
     Integer idKhachHang;
+    Double giaSanPham;
 }

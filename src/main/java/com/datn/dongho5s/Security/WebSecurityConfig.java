@@ -1,5 +1,6 @@
 package com.datn.dongho5s.Security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -64,6 +65,9 @@ public class WebSecurityConfig  {
     private final AuthenticationProvider authenticationProvider;
     private final AccountFilter accountFilter;
 
+    @Autowired
+     SecurityConfiguration securityConfiguration;
+
     public WebSecurityConfig(AuthenticationProvider authenticationProvider, AccountFilter accountFilter) {
         this.authenticationProvider = authenticationProvider;
         this.accountFilter = accountFilter;
@@ -83,6 +87,8 @@ public class WebSecurityConfig  {
                 .antMatchers("/categories/**").hasAnyAuthority("ROLE_ADMIN","ROLE_STAFF")
                 .antMatchers("/users/**", "/categories/**")
                 .authenticated()
+                .and()
+                .rememberMe().userDetailsService(securityConfiguration.userDetailsService())
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)

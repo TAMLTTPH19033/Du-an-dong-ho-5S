@@ -40,7 +40,6 @@ myApp.config(function ($routeProvider, $locationProvider,$httpProvider) {
       controller:"loginCtrl"
 
     })
-
     .when("/changepass", {
       templateUrl: "/page/doimatkhau.html",
     })
@@ -61,6 +60,26 @@ myApp.config(function ($routeProvider, $locationProvider,$httpProvider) {
     });
 });
 
+    // .run(function ($rootScope, $http, $location) {
+    //   // Keep user logged in after page refresh
+    //   let user = localStorage.getItem("currentUser");
+    //   console.log(user)
+    //  let currentUser = user ? JSON.parse(user) : {};
+    //   if (currentUser) {
+    //     $rootScope.currentUser = currentUser;
+    //     $http.defaults.headers.common.Authorization = "Bearer " + currentUser.token;
+    //   }
+    //   $rootScope.$on("$locationChangeStart", function(event, next, current) {
+    //     var publicPages = ["#"];
+    //     var restrictPage = publicPages.indexOf($location.path()) === -1;
+    //     if(restrictPage && !currentUser) {
+    //       $location.path("/login");
+    //     }
+    //   });
+    // });
+
+
+
 myApp.factory('responseObserver', function responseObserver($q, $window) {
   return {
     'responseError': function(errorResponse) {
@@ -76,3 +95,34 @@ myApp.factory('responseObserver', function responseObserver($q, $window) {
     }
   };
 });
+
+
+myApp.controller("indexCtrl", function ($rootScope,$scope, $http,$window, $location){
+    let currentUser = localStorage.getItem("currentUser");
+    if(currentUser){
+  console.log(currentUser)
+    $scope.currentUser = currentUser ? JSON.parse(currentUser) : {};
+  $rootScope.currentUser =$scope.currentUser;
+   $window.localStorage.setItem('currentUser', JSON.stringify($scope.currentUser));
+      $http.defaults.headers.common.Authorization = "Bearer " + $scope.currentUser.token;
+    }
+else{
+      $http.defaults.headers.common.Authorization = "";
+    }
+
+  $rootScope.logout = function (){
+    $window.localStorage.removeItem('currentUser');
+    $http.defaults.headers.common.Authorization = "";
+    Swal.fire({
+      icon: "warning",
+      title: "Đã đăng xuất!",
+      text: "Quay lại trang chủ!",
+      showConfirmButton: false,
+      closeOnClickOutside: false,
+      allowOutsideClick: false,
+      timer: 1600,
+    });
+    // $location.path("/")
+    window.location.reload();
+  }
+})

@@ -304,7 +304,7 @@
     flex-wrap: wrap;
 ">
 
-            <a href="#">
+            <a href="#/chitietsanpham/{{item.idSanPham}}">
               <div class="card border-0" style="width: 200px; height: 300px; text-align: center">
                 <img
                   src="/assets/images/{{item.listAnhSanPham[0].link}}"
@@ -315,7 +315,7 @@
               </div>
             </a>
             <br>
-            <a href="" class="tieude"> <h4 class="text-xl-start">{{item.tenSanPham}}</h4></a>
+            <a href="#/chitietsanpham/{{item.idSanPham}}" class="tieude"> <h4 class="text-xl-start">{{item.tenSanPham}}</h4></a>
           </div>
 
         </div>
@@ -329,7 +329,7 @@
     display: flex;
     flex-wrap: wrap;
 ">
-            <a href="">
+            <a href="#/chitietsanpham/{{item.idSanPham}}">
               <div class="card border-0" style="width: 200px; height: 300px">
                 <img
                  src="/assets/images/{{item.listAnhSanPham[0].link}}"
@@ -339,7 +339,7 @@
               </div>
             </a>
             <br>
-            <a href="" class="tieude"> <h4 class="text-xl-start">{{item.tenSanPham}}</h4></a>
+            <a href="#/chitietsanpham/{{item.idSanPham}}" class="tieude"> <h4 class="text-xl-start">{{item.tenSanPham}}</h4></a>
           </div>
 
         </div>
@@ -369,7 +369,7 @@
     </div>
     <br>
   <div class="row row-cols-1 row-cols-md-4">
-    <div class="col-3" ng-repeat="item in hotSanPhams | limitTo : 8: 0">
+    <div class="col-3" ng-repeat="item in hotSanPhams | limitTo : 8: 0" >
         <div class="card"  style="width: auto;">
           <div class="m-4" style="width: 200px; height: 300px">
             <img
@@ -380,20 +380,46 @@
             />
           </div>
           <div class="card-body">
-            <a href="" class="tieude"><h5 class="card-title">{{item.tenSanPham}}</h5></a>
+            <a href="#/chitietsanpham/{{item.idSanPham}}" class="tieude"><h5 class="card-title">{{item.tenSanPham}}</h5></a>
             <h5 class="card-title" style="color: #2a6496">{{item.maSanPham}}</h5>
             <p class="card-text">
               {{item.moTaSanPham}}
+            </p>
+            <p class="text-center" style="color: red; font-size: 10px">
+              <p ng-if="item.listChiTietSanPham.length == 1">
+                <del ng-bind="getGiaNNOld(item.listChiTietSanPham)"></del>đ
+              </p>
+              <p ng-if="item.listChiTietSanPham.length > 1">
+                <del ng-bind="getGiaNNOld(item.listChiTietSanPham)"></del>đ ~
+                <del ng-bind="getGiaLNOld(item.listChiTietSanPham)"></del>đ
+              </p>
+            </p>
             <h5 class="text-center" style="color: red">
             <p ng-if="item.listChiTietSanPham.length == 1">
-            <span ng-bind="getGiaNN(item.listChiTietSanPham)"></span>
+            <span> {{ itemWithGiaNN.get(item.idSanPham)}} đ </span>
             </p>
             <p ng-if="item.listChiTietSanPham.length > 1">
-            <span ng-bind="getGiaNN(item.listChiTietSanPham)"></span> ~
-            <span ng-bind="getGiaLN(item.listChiTietSanPham)"></span>
+            <span> {{ itemWithGiaNN.get(item.idSanPham)}} đ</span> ~
+            <span> {{ itemWithGiaLN.get(item.idSanPham)}} đ</span>
+            </p>
             </p>
           </h5>
-            </p>
+<!--            Khuyen mai-->
+            <div ng-repeat="sp in item.listChiTietSanPham ">
+              <p ng-if="sp.khuyenMai == null"></p>
+              <div ng-if="sp.khuyenMai != null">
+                <div ng-if="sp.khuyenMai.enabled == false"></div>
+                <div ng-if="sp.khuyenMai.enabled == true">
+            <div class="icon-sale" >
+              <div class="item">
+                <img src="/assets/images/img-fix.png" alt="Giảm giá" /><span>{{sp.khuyenMai.chietKhau}} %</span>
+              </div>
+            </div>
+                </div>
+              </div>
+            </div>
+
+<!--            Ket thuc Khuyen mai -->
           </div>
         </div>
       <br>

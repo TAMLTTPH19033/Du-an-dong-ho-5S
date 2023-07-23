@@ -1,12 +1,13 @@
-myApp.controller("cartCtrl", function ($scope,$rootScope, $http) {
+myApp.controller("cartCtrl", function ($scope,$rootScope, $http,$window) {
     $scope.cart = [];
     $scope.total = 0;
     $scope.totalSp = 0;
 
+    let currentUser = JSON.parse(localStorage.getItem("currentUser"));
     //load cart
     $scope.index = function () {
-        if($rootScope.idkhachHang != null) {
-            $http.get(`/api/giohang/${$rootScope.idkhachHang}`).then((resp) => {
+        if(currentUser != null) {
+            $http.get(`/api/giohang/${currentUser.idKhachHang}`).then((resp) => {
                 $scope.cart = resp.data;
                 // console.log($scope.cart);
             }).catch(error => {
@@ -18,7 +19,9 @@ myApp.controller("cartCtrl", function ($scope,$rootScope, $http) {
                 icon: "warning",
                 title: "Bạn chưa đăng nhập !",
                 text: "Hãy đăng nhập để tiếp tục shopping!",
-                timer: 1600,
+                showConfirmButton: true,
+                closeOnClickOutside: true,
+                timer: 5600,
             });
             $window.location.href = '#login';
         }
@@ -34,53 +37,47 @@ myApp.controller("cartCtrl", function ($scope,$rootScope, $http) {
     };
 
     // api update soLuongtronggiohang
-    $scope.update = function (cart){
-        if($rootScope.idkhachHang != null) {
-            $http.put(`/api/giohang/update/${cart.idChiTietGioHang}`, cart)
+    $scope.update = function (cart, soLuong){
+            $http.put(`/api/giohang/update/${cart.idChiTietGioHang}?soLuong=${soLuong}`)
                 .then(resp => {
                     // $scope.cart = resp.data;
                     // alert("cap nhap thanh cong");
+                    console.log(resp)
                 })
                 .catch(error => {
                     alert("Loi roi", error);
                 })
-        }else{
-            Swal.fire({
-                icon: "warning",
-                title: "Bạn chưa đăng nhập !",
-                text: "Hãy đăng nhập để tiếp tục shopping!",
-                timer: 1600,
-            });
-        }
+        // }else{
+        //     Swal.fire({
+        //         icon: "warning",
+        //         title: "Bạn chưa đăng nhập !",
+        //         text: "Hãy đăng nhập để tiếp tục shopping!",
+        //         timer: 1600,
+        //     });
+        // }
     }
 
 
 // giam so luong
-    $scope.giam = function (item) {
+    $scope.giam = function (item, soLuong) {
         if (item) {
-            if (item.soLuongSanPham <= 1) {
-                Swal.fire({
-                    icon: "error",
-                    title: "Số lượng > 0",
-                    timer: 1600,
-                });
-                return;
+                if (item.soLuongSanPham <= 1) {
+                    $scope.remove(item);
+                    return;
+                }
             }
             item.soLuongSanPham = Number(item.soLuongSanPham) - 1;
-            $scope.update(item);
-            // console.log($scope.cart);
+            soLuong = item.soLuongSanPham;
+            $scope.update(item,soLuong);
             $scope.total -= item.giaBan ;
             $scope.totalSp-- ;
-        }
     };
-    $scope.tang = function (item) {
+    $scope.tang = function (item,soLuong) {
         if (item) {
-            if (item.soLuongSanPham < 1) {
-               $scope.remove(item);
-               return;
-            }
+
             item.soLuongSanPham = Number(item.soLuongSanPham) + 1;
-            $scope.update(item);
+            soLuong = item.soLuongSanPham;
+            $scope.update(item,soLuong);
             $scope.total += item.giaBan ;
             $scope.totalSp++ ;
         }
@@ -104,7 +101,7 @@ myApp.controller("cartCtrl", function ($scope,$rootScope, $http) {
     $scope.deleteAll = function (){
         $http.delete(`/api/giohang/deleteAll`)
             .then(resp =>{
-                $scope.cart.forEach(e => e.remove());
+                $scope.cart= [];
                 // alert("xoa thanh cong");
             })
             .catch(error =>{
@@ -133,5 +130,15 @@ myApp.controller("cartCtrl", function ($scope,$rootScope, $http) {
         }
     };
 
+    $scope.change = function (item) {
+        if (item) {
+            if (item.soLuongSanPham <= 1) {
+                $scope.remove(item);
+                return;
+            }
+            $scope.update(item);
+            $scope.setTotals(item)
+        }
+    };
 
 })
