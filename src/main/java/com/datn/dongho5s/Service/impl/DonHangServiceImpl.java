@@ -7,6 +7,8 @@ import com.datn.dongho5s.Service.DonHangService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class DonHangServiceImpl implements DonHangService {
     @Autowired
@@ -18,6 +20,11 @@ public class DonHangServiceImpl implements DonHangService {
 
     @Override
     public DonHang getById(Integer idDonHang) {
-        return donHangRepository.findById(idDonHang).get();
+        Optional<DonHang> optionalDonHang = donHangRepository.findById(idDonHang);
+        if (optionalDonHang.isPresent()) {
+            return optionalDonHang.get();
+        } else {
+            return null;
+        }
     }
 }

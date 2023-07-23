@@ -36,7 +36,6 @@ public class HoaDonChiTietServiceImpl implements HoaDonChiTietService {
             HoaDonChiTiet hdct = HoaDonChiTiet.builder()
                     .donHang(donHangService.getById(idDonHang))
                     .chiTietSanPham(ctsp)
-//                    .ngayTao()
                     .soLuong(item.getSoLuong())
                     .giaBan(ctsp.getGiaSanPham())
                     .build();
@@ -49,6 +48,16 @@ public class HoaDonChiTietServiceImpl implements HoaDonChiTietService {
     public List<HoaDonChiTiet> saveAll(List<HoaDonChiTiet> listHDCT) {
         hoaDonChiTietRepository.saveAll(listHDCT);
         return null;
+    }
+
+    @Override
+    public Double getTongGia(List<HoaDonChiTietRequest> list) {
+        Double result = 0D;
+        for (int i=0;i<list.size();i++){
+            Double giaBan = chiTietSanPhamService.getChiTietSanPhamById(list.get(i).getIdChiTietSanPham()).getGiaSanPham();
+            result += list.get(i).getSoLuong()*giaBan;
+        }
+        return result;
     }
 
 }

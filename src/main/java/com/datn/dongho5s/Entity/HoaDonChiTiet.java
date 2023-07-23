@@ -35,9 +35,6 @@ public class HoaDonChiTiet {
     @JoinColumn(name = "id_chi_tiet_san_pham")
     private ChiTietSanPham chiTietSanPham;
 
-    @Column(name = "ngay_tao")
-    private Timestamp ngayTao;
-
     @Column(name = "so_luong")
     private Integer soLuong;
 
