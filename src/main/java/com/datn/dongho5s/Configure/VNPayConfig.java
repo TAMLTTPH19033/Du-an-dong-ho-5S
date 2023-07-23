@@ -20,10 +20,10 @@ public class VNPayConfig {
     public static final String bank_code = "NCB";
     public static final String curr_code = "VND";
     public static final String location = "vn";
-    public static final String order_type = "200000";
+    public static final String order_type = "other";
     public static String vnp_PayUrl = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
     //TODO need change url when pay successfull
-    public static String vnp_Returnurl = "http://localhost:8080/vnpay_jsp/vnpay_return.jsp";
+    public static String vnp_Returnurl = "http://localhost:8080/don-hang/tthong-tin-thanh-toan";
     public static String vnp_TmnCode = "Q0M81PPD";
     public static String vnp_HashSecret = "NRYJBFMTSNTGMVQLVKMUMUZHNONBRGKZ";
     public static String vnp_apiUrl = "https://sandbox.vnpayment.vn/merchant_webapi/api/transaction";

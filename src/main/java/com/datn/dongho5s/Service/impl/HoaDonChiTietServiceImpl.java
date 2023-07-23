@@ -51,4 +51,14 @@ public class HoaDonChiTietServiceImpl implements HoaDonChiTietService {
         return null;
     }
 
+    @Override
+    public Double getTongGia(List<HoaDonChiTietRequest> list) {
+        Double result = 0D;
+        for (int i=0;i<list.size();i++){
+            Double giaBan = chiTietSanPhamService.getChiTietSanPhamById(list.get(i).getIdChiTietSanPham()).getGiaSanPham();
+            result += list.get(i).getSoLuong()*giaBan;
+        }
+        return result;
+    }
+
 }
