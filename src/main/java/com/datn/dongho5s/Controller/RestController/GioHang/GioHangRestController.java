@@ -1,5 +1,6 @@
 package com.datn.dongho5s.Controller.RestController.GioHang;
 
+import com.datn.dongho5s.Entity.ChiTietGioHang;
 import com.datn.dongho5s.Request.ChiTietGioHangRequest;
 import com.datn.dongho5s.Request.CartRequest;
 import com.datn.dongho5s.Response.ChiTietGioHangResponse;
@@ -36,8 +37,8 @@ public class GioHangRestController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<?> updateGioHang(@PathVariable("id") Integer idGioHangChiTiet, @RequestBody ChiTietGioHangRequest chiTietGioHang){
-        return ResponseEntity.status(HttpStatus.OK).body(chiTietGioHangService.update(chiTietGioHang));
+    public ResponseEntity<?> updateGioHang(@PathVariable("id") Integer idGioHangChiTiet,@PathParam("soLuong") Integer soLuong) throws Exception{
+        return ResponseEntity.status(HttpStatus.OK).body(chiTietGioHangService.update(soLuong,idGioHangChiTiet));
     }
 
     @DeleteMapping("/delete/{id}")
@@ -51,9 +52,8 @@ public class GioHangRestController {
     }
 
     @PostMapping("/addToCart")
-    public ResponseEntity<?> addGioHang(@RequestBody CartRequest cartResponse){
-        System.out.println(cartResponse + "chiTiet");
-        return ResponseEntity.status(HttpStatus.OK).body(chiTietGioHangService.addToCart(cartResponse.getChiTietSanPham(), cartResponse.getSoLuong(), cartResponse.getIdKhachHang()));
+    public ResponseEntity<?> addGioHang(@RequestBody CartRequest cartRequest){
+        return ResponseEntity.status(HttpStatus.OK).body(chiTietGioHangService.addToCart(cartRequest));
     }
 
 }

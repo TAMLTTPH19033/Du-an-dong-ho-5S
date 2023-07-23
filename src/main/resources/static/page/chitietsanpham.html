@@ -37,16 +37,23 @@
 
             <div class="d-flex flex-column mb-3">
                 <div class="d-flex">
-                    <label style="margin-right: 20px;font-size: 20px;font-weight:500 ;">Khuyến Mãi:</label>
-                    <input type="text" placeholder="Nhập Zipcode"/>
+            <span style="color: red">{{chiTietSanPham.khuyenMai.tenKhuyenMai}}</span>
                 </div>
-                <div class="">Tên Khuyến Mãi</div>
             </div>
 
             <div class="d-flex flex-column mb-3">
                 <div class="d-flex justify-content">
                     <label style="margin-right: 20px;font-size: 20px;font-weight:500 ;">Giá Tiền:</label>
-                    <div class="ml-2" style="font-weight: 500; font-size: 20px;">{{chiTietSanPham.giaSanPham}}</div>
+                    <div class="ml-2" style="font-weight: 500; font-size: 20px;">
+                        <div ng-if="chiTietSanPham.khuyenMai == null">
+                            <span style="color: red">{{chiTietSanPham.giaSanPham}} đ</span>
+                        </div>
+                        <div ng-if="chiTietSanPham.khuyenMai != null">
+                            <del style="color: red">{{chiTietSanPham.giaSanPham}} đ</del>
+                            <span style="color: red" >{{chiTietSanPham.giaSanPham - chiTietSanPham.giaSanPham * chiTietSanPham.khuyenMai.chietKhau/100}} đ</span>
+                        </div>
+
+                    </div>
                 </div>
             </div>
 
@@ -103,6 +110,7 @@
                   style="width:30px"
           />
           <input class="plus is-form" type="button" value="+" style="width:30px" ng-click="tang()"/>
+            <br>
           <div>
             <button type="button" class="btn btn-secondary" ng-click="addToCart()">Thêm Vào Giỏ Hàng</button>
             <button type="button" class="btn btn-danger" ng-click="buyNow()">Mua Ngay</button>
@@ -194,18 +202,20 @@
             <div class="product-reviews">
                 <h3>Đánh Giá Sản Phẩm</h3>
 
-                <div ng-if="check == true">
-                </div>
-                <div ng-if="check == false">
-                    <div class="rating-selection">
-                        <form ng-submit="sendRate()">
-                            <div star-ratings rating-value="ratings.current" max="5"></div>
-                            <input type="text" id="noiDungPhanHoi" name="noiDungPhanHoi" ng-model="noiDungPhanHoi"/>
-                            <button>Submit</button>
-                        </form>
-                    </div>
+                    <!-- form send-->
+                        <div ng-if="check == true">
+                        </div>
+                        <div ng-if="check == false">
+                            <div class="rating-selection">
+                                <form ng-submit="sendRate()">
+                                    <div star-ratings rating-value="ratings.current" max="5"></div>
+                                    <input type="text" id="noiDungPhanHoi" name="noiDungPhanHoi" ng-model="noiDungPhanHoi"/>
+                                    <button>Submit</button>
+                                </form>
+                            </div>
+                        </div>
+                    <!-- form send-->
 
-                </div>
 
                 <div>
                     <div class="review" style="margin: 50px 0px;" ng-repeat="p in Items">
@@ -220,22 +230,26 @@
                     </div>
                 </div>
                 <!-- Thêm các đánh giá khác tại đây -->
-
-                <nav aria-label="Page navigation">
-                    <ul class="pagination justify-content-center">
-                        <li class="page-item">
-                            <button class="page-link" style="color: #000000;" ng-click="previousPage()">Trước</button>
-                        </li>
-                        <li class="page-item" ng-repeat="page in pages">
-                            <button class="page-link" style="color: #000000;" ng-click="changePage(page)">{{ page }}
-                            </button>
-                        </li>
-                        <li class="page-item">
-                            <button class="page-link" style="color: #000000;" ng-click="nextPage()">Tiếp</button>
-                        </li>
-                    </ul>
-                </nav>
-
+                <br>
+                <div class="text-center" ng-if="pages.length == 0 ">
+                    <p>Chưa có phản hồi nào</p>
+                </div>
+                <div ng-if="pages.length > 0 ">
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item">
+                                <button class="page-link" style="color: #000000;" ng-click="previousPage()">Trước</button>
+                            </li>
+                            <li class="page-item" ng-repeat="page in pages">
+                                <button class="page-link" style="color: #000000;" ng-click="changePage(page)">{{ page }}
+                                </button>
+                            </li>
+                            <li class="page-item">
+                                <button class="page-link" style="color: #000000;" ng-click="nextPage()">Tiếp</button>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
             </div>
 
         </div>

@@ -2,7 +2,6 @@ package com.datn.dongho5s.Controller.RestController.KhachHang;
 
 import com.datn.dongho5s.Entity.KhachHang;
 import com.datn.dongho5s.Exception.ErrorResponse;
-
 import com.datn.dongho5s.Repository.KhachHangRepository;
 import com.datn.dongho5s.Request.LoginRequest;
 import com.datn.dongho5s.Request.RegisterRequest;
@@ -29,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -51,6 +51,8 @@ public class AccountRestController {
     @Autowired
     PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private HttpSession session;
     public Authentication authenticate(String username, String password) throws Exception {
         try {
           return   authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username,password));
@@ -76,6 +78,7 @@ public class AccountRestController {
                 loginResponse.setIdKhachHang(userEntity.getIdKhachHang());
                 loginResponse.setMessage("Đăng nhập thành công");
                 loginResponse.setUsername(userEntity.getEmail());
+                    this.session.setAttribute("userName",userEntity.getUsername());
                 return ResponseEntity.status(HttpStatus.OK).body(loginResponse);
             } catch (Exception e) {
                 System.out.println(e);
