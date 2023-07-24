@@ -12,4 +12,7 @@ public interface HoaDonChiTietService {
     List<HoaDonChiTiet> convertToListHoaDonChiTiet (List<HoaDonChiTietRequest> list, Integer idDonHang);
     List<HoaDonChiTiet> saveAll (List<HoaDonChiTiet> listHDCT);
     Double getTongGia (List<HoaDonChiTietRequest> list);
+
+    List<HoaDonChiTiet> getByIdDonHang(int id);
+
 }

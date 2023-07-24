@@ -1,0 +1,100 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragment/fragments:: page_head('Chi tiết hóa đơn - 5SWatch ')"/>
+
+<body>
+<div class="container-fluid">
+    <div th:replace="fragment/navigation:: menu"></div>
+    <div>
+        <h2>Chi tiết hóa đơn</h2>
+    </div>
+
+<!--    start -->
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+
+                <!--Sản phẩm đã mua-->
+                <div class="card mb-3" style="max-width: 100%;border: none !important;">
+                    <div class="row g-0" th:each="cat :${lstHDCT}" style="padding: 20px 10px;">
+                        <div class="col-md-5">
+                            <img src="..." class="img-fluid rounded-start" alt="Image">
+                        </div>
+                        <div class="col-md-7">
+                            <div class="card-body">
+                                <h3 class="card-title">[[${cat.chiTietSanPham.sanPham.tenSanPham}]]</h3>
+                                <h5 class="card-text">Giá: [[${cat.giaBan}]]$</h5>
+                                <p class="card-text">Số lượng: x[[${cat.soLuong}]]</p>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                    <!--            TỔNG TIỀN-->
+                    <div class="row g-0" style="padding: 20px 10px;">
+                        <div class="col-md-5">
+                            <h3 class="rounded-start">Tổng tiền: </h3>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="card-body">
+                                <h3 class="card-title" style="color: #e71616">[[${tongTien}]]$</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-4">
+
+            <!--    export            -->
+                <div class="card border-danger mb-3" style="max-width: 100%;">
+                    <div class="card-header bg-transparent border-danger" style="text-align: center">
+                        <h4 style="font-weight: bold;">Đồng hồ 5S</h4>
+                        <p><small>Diêm Điền, Thái Thụy</small></p>
+                        <h5 style="font-weight: bold;">Hóa đơn thanh toán</h5>
+                    </div>
+                    <div class="card-body text-success">
+<!--                        <h5 class="card-title">Success card title</h5>-->
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col">Tên sản phẩm</th>
+                                <th scope="col">SL</th>
+                                <th scope="col">Đơn giá</th>
+                                <th scope="col">Thành tiền</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="cat :${lstHDCT}">
+                                <th scope="row">[[${cat.chiTietSanPham.sanPham.tenSanPham}]]</th>
+                                <td>x[[${cat.soLuong}]]</td>
+                                <td>[[${cat.giaBan}]]$</td>
+                                <td>[[${cat.giaBan*cat.soLuong}]]</td>
+                            </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th scope="row">Tổng cộng: </th>
+                                    <td colspan="3">[[${tongTien}]]$</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <div class="card-footer bg-transparent border-danger" style="text-align: center">Chúc quý khách vui vẻ! Hẹn gặp lại!</div>
+                </div>
+                <div class="d-grid gap-2">
+                    <a class="btn btn-danger" style="text-decoration: none"  th:href="@{'/hoa-don-chi-tiet/export'}"
+                       title="Chi tiết">Xuất hóa đơn</a>
+                </div>
+            </div>
+        </div>
+    </div>
+<!--end-->
+
+
+    <div th:replace="fragment/fragments::footer"></div>
+
+</div>
+</body>
+</html>

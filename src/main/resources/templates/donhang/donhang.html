@@ -1,0 +1,86 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragment/fragments:: page_head('Đơn hàng - 5SWatch ')"/>
+
+<body>
+<div class="container-fluid">
+    <div th:replace="fragment/navigation:: menu"></div>
+    <div>
+        <h2>Quản lý Đơn hàng</h2>
+    </div>
+
+    <div class="full-details">
+        <table class="table table-bordered table-striped table-hover table-responsive-xl">
+            <thead class="thead-dark">
+            <tr>
+                <th>#</th>
+                <th>Địa chỉ</th>
+                <th>Ngày giao hàng</th>
+                <th>Ngày tạo</th>
+                <th>Phí vận chuyển</th>
+                <th>Tổng tiền sản phẩm</th>
+                <th>Thành tiền</th>
+                <th>Trạng thái</th>
+                <Th>Action</Th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="cat, iterStat : ${list}">
+                <td th:text="${__${iterStat.index + 1}__}">1</td>
+                <td>[[${cat.diaChi}]], [[${cat.idPhuongXa}]], [[${cat.idQuanHuyen}]]</td>
+                <td>[[${#dates.format(cat.ngayGiaoHang, 'dd-MM-yyyy')}]]</td>
+                <td>[[${#dates.format(cat.ngayTao, 'dd-MM-yyyy')}]]</td>
+                <td>[[${cat.phiVanChuyen}]]$</td>
+                <td>[[${cat.tongTien}]]$</td>
+                <td>[[${cat.tongTien + cat.phiVanChuyen}]]$</td>
+                <td>[[${cat.trangThaiDonHang}]]</td>
+                <td>
+                    <a class="icon-green btn btn-outline-danger"
+                       style="text-decoration: none"
+                       th:href="@{'/hoa-don-chi-tiet/search/' + ${cat.idDonHang}}">Xem</a>
+
+                    <a class="btn btn-outline-primary"
+                       data-bs-toggle="modal"
+                       data-bs-target="#capNhatTrangThai"
+                       style="text-decoration: none"
+                       th:href="@{'/don-hang/get/' + ${cat.idDonHang}}"
+                       title="Chi tiết">Cập nhật</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div th:replace="fragment/fragments::footer"></div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="capNhatTrangThai" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="capNhatTrangThaiLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="capNhatTrangThaiLabel">Cập nhật trạng thái đơn hàng</h1>
+                </div>
+                <div class="modal-body">
+                    <div class="col-md-8">
+                        <label for="trangThai" class="form-label">Trạng thái</label>
+                        <select id="trangThai" class="form-select">
+                            <option selected>Chưa thanh toán</option>
+                            <option>Chờ thanh toán</option>
+                            <option>Đã thanh toán</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <a type="button" class="btn btn-outline-danger"
+                       th:href="@{'/don-hang/update'}"
+                       data-bs-dismiss="modal">Xác nhận</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

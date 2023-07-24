@@ -5,8 +5,11 @@ import com.datn.dongho5s.Entity.DonHang;
 import com.datn.dongho5s.Repository.DonHangRepository;
 import com.datn.dongho5s.Service.DonHangService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -26,5 +29,26 @@ public class DonHangServiceImpl implements DonHangService {
         } else {
             return null;
         }
+    }
+
+    @Override
+    public List<DonHang> getAll(int pageNumber) {
+        Page<DonHang> allDonHang = donHangRepository.findAll(PageRequest.of(pageNumber - 1,10));
+        return allDonHang.getContent();
+    }
+
+    @Override
+    public Double tongTien(int id) {
+        return donHangRepository.findTongTienByIdDonHang(id);
+    }
+
+    @Override
+    public DonHang findById(int id) {
+        return donHangRepository.findByIdDonHang(id);
+    }
+
+    @Override
+    public void updateTrangThaiDonHang(DonHang donHang) {
+        donHangRepository.updateTrangThaiDonHang(donHang);
     }
 }

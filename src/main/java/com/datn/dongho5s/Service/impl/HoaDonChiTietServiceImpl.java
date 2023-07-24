@@ -60,4 +60,9 @@ public class HoaDonChiTietServiceImpl implements HoaDonChiTietService {
         return result;
     }
 
+    @Override
+    public List<HoaDonChiTiet> getByIdDonHang(int id) {
+        return hoaDonChiTietRepository.findHDCTBYIdDonHang(id);
+    }
+
 }
