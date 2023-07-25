@@ -36,6 +36,29 @@ myApp.controller("cartCtrl", function ($scope,$rootScope, $http,$window) {
         }
     };
 
+    var giaSanPham =0;
+    $scope.getGia = function (chiTietSanPham){
+        if(chiTietSanPham.khuyenMai == null) {
+            return giaSanPham = chiTietSanPham.giaSanPham;
+        }else{
+            if(chiTietSanPham.khuyenMai.enabled == false ){
+                return giaSanPham = $scope.chiTietSanPham.giaSanPham ;
+            }else{
+                if($rootScope.currentDate < chiTietSanPham.khuyenMai.ngayKetThuc.toString()){
+                    if($rootScope.currentDate < chiTietSanPham.khuyenMai.ngayBatDau.toString()){
+                        return giaSanPham = chiTietSanPham.giaSanPham ;
+                    }else {
+                        return giaSanPham =chiTietSanPham.giaSanPham - chiTietSanPham.giaSanPham * chiTietSanPham.khuyenMai.chietKhau/100;
+                    }
+                }else{
+                    return giaSanPham =chiTietSanPham.giaSanPham ;
+
+
+                }
+            }
+        }
+    }
+
     // api update soLuongtronggiohang
     $scope.update = function (cart, soLuong){
             $http.put(`/api/giohang/update/${cart.idChiTietGioHang}?soLuong=${soLuong}`)
