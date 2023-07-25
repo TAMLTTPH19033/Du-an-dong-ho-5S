@@ -18,6 +18,8 @@ myApp.controller("homeCtrl", function ($scope, $http,$window,$rootScope) {
                 $scope.getGiaLN(item.idSanPham)
             })
         });
+        $rootScope.currentDate = new Date().toISOString();
+        console.log($scope.currentDate < '2023-07-26T17:00:00.000+00:00')
     };
     $scope.init();
 
@@ -26,14 +28,14 @@ myApp.controller("homeCtrl", function ($scope, $http,$window,$rootScope) {
         $http
             .get(`/api/index/getSPKM?idCTSP=${idSanPham}`)
             .then((resp) => {
-            $scope.spkm = resp.data;
-            console.log(resp.data,"data")
-            $scope.spkm.sort(function(a, b){return a.giaSanPham - b.giaSanPham});
-            $scope.itemWithGiaNN.set(idSanPham,$scope.spkm[0].giaSanPham);
-            console.log($scope.itemWithGiaNN.get(idSanPham));
+                $scope.spkm = resp.data;
+                console.log(resp.data,"data")
+                $scope.spkm.sort(function(a, b){return a.giaSanPham - b.giaSanPham});
+                $scope.itemWithGiaNN.set(idSanPham,$scope.spkm[0].giaSanPham);
+                console.log($scope.itemWithGiaNN.get(idSanPham));
             })
             .catch((e)=>{
-            console.log(e);
+                console.log(e);
             });
     }
 

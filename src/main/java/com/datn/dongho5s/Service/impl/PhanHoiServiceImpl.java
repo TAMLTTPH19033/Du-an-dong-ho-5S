@@ -2,9 +2,12 @@ package com.datn.dongho5s.Service.impl;
 
 
 import com.datn.dongho5s.Entity.ChiTietGioHang;
+import com.datn.dongho5s.Entity.ChiTietSanPham;
 import com.datn.dongho5s.Entity.DonHang;
+import com.datn.dongho5s.Entity.HoaDonChiTiet;
 import com.datn.dongho5s.Entity.KhachHang;
 import com.datn.dongho5s.Entity.PhanHoi;
+import com.datn.dongho5s.Repository.ChiTietSanPhamRepository;
 import com.datn.dongho5s.Repository.DonHangRepository;
 import com.datn.dongho5s.Repository.KhachHangRepository;
 import com.datn.dongho5s.Repository.PhanHoiRepository;
@@ -30,6 +33,9 @@ public class PhanHoiServiceImpl implements PhanHoiService {
     PhanHoiRepository phanHoiRepository;
 
     @Autowired
+    ChiTietSanPhamRepository chiTietSanPhamRepository;
+
+    @Autowired
     DonHangRepository donHangRepository;
 
     @Autowired
@@ -43,7 +49,11 @@ public class PhanHoiServiceImpl implements PhanHoiService {
 
     @Override
     public boolean checkPhanHoi(Integer idKhachHang, Integer idSanPham) {
-        Optional<List<DonHang>> donHangList = donHangRepository.findDonHang(idKhachHang,idSanPham);
+        Optional<List<HoaDonChiTiet>> donHangList = donHangRepository.findHDDonHang(idKhachHang,idSanPham);
+        System.out.println(donHangList);
+        if (donHangList.isEmpty()){
+            return true;
+        }
         if(donHangList.isPresent()){
             Optional<PhanHoi> phanHoi = phanHoiRepository.findPhanHoi(idKhachHang,idSanPham);
             if (phanHoi.isPresent()){
@@ -59,9 +69,10 @@ public class PhanHoiServiceImpl implements PhanHoiService {
     @Override
     public PhanHoiResponse addPhanHoi(PhanHoiRequest phanHoiRequest) {
         KhachHang khachHang = khachHangRepository.findById(phanHoiRequest.getIdKhachHang()).get();
+        ChiTietSanPham chiTietSanPham = chiTietSanPhamRepository.findById(phanHoiRequest.getIdChiTietSanPham()).get();
         PhanHoi phanHoi =  PhanHoi.builder()
                 .idPhanHoi(null)
-                .chiTietSanPham(phanHoiRequest.getChiTietSanPham())
+                .chiTietSanPham(chiTietSanPham)
                 .danhGia(phanHoiRequest.getDanhGia())
                 .ghiChu(null)
                 .noiDungPhanHoi(phanHoiRequest.getNoiDungPhanHoi())

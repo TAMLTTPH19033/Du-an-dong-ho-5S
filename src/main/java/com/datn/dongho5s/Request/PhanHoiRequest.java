@@ -14,6 +14,6 @@ import lombok.NoArgsConstructor;
 public class PhanHoiRequest {
     private String noiDungPhanHoi;
     private Integer danhGia;
-    private ChiTietSanPham chiTietSanPham;
+    private Integer idChiTietSanPham;
     private Integer idKhachHang;
 }
