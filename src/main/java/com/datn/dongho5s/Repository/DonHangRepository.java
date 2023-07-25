@@ -14,7 +14,8 @@ import java.util.Optional;
 @Repository
 public interface DonHangRepository extends JpaRepository<DonHang,Integer> {
 
-    @Query(value = "select hdct from HoaDonChiTiet hdct where hdct.donHang.khachHang.idKhachHang = ?1 and hdct.chiTietSanPham.idChiTietSanPham = ?2")
-    Optional<List<HoaDonChiTiet>> findHDDonHang(Integer idKhachHang, Integer idSanPham);
+    @Query(value = "select hdct from HoaDonChiTiet hdct where hdct.donHang.khachHang.idKhachHang = ?1 and hdct.chiTietSanPham.idChiTietSanPham = ?2 and hdct.donHang.trangThaiDonHang = 3")
+
+    List<HoaDonChiTiet> findHDDonHang(Integer idKhachHang, Integer idSanPham);
 
 }

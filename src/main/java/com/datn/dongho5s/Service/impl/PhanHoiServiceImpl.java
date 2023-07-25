@@ -49,12 +49,14 @@ public class PhanHoiServiceImpl implements PhanHoiService {
 
     @Override
     public boolean checkPhanHoi(Integer idKhachHang, Integer idSanPham) {
-        Optional<List<HoaDonChiTiet>> donHangList = donHangRepository.findHDDonHang(idKhachHang,idSanPham);
+        List<HoaDonChiTiet> donHangList = donHangRepository.findHDDonHang(idKhachHang,idSanPham);
         System.out.println(donHangList);
         if (donHangList.isEmpty()){
+            System.out.println("rỗng rồi");
             return true;
         }
-        if(donHangList.isPresent()){
+        if(donHangList != null){
+            System.out.println("sai rồi");
             Optional<PhanHoi> phanHoi = phanHoiRepository.findPhanHoi(idKhachHang,idSanPham);
             if (phanHoi.isPresent()){
                 return  true;

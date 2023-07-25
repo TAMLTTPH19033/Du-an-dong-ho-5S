@@ -258,7 +258,6 @@ myApp.controller(
           $scope.totalPages = Math.ceil(
             $scope.phanHoi.length / $scope.pageSize
           );
-          $scope.$apply();
           console.log(response.data);
         })
         .catch(function (error) {
@@ -321,7 +320,6 @@ myApp.controller(
             )
             .then(function (response) {
               $scope.check = response.data;
-              $scope.$apply();
               console.log(response.data);
             })
             .catch(function (error) {

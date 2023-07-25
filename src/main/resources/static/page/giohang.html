@@ -26,37 +26,12 @@
                         <td> <a href="#/chitietsanpham/{{item.chiTietSanPham.sanPham.idSanPham}}"  class="text-dark" style="text-decoration: none">{{item.chiTietSanPham.sanPham.tenSanPham}} </a>
                         </td>
                         <td>
-<!--                            <p ng-if="item.chiTietSanPham.khuyenMai == null ">-->
-<!--                            <div  class="price"> {{item.giaBan | number}} đ</div>-->
-<!--                            </p>-->
-<!--                            <p ng-if="item.chiTietSanPham.khuyenMai  != null ">-->
-<!--                                <div ng-if="item.chiTietSanPham.khuyenMai.enabled == false">-->
-<!--                                    <div  class="price"> {{item.giaBan | number}} đ</div>-->
-<!--                                </div>-->
-<!--                                <div ng-if="item.chiTietSanPham.khuyenMai.enabled == true">-->
-<!--                                    <div ng-if="currentDate >  item.chiTietSanPham.khuyenMai.ngayKetThuc.toString() ">-->
-<!--                                        <div  class="price"> {{item.giaBan | number}} đ</div>-->
-<!--                                    </div>-->
-<!--                                    <div ng-if="currentDate <item.chiTietSanPham.khuyenMai .ngayKetThuc.toString()">-->
-<!--                                        <div ng-if="currentDate < item.chiTietSanPham.khuyenMai .ngayBatDau.toString()">-->
-<!--                                            <div  class="price"> {{item.giaBan | number}} đ</div>-->
-<!--                                        </div>-->
-<!--                                        <div ng-if="currentDate > item.chiTietSanPham.khuyenMai .ngayBatDau.toString()">-->
-<!--                                            <div  class="price"> {{item.giaBan | number}} đ</div>-->
-<!--                                            <span class="text-danger"> - {{item.chiTietSanPham.khuyenMai.chietKhau}} % </span>-->
-<!--                                            <del class="text-danger">{{item.chiTietSanPham.giaSanPham | number}} đ</del>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </p>-->
-
-                            <p ng-if="item.chiTietSanPham.giaSanPham == getGia(item.chiTietSanPham)">
-                                <span style="color: red" ng-bind="getGia(item.chiTietSanPham)"> đ</span>
-                            </p>
-                            <p ng-if="item.chiTietSanPham.giaSanPham != getGia(item.chiTietSanPham)">
-                                <del style="color: red">{{item.chiTietSanPham.giaSanPham}} đ</del>
-                                <span style="color: red"  ng-bind="getGia(item.chiTietSanPham)"> đ</span>
-                            </p>
+                            <div  class="price"> {{item.giaBan | number}} đ</div>
+                            <span ng-if="item.giaBan == item.chiTietSanPham.giaSanPham"></span>
+                            <span ng-if="item.giaBan != item.chiTietSanPham.giaSanPham">
+                                <span class="text-danger"> - {{item.chiTietSanPham.khuyenMai.chietKhau}} % </span>
+                            <del class="text-danger">{{item.chiTietSanPham.giaSanPham | number}} đ</del>
+                            </span>
                             <input type="hidden" name="txtPrice" value="0"/>
                             <input type="hidden" name="totalTxtPrice"/>
 
