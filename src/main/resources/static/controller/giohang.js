@@ -1,4 +1,4 @@
-myApp.controller("cartCtrl", function ($scope,$rootScope, $http,$window) {
+myApp.controller("cartCtrl", function ($scope,$rootScope, $http,$window,checkOutDataService) {
     $scope.cart = [];
     $scope.total = 0;
     $scope.totalSp = 0;
@@ -141,5 +141,18 @@ myApp.controller("cartCtrl", function ($scope,$rootScope, $http,$window) {
             $scope.setTotals(item)
         }
     };
+
+    $scope.buyNow = () => {
+        $scope.chiTietSanPham=[];
+        $scope.cart.forEach(item=>{
+            $scope.chiTietSanPham.push({
+                chiTietSanPham: item.chiTietSanPham,
+                giaBan: item.giaBan,
+                soLuong: item.soLuongSanPham
+            })
+        })
+        checkOutDataService.setData($scope.chiTietSanPham);
+        $location.path("/thanhtoan");
+      };
 
 })

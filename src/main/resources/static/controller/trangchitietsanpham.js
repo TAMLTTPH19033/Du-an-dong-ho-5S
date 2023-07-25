@@ -100,20 +100,58 @@ myApp.controller(
         if ($scope.isFirstRun <= 1) {
           return;
         }
-        $scope.selectedDD = newValues[0];
-        $scope.selectedVL = newValues[1];
-        $scope.selectedMS = newValues[2];
-        $scope.selectedKC = newValues[3];
-        $scope.chiTietSanPham = $scope.sanPhamDetail.listChiTietSanPham.filter(
-          function (item) {
-            return (
-              item.dayDeo.tenDayDeo == $scope.selectedDD &&
-              item.vatLieu.tenVatLieu == $scope.selectedVL &&
-              item.kichCo.tenKichCo == $scope.selectedKC &&
-              item.mauSac.tenMauSac == $scope.selectedMS
-            );
-          }
-        )[0];
+        // $scope.selectedDD = newValues[0];
+        // $scope.selectedVL = newValues[1];
+        // $scope.selectedMS = newValues[2];
+        // $scope.selectedKC = newValues[3];
+        //DayDeo
+        if (newValues[0] !== oldValues[0]) {
+          console.log("Thay day deo");
+          $scope.chiTietSanPham =
+            $scope.sanPhamDetail.listChiTietSanPham.filter(function (item) {
+              return item.dayDeo.tenDayDeo == $scope.selectedDD;
+            })[0];
+            resetSelectedValue();
+        }
+        //VatLieu
+        if (newValues[1] !== oldValues[1]) {
+          console.log("Thay vl");
+          $scope.chiTietSanPham =
+            $scope.sanPhamDetail.listChiTietSanPham.filter(function (item) {
+              return (
+                item.dayDeo.tenDayDeo == $scope.selectedDD &&
+                item.vatLieu.tenVatLieu == $scope.selectedVL
+              );
+            })[0];
+            resetSelectedValue();
+        }
+        //MauSac
+        if (newValues[2] !== oldValues[2]) {
+          console.log("Thay mms");
+          $scope.chiTietSanPham =
+            $scope.sanPhamDetail.listChiTietSanPham.filter(function (item) {
+              return (
+                item.dayDeo.tenDayDeo == $scope.selectedDD &&
+                item.vatLieu.tenVatLieu == $scope.selectedVL &&
+                item.mauSac.tenMauSac == $scope.selectedMS
+              );
+            })[0];
+            resetSelectedValue();
+        }
+        //KichCo
+        if (newValues[3] !== oldValues[3]) {
+          console.log("Thay kc");
+          $scope.chiTietSanPham =
+            $scope.sanPhamDetail.listChiTietSanPham.filter(function (item) {
+              return (
+                item.dayDeo.tenDayDeo == $scope.selectedDD &&
+                item.vatLieu.tenVatLieu == $scope.selectedVL &&
+                item.kichCo.tenKichCo == $scope.selectedKC &&
+                item.mauSac.tenMauSac == $scope.selectedMS
+              );
+            })[0];
+            resetSelectedValue();
+        }
         //
         getAvailabelAttribute();
         $rootScope.currentDate = new Date().toISOString();
@@ -124,6 +162,13 @@ myApp.controller(
 
       }
     );
+
+    var resetSelectedValue = function () {
+      $scope.selectedDD = $scope.chiTietSanPham.dayDeo.tenDayDeo;
+      $scope.selectedMS = $scope.chiTietSanPham.mauSac.tenMauSac;
+      $scope.selectedVL = $scope.chiTietSanPham.vatLieu.tenVatLieu;
+      $scope.selectedKC = $scope.chiTietSanPham.kichCo.tenKichCo;
+    };
 
     var getAvailabelAttribute = function () {
       $scope.setAvaiableVatLieu = new Set();
@@ -240,6 +285,8 @@ myApp.controller(
         {
           idChiTietSanPham: $scope.chiTietSanPham.idChiTietSanPham,
           giaBan: $scope.getGia(),
+          chiTietSanPham: $scope.chiTietSanPham,
+          giaBan: $scope.chiTietSanPham.giaSanPham,
           soLuong: $scope.soLuong,
         },
       ]);

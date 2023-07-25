@@ -11,6 +11,6 @@ public interface AccountService {
     ResponseEntity<?> register (RegisterRequest registerRequest) throws BadRequestException;
     HashMap<Integer,String> getListTP();
     HashMap<Integer,String> getListQuan( Integer idTP) throws Exception;
-    HashMap<Integer,String> getListPhuong( Integer idQH) throws  Exception;
+    HashMap<String,String> getListPhuong( Integer idQH) throws  Exception;
 
 }

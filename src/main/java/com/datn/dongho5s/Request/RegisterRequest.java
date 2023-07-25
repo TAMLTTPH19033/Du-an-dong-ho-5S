@@ -29,7 +29,7 @@ public class RegisterRequest {
 
     private Integer idQuanHuyen;
 
-    private Integer idPhuongXa;
+    private String idPhuongXa;
 
     private String diaChi;
 

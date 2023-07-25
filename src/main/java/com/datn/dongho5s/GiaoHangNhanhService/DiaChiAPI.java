@@ -84,7 +84,7 @@ public class DiaChiAPI {
         return DiaChiCache.hashMapQuanHuyen.get(idTinhThanh);
     }
 
-    public static HashMap<Integer,String> callGetPhuongXaAPI(Integer idQuanHuyen) throws Exception {
+    public static HashMap<String,String> callGetPhuongXaAPI(Integer idQuanHuyen) throws Exception {
         if(DiaChiCache.hashMapPhuongXa.containsKey(idQuanHuyen)){
             return DiaChiCache.hashMapPhuongXa.get(idQuanHuyen);
         }
@@ -106,7 +106,7 @@ public class DiaChiAPI {
             BaseListResponse<PhuongXaResponse> responseObject = objectMapper.readValue(responseBody, new TypeReference<>() {
             });
             List<PhuongXaResponse> listPhuongXa = responseObject.getData();
-            HashMap<Integer, String> hashMapPhuongXaByQH = new HashMap<>();
+            HashMap<String, String> hashMapPhuongXaByQH = new HashMap<>();
             for (PhuongXaResponse data : listPhuongXa) {
                 hashMapPhuongXaByQH.put(data.getWardCode(), data.getWardName());
             }

@@ -85,7 +85,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public HashMap<Integer, String> getListPhuong( Integer idQH) throws Exception {
+    public HashMap<String, String> getListPhuong( Integer idQH) throws Exception {
         DiaChiAPI.callGetPhuongXaAPI(idQH);
         return DiaChiCache.hashMapPhuongXa.get(idQH);
 

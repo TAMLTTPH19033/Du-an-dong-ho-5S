@@ -2,6 +2,7 @@ package com.datn.dongho5s.Service.impl;
 
 
 import com.datn.dongho5s.Entity.ChiTietSanPham;
+import com.datn.dongho5s.Entity.DonHang;
 import com.datn.dongho5s.Entity.HoaDonChiTiet;
 import com.datn.dongho5s.Repository.HoaDonChiTietRepository;
 import com.datn.dongho5s.Request.ChiTietSanPhamRequest;
@@ -58,6 +59,11 @@ public class HoaDonChiTietServiceImpl implements HoaDonChiTietService {
             result += list.get(i).getSoLuong()*giaBan;
         }
         return result;
+    }
+
+    @Override
+    public List<HoaDonChiTiet> getByHoaDonId(DonHang donHang) {
+        return hoaDonChiTietRepository.findByDonHang(donHang);
     }
 
 }
