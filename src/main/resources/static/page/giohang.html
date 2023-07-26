@@ -47,6 +47,7 @@
                                     type="text"
                                     value="{{item.soLuongSanPham}}"
                                    style="width:30px"
+
                             />
                             <input class="plus is-form" type="button" value="+" style="width:30px" ng-click="tang(item)"/>
 
@@ -76,7 +77,7 @@
                     <span class="tien" ng-model="total">{{total  | number}} đ</span>
                 </p>
                 <hr/>
-                <a href="#thanhtoan" class="btn btn-danger" style="width: 300px"
+                <a ng-click="buy()" class="btn btn-danger" style="width: 300px"
                 >Thanh toán</a
                 >
             </div>
