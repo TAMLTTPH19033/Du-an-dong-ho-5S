@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import com.datn.dongho5s.Entity.ChiTietSanPham;
 import com.datn.dongho5s.Repository.ChiTietSanPhamRepository;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -91,11 +92,14 @@ public class SanPhamServiceImpl implements SanPhamService {
     public List<ChiTietSanPhamResponse> getSPchayKM(Integer idChiTietSanPham) {
         List<ChiTietSanPham> chiTietSanPhamList = new ArrayList<>();
         List<ChiTietSanPham> chiTietSanPhams = sanPhamRepository.getCTSP(idChiTietSanPham);
+        Date currentDate = new Date();
         for (ChiTietSanPham chiTietSanPham : chiTietSanPhams) {
-            if (chiTietSanPham.getKhuyenMai() == null || chiTietSanPham.getKhuyenMai().isEnabled() == false) {
-                chiTietSanPhamList.add(chiTietSanPham);
-            } else {
-                chiTietSanPham.setGiaSanPham(chiTietSanPham.getGiaSanPham() - chiTietSanPham.getGiaSanPham() * chiTietSanPham.getKhuyenMai().getChietKhau() / 100);
+            if(chiTietSanPham.getKhuyenMai() == null || chiTietSanPham.getKhuyenMai().isEnabled() == false
+                    || chiTietSanPham.getKhuyenMai().getNgayKetThuc().before(currentDate)
+                    || chiTietSanPham.getKhuyenMai().getNgayBatDau().after(currentDate)){
+            chiTietSanPhamList.add(chiTietSanPham);
+            }else{
+                chiTietSanPham.setGiaSanPham(chiTietSanPham.getGiaSanPham() - chiTietSanPham.getGiaSanPham() * chiTietSanPham.getKhuyenMai().getChietKhau() /100);
                 chiTietSanPhamList.add(chiTietSanPham);
             }
         }

@@ -10,7 +10,8 @@ myApp.controller(
     $http,
     $routeParams,
     checkOutDataService,
-    $location
+    $location,
+    $window
   ) {
 
     $scope.idSp = $routeParams.idSp;
@@ -19,13 +20,14 @@ myApp.controller(
     $scope.isFirstRun = 0;
     $scope.soLuong = 1;
 
-    $rootScope.idKhachhang = 1;
     $scope.phanHoi = [];
     $scope.pageSize = 1;
     $scope.currentPage = 1;
     $scope.maxPagesToShow = 2;
     $scope.totalPages;
     $scope.check;
+    $scope.Items =[];
+
 
     var setDayDeo = new Set();
     var setVatLieu = new Set();
@@ -52,6 +54,10 @@ myApp.controller(
           $scope.selectedVL = $scope.chiTietSanPham.vatLieu.tenVatLieu;
           $scope.selectedKC = $scope.chiTietSanPham.kichCo.tenKichCo;
           getSettingAttributeSp($scope.sanPhamDetail.listChiTietSanPham);
+          $scope.PhanHoiAPI();
+          $scope.checkPhanHoiAPI();
+          $rootScope.currentDate = new Date().toISOString();
+
           getAvailabelAttribute(
             $scope.selectedDD,
             $scope.selectedMS,
@@ -110,6 +116,12 @@ myApp.controller(
         )[0];
         //
         getAvailabelAttribute();
+        $rootScope.currentDate = new Date().toISOString();
+        $scope.PhanHoiAPI();
+        $scope.checkPhanHoiAPI();
+
+
+
       }
     );
 
@@ -152,11 +164,25 @@ myApp.controller(
     };
     let currentUser = JSON.parse(localStorage.getItem("currentUser"));
     var giaSanPham= 0;
-    const getGia = function (){
-      if($scope.chiTietSanPham.khuyenMai == null){
-        return giaSanPham = $scope.chiTietSanPham.giaSanPham ;
+    $scope.getGia = function (){
+      if($scope.chiTietSanPham.khuyenMai == null) {
+        return giaSanPham = $scope.chiTietSanPham.giaSanPham;
       }else{
-        return giaSanPham =$scope.chiTietSanPham.giaSanPham - $scope.chiTietSanPham.giaSanPham * $scope.chiTietSanPham.khuyenMai.chietKhau/100;
+         if($scope.chiTietSanPham.khuyenMai.enabled == false ){
+               return giaSanPham = $scope.chiTietSanPham.giaSanPham ;
+           }else{
+           if($rootScope.currentDate < $scope.chiTietSanPham.khuyenMai.ngayKetThuc.toString()){
+              if($rootScope.currentDate < $scope.chiTietSanPham.khuyenMai.ngayBatDau.toString()){
+                return giaSanPham = $scope.chiTietSanPham.giaSanPham ;
+              }else {
+                return giaSanPham =$scope.chiTietSanPham.giaSanPham - $scope.chiTietSanPham.giaSanPham * $scope.chiTietSanPham.khuyenMai.chietKhau/100;
+              }
+           }else{
+             return giaSanPham = $scope.chiTietSanPham.giaSanPham ;
+
+
+           }
+         }
       }
     }
 
@@ -166,8 +192,9 @@ myApp.controller(
           idChiTietSanPham: $scope.chiTietSanPham.idChiTietSanPham,
           soLuong: $scope.soLuong,
           idKhachHang: currentUser.idKhachHang,
-          giaSanPham: getGia()
+          giaSanPham: $scope.getGia()
         };
+
         if ($scope.chiTietSanPham) {
           //api add gio hang
           console.log(item);
@@ -212,7 +239,7 @@ myApp.controller(
       checkOutDataService.setData([
         {
           idChiTietSanPham: $scope.chiTietSanPham.idChiTietSanPham,
-          giaBan: $scope.chiTietSanPham.giaSanPham,
+          giaBan: $scope.getGia(),
           soLuong: $scope.soLuong,
         },
       ]);
@@ -220,9 +247,12 @@ myApp.controller(
     };
 
     $scope.PhanHoiAPI = function () {
+      var idChiTietSanPham = $scope.chiTietSanPham.idChiTietSanPham;
+      console.log(idChiTietSanPham,"id")
+
       // const idSP = $scope.idSP;
       $http
-        .get(`phan-hoi/get/${$scope.idSp}`)
+        .get(`phan-hoi/get/${idChiTietSanPham}`)
         .then(function (response) {
           $scope.phanHoi = response.data;
           $scope.totalPages = Math.ceil(
@@ -235,7 +265,6 @@ myApp.controller(
         });
     };
 
-    $scope.PhanHoiAPI();
 
     $scope.$watchGroup(["phanHoi"], function () {
       $scope.pages = [];
@@ -253,6 +282,8 @@ myApp.controller(
       $scope.Items = $scope.phanHoi.slice(startIndex, endIndex);
       console.log($scope.phanHoi, "phanhoi");
       console.log($scope.Items);
+
+      // $scope.checkPhanHoiAPI();
     });
 
     $scope.changePage = function (page) {
@@ -281,10 +312,11 @@ myApp.controller(
     };
 
     $scope.checkPhanHoiAPI = function () {
+      const idChiTietSanPham = $scope.chiTietSanPham.idChiTietSanPham;
       if(currentUser) {
         $http
             .get(
-                `phan-hoi/checkPhanHoi?idKhachHang=${currentUser.idKhachHang}&idSanPham=${$scope.idSp}`
+                `phan-hoi/checkPhanHoi?idKhachHang=${currentUser.idKhachHang}&idSanPham=${idChiTietSanPham}`
             )
             .then(function (response) {
               $scope.check = response.data;
@@ -297,7 +329,7 @@ myApp.controller(
         $scope.check = true;
       }
     };
-    $scope.checkPhanHoiAPI();
+    // $scope.checkPhanHoiAPI();
     //binhluan
     $scope.rating = 0;
     $scope.ratings = {
@@ -305,23 +337,38 @@ myApp.controller(
       max: 5,
     };
     $scope.sendRate = function () {
-      $scope.phanhoirequest = {
-        danhGia: $scope.ratings.current,
-        noiDungPhanHoi: angular.element("#noiDungPhanHoi").val(),
-        chiTietSanPham: $scope.chiTietSanPham,
-        idKhachHang: $rootScope.idKhachhang,
-      };
-      console.log($scope.noiDungPhanHoi);
-      $http
-        .post(`/phan-hoi/add`, $scope.phanhoirequest)
-        .then((resp) => {
-          console.log(resp);
-          alert("Them thanh cong");
-          $scope.PhanHoiAPI();
-        })
-        .catch((error) => {
-          alert("Loi roi", error);
+      if(currentUser) {
+        $scope.phanhoirequest = {
+          danhGia: $scope.ratings.current,
+          noiDungPhanHoi: angular.element("#noiDungPhanHoi").val(),
+          idChiTietSanPham: $scope.chiTietSanPham.idChiTietSanPham,
+          idKhachHang: currentUser.idKhachHang,
+        };
+        console.log($scope.phanhoirequest);
+        $http
+            .post(`/api/phan-hoi/add`, $scope.phanhoirequest)
+            .then((resp) => {
+              console.log(resp);
+              alert("Them thanh cong");
+              $scope.PhanHoiAPI();
+              $scope.checkPhanHoiAPI();
+
+              // $window.location.reload();
+            })
+            .catch((error) => {
+              alert("Loi roi", error);
+            });
+      }else{
+        Swal.fire({
+          icon: "warning",
+          title: "Bạn chưa đăng nhập !",
+          text: "Hãy đăng nhập để tiếp tục shopping!",
+          showConfirmButton: true,
+          closeOnClickOutside: true,
+          timer: 5600,
         });
+        $window.location.href = '#login';
+      }
     };
   }
 );

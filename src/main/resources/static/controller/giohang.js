@@ -36,6 +36,7 @@ myApp.controller("cartCtrl", function ($scope,$rootScope, $http,$window) {
         }
     };
 
+
     // api update soLuongtronggiohang
     $scope.update = function (cart, soLuong){
             $http.put(`/api/giohang/update/${cart.idChiTietGioHang}?soLuong=${soLuong}`)
