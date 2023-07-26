@@ -1,15 +1,19 @@
 package com.datn.dongho5s.Controller.RestController.DiaChi;
 
+import com.datn.dongho5s.Cache.DiaChiCache;
 import com.datn.dongho5s.Entity.DiaChi;
 import com.datn.dongho5s.Entity.KhachHang;
+import com.datn.dongho5s.GiaoHangNhanhService.DiaChiAPI;
 import com.datn.dongho5s.Request.DiaChiRequest;
 import com.datn.dongho5s.Service.DiaChiService;
 import com.datn.dongho5s.Service.impl.DiaChiServiceImpl;
 import lombok.AllArgsConstructor;
+import org.hibernate.annotations.Parameter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @AllArgsConstructor
@@ -39,5 +43,28 @@ public class DiaChiRestController {
         List<DiaChi> result = diaChiService.getAllDiaChiByKhachHang(khachHang);
         return ResponseEntity.ok(result);
 
+    }
+
+    @GetMapping("/get-thanh-pho")
+    public ResponseEntity<HashMap<Integer,String>> getThanhPho (){
+        return ResponseEntity.ok(DiaChiCache.hashMapTinhThanh);
+    }
+
+    @GetMapping("/get-quan-huyen/{idQuanHuyen}")
+    public ResponseEntity<HashMap<Integer,String>> getQuanHuyen (@PathVariable ("idQuanHuyen") Integer id){
+        try {
+            return ResponseEntity.ok(DiaChiAPI.callGetQuanHuyenAPI(id));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @GetMapping("/get-phuong-xa/{idPhuongXa}")
+    public ResponseEntity<HashMap<String,String>> getPhuongXa (@PathVariable ("idPhuongXa") Integer id){
+        try {
+            return ResponseEntity.ok(DiaChiAPI.callGetPhuongXaAPI(id));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }

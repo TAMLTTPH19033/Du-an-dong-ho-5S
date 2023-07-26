@@ -4,12 +4,6 @@ const searchAPI = "http://localhost:8080/san-pham/tim-kiem";
 myApp.controller("SanPhamController", function ($scope, $rootScope, $http) {
   $scope.listSetting = {};
   $scope.listSanPham = [];
-  $scope.thuongHieuId = "";
-  $scope.danhMucId = "";
-  $scope.sizeId = "";
-  $scope.mauSacId = "";
-  $scope.vatLieuId = "";
-  $scope.dayDeoId = "";
   $scope.tenSanPham;
   $scope.pageSize = 1;
   $scope.currentPage = 1;

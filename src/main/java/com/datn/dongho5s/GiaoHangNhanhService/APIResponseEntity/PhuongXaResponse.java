@@ -14,7 +14,7 @@ public class PhuongXaResponse {
     @JsonProperty("DistrictID")
     private Integer districtID;
     @JsonProperty("WardCode")
-    private Integer wardCode;
+    private String wardCode;
     @JsonProperty("WardName")
     private String wardName;
 }

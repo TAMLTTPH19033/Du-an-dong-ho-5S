@@ -1,6 +1,7 @@
 package com.datn.dongho5s.Repository;
 
 
+import com.datn.dongho5s.Entity.DonHang;
 import com.datn.dongho5s.Entity.HoaDonChiTiet;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -16,4 +17,6 @@ public interface HoaDonChiTietRepository extends JpaRepository<HoaDonChiTiet, In
                 WHERE h.donHang.idDonHang = ?1
             """)
     public List<HoaDonChiTiet> findHDCTBYIdDonHang(int id);
+
+    List<HoaDonChiTiet> findByDonHang(DonHang donHang);
 }
