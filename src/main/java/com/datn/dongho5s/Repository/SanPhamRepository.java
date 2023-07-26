@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Repository
-public interface SanPhamRepository extends JpaRepository<SanPham,Integer> {
+public interface SanPhamRepository extends JpaRepository<SanPham, Integer> {
 
     @Query(value =
             "SELECT sp FROM SanPham sp " +
@@ -34,8 +34,8 @@ public interface SanPhamRepository extends JpaRepository<SanPham,Integer> {
                     "AND (:#{#req.mauSacId} is null or :#{#req.mauSacId}= ctsp.mauSac.idMauSac) " +
                     "AND (:#{#req.tenSanPham} is null or :#{#req.tenSanPham} like '%' || :#{#req.tenSanPham} || '%')")
     List<SanPham> getListSanPhamByCondition(@Param("req") TimKiemRequest req);
-           
-    @Query(value = "SELECT  * FROM sanpham ORDER BY sanpham.id_san_pham DESC LIMIT 8",nativeQuery = true)
+
+    @Query(value = "SELECT  * FROM sanpham ORDER BY sanpham.id_san_pham DESC LIMIT 8", nativeQuery = true)
     List<SanPham> getSPnew();
 
 
@@ -45,5 +45,16 @@ public interface SanPhamRepository extends JpaRepository<SanPham,Integer> {
 
     @Query(value = "SELECT s.listChiTietSanPham  FROM SanPham s where s.idSanPham = ?1")
     List<ChiTietSanPham> getCTSP(Integer idSanPham);
+
+    /**
+     * @param pageable
+     * @return
+     * product pagination
+     */
+    @Query(value = """
+        SELECT sp
+        FROM SanPham sp
+    """)
+    Page<SanPham> getPageSanPham(Pageable pageable);
 
 }

@@ -121,9 +121,11 @@
     <a th:fragment="pageseri_link(pageNum, label)"
        class="page-link"
        th:href="@{'/series/page/' + ${pageNum} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword' + keyword : ''}}"> [[${label}]]</a>
-    <a th:fragment="mausac_link(pageNum, label)"
+    <!--  Quan ly Don hang  -->
+    <a th:fragment="page_donhang_link(pageNum, label)"
        class="page-link"
-       th:href="@{'/colors/page/' + ${pageNum} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword' + keyword : ''}}"> [[${label}]]</a>
+       th:href="@{'/don-hang/page/' + ${pageNum}}"> [[${label}]]</a>
+
 
 </body>
 </html>

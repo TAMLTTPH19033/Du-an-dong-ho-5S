@@ -1,0 +1,172 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragment/fragments:: page_head('Bán hàng - 5SWatch ')"/>
+
+<body>
+<div class="container-fluid">
+  <div th:replace="fragment/navigation:: menu"></div>
+  <div>
+    <h2>Bán hàng</h2>
+  </div>
+
+  <!--    start -->
+  <div>
+    <div class="row">
+      <div class="col-md-8">
+        <!--  Gio hang-->
+        <div class="row gio-hang bg-body-tertiary p-3">
+          <h3 style="font-weight: bold">Giỏ hàng</h3>
+          <table class="table">
+            <thead>
+            <tr>
+              <th scope="col">Mã sản phẩm</th>
+              <th scope="col">Tên sản phẩm</th>
+              <th scope="col">Đơn giá</th>
+              <th scope="col">Số lượng</th>
+              <th scope="col">Chức năng</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="sp, iterStat : ${lstGioHang}">
+              <td th:text="${sp.idSanPham}"></td>
+              <td>2022-05-05</td>
+              <td>200,000</td>
+              <td>20</td>
+              <td>
+                <button class="btn btn-outline-dark">Xóa</button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <!--  San pham-->
+        <div class="row gio-hang bg-body-tertiary p-3">
+          <h3 style="font-weight: bold">Sản phẩm</h3>
+
+          <div class="row">
+            <div class="col-md-7">
+              <form class="form-inline">
+
+                <div class="row mb-3">
+                  <input class="col-sm-9 col-form-label rounded-pill" placeholder="search">
+                  <div class="col-sm-3">
+                    <button type="submit" class="btn btn-outline-dark mb-2">Tìm kiếm</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="col-md-5">
+              <form class="form-inline">
+                <div class="row mb-3">
+                  <label for="danhMuc" class="col-sm-4 col-form-label">Danh mục</label>
+                  <div class="col-sm-8">
+                    <select class="form-select" id="danhMuc">
+                      <option selected>Cao cấp</option>
+                      <option value="1">Hạng Trung</option>
+                      <option value="2">Two</option>
+                      <option value="3">Three</option>
+                    </select>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Mã sản phẩm</th>
+                <th scope="col">Tên sản phẩm</th>
+                <th scope="col">Đơn giá</th>
+                <th scope="col">Giảm giá</th>
+                <th scope="col">Chất liệu</th>
+                <th scope="col">Chức năng</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="sp, iterStat : ${listSanPham}">
+                <td th:text="${sp.idSanPham}"></td>
+                <td th:text="${sp.tenSanPham}"></td>
+                <td th:text="${sp.giaSanPham}"></td>
+                <td th:text="${sp.giaSanPham}"></td>
+                <td th:text="${sp.giaSanPham}"></td>
+                <td>
+                  <button class="btn btn-outline-danger">Thêm</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!--  Thanh toan-->
+      <div class="col-md-4">
+        <div class="container bg-body-tertiary p-3">
+          <h3 style="font-weight: bold">Đơn hàng</h3>
+          <div class="card border-danger mb-3" style="max-width: 100%;">
+            <div class="card-header bg-transparent border-danger" style="text-align: center">
+              <h4 style="font-weight: bold;">Đồng hồ 5S</h4>
+              <p><small>
+                abc
+              </small></p>
+              <h5 style="font-weight: bold;">Hóa đơn thanh toán</h5>
+            </div>
+            <div class="card-body text-success">
+              <!--                        <h5 class="card-title">Success card title</h5>-->
+              <div class="row">
+                <div class="col-md-6" style="padding-left: 10px;color:black">Đơn giá các sản phẩm</div>
+                <div class="col-md-6" style="text-align: center;color:black">5454543</div>
+              </div>
+              <div class="row">
+                <div class="col-md-6" style="padding-left: 10px;color:black">Phí vận chuyển</div>
+                <div class="col-md-6" style="text-align: center;color:black">5454543</div>
+              </div>
+              <div class="row">
+                <div class="col-md-6" style="padding-left: 10px;color:black">Tổng tiền</div>
+                <div class="col-md-6" style="text-align: center;color:red">5454543</div>
+              </div>
+            </div>
+            <div class="card-footer bg-transparent border-danger" style="text-align: center">Chúc quý khách vui vẻ! Hẹn gặp lại!</div>
+          </div>
+          <div class="d-grid gap-2">
+            <a class="btn btn-danger" style="text-decoration: none"
+               title="Chi tiết">Thanh toán</a>
+          </div>
+        </div>
+        <!--  Hoa don-->
+        <div class="container hoa-don bg-body-tertiary p-3">
+          <h3 style="font-weight: bold">Hóa đơn</h3>
+          <table class="table">
+            <thead>
+            <tr>
+              <th scope="col">Mã hóa đơn</th>
+              <th scope="col">Ngày đặt hàng</th>
+              <th scope="col">Tổng giá trị</th>
+              <th scope="col">Trạng thái</th>
+              <th scope="col">Chức năng</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="sp, iterStat : ${lstHoaDon}">
+              <td th:text="${sp.idSanPham}"></td>
+              <td>2022-05-05</td>
+              <td>200,000</td>
+              <td>Chưa thanh toán</td>
+              <td>
+                <button class="btn btn-outline-danger">Chọn</button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--    end -->
+
+  <div th:replace="fragment/fragments::footer"></div>
+
+</div>
+</body>
+</html>

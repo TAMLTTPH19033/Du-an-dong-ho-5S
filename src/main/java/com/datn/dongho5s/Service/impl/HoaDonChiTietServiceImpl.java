@@ -23,6 +23,7 @@ public class HoaDonChiTietServiceImpl implements HoaDonChiTietService {
     DonHangService donHangService;
     @Autowired
     ChiTietSanPhamService chiTietSanPhamService;
+
     @Override
     public HoaDonChiTiet save(HoaDonChiTiet hdct) {
         return hoaDonChiTietRepository.save(hdct);
@@ -31,7 +32,7 @@ public class HoaDonChiTietServiceImpl implements HoaDonChiTietService {
     @Override
     public List<HoaDonChiTiet> convertToListHoaDonChiTiet(List<HoaDonChiTietRequest> list, Integer idDonHang) {
         List<HoaDonChiTiet> result = new ArrayList<>();
-        list.forEach(item->{
+        list.forEach(item -> {
             ChiTietSanPham ctsp = chiTietSanPhamService.getChiTietSanPhamById(item.getIdChiTietSanPham());
             HoaDonChiTiet hdct = HoaDonChiTiet.builder()
                     .donHang(donHangService.getById(idDonHang))
@@ -53,9 +54,9 @@ public class HoaDonChiTietServiceImpl implements HoaDonChiTietService {
     @Override
     public Double getTongGia(List<HoaDonChiTietRequest> list) {
         Double result = 0D;
-        for (int i=0;i<list.size();i++){
+        for (int i = 0; i < list.size(); i++) {
             Double giaBan = chiTietSanPhamService.getChiTietSanPhamById(list.get(i).getIdChiTietSanPham()).getGiaSanPham();
-            result += list.get(i).getSoLuong()*giaBan;
+            result += list.get(i).getSoLuong() * giaBan;
         }
         return result;
     }

@@ -1,6 +1,10 @@
 package com.datn.dongho5s.Controller.HoaDonChiTiet;
+
+import com.datn.dongho5s.Cache.DiaChiCache;
+import com.datn.dongho5s.Entity.DonHang;
 import com.datn.dongho5s.Entity.HoaDonChiTiet;
 import com.datn.dongho5s.Export.HoaDonPdf;
+import com.datn.dongho5s.GiaoHangNhanhService.DiaChiAPI;
 import com.datn.dongho5s.Service.DonHangService;
 import com.datn.dongho5s.Service.HoaDonChiTietService;
 import com.itextpdf.text.DocumentException;
@@ -24,25 +28,26 @@ public class HoaDonChiTietController {
 
     @Autowired
     private DonHangService donHangService;
-//    @ResponseBody
-//    @GetMapping("/search/{id}")
-//    public ResponseEntity<List<HoaDonChiTiet>> getByIdDonHang(@PathVariable("id") int id){
-//        return ResponseEntity.status(HttpStatus.OK).body(hoaDonChiTietService.getByIdDonHang(id));
-//    }
 
     @GetMapping("/search/{id}")
     public String getByIdDonHang(
             @PathVariable("id") int id,
             Model model,
             HttpSession session
-    ){
+    ) {
         List<HoaDonChiTiet> lst = hoaDonChiTietService.getByIdDonHang(id);
         Double tongTien = donHangService.tongTien(id);
 
-        model.addAttribute("lstHDCT",lst);
-        model.addAttribute("tongTien",tongTien);
+        DonHang donHang = donHangService.findById(id);
 
-        session.setAttribute("currentId",id);
+        model.addAttribute("donHang", donHang);
+        model.addAttribute("diaChiCache", new DiaChiCache());
+        model.addAttribute("diaChiAPI", new DiaChiAPI());
+
+        model.addAttribute("lstHDCT", lst);
+        model.addAttribute("tongTien", donHang.getTongTien());
+
+        session.setAttribute("donHang", donHang);
 
         return "hoadonchitiet/hoadonchitiet";
     }
@@ -52,14 +57,13 @@ public class HoaDonChiTietController {
             HttpServletResponse response,
             Model model,
             HttpSession session
-    ) throws DocumentException, IOException {
+    ) throws Exception {
 
-        int id = (int) session.getAttribute("currentId");
+        DonHang donHang = (DonHang) session.getAttribute("donHang");
 
-        List<HoaDonChiTiet> lst = hoaDonChiTietService.getByIdDonHang(id);
-        Double tongTien = donHangService.tongTien(id);
+        List<HoaDonChiTiet> lst = hoaDonChiTietService.getByIdDonHang(donHang.getIdDonHang());
 
         HoaDonPdf hoaDonPdf = new HoaDonPdf();
-        hoaDonPdf.exportToPDF(response,lst,tongTien,id);
+        hoaDonPdf.exportToPDF(response, lst, donHang);
     }
 }

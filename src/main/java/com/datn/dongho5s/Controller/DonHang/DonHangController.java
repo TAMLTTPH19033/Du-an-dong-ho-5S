@@ -1,16 +1,21 @@
 package com.datn.dongho5s.Controller.DonHang;
 
+import com.datn.dongho5s.Cache.DiaChiCache;
 import com.datn.dongho5s.Entity.DonHang;
+import com.datn.dongho5s.GiaoHangNhanhService.DiaChiAPI;
 import com.datn.dongho5s.Service.DonHangService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
 @RequestMapping("/don-hang")
 @Controller
@@ -20,29 +25,76 @@ public class DonHangController {
     private DonHangService donHangService;
 
     @GetMapping
-    public String getForm(Model model){
-        return findAll(1,model);
+    public String getForm(Model model,
+                          HttpSession httpSession) {
+        return findAll(1, model,httpSession);
     }
 
     @GetMapping("/page/{pageNum}")
-    public String findAll(@PathVariable("pageNum") int pageNum, Model model){
-        model.addAttribute("list",donHangService.getAll(pageNum));
+    public String findAll(
+            @PathVariable("pageNum") int pageNum,
+            Model model,
+            HttpSession httpSession
+    ) {
+        Page<DonHang> donHangs = donHangService.getAll(pageNum);
+
+        model.addAttribute("list", donHangs.getContent());
+
+        model.addAttribute("diaChiCache", new DiaChiCache());
+        model.addAttribute("diaChiAPI", new DiaChiAPI());
+        model.addAttribute("currentPage", pageNum);
+        model.addAttribute("totalPages", donHangs.getTotalPages());
+
+        httpSession.setAttribute("listDonHang",donHangs.getContent());
 
         return "donhang/donhang";
-//        return ResponseEntity.status(HttpStatus.OK).body(donHangService.getAll(pageNum));
     }
 
-    @GetMapping("/get/{id}")
-    public void getById(
-            @PathVariable("id") int id,
-            HttpSession session
-    ){
-        session.setAttribute("donHang",donHangService.findById(id));
+    @PostMapping("/search/date")
+    public String searchByDateStartanDateEnd(
+        HttpSession httpSession,
+        Model model,
+        HttpServletRequest httpServletRequest
+    ) {
+        String dateStart = httpServletRequest.getParameter("dateStart");
+        String dateEnd = httpServletRequest.getParameter("dateEnd");
+
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date dateStartParse = null;
+        Date dateEndParse = null;
+
+        try {
+            dateStartParse = format.parse(dateStart);
+            dateEndParse = format.parse(dateEnd);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        List<DonHang> lst = donHangService.findByNgayTao(dateStartParse,dateEndParse);
+
+        System.out.println("SO luong la:"+ lst.size());
+
+        httpSession.setAttribute("list",lst);
+        return "redirect:/don-hang";
     }
 
-    @PutMapping("/update")
-    public void updateStatusDonHang(HttpSession session){
-        DonHang donHang = (DonHang) session.getAttribute("donHang");
-        donHangService.updateTrangThaiDonHang(donHang);
-    }
+//    @GetMapping("/get/{id}")
+//    public void getById(
+//            @PathVariable("id") int id,
+//            HttpSession session
+//    ) {
+//        System.out.println(id);
+//        session.setAttribute("donHang", donHangService.findById(id));
+//    }
+//
+//    @PutMapping("/update/{trangThai}")
+//    public String updateStatusDonHang(
+//            HttpSession session,
+//            @PathVariable("trangThai") int trangThai
+//    ) {
+//        DonHang donHang = (DonHang) session.getAttribute("donHang");
+//        donHang.setTrangThaiDonHang(trangThai);
+//        donHangService.updateTrangThaiDonHang(donHang);
+//        return "donhang/donhang";
+//    }
 }
