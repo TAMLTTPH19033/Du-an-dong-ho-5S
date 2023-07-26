@@ -9,10 +9,17 @@ import java.util.List;
 
 public interface HoaDonChiTietService {
 
-    HoaDonChiTiet save (HoaDonChiTiet hdct);
-    List<HoaDonChiTiet> convertToListHoaDonChiTiet (List<HoaDonChiTietRequest> list, Integer idDonHang);
-    List<HoaDonChiTiet> saveAll (List<HoaDonChiTiet> listHDCT);
-    Double getTongGia (List<HoaDonChiTietRequest> list);
+
+    HoaDonChiTiet save(HoaDonChiTiet hdct);
+
+    List<HoaDonChiTiet> convertToListHoaDonChiTiet(List<HoaDonChiTietRequest> list, Integer idDonHang);
+
+    List<HoaDonChiTiet> saveAll(List<HoaDonChiTiet> listHDCT);
+
+    Double getTongGia(List<HoaDonChiTietRequest> list);
+
+    List<HoaDonChiTiet> getByIdDonHang(int id);
 
     List<HoaDonChiTiet> getByHoaDonId(DonHang donHang);
+
 }

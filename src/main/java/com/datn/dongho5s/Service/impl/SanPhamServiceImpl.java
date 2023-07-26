@@ -1,5 +1,6 @@
 package com.datn.dongho5s.Service.impl;
 
+import com.datn.dongho5s.Entity.DonHang;
 import com.datn.dongho5s.Entity.SanPham;
 import com.datn.dongho5s.Repository.SanPhamRepository;
 import com.datn.dongho5s.Request.TimKiemRequest;
@@ -14,7 +15,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
+
 import com.datn.dongho5s.Entity.ChiTietSanPham;
 import com.datn.dongho5s.Repository.ChiTietSanPhamRepository;
 
@@ -26,6 +29,9 @@ import java.util.stream.Collectors;
 
 @Service
 public class SanPhamServiceImpl implements SanPhamService {
+
+    public static final int SANPHAM_PAGE = 5;
+
     @Autowired
     SanPhamRepository sanPhamRepository;
 
@@ -40,7 +46,7 @@ public class SanPhamServiceImpl implements SanPhamService {
         return result;
     }
 
-    private TimKiemResponse toTimKiemResponse (SanPham sp) {
+    private TimKiemResponse toTimKiemResponse(SanPham sp) {
         TimKiemResponse result = new TimKiemResponse();
         result.setSanPhamID(sp.getIdSanPham());
         result.setTenSanPham(sp.getTenSanPham());
@@ -48,26 +54,28 @@ public class SanPhamServiceImpl implements SanPhamService {
         result.setLinkAnh(sp.getListAnhSanPham().get(0).getLink());
         return result;
     }
+
     @Override
     public List<SanPham> getSPnew() {
-         sanPhamRepository.getSPnew();
-        return  sanPhamRepository.getSPnew();
+        sanPhamRepository.getSPnew();
+        return sanPhamRepository.getSPnew();
     }
 
     @Override
     public List<SanPhamDetailResponse> getSPchay() {
-        List<SanPham> listSanPham =  sanPhamRepository.getSPchay();
+        List<SanPham> listSanPham = sanPhamRepository.getSPchay();
         List<SanPhamDetailResponse> responseList = listSanPham.stream().map(SanPhamMapping::mapEntitytoResponse).collect(Collectors.toList());
         return responseList;
 
     }
+
     @Override
     public SanPhamDetailResponse getDetailSanPhamById(Integer sanPhamId) {
         SanPham sanPham = sanPhamRepository.findById(sanPhamId).get();
         return toSanPhamRepository(sanPham);
     }
 
-    private SanPhamDetailResponse toSanPhamRepository(SanPham sp){
+    private SanPhamDetailResponse toSanPhamRepository(SanPham sp) {
         return SanPhamDetailResponse.builder()
                 .idSanPham(sp.getIdSanPham())
                 .listAnhSanPham(sp.getListAnhSanPham())
@@ -80,6 +88,7 @@ public class SanPhamServiceImpl implements SanPhamService {
                 .trangThai(sp.getTrangThai())
                 .build();
     }
+
     public List<ChiTietSanPhamResponse> getSPchayKM(Integer idChiTietSanPham) {
         List<ChiTietSanPham> chiTietSanPhamList = new ArrayList<>();
         List<ChiTietSanPham> chiTietSanPhams = sanPhamRepository.getCTSP(idChiTietSanPham);
@@ -96,5 +105,11 @@ public class SanPhamServiceImpl implements SanPhamService {
         }
         return chiTietSanPhamList.stream().map(ChiTietSanPhamMapping::mapEntitytoResponse).collect(Collectors.toList());
 
+    }
+
+    @Override
+    public Page<SanPham> getPageSanPham(int pageNumber) {
+        Page<SanPham> sanPhams = sanPhamRepository.getPageSanPham(PageRequest.of(pageNumber - 1, SANPHAM_PAGE));
+        return sanPhams;
     }
 }
