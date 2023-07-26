@@ -34,7 +34,7 @@ public class DiaChi {
     private Integer idQuanHuyen;
 
     @Column(name = "id_phuong_xa")
-    private Integer idPhuongXa;
+    private String idPhuongXa;
 
     @Column(name = "dia_chi")
     private String diaChi;

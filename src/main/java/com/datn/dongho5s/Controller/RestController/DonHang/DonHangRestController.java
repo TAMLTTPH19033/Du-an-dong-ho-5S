@@ -13,7 +13,7 @@ import com.datn.dongho5s.GiaoHangNhanhService.Request.PhiVanChuyenRequest;
 import com.datn.dongho5s.GiaoHangNhanhService.Request.TaoDonHangRequestGHN;
 import com.datn.dongho5s.Request.HoaDonChiTietRequest;
 import com.datn.dongho5s.Request.ThemDonHangRequest;
-import com.datn.dongho5s.Response.PaymentResponse;
+import com.datn.dongho5s.Response.VNPayUrlResponse;
 import com.datn.dongho5s.Service.DonHangService;
 import com.datn.dongho5s.Service.HoaDonChiTietService;
 import com.datn.dongho5s.Service.KhachHangService;
@@ -23,7 +23,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,7 +30,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.sql.Timestamp;
@@ -44,6 +42,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.TimeZone;
 
 @RestController
@@ -60,13 +59,14 @@ public class DonHangRestController {
     HttpServletRequest request;
 
     @PostMapping("/them-don-hang")
-    public ResponseEntity<?> taoDonHang(@RequestBody ThemDonHangRequest themDonHangRequest){
+    public ResponseEntity<?> taoDonHang(@RequestBody ThemDonHangRequest themDonHangRequest) {
         try {
             KhachHang khachHang = khachHangService.findKhachHangById(themDonHangRequest.getKhachHangId());
             DonHang donHang = DonHang.builder()
                     .khachHang(khachHang)
                     .ngayTao(new Timestamp(System.currentTimeMillis()))
                     .trangThaiDonHang(1)
+                    .idTinhThanh(themDonHangRequest.getIdTinhThanh())
                     .idQuanHuyen(themDonHangRequest.getIdQuanHuyen())
                     .idPhuongXa(themDonHangRequest.getIdPhuongXa())
                     .diaChi(themDonHangRequest.getDiaChi())
@@ -117,22 +117,23 @@ public class DonHangRestController {
         return result;
     }
 
-    private HashMap<Integer,String> getListTP (){
-         return DiaChiCache.hashMapTinhThanh;
+    private HashMap<Integer, String> getListTP() {
+        return DiaChiCache.hashMapTinhThanh;
     }
 
-    private HashMap<Integer,String> getListPX (Integer idTP) throws Exception {
+    private HashMap<String, String> getListPX(Integer idTP) throws Exception {
         return DiaChiAPI.callGetPhuongXaAPI(idTP);
     }
 
-    @GetMapping("/thanh-toan-vnpay")
-    public ResponseEntity<PaymentResponse> thanhToanVNPAY(@RequestBody ThemDonHangRequest themDonHangRequest) throws IOException {
+    @PostMapping("/thanh-toan-vnpay")
+    public ResponseEntity<VNPayUrlResponse> thanhToanVNPAY(@RequestBody ThemDonHangRequest themDonHangRequest) throws IOException {
 
         KhachHang khachHang = khachHangService.findKhachHangById(themDonHangRequest.getKhachHangId());
         DonHang donHang = DonHang.builder()
                 .khachHang(khachHang)
                 .ngayTao(new Timestamp(System.currentTimeMillis()))
                 .trangThaiDonHang(0)
+                .idTinhThanh(themDonHangRequest.getIdTinhThanh())
                 .idQuanHuyen(themDonHangRequest.getIdQuanHuyen())
                 .idPhuongXa(themDonHangRequest.getIdPhuongXa())
                 .diaChi(themDonHangRequest.getDiaChi())
@@ -143,17 +144,15 @@ public class DonHangRestController {
         List<HoaDonChiTiet> listHoaDonChiTiet = hdctService.convertToListHoaDonChiTiet(themDonHangRequest.getListHoaDonChiTietRequest(), savedDonHang.getIdDonHang());
         hdctService.saveAll(listHoaDonChiTiet);
 
-        Double amount = hdctService.getTongGia(themDonHangRequest.getListHoaDonChiTietRequest());
+        Double amount = hdctService.getTongGia(themDonHangRequest.getListHoaDonChiTietRequest()) * 100;
         String vnp_Version = VNPayConfig.version;
         String vnp_Command = VNPayConfig.command;
         String vnp_TmnCode = VNPayConfig.vnp_TmnCode;
-//        long amount = Integer.parseInt(request.getParameter("amount"))*100;
         String currCode = VNPayConfig.curr_code;
         String bank_code = VNPayConfig.bank_code;
         String vnp_TxnRef = String.valueOf(savedDonHang.getIdDonHang());
-//        String vnp_OrderInfo =request.getParameter("vnp_OrderInfo");
-        String vnp_OrderInfo = "vnp_OrderInfo";
-        String orderType = request.getParameter(VNPayConfig.order_type);
+//        String vnp_OrderInfo = "Thanh Toán đơn hàng: "+vnp_TxnRef;
+//        String orderType = request.getParameter(VNPayConfig.order_type);
         String location = VNPayConfig.location;
         String vnp_IpAddr = VNPayConfig.getIpAddress(request);
         String vnp_ReturnUrl = VNPayConfig.vnp_Returnurl;
@@ -167,35 +166,48 @@ public class DonHangRestController {
         vnp_Params.put("vnp_BankCode", bank_code);
         vnp_Params.put("vnp_TxnRef", vnp_TxnRef);
         vnp_Params.put("vnp_OrderInfo", "Thanh toan don hang: " + vnp_TxnRef);
-        vnp_Params.put("vnp_OrderType", orderType);
+        vnp_Params.put("vnp_OrderType", "other");
         vnp_Params.put("vnp_Locale", location);
         vnp_Params.put("vnp_ReturnUrl", vnp_ReturnUrl);
         vnp_Params.put("vnp_IpAddr", vnp_IpAddr);
-        vnp_Params.put("khachHangId", String.valueOf(themDonHangRequest.getKhachHangId()));
-        vnp_Params.put("idQuanHuyen", String.valueOf(themDonHangRequest.getIdQuanHuyen()));
-        vnp_Params.put("idPhuongXa", String.valueOf(themDonHangRequest.getIdPhuongXa()));
-        vnp_Params.put("diaChi", themDonHangRequest.getDiaChi());
-        vnp_Params.put("ghiChu", themDonHangRequest.getGhiChu());
-        vnp_Params.put("soLuongSanPham", String.valueOf(themDonHangRequest.getSoLuongSanPham()));
-        vnp_Params.put("phiVanChuyen", String.valueOf(themDonHangRequest.getPhiVanChuyen()));
-        List<HoaDonChiTietRequest> list = themDonHangRequest.getListHoaDonChiTietRequest();
-        ObjectMapper objectMapper = new ObjectMapper();
-        String jsonString = null;
-        try {
-            jsonString = objectMapper.writeValueAsString(list);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        vnp_Params.put("listHoaDonChiTietRequest", jsonString);
+
+//        String fullName = (khachHang.getTenKhachHang()).trim();
+//        if (fullName != null && !fullName.isEmpty()) {
+//            int idx = fullName.indexOf(' ');
+//            if(idx ==-1){
+//                vnp_Params.put("vnp_Bill_LastName", fullName);
+//            }else {
+//                String firstName = fullName.substring(0, idx);
+//                String lastName = fullName.substring(fullName.lastIndexOf(' ') + 1);
+//                vnp_Params.put("vnp_Bill_FirstName", firstName);
+//                vnp_Params.put("vnp_Bill_LastName", lastName);
+//            }
+//        }
+//        vnp_Params.put("vnp_Inv_Phone", khachHang.getSoDienThoai());
+//        vnp_Params.put("khachHangId", String.valueOf(themDonHangRequest.getKhachHangId()));
+//        vnp_Params.put("vnp_Bill_Country", String.valueOf(themDonHangRequest.getIdQuanHuyen()));
+//        vnp_Params.put("vnp_Bill_City", String.valueOf(themDonHangRequest.getIdPhuongXa()));
+//        vnp_Params.put("vnp_Bill_Address", themDonHangRequest.getDiaChi());
+//        vnp_Params.put("ghiChu", themDonHangRequest.getGhiChu());
+//        vnp_Params.put("soLuongSanPham", String.valueOf(themDonHangRequest.getSoLuongSanPham()));
+//        vnp_Params.put("phiVanChuyen", String.valueOf(themDonHangRequest.getPhiVanChuyen()));
+//        List<HoaDonChiTietRequest> list = themDonHangRequest.getListHoaDonChiTietRequest();
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        String jsonString = null;
+//        try {
+//            jsonString = objectMapper.writeValueAsString(list);
+//        } catch (JsonProcessingException e) {
+//            e.printStackTrace();
+//        }
+//        vnp_Params.put("listHoaDonChiTietRequest", jsonString);
 
         Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Etc/GMT+7"));
         SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
         String vnp_CreateDate = formatter.format(cld.getTime());
         vnp_Params.put("vnp_CreateDate", vnp_CreateDate);
-        cld.add(Calendar.MINUTE, 15);
-        String vnp_ExpireDate = formatter.format(cld.getTime());
-        vnp_Params.put("vnp_ExpireDate", vnp_ExpireDate);
-
+//        cld.add(Calendar.MINUTE, 15);
+//        String vnp_ExpireDate = formatter.format(cld.getTime());
+//        vnp_Params.put("vnp_ExpireDate", vnp_ExpireDate);
         List fieldNames = new ArrayList(vnp_Params.keySet());
         Collections.sort(fieldNames);
         StringBuilder hashData = new StringBuilder();
@@ -222,11 +234,11 @@ public class DonHangRestController {
         String vnp_SecureHash = VNPayConfig.hmacSHA512(VNPayConfig.vnp_HashSecret, hashData.toString());
         queryUrl += "&vnp_SecureHash=" + vnp_SecureHash;
         String paymentUrl = VNPayConfig.vnp_PayUrl + "?" + queryUrl;
-
-        return ResponseEntity.status(HttpStatus.OK).body(new PaymentResponse(paymentUrl));
+        System.out.println(paymentUrl);
+        return ResponseEntity.status(HttpStatus.OK).body(new VNPayUrlResponse(paymentUrl));
     }
 
-    @GetMapping("thong-tin-thanh-toan")
+    @GetMapping("/thong-tin-thanh-toan")
     public ResponseEntity<?> thongTinThanhToan() {
         try {
 
@@ -248,36 +260,57 @@ public class DonHangRestController {
                     fields.put(fieldName, fieldValue);
                 }
             }
-
+            System.out.println(request.getParameter("vnp_ReturnUrl"));
+            fields.forEach((key, value) -> System.out.printf("%s: %s%n", key, value));
             String vnp_SecureHash = request.getParameter("vnp_SecureHash");
-            if (fields.containsKey("vnp_SecureHashType")) {
-                fields.remove("vnp_SecureHashType");
-            }
             if (fields.containsKey("vnp_SecureHash")) {
                 fields.remove("vnp_SecureHash");
             }
-
-            // Check checksum
-            String signValue = VNPayConfig.hashAllFields(fields);
-            if (signValue.equals(vnp_SecureHash)) {
-                DonHang donhang = donHangService.getById(Integer.valueOf(request.getParameter("vnp_TxnRef")));
-                if (donhang!= null) {
-                            if ("00".equals(request.getParameter("vnp_ResponseCode"))) {
-                                donhang.setTrangThaiDonHang(1);
-                                donHangService.save(donhang);
-                                //TODO xử lý trừ số luojwgn sản phẩm
-                                return ResponseEntity.status(HttpStatus.OK).body(new String("Thanh toán thành công"));
-                            } else {
-                                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new String("Thanh toán không thành công"));
-                            }
+            DonHang donhang = donHangService.getById(Integer.valueOf(request.getParameter("vnp_TxnRef")));
+            if (donhang != null) {
+                if ("00".equals(request.getParameter("vnp_ResponseCode"))) {
+                    System.out.println("Thanh toán thành công nè");
+                    donhang.setTrangThaiDonHang(1);
+                    donHangService.save(donhang);
+                    TaoDonHangRequestGHN donHangRequestGHN = createGHNRequest(donhang);
+                    ThemDonHangResponseGHN responseGHN = DonHangAPI.createOrder(donHangRequestGHN);
+                    System.out.println(responseGHN);
+//                                //TODO xử lý trừ số luojwgn sản phẩm
+                    return ResponseEntity.status(HttpStatus.OK).body(responseGHN);
                 } else {
-                    return ResponseEntity.status(HttpStatus.OK).body(new String("Không tìm thấy order của bạn"));
+                    System.out.println("Không thành công");
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new String("Thanh toán không thành công"));
                 }
             } else {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new String("Lỗi không xác định"));
+                System.out.println("Không tìm thấy order");
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new String("Không tìm thấy order của bạn"));
             }
         } catch (Exception e) {
+            System.out.println("k xdc");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new String("Lỗi không xác định"));
+        }
+    }
+
+    private TaoDonHangRequestGHN createGHNRequest(DonHang donhang) {
+        try {
+            List<HoaDonChiTiet> listHDCT = hdctService.getByHoaDonId(donhang);
+            Integer soLuong = 0;
+            for (HoaDonChiTiet item : listHDCT) {
+                soLuong += item.getSoLuong();
+            }
+            TaoDonHangRequestGHN requestGHN = TaoDonHangRequestGHN.builder()
+                    .note(donhang.getGhiChu())
+                    .toName(donhang.getKhachHang().getTenKhachHang())
+                    .toPhone(donhang.getKhachHang().getSoDienThoai())
+                    .toAddress(donhang.getDiaChi())
+                    .idQuanHuyen(donhang.getIdQuanHuyen())
+                    .idPhuongXa(donhang.getIdPhuongXa())
+                    .soLuongSanPham(soLuong)
+                    .listItems(toListChiTietItem(listHDCT))
+                    .build();
+            return requestGHN;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 

@@ -14,7 +14,6 @@
           class="form-control"
           type="text"
           ng-model="tenSanPham"
-          id="flexCheckDefault"
         />
         <!-- //Filter Danh Muc -->
         <p>Danh Mục</p>
@@ -23,9 +22,9 @@
           aria-label="Default select example"
           ng-model="danhMucId"
         >
-          <option value="" selected="true">Chọn danh mục</option>
+          <option ng-value="">Chọn danh mục</option>
           <option
-            value="{{danhMuc.id}}"
+            ng-value="{{danhMuc.id}}"
             ng-repeat="danhMuc in listSetting.listDanhMuc"
           >
             {{danhMuc.ten}}
@@ -33,10 +32,10 @@
         </select>
         <!-- Filter Thuong Hieu -->
         <p>Thương Hiệu</p>
-        <select class="form-select" aria-label="Default select example">
-          <option value="" selected>Chọn thương hiệu</option>
+        <select class="form-select" ng-model="thuongHieuId">
+          <option ng-value="" >Chọn thương hiệu</option>
           <option
-            value="{{thuongHieu.id}}"
+            ng-value="{{thuongHieu.idThuongHieu}}"
             ng-repeat="thuongHieu in listSetting.listThuongHieu"
           >
             {{thuongHieu.tenThuonghieu}}
@@ -45,25 +44,25 @@
         <br />
         <!-- Filter Màu Sắc -->
         <p>Màu sắc</p>
-        <select class="form-select" aria-label="Default select example">
-          <option value="null" selected>Chọn màu sắc</option>
-          <option value="{{ms.id}}" ng-repeat="ms in listSetting.listMauSac">
+        <select class="form-select" ng-model="mauSacId" >
+          <option ng-value="" >Chọn màu sắc</option>
+          <option ng-value="{{ms.idMauSac}}" ng-repeat="ms in listSetting.listMauSac">
             {{ms.tenMauSac}}
           </option>
         </select>
         <!--Filter dây đeo-->
         <p>Dây đeo</p>
-        <select class="form-select" aria-label="Default select example">
-          <option value="null" selected>Chọn dây đeo</option>
-          <option value="{{dd.id}}" ng-repeat="dd in listSetting.listDayDeo">
+        <select class="form-select" ng-model="dayDeoId" >
+          <option ng-value="" >Chọn dây đeo</option>
+          <option ng-value="{{dd.idDayDeo}}" ng-repeat="dd in listSetting.listDayDeo">
             {{dd.tenDayDeo}}
           </option>
         </select>
         <!--Filter Vật Liệu-->
         <p>Vật Liệu</p>
-        <select class="form-select" aria-label="Default select example">
-          <option value="null" selected>Chọn Vật liệu</option>
-          <option value="{{vl.id}}" ng-repeat="vl in listSetting.listVatLieu">
+        <select class="form-select" ng-model="vatLieuId">
+          <option ng-value="" >Chọn Vật liệu</option>
+          <option ng-value="{{vl.idVatLieu}}" ng-repeat="vl in listSetting.listVatLieu">
             {{vl.tenVatLieu}}
           </option>
         </select>

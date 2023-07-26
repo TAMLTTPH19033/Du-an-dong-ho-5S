@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 public class PhiVanChuyenRequest {
 
     private Integer idQuanHuyen;
-    private Integer idPhuongXa;
+    private String idPhuongXa;
     private Integer soLuongSanPham;
     private Double trungBinhTheTich;
 
