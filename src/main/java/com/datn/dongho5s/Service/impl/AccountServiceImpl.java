@@ -45,6 +45,7 @@ public class AccountServiceImpl implements AccountService {
             throw new BadRequestException("Email đã tồn tại ");
         }else{
             KhachHang khachHang = KhachHang.builder()
+                    .idKhachHang(null)
                     .email(registerRequest.getEmail())
                     .enabled(true)
                     .gioiTinh(registerRequest.getGioiTinh())
@@ -54,6 +55,7 @@ public class AccountServiceImpl implements AccountService {
                     .ngaySua(new Date())
                     .soDienThoai(registerRequest.getSoDienThoai())
                     .thoiGianTaoTaiKhoan(new Timestamp(new Date().getTime()))
+
                     .build();
             KhachHang khachHang1 = khachHangRepository.save(khachHang);
 

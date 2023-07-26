@@ -27,10 +27,10 @@ myApp.controller(
     $scope.isVNPAY = false;
     $scope.fee;
     $scope.tongTien = 0;
-
+      let currentUser = JSON.parse(localStorage.getItem("currentUser"));
     $scope.getThongTinCaNhan = () => {
       $http
-        .get(getThongTinCaNhanAPI + 1)
+        .get(getThongTinCaNhanAPI + currentUser.idKhachHang)
         .then((response) => {
           $scope.thongtincanhan = response.data;
           $scope.diaChiGiaoHangs = $scope.thongtincanhan.listDiaChi;
@@ -69,9 +69,9 @@ myApp.controller(
     $scope.thanhToan = () => {
       $scope.checkOutRequest = {
         // khachHangId: $rootScope.idKhachHang,
-        khachHangId: 1,
+        khachHangId: currentUser.idKhachHang,
         listHoaDonChiTietRequest:
-          $scope.listHoaDonChiTietRequest.idChiTietSanPham,
+          $scope.listHoaDonChiTietRequest,
         idQuanHuyen: $scope.diaChiGiaoHang.idQuanHuyen,
         idPhuongXa: $scope.diaChiGiaoHang.idPhuongXa,
         diaChi: $scope.diaChiGiaoHang.diaChi,
@@ -106,7 +106,6 @@ myApp.controller(
     });
 
     $scope.$watch("diaChiGiaoHang", (newValue, oldValue) => {
-      alert("Vao change Feeee");
       $scope.getFeeRequest = {
         idQuanHuyen: $scope.diaChiGiaoHang.idQuanHuyen,
         idPhuongXa: $scope.diaChiGiaoHang.idPhuongXa,

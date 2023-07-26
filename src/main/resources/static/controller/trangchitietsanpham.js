@@ -283,10 +283,9 @@ myApp.controller(
     $scope.buyNow = () => {
       checkOutDataService.setData([
         {
-          idChiTietSanPham: $scope.chiTietSanPham.idChiTietSanPham,
+          // idChiTietSanPham: $scope.chiTietSanPham.idChiTietSanPham,
           giaBan: $scope.getGia(),
-          chiTietSanPham: $scope.chiTietSanPham,
-          giaBan: $scope.chiTietSanPham.giaSanPham,
+          idChiTietSanPham: $scope.chiTietSanPham.idChiTietSanPham,
           soLuong: $scope.soLuong,
         },
       ]);

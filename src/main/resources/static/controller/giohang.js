@@ -1,4 +1,4 @@
-myApp.controller("cartCtrl", function ($scope,$rootScope, $http,$window,checkOutDataService) {
+myApp.controller("cartCtrl", function ($scope,$rootScope, $http,$window,checkOutDataService,$location) {
     $scope.cart = [];
     $scope.total = 0;
     $scope.totalSp = 0;
@@ -75,7 +75,15 @@ myApp.controller("cartCtrl", function ($scope,$rootScope, $http,$window,checkOut
     };
     $scope.tang = function (item,soLuong) {
         if (item) {
-
+            if(item.soLuongSanPham >= item.chiTietSanPham.soLuong){
+                Swal.fire({
+                            icon: "warning",
+                            title: "Thông báo!",
+                            text: "Số lượng quá",
+                            timer: 1600,
+                        });
+                return;
+            }
             item.soLuongSanPham = Number(item.soLuongSanPham) + 1;
             soLuong = item.soLuongSanPham;
             $scope.update(item,soLuong);
@@ -133,7 +141,7 @@ myApp.controller("cartCtrl", function ($scope,$rootScope, $http,$window,checkOut
 
     $scope.change = function (item) {
         if (item) {
-            if (item.soLuongSanPham <= 1) {
+            if (item.soLuongSanPham < 1) {
                 $scope.remove(item);
                 return;
             }
@@ -142,15 +150,16 @@ myApp.controller("cartCtrl", function ($scope,$rootScope, $http,$window,checkOut
         }
     };
 
-    $scope.buyNow = () => {
+    $scope.buy = () => {
         $scope.chiTietSanPham=[];
         $scope.cart.forEach(item=>{
             $scope.chiTietSanPham.push({
-                chiTietSanPham: item.chiTietSanPham,
+                idChiTietSanPham: item.chiTietSanPham.idChiTietSanPham,
                 giaBan: item.giaBan,
                 soLuong: item.soLuongSanPham
             })
         })
+        console.log($scope.chiTietSanPham,"CTSP")
         checkOutDataService.setData($scope.chiTietSanPham);
         $location.path("/thanhtoan");
       };

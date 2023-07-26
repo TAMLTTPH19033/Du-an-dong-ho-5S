@@ -61,6 +61,7 @@ public class DonHangRestController {
     @PostMapping("/them-don-hang")
     public ResponseEntity<?> taoDonHang(@RequestBody ThemDonHangRequest themDonHangRequest) {
         try {
+            System.out.println(themDonHangRequest.toString());
             KhachHang khachHang = khachHangService.findKhachHangById(themDonHangRequest.getKhachHangId());
             DonHang donHang = DonHang.builder()
                     .khachHang(khachHang)
@@ -87,6 +88,7 @@ public class DonHangRestController {
                     .listItems(toListChiTietItem(listHoaDonChiTiet))
                     .build();
             ThemDonHangResponseGHN responseGHN = DonHangAPI.createOrder(requestGHN);
+            System.out.println(responseGHN.toString());
             return ResponseEntity.status(HttpStatus.OK).body(responseGHN);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
