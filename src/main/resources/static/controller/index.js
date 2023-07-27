@@ -8,10 +8,10 @@ myApp.config(function ($routeProvider, $locationProvider,$httpProvider) {
     // })
     .when("/", {
       templateUrl: "page/trangchu.html",
-      controller :"homeCtrl"
+      // controller :"homeCtrl"
     })
-    .when("/about", {
-      templateUrl: "page/about.html",
+      .when("/about", {
+      templateUrl: "page/about-us.html",
     })
     .when("/contact", {
       templateUrl: "page/contact.html",
@@ -20,39 +20,43 @@ myApp.config(function ($routeProvider, $locationProvider,$httpProvider) {
       templateUrl: "page/blog.html",
     })
     .when("/sanpham", {
-      templateUrl: "page/sanpham.html",
+      templateUrl: "page/shop-gird.html",
       controller: "SanPhamController"
     })
-    .when("/info", {
-      templateUrl: "page/thongTinCaNhan.html",
+    .when("/account", {
+      templateUrl: "page/my-account.html",
       controller: "ThongTinCaNhanController"
     })
     .when("/cart", {
-      templateUrl: "page/giohang.html",
+      templateUrl: "page/cart.html",
       controller :"cartCtrl"
     })
     .when("/signup", {
-      templateUrl: "page/signup.html",
+      templateUrl: "page/checkout-registration.html",
       controller: "registerCtrl"
     })
     .when("/login", {
-      templateUrl: "page/login.html",
+      templateUrl: "page/registration.html",
       controller:"loginCtrl"
 
-    })
-    .when("/changepass", {
-      templateUrl: "/page/doimatkhau.html",
-    })
-    .when("/thanhtoan", {
-      templateUrl: "page/thanhtoan.html",
+    }).when("/address", {
+    templateUrl: "page/checkout-address.html",
+
+  }).when("/shipping", {
+    templateUrl: "page/checkout-shipping.html",
+
+  })
+
+    .when("/checkout", {
+      templateUrl: "page/checkout.html",
       controller: "ThanhToanCtrl"
     })
     .when("/chitietsanpham/:idSp", {
-      templateUrl: "page/chitietsanpham.html",
+      templateUrl: "page/single-product.html",
       controller: "TrangChiTietSanPhamController"
     })
     .when("/suathongtincanhan", {
-      templateUrl: "page/suathongtincanhan.html",
+      templateUrl: "page/my-.html",
       controller: "ThongTinCaNhanController"
     })
     .otherwise({
