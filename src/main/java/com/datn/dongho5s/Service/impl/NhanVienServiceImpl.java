@@ -4,6 +4,7 @@ import com.datn.dongho5s.Entity.NhanVien;
 import com.datn.dongho5s.Exception.NhanVienNotFoundException;
 import com.datn.dongho5s.Repository.ChucVuRepository;
 import com.datn.dongho5s.Repository.NhanVienRepository;
+import com.datn.dongho5s.Service.NhanVienService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,8 +19,8 @@ import java.util.NoSuchElementException;
 
 @Service
 @Transactional
-public class NhanVienService {
-    public static final int USERS_PER_PAGE = 4;
+public class NhanVienServiceImpl implements NhanVienService {
+
 
     @Autowired
     private NhanVienRepository nhanVienrepo;
@@ -29,6 +30,26 @@ public class NhanVienService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Override
+    public NhanVien findByEmail(String email) {
+        return nhanVienrepo.findByEmail(email);
+    }
+
+    @Override
+    public NhanVien findByUserName(String userName) {
+        return nhanVienrepo.findByTen(userName);
+    }
+
+    @Override
+    public boolean existsByUserName(String userName) {
+        return nhanVienrepo.existsByTen(userName);
+    }
+
+    @Override
+    public boolean existSByEmail(String email) {
+        return nhanVienrepo.existsByEmail(email);
+    }
 
     public NhanVien getByEmail(String email){
         return nhanVienrepo.getNhanVienByEmail(email);
@@ -92,7 +113,7 @@ public class NhanVienService {
 
     }
 
-    private void encodePassword(NhanVien nhanVien){
+    public void encodePassword(NhanVien nhanVien){
         String encodedPassword = passwordEncoder.encode(nhanVien.getMatKhau());
         nhanVien.setMatKhau(encodedPassword);
     }

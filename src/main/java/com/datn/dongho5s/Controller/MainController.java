@@ -6,13 +6,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class MainController {
-    @GetMapping("/login")
+    @GetMapping("/")
     public String viewHomePage(){
-        return "login";
+        return "admin/index";
     }
 
-    @PostMapping("/login")
-    public String viewLoginPage(){
-        return "index";
-    }
+
 }

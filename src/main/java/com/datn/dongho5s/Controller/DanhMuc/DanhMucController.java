@@ -62,7 +62,7 @@ public class DanhMucController {
         model.addAttribute("sortDir", sortDir);
         model.addAttribute("reverseSortDir",reverseSortDir);
         model.addAttribute("keyword", keyword);
-        return "danhmuc/categories";
+        return "admin/danhmuc/categories";
 
     }
 
@@ -81,7 +81,7 @@ public class DanhMucController {
     public String newDanhMuc(Model model){
         model.addAttribute("danhMuc", new DanhMuc());
         model.addAttribute("pageTitle","Tạo Mới Danh Mục");
-        return "danhmuc/categories_form";
+        return "admin/danhmuc/categories_form";
     }
 
     @PostMapping("/categories/save")
@@ -99,7 +99,7 @@ public class DanhMucController {
             DanhMuc danhMuc = service.get(id);
             model.addAttribute("danhMuc", danhMuc);
             model.addAttribute("pageTitle","Update Danh Mục (ID : " + id + ")");
-            return "danhmuc/categories_form";
+            return "admin/danhmuc/categories_form";
         }catch (DanhMucNotFoundException ex){
             redirectAttributes.addFlashAttribute("message",ex.getMessage());
             return "redirect:/categories";
