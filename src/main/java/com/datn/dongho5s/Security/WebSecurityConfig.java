@@ -84,8 +84,6 @@ public class WebSecurityConfig  {
                 .authorizeRequests()
                 .antMatchers("/api/giohang/**","/api/phan-hoi/**").hasAuthority("ROLE_CUSTOMER")
                 .and()
-                .rememberMe().userDetailsService(securityConfiguration.userDetailsService())
-                .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
@@ -93,5 +91,6 @@ public class WebSecurityConfig  {
                 .addFilterBefore(accountFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
+
 
 }
