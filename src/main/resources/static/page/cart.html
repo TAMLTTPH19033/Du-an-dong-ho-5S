@@ -1,7 +1,6 @@
 
 <div>
 
-	<div ng-include=" src= 'layout/menu.html'"></div>
 <!-- MAIN-CONTENT-SECTION START -->
 <section class="main-content-section">
 	<div class="container">
@@ -9,7 +8,7 @@
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 				<!-- BSTORE-BREADCRUMB START -->
 				<div class="bstore-breadcrumb">
-					<a href="index.html">HOMe</a>
+					<a href="#index">HOMe</a>
 					<span><i class="fa fa-caret-right	"></i></span>
 					<span>Your shopping cart</span>
 				</div>
@@ -30,17 +29,11 @@
 						<li class="step-current first">
 							<span>01. Summary</span>
 						</li>
-						<li class="step-todo second">
-							<span>02. Sign in</span>
-						</li>
 						<li class="step-todo third">
-							<span>03. Address</span>
-						</li>
-						<li class="step-todo four">
-							<span>04. Shipping</span>
+							<span>01. Address</span>
 						</li>
 						<li class="step-todo last" id="step_end">
-							<span>05. Payment</span>
+							<span>03. Payment</span>
 						</li>
 					</ul>
 				</div>
@@ -67,7 +60,7 @@
 						<!-- SINGLE CART_ITEM START -->
 						<tr>
 							<td class="cart-product">
-								<a href="#"><img alt="Blouse" src="img/product/cart-image1.jpg"></a>
+								<a href="#"><img alt="Blouse" src="/assets/img/product/cart-image1.jpg"></a>
 							</td>
 							<td class="cart-description">
 								<p class="product-name"><a href="#">Faded Short Sleeves T-shirt</a></p>
@@ -98,7 +91,7 @@
 						<!-- SINGLE CART_ITEM START -->
 						<tr>
 							<td class="cart-product">
-								<a href="#"><img alt="Blouse" src="img/product/cart-image2.jpg"></a>
+								<a href="#"><img alt="Blouse" src="/assets/img/product/cart-image2.jpg"></a>
 							</td>
 							<td class="cart-description">
 								<p class="product-name"><a href="#">Blouse</a></p>
@@ -129,7 +122,7 @@
 						<!-- SINGLE CART_ITEM START -->
 						<tr>
 							<td class="cart-product">
-								<a href="#"><img alt="Blouse" src="img/product/cart-image3.jpg"></a>
+								<a href="#"><img alt="Blouse" src="/assets/img/product/cart-image3.jpg"></a>
 							</td>
 							<td class="cart-description">
 								<p class="product-name"><a href="#">Printed Summer Dress</a></p>
@@ -234,8 +227,8 @@
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 				<!-- RETURNE-CONTINUE-SHOP START -->
 				<div class="returne-continue-shop">
-					<a href="index.html" class="continueshoping"><i class="fa fa-chevron-left"></i>Continue shopping</a>
-					<a href="checkout-signin.html" class="procedtocheckout">Proceed to checkout<i class="fa fa-chevron-right"></i></a>
+					<a href="#index" class="continueshoping"><i class="fa fa-chevron-left"></i>Continue shopping</a>
+					<a href="#address" class="procedtocheckout">Proceed to checkout<i class="fa fa-chevron-right"></i></a>
 				</div>
 				<!-- RETURNE-CONTINUE-SHOP END -->
 			</div>

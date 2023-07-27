@@ -36,10 +36,16 @@ myApp.config(function ($routeProvider, $locationProvider,$httpProvider) {
       controller: "registerCtrl"
     })
     .when("/login", {
-      templateUrl: "page/checkout-signin.html",
+      templateUrl: "page/registration.html",
       controller:"loginCtrl"
 
-    })
+    }).when("/address", {
+    templateUrl: "page/checkout-address.html",
+
+  }).when("/shipping", {
+    templateUrl: "page/checkout-shipping.html",
+
+  })
 
     .when("/checkout", {
       templateUrl: "page/checkout.html",
