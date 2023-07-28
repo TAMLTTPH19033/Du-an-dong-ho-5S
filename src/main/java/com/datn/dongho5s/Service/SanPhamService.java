@@ -19,7 +19,8 @@ public interface SanPhamService {
 
     Set<TimKiemResponse> getSanPhamByCondition(TimKiemRequest timKiemRequest);
 
-    List<SanPham> getSPnew();
+    List<SanPhamDetailResponse> getSPnew();
+    List<SanPhamDetailResponse> getSPFeature();
 
     List<SanPhamDetailResponse> getSPchay();
 

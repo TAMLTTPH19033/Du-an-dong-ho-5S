@@ -350,9 +350,9 @@
                                             <!-- HOME2-NEW-PRO-CAROUSEL START -->
                                             <div class="home2-new-pro-carousel">
                                                 <!-- NEW-PRODUCT SINGLE ITEM START -->
-                                                <div class="item" >
+                                                <div class="item" ng-repeat="item in newSanPhams | limitTo : 1 : 0">
                                                     <div class="new-product">
-                                                        <div class="single-product-item" ng-repeat="item in newSanPhams">
+                                                        <div class="single-product-item">
                                                             <div class="product-image">
                                                                 <a href="#/chitietsanpham/{{item.idSanPham}}"><img
                                                                         src="/assets/images/{{item.listAnhSanPham[0].link}}"
@@ -385,7 +385,386 @@
                                                                         <span>3 Review(s)</span>
                                                                     </div>
                                                                 </div>
-                                                                <a href="single-product.html">Printed Dress</a>
+                                                                <a href="#/chitietsanpham/{{item.idSanPham}}">{{item.tenSanPham}}</a>
+                                                                <div class="price-box">
+                                                                  <span ng-if="item.listChiTietSanPham.length == 1">
+                                                                            <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ </span>
+                                                </span>
+                                                                    <span ng-if="item.listChiTietSanPham.length > 1">
+                                                    <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ</span>~ <span
+                                                                            class="price"> {{ itemWithGiaLN.get(item.idSanPham)}} đ</span>
+                                                </span>
+                                                                    <span ng-if="item.listChiTietSanPham.length == 1">
+                                                <span class="old-price"
+                                                      ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ
+                                            </span>
+                                                                    <span ng-if="item.listChiTietSanPham.length > 1">
+                                               <span class="old-price"
+                                                     ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ ~
+                                                <span class="old-price"
+                                                      ng-bind="getGiaLNOld(item.listChiTietSanPham)"></span>đ
+                                            </span>
+
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- NEW-PRODUCT SINGLE ITEM END -->
+                                                <!-- NEW-PRODUCT SINGLE ITEM START -->
+                                                <div class="item" ng-repeat="item in newSanPhams | limitTo : 1 : 1">
+                                                    <div class="new-product">
+                                                        <div class="single-product-item">
+                                                            <div class="product-image">
+                                                                <a href="#/chitietsanpham/{{item.idSanPham}}"><img
+                                                                        src="/assets/images/{{item.listAnhSanPham[0].link}}"
+                                                                        alt="product-image"/></a>
+                                                                <a href="#" class="new-mark-box">new</a>
+                                                                <div class="overlay-content">
+                                                                    <ul>
+                                                                        <li><a href="#" title="Quick view"><i
+                                                                                class="fa fa-search"></i></a></li>
+                                                                        <li><a href="#" title="Quick view"><i
+                                                                                class="fa fa-shopping-cart"></i></a>
+                                                                        </li>
+                                                                        <li><a href="#" title="Quick view"><i
+                                                                                class="fa fa-retweet"></i></a></li>
+                                                                        <li><a href="#" title="Quick view"><i
+                                                                                class="fa fa-heart-o"></i></a></li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                            <div class="product-info">
+                                                                <div class="customar-comments-box">
+                                                                    <div class="rating-box">
+                                                                        <i class="fa fa-star"></i>
+                                                                        <i class="fa fa-star"></i>
+                                                                        <i class="fa fa-star"></i>
+                                                                        <i class="fa fa-star"></i>
+                                                                        <i class="fa fa-star-half-empty"></i>
+                                                                    </div>
+                                                                    <div class="review-box">
+                                                                        <span>3 Review(s)</span>
+                                                                    </div>
+                                                                </div>
+                                                                <a href="#/chitietsanpham/{{item.idSanPham}}">{{item.tenSanPham}}</a>
+                                                                <div class="price-box">
+                                                <span ng-if="item.listChiTietSanPham.length == 1">
+                                                    <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ </span>
+                                                </span>
+                                                                    <span ng-if="item.listChiTietSanPham.length > 1">
+                                                    <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ</span>~ <span
+                                                                            class="price"> {{ itemWithGiaLN.get(item.idSanPham)}} đ</span>
+                                                </span>
+                                                                    <span ng-if="item.listChiTietSanPham.length == 1">
+                                                <span class="old-price"
+                                                      ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ
+                                            </span>
+                                                                    <span ng-if="item.listChiTietSanPham.length > 1">
+                                               <span class="old-price"
+                                                     ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ ~
+                                                <span class="old-price"
+                                                      ng-bind="getGiaLNOld(item.listChiTietSanPham)"></span>đ
+                                            </span>
+
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- NEW-PRODUCT SINGLE ITEM END -->
+                                                <!-- NEW-PRODUCT SINGLE ITEM START -->
+
+                                                <div class="item" ng-repeat="item in newSanPhams | limitTo : 1 : 2">
+                                                    <div class="new-product">
+                                                        <div class="single-product-item">
+                                                            <div class="product-image">
+                                                                <a href="#/chitietsanpham/{{item.idSanPham}}"><img
+                                                                        src="/assets/images/{{item.listAnhSanPham[0].link}}"
+                                                                        alt="product-image"/></a>
+                                                                <a href="#" class="new-mark-box">new</a>
+                                                                <div class="overlay-content">
+                                                                    <ul>
+                                                                        <li><a href="#" title="Quick view"><i
+                                                                                class="fa fa-search"></i></a></li>
+                                                                        <li><a href="#" title="Quick view"><i
+                                                                                class="fa fa-shopping-cart"></i></a>
+                                                                        </li>
+                                                                        <li><a href="#" title="Quick view"><i
+                                                                                class="fa fa-retweet"></i></a></li>
+                                                                        <li><a href="#" title="Quick view"><i
+                                                                                class="fa fa-heart-o"></i></a></li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                            <div class="product-info">
+                                                                <div class="customar-comments-box">
+                                                                    <div class="rating-box">
+                                                                        <i class="fa fa-star"></i>
+                                                                        <i class="fa fa-star"></i>
+                                                                        <i class="fa fa-star"></i>
+                                                                        <i class="fa fa-star"></i>
+                                                                        <i class="fa fa-star-half-empty"></i>
+                                                                    </div>
+                                                                    <div class="review-box">
+                                                                        <span>3 Review(s)</span>
+                                                                    </div>
+                                                                </div>
+                                                                <a href="#/chitietsanpham/{{item.idSanPham}}">{{item.tenSanPham}}</a>
+                                                                <div class="price-box">
+                                                <span ng-if="item.listChiTietSanPham.length == 1">
+                                                    <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ </span>
+                                                </span>
+                                                                    <span ng-if="item.listChiTietSanPham.length > 1">
+                                                    <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ</span>~ <span
+                                                                            class="price"> {{ itemWithGiaLN.get(item.idSanPham)}} đ</span>
+                                                </span>
+                                                                    <span ng-if="item.listChiTietSanPham.length == 1">
+                                                <span class="old-price"
+                                                      ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ
+                                            </span>
+                                                                    <span ng-if="item.listChiTietSanPham.length > 1">
+                                               <span class="old-price"
+                                                     ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ ~
+                                                <span class="old-price"
+                                                      ng-bind="getGiaLNOld(item.listChiTietSanPham)"></span>đ
+                                            </span>
+
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- NEW-PRODUCT SINGLE ITEM END -->
+                                                <!-- NEW-PRODUCT SINGLE ITEM START -->
+
+                                                <div class="item" ng-repeat="item in newSanPhams | limitTo : 1 : 3">
+                                                    <div class="new-product">
+                                                        <div class="single-product-item">
+                                                            <div class="product-image">
+                                                                <a href="#/chitietsanpham/{{item.idSanPham}}"><img
+                                                                        src="/assets/images/{{item.listAnhSanPham[0].link}}"
+                                                                        alt="product-image"/></a>
+                                                                <a href="#" class="new-mark-box">new</a>
+                                                                <div class="overlay-content">
+                                                                    <ul>
+                                                                        <li><a href="#" title="Quick view"><i
+                                                                                class="fa fa-search"></i></a></li>
+                                                                        <li><a href="#" title="Quick view"><i
+                                                                                class="fa fa-shopping-cart"></i></a>
+                                                                        </li>
+                                                                        <li><a href="#" title="Quick view"><i
+                                                                                class="fa fa-retweet"></i></a></li>
+                                                                        <li><a href="#" title="Quick view"><i
+                                                                                class="fa fa-heart-o"></i></a></li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                            <div class="product-info">
+                                                                <div class="customar-comments-box">
+                                                                    <div class="rating-box">
+                                                                        <i class="fa fa-star"></i>
+                                                                        <i class="fa fa-star"></i>
+                                                                        <i class="fa fa-star"></i>
+                                                                        <i class="fa fa-star"></i>
+                                                                        <i class="fa fa-star-half-empty"></i>
+                                                                    </div>
+                                                                    <div class="review-box">
+                                                                        <span>3 Review(s)</span>
+                                                                    </div>
+                                                                </div>
+                                                                <a href="#/chitietsanpham/{{item.idSanPham}}">{{item.tenSanPham}}</a>
+                                                                <div class="price-box">
+                                                <span ng-if="item.listChiTietSanPham.length == 1">
+                                                    <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ </span>
+                                                </span>
+                                                                    <span ng-if="item.listChiTietSanPham.length > 1">
+                                                    <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ</span>~ <span
+                                                                            class="price"> {{ itemWithGiaLN.get(item.idSanPham)}} đ</span>
+                                                </span>
+                                                                    <span ng-if="item.listChiTietSanPham.length == 1">
+                                                <span class="old-price"
+                                                      ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ
+                                            </span>
+                                                                    <span ng-if="item.listChiTietSanPham.length > 1">
+                                               <span class="old-price"
+                                                     ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ ~
+                                                <span class="old-price"
+                                                      ng-bind="getGiaLNOld(item.listChiTietSanPham)"></span>đ
+                                            </span>
+
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- NEW-PRODUCT SINGLE ITEM END -->
+                                                <!-- NEW-PRODUCT SINGLE ITEM START -->
+
+                                                <div class="item" ng-repeat="item in newSanPhams | limitTo : 1 : 4">
+                                                    <div class="new-product">
+                                                        <div class="single-product-item">
+                                                            <div class="product-image">
+                                                                <a href="#/chitietsanpham/{{item.idSanPham}}"><img
+                                                                        src="/assets/images/{{item.listAnhSanPham[0].link}}"
+                                                                        alt="product-image"/></a>
+                                                                <a href="#" class="new-mark-box">new</a>
+                                                                <div class="overlay-content">
+                                                                    <ul>
+                                                                        <li><a href="#" title="Quick view"><i
+                                                                                class="fa fa-search"></i></a></li>
+                                                                        <li><a href="#" title="Quick view"><i
+                                                                                class="fa fa-shopping-cart"></i></a>
+                                                                        </li>
+                                                                        <li><a href="#" title="Quick view"><i
+                                                                                class="fa fa-retweet"></i></a></li>
+                                                                        <li><a href="#" title="Quick view"><i
+                                                                                class="fa fa-heart-o"></i></a></li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                            <div class="product-info">
+                                                                <div class="customar-comments-box">
+                                                                    <div class="rating-box">
+                                                                        <i class="fa fa-star"></i>
+                                                                        <i class="fa fa-star"></i>
+                                                                        <i class="fa fa-star"></i>
+                                                                        <i class="fa fa-star"></i>
+                                                                        <i class="fa fa-star-half-empty"></i>
+                                                                    </div>
+                                                                    <div class="review-box">
+                                                                        <span>3 Review(s)</span>
+                                                                    </div>
+                                                                </div>
+                                                                <a href="#/chitietsanpham/{{item.idSanPham}}">{{item.tenSanPham}}</a>
+                                                                <div class="price-box">
+                                                <span ng-if="item.listChiTietSanPham.length == 1">
+                                                    <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ </span>
+                                                </span>
+                                                                    <span ng-if="item.listChiTietSanPham.length > 1">
+                                                    <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ</span>~ <span
+                                                                            class="price"> {{ itemWithGiaLN.get(item.idSanPham)}} đ</span>
+                                                </span>
+                                                                    <span ng-if="item.listChiTietSanPham.length == 1">
+                                                <span class="old-price"
+                                                      ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ
+                                            </span>
+                                                                    <span ng-if="item.listChiTietSanPham.length > 1">
+                                               <span class="old-price"
+                                                     ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ ~
+                                                <span class="old-price"
+                                                      ng-bind="getGiaLNOld(item.listChiTietSanPham)"></span>đ
+                                            </span>
+
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- NEW-PRODUCT SINGLE ITEM END -->
+                                                <div class="item" ng-repeat="item in newSanPhams | limitTo : 1 : 5">
+                                                    <div class="new-product">
+                                                        <div class="single-product-item">
+                                                            <div class="product-image">
+                                                                <a href="#/chitietsanpham/{{item.idSanPham}}"><img
+                                                                        src="/assets/images/{{item.listAnhSanPham[0].link}}"
+                                                                        alt="product-image"/></a>
+                                                                <a href="#" class="new-mark-box">new</a>
+                                                                <div class="overlay-content">
+                                                                    <ul>
+                                                                        <li><a href="#" title="Quick view"><i
+                                                                                class="fa fa-search"></i></a></li>
+                                                                        <li><a href="#" title="Quick view"><i
+                                                                                class="fa fa-shopping-cart"></i></a>
+                                                                        </li>
+                                                                        <li><a href="#" title="Quick view"><i
+                                                                                class="fa fa-retweet"></i></a></li>
+                                                                        <li><a href="#" title="Quick view"><i
+                                                                                class="fa fa-heart-o"></i></a></li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                            <div class="product-info">
+                                                                <div class="customar-comments-box">
+                                                                    <div class="rating-box">
+                                                                        <i class="fa fa-star"></i>
+                                                                        <i class="fa fa-star"></i>
+                                                                        <i class="fa fa-star"></i>
+                                                                        <i class="fa fa-star"></i>
+                                                                        <i class="fa fa-star-half-empty"></i>
+                                                                    </div>
+                                                                    <div class="review-box">
+                                                                        <span>3 Review(s)</span>
+                                                                    </div>
+                                                                </div>
+                                                                <a href="#/chitietsanpham/{{item.idSanPham}}">{{item.tenSanPham}}</a>
+                                                                <div class="price-box">
+                                                <span ng-if="item.listChiTietSanPham.length == 1">
+                                                    <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ </span>
+                                                </span>
+                                                                    <span ng-if="item.listChiTietSanPham.length > 1">
+                                                    <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ</span>~ <span
+                                                                            class="price"> {{ itemWithGiaLN.get(item.idSanPham)}} đ</span>
+                                                </span>
+                                                                    <span ng-if="item.listChiTietSanPham.length == 1">
+                                                <span class="old-price"
+                                                      ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ
+                                            </span>
+                                                                    <span ng-if="item.listChiTietSanPham.length > 1">
+                                               <span class="old-price"
+                                                     ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ ~
+                                                <span class="old-price"
+                                                      ng-bind="getGiaLNOld(item.listChiTietSanPham)"></span>đ
+                                            </span>
+
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- NEW-PRODUCT SINGLE ITEM END -->
+                                                <div class="item" ng-repeat="item in newSanPhams | limitTo : 1 : 6">
+                                                    <div class="new-product">
+                                                        <div class="single-product-item">
+                                                            <div class="product-image">
+                                                                <a href="#/chitietsanpham/{{item.idSanPham}}"><img
+                                                                        src="/assets/images/{{item.listAnhSanPham[0].link}}"
+                                                                        alt="product-image"/></a>
+                                                                <a href="#" class="new-mark-box">new</a>
+                                                                <div class="overlay-content">
+                                                                    <ul>
+                                                                        <li><a href="#" title="Quick view"><i
+                                                                                class="fa fa-search"></i></a></li>
+                                                                        <li><a href="#" title="Quick view"><i
+                                                                                class="fa fa-shopping-cart"></i></a>
+                                                                        </li>
+                                                                        <li><a href="#" title="Quick view"><i
+                                                                                class="fa fa-retweet"></i></a></li>
+                                                                        <li><a href="#" title="Quick view"><i
+                                                                                class="fa fa-heart-o"></i></a></li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                            <div class="product-info">
+                                                                <div class="customar-comments-box">
+                                                                    <div class="rating-box">
+                                                                        <i class="fa fa-star"></i>
+                                                                        <i class="fa fa-star"></i>
+                                                                        <i class="fa fa-star"></i>
+                                                                        <i class="fa fa-star"></i>
+                                                                        <i class="fa fa-star-half-empty"></i>
+                                                                    </div>
+                                                                    <div class="review-box">
+                                                                        <span>3 Review(s)</span>
+                                                                    </div>
+                                                                </div>
+                                                                <a href="#/chitietsanpham/{{item.idSanPham}}">{{item.tenSanPham}}</a>
                                                                 <div class="price-box">
                                                 <span ng-if="item.listChiTietSanPham.length == 1">
                                                     <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ </span>
@@ -444,107 +823,21 @@
                                     <!-- HOME2-SALE-CAROUSEL START -->
                                     <div class="home2-sale-carousel">
                                         <!-- NEW-PRODUCT SINGLE ITEM START -->
-                                        <div class="item">
+                                        <div class="item" ng-repeat="item in hotSanPhams | limitTo : 1 : 0">
                                             <div class="new-product">
                                                 <div class="single-product-item">
                                                     <div class="product-image">
-                                                        <a href="#"><img src="img/product/sale/12.jpg"
-                                                                         alt="product-image"/></a>
+                                                        <a href="#/chitietsanpham/{{item.idSanPham}}"><img
+                                                                src="/assets/images/{{item.listAnhSanPham[0].link}}"
+                                                                alt="product-image"/></a>
                                                         <a href="#" class="new-mark-box">new</a>
                                                         <div class="overlay-content">
                                                             <ul>
                                                                 <li><a href="#" title="Quick view"><i
                                                                         class="fa fa-search"></i></a></li>
                                                                 <li><a href="#" title="Quick view"><i
-                                                                        class="fa fa-shopping-cart"></i></a></li>
-                                                                <li><a href="#" title="Quick view"><i
-                                                                        class="fa fa-retweet"></i></a></li>
-                                                                <li><a href="#" title="Quick view"><i
-                                                                        class="fa fa-heart-o"></i></a></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                    <div class="product-info">
-                                                        <div class="customar-comments-box">
-                                                            <div class="rating-box">
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star-half-empty"></i>
-                                                                <i class="fa fa-star-half-empty"></i>
-                                                            </div>
-                                                            <div class="review-box">
-                                                                <span>1 Review(s)</span>
-                                                            </div>
-                                                        </div>
-                                                        <a href="single-product.html">Printed Summer Dress</a>
-                                                        <div class="price-box">
-                                                            <span class="price">$28.98</span>
-                                                            <span class="old-price">$30.51</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- NEW-PRODUCT SINGLE ITEM END -->
-                                        <!-- NEW-PRODUCT SINGLE ITEM START -->
-                                        <div class="item">
-                                            <div class="new-product">
-                                                <div class="single-product-item">
-                                                    <div class="product-image">
-                                                        <a href="#"><img src="img/product/sale/9.jpg"
-                                                                         alt="product-image"/></a>
-                                                        <a href="#" class="new-mark-box">sale!</a>
-                                                        <div class="overlay-content">
-                                                            <ul>
-                                                                <li><a href="#" title="Quick view"><i
-                                                                        class="fa fa-search"></i></a></li>
-                                                                <li><a href="#" title="Quick view"><i
-                                                                        class="fa fa-shopping-cart"></i></a></li>
-                                                                <li><a href="#" title="Quick view"><i
-                                                                        class="fa fa-retweet"></i></a></li>
-                                                                <li><a href="#" title="Quick view"><i
-                                                                        class="fa fa-heart-o"></i></a></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                    <div class="product-info">
-                                                        <div class="customar-comments-box">
-                                                            <div class="rating-box">
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star-half-empty"></i>
-                                                                <i class="fa fa-star-half-empty"></i>
-                                                            </div>
-                                                            <div class="review-box">
-                                                                <span>1 Review(s)</span>
-                                                            </div>
-                                                        </div>
-                                                        <a href="single-product.html">Printed Dress</a>
-                                                        <div class="price-box">
-                                                            <span class="price">$23.40</span>
-                                                            <span class="old-price">$26.00</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- NEW-PRODUCT SINGLE ITEM END -->
-                                        <!-- NEW-PRODUCT SINGLE ITEM START -->
-                                        <div class="item">
-                                            <div class="new-product">
-                                                <div class="single-product-item">
-                                                    <div class="product-image">
-                                                        <a href="#"><img src="img/product/sale/1.jpg"
-                                                                         alt="product-image"/></a>
-                                                        <a href="#" class="new-mark-box">sale!</a>
-                                                        <div class="overlay-content">
-                                                            <ul>
-                                                                <li><a href="#" title="Quick view"><i
-                                                                        class="fa fa-search"></i></a></li>
-                                                                <li><a href="#" title="Quick view"><i
-                                                                        class="fa fa-shopping-cart"></i></a></li>
+                                                                        class="fa fa-shopping-cart"></i></a>
+                                                                </li>
                                                                 <li><a href="#" title="Quick view"><i
                                                                         class="fa fa-retweet"></i></a></li>
                                                                 <li><a href="#" title="Quick view"><i
@@ -559,16 +852,33 @@
                                                                 <i class="fa fa-star"></i>
                                                                 <i class="fa fa-star"></i>
                                                                 <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star-half-empty"></i>
                                                             </div>
                                                             <div class="review-box">
-                                                                <span>1 Review(s)</span>
+                                                                <span>3 Review(s)</span>
                                                             </div>
                                                         </div>
-                                                        <a href="single-product.html">Blouse</a>
+                                                        <a href="#/chitietsanpham/{{item.idSanPham}}">{{item.tenSanPham}}</a>
                                                         <div class="price-box">
-                                                            <span class="price">$22.95</span>
-                                                            <span class="old-price">$27.00</span>
+                                                                  <span ng-if="item.listChiTietSanPham.length == 1">
+                                                                            <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ </span>
+                                                </span>
+                                                            <span ng-if="item.listChiTietSanPham.length > 1">
+                                                    <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ</span>~ <span
+                                                                    class="price"> {{ itemWithGiaLN.get(item.idSanPham)}} đ</span>
+                                                </span>
+                                                            <span ng-if="item.listChiTietSanPham.length == 1">
+                                                <span class="old-price"
+                                                      ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ
+                                            </span>
+                                                            <span ng-if="item.listChiTietSanPham.length > 1">
+                                               <span class="old-price"
+                                                     ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ ~
+                                                <span class="old-price"
+                                                      ng-bind="getGiaLNOld(item.listChiTietSanPham)"></span>đ
+                                            </span>
+
+
                                                         </div>
                                                     </div>
                                                 </div>
@@ -576,19 +886,21 @@
                                         </div>
                                         <!-- NEW-PRODUCT SINGLE ITEM END -->
                                         <!-- NEW-PRODUCT SINGLE ITEM START -->
-                                        <div class="item">
+                                        <div class="item" ng-repeat="item in hotSanPhams | limitTo : 1 : 1">
                                             <div class="new-product">
                                                 <div class="single-product-item">
                                                     <div class="product-image">
-                                                        <a href="#"><img src="img/product/sale/6.jpg"
-                                                                         alt="product-image"/></a>
+                                                        <a href="#/chitietsanpham/{{item.idSanPham}}"><img
+                                                                src="/assets/images/{{item.listAnhSanPham[0].link}}"
+                                                                alt="product-image"/></a>
                                                         <a href="#" class="new-mark-box">new</a>
                                                         <div class="overlay-content">
                                                             <ul>
                                                                 <li><a href="#" title="Quick view"><i
                                                                         class="fa fa-search"></i></a></li>
                                                                 <li><a href="#" title="Quick view"><i
-                                                                        class="fa fa-shopping-cart"></i></a></li>
+                                                                        class="fa fa-shopping-cart"></i></a>
+                                                                </li>
                                                                 <li><a href="#" title="Quick view"><i
                                                                         class="fa fa-retweet"></i></a></li>
                                                                 <li><a href="#" title="Quick view"><i
@@ -603,16 +915,33 @@
                                                                 <i class="fa fa-star"></i>
                                                                 <i class="fa fa-star"></i>
                                                                 <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star-half-empty"></i>
                                                             </div>
                                                             <div class="review-box">
-                                                                <span>4 Review(s)</span>
+                                                                <span>3 Review(s)</span>
                                                             </div>
                                                         </div>
-                                                        <a href="single-product.html">Printed Chiffon Dress</a>
+                                                        <a href="#/chitietsanpham/{{item.idSanPham}}">{{item.tenSanPham}}</a>
                                                         <div class="price-box">
-                                                            <span class="price">$16.40</span>
-                                                            <span class="old-price">$20.50</span>
+                                                                  <span ng-if="item.listChiTietSanPham.length == 1">
+                                                                            <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ </span>
+                                                </span>
+                                                            <span ng-if="item.listChiTietSanPham.length > 1">
+                                                    <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ</span>~ <span
+                                                                    class="price"> {{ itemWithGiaLN.get(item.idSanPham)}} đ</span>
+                                                </span>
+                                                            <span ng-if="item.listChiTietSanPham.length == 1">
+                                                <span class="old-price"
+                                                      ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ
+                                            </span>
+                                                            <span ng-if="item.listChiTietSanPham.length > 1">
+                                               <span class="old-price"
+                                                     ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ ~
+                                                <span class="old-price"
+                                                      ng-bind="getGiaLNOld(item.listChiTietSanPham)"></span>đ
+                                            </span>
+
+
                                                         </div>
                                                     </div>
                                                 </div>
@@ -620,19 +949,21 @@
                                         </div>
                                         <!-- NEW-PRODUCT SINGLE ITEM END -->
                                         <!-- NEW-PRODUCT SINGLE ITEM START -->
-                                        <div class="item">
+                                        <div class="item" ng-repeat="item in hotSanPhams | limitTo : 1 : 2">
                                             <div class="new-product">
                                                 <div class="single-product-item">
                                                     <div class="product-image">
-                                                        <a href="#"><img src="img/product/sale/7.jpg"
-                                                                         alt="product-image"/></a>
+                                                        <a href="#/chitietsanpham/{{item.idSanPham}}"><img
+                                                                src="/assets/images/{{item.listAnhSanPham[0].link}}"
+                                                                alt="product-image"/></a>
                                                         <a href="#" class="new-mark-box">new</a>
                                                         <div class="overlay-content">
                                                             <ul>
                                                                 <li><a href="#" title="Quick view"><i
                                                                         class="fa fa-search"></i></a></li>
                                                                 <li><a href="#" title="Quick view"><i
-                                                                        class="fa fa-shopping-cart"></i></a></li>
+                                                                        class="fa fa-shopping-cart"></i></a>
+                                                                </li>
                                                                 <li><a href="#" title="Quick view"><i
                                                                         class="fa fa-retweet"></i></a></li>
                                                                 <li><a href="#" title="Quick view"><i
@@ -646,17 +977,160 @@
                                                                 <i class="fa fa-star"></i>
                                                                 <i class="fa fa-star"></i>
                                                                 <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star-half-empty"></i>
+                                                                <i class="fa fa-star"></i>
                                                                 <i class="fa fa-star-half-empty"></i>
                                                             </div>
                                                             <div class="review-box">
-                                                                <span>1 Review(s)</span>
+                                                                <span>3 Review(s)</span>
                                                             </div>
                                                         </div>
-                                                        <a href="single-product.html">Printed Chiffon Dress</a>
+                                                        <a href="#/chitietsanpham/{{item.idSanPham}}">{{item.tenSanPham}}</a>
                                                         <div class="price-box">
-                                                            <span class="price">$16.40</span>
-                                                            <span class="old-price">$20.50</span>
+                                                                  <span ng-if="item.listChiTietSanPham.length == 1">
+                                                                            <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ </span>
+                                                </span>
+                                                            <span ng-if="item.listChiTietSanPham.length > 1">
+                                                    <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ</span>~ <span
+                                                                    class="price"> {{ itemWithGiaLN.get(item.idSanPham)}} đ</span>
+                                                </span>
+                                                            <span ng-if="item.listChiTietSanPham.length == 1">
+                                                <span class="old-price"
+                                                      ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ
+                                            </span>
+                                                            <span ng-if="item.listChiTietSanPham.length > 1">
+                                               <span class="old-price"
+                                                     ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ ~
+                                                <span class="old-price"
+                                                      ng-bind="getGiaLNOld(item.listChiTietSanPham)"></span>đ
+                                            </span>
+
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- NEW-PRODUCT SINGLE ITEM END -->
+                                        <!-- NEW-PRODUCT SINGLE ITEM START -->
+                                        <div class="item" ng-repeat="item in hotSanPhams | limitTo : 1 : 3">
+                                            <div class="new-product">
+                                                <div class="single-product-item">
+                                                    <div class="product-image">
+                                                        <a href="#/chitietsanpham/{{item.idSanPham}}"><img
+                                                                src="/assets/images/{{item.listAnhSanPham[0].link}}"
+                                                                alt="product-image"/></a>
+                                                        <a href="#" class="new-mark-box">new</a>
+                                                        <div class="overlay-content">
+                                                            <ul>
+                                                                <li><a href="#" title="Quick view"><i
+                                                                        class="fa fa-search"></i></a></li>
+                                                                <li><a href="#" title="Quick view"><i
+                                                                        class="fa fa-shopping-cart"></i></a>
+                                                                </li>
+                                                                <li><a href="#" title="Quick view"><i
+                                                                        class="fa fa-retweet"></i></a></li>
+                                                                <li><a href="#" title="Quick view"><i
+                                                                        class="fa fa-heart-o"></i></a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="product-info">
+                                                        <div class="customar-comments-box">
+                                                            <div class="rating-box">
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star-half-empty"></i>
+                                                            </div>
+                                                            <div class="review-box">
+                                                                <span>3 Review(s)</span>
+                                                            </div>
+                                                        </div>
+                                                        <a href="#/chitietsanpham/{{item.idSanPham}}">{{item.tenSanPham}}</a>
+                                                        <div class="price-box">
+                                                                  <span ng-if="item.listChiTietSanPham.length == 1">
+                                                                            <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ </span>
+                                                </span>
+                                                            <span ng-if="item.listChiTietSanPham.length > 1">
+                                                    <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ</span>~ <span
+                                                                    class="price"> {{ itemWithGiaLN.get(item.idSanPham)}} đ</span>
+                                                </span>
+                                                            <span ng-if="item.listChiTietSanPham.length == 1">
+                                                <span class="old-price"
+                                                      ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ
+                                            </span>
+                                                            <span ng-if="item.listChiTietSanPham.length > 1">
+                                               <span class="old-price"
+                                                     ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ ~
+                                                <span class="old-price"
+                                                      ng-bind="getGiaLNOld(item.listChiTietSanPham)"></span>đ
+                                            </span>
+
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- NEW-PRODUCT SINGLE ITEM END -->
+                                        <!-- NEW-PRODUCT SINGLE ITEM START -->
+                                        <div class="item" ng-repeat="item in hotSanPhams | limitTo : 1 : 4">
+                                            <div class="new-product">
+                                                <div class="single-product-item">
+                                                    <div class="product-image">
+                                                        <a href="#/chitietsanpham/{{item.idSanPham}}"><img
+                                                                src="/assets/images/{{item.listAnhSanPham[0].link}}"
+                                                                alt="product-image"/></a>
+                                                        <a href="#" class="new-mark-box">new</a>
+                                                        <div class="overlay-content">
+                                                            <ul>
+                                                                <li><a href="#" title="Quick view"><i
+                                                                        class="fa fa-search"></i></a></li>
+                                                                <li><a href="#" title="Quick view"><i
+                                                                        class="fa fa-shopping-cart"></i></a>
+                                                                </li>
+                                                                <li><a href="#" title="Quick view"><i
+                                                                        class="fa fa-retweet"></i></a></li>
+                                                                <li><a href="#" title="Quick view"><i
+                                                                        class="fa fa-heart-o"></i></a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="product-info">
+                                                        <div class="customar-comments-box">
+                                                            <div class="rating-box">
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star-half-empty"></i>
+                                                            </div>
+                                                            <div class="review-box">
+                                                                <span>3 Review(s)</span>
+                                                            </div>
+                                                        </div>
+                                                        <a href="#/chitietsanpham/">{{item.tenSanPham}}</a>
+                                                        <div class="price-box">
+                                                                  <span ng-if="item.listChiTietSanPham.length == 1">
+                                                                            <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ </span>
+                                                </span>
+                                                            <span ng-if="item.listChiTietSanPham.length > 1">
+                                                    <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ</span>~ <span
+                                                                    class="price"> {{ itemWithGiaLN.get(item.idSanPham)}} đ</span>
+                                                </span>
+                                                            <span ng-if="item.listChiTietSanPham.length == 1">
+                                                <span class="old-price"
+                                                      ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ
+                                            </span>
+                                                            <span ng-if="item.listChiTietSanPham.length > 1">
+                                               <span class="old-price"
+                                                     ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ ~
+                                                <span class="old-price"
+                                                      ng-bind="getGiaLNOld(item.listChiTietSanPham)"></span>đ
+                                            </span>
+
+
                                                         </div>
                                                     </div>
                                                 </div>
@@ -711,10 +1185,106 @@
                                 <!-- SINGLE ITEM START -->
                                 <div class="item">
                                     <!-- SINGLE-PRODUCT-ITEM START -->
-                                    <div class="single-product-item">
+                                    <div class="single-product-item" ng-repeat="item in featureSanPhams | limitTo : 2 : 0">
                                         <div class="product-image">
-                                            <a href="#"><img src="/assets/img/product/sale/3.jpg" alt="product-image"/></a>
-                                            <a href="#" class="new-mark-box">new</a>
+                                            <a href="#/chitietsanpham/{{item.idSanPham}}"><img
+                                                    src="/assets/images/{{item.listAnhSanPham[0].link}}"
+                                                    alt="product-image"/></a>
+                                            <!--            Khuyen mai-->
+                                            <span ng-repeat="sp in item.listChiTietSanPham ">
+                                                <span ng-if="sp.khuyenMai == null "></span>
+                                                <span ng-if="sp.khuyenMai != null ">
+                                                    <span ng-if="sp.khuyenMai.enabled == false"></span>
+                                                    <span ng-if="sp.khuyenMai.enabled == true">
+
+                                                        <span ng-if="currentDate >  sp.khuyenMai.ngayKetThuc.toString() "></span>
+                                                        <span ng-if="currentDate < sp.khuyenMai.ngayKetThuc.toString()">
+                                                            <span ng-if="currentDate < sp.khuyenMai.ngayBatDau.toString()"></span>
+                                                            <span ng-if="currentDate > sp.khuyenMai.ngayBatDau.toString()">
+                                                                <a href="#" class="new-mark-box">{{sp.khuyenMai.chietKhau}} %</a>
+                                                            </span>
+                                                        </span>
+                                                    </span>
+                                                </span>
+                                            </span>
+                                            <!--            Ket thuc Khuyen mai -->
+
+                                            <div class="overlay-content">
+                                                <ul>
+                                                    <li><a href="#" title="Quick view"><i class="fa fa-search"></i></a>
+                                                    </li>
+                                                    <li><a href="#" title="Quick view"><i class="fa fa-shopping-cart"></i></a></li>
+                                                    <li><a href="#" title="Quick view"><i class="fa fa-retweet"></i></a>
+                                                    </li>
+                                                    <li><a href="#" title="Quick view"><i class="fa fa-heart-o"></i></a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="product-info">
+                                            <div class="customar-comments-box">
+                                                <div class="rating-box">
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star-half-empty"></i>
+                                                </div>
+                                                <div class="review-box">
+                                                    <span>1 Review(s)</span>
+                                                </div>
+                                            </div>
+                                            <a href="#/chitietsanpham/{{item.idSanPham}}">{{item.tenSanPham}}</a>
+                                            <div class="price-box">
+                                                <span ng-if="item.listChiTietSanPham.length == 1">
+                                                    <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ </span>
+                                                </span>
+                                                <span ng-if="item.listChiTietSanPham.length > 1">
+                                                    <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ</span>~ <span
+                                                        class="price"> {{ itemWithGiaLN.get(item.idSanPham)}} đ</span>
+                                                </span>
+                                                <span ng-if="item.listChiTietSanPham.length == 1">
+                                                <span class="old-price"
+                                                      ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ
+                                               </span>
+                                                <span ng-if="item.listChiTietSanPham.length > 1">
+                                                    <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ ~
+                                                     <span class="old-price" ng-bind="getGiaLNOld(item.listChiTietSanPham)"></span>đ
+                                            </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- SINGLE-PRODUCT-ITEM END -->
+
+                                </div>
+                                <!-- SINGLE ITEM END -->
+                                <!-- SINGLE ITEM START -->
+                                <div class="item">
+                                    <!-- SINGLE-PRODUCT-ITEM START -->
+                                    <div class="single-product-item" ng-repeat="item in featureSanPhams | limitTo : 2 : 2">
+                                        <div class="product-image">
+                                            <a href="#/chitietsanpham/{{item.idSanPham}}"><img
+                                                    src="/assets/images/{{item.listAnhSanPham[0].link}}"
+                                                    alt="product-image"/></a>
+                                            <!--            Khuyen mai-->
+                                            <span ng-repeat="sp in item.listChiTietSanPham ">
+                                                <span ng-if="sp.khuyenMai == null "></span>
+                                                <span ng-if="sp.khuyenMai != null ">
+                                                    <span ng-if="sp.khuyenMai.enabled == false"></span>
+                                                    <span ng-if="sp.khuyenMai.enabled == true">
+
+                                                        <span ng-if="currentDate >  sp.khuyenMai.ngayKetThuc.toString() "></span>
+                                                        <span ng-if="currentDate < sp.khuyenMai.ngayKetThuc.toString()">
+                                                            <span ng-if="currentDate < sp.khuyenMai.ngayBatDau.toString()"></span>
+                                                            <span ng-if="currentDate > sp.khuyenMai.ngayBatDau.toString()">
+                                                                <a href="#" class="new-mark-box">{{sp.khuyenMai.chietKhau}} %</a>
+                                                            </span>
+                                                        </span>
+                                                    </span>
+                                                </span>
+                                            </span>
+                                            <!--            Ket thuc Khuyen mai -->
+
                                             <div class="overlay-content">
                                                 <ul>
                                                     <li><a href="#" title="Quick view"><i class="fa fa-search"></i></a>
@@ -741,18 +1311,57 @@
                                                     <span>1 Review(s)</span>
                                                 </div>
                                             </div>
-                                            <a href="single-product.html">Faded Short Sleeves T-shirt</a>
+                                            <a href="#/chitietsanpham/{{item.idSanPham}}">{{item.tenSanPham}}</a>
                                             <div class="price-box">
-                                                <span class="price">$16.51</span>
+                                                <span ng-if="item.listChiTietSanPham.length == 1">
+                                                    <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ </span>
+                                                </span>
+                                                <span ng-if="item.listChiTietSanPham.length > 1">
+                                                    <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ</span>~ <span
+                                                        class="price"> {{ itemWithGiaLN.get(item.idSanPham)}} đ</span>
+                                                </span>
+                                                <span ng-if="item.listChiTietSanPham.length == 1">
+                                                <span class="old-price"
+                                                      ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ
+                                               </span>
+                                                <span ng-if="item.listChiTietSanPham.length > 1">
+                                                    <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ ~
+                                                     <span class="old-price" ng-bind="getGiaLNOld(item.listChiTietSanPham)"></span>đ
+                                            </span>
                                             </div>
                                         </div>
                                     </div>
                                     <!-- SINGLE-PRODUCT-ITEM END -->
+
+                                </div>
+                                <!-- SINGLE ITEM END -->
+                                <!-- SINGLE ITEM START -->
+                                <div class="item">
                                     <!-- SINGLE-PRODUCT-ITEM START -->
-                                    <div class="single-product-item">
+                                    <div class="single-product-item" ng-repeat="item in featureSanPhams | limitTo : 2 : 4">
                                         <div class="product-image">
-                                            <a href="#"><img src="img/product/sale/1.jpg" alt="product-image"/></a>
-                                            <a href="#" class="new-mark-box">sale!</a>
+                                            <a href="#/chitietsanpham/{{item.idSanPham}}"><img
+                                                    src="/assets/images/{{item.listAnhSanPham[0].link}}"
+                                                    alt="product-image"/></a>
+                                            <!--            Khuyen mai-->
+                                            <span ng-repeat="sp in item.listChiTietSanPham ">
+                                                <span ng-if="sp.khuyenMai == null "></span>
+                                                <span ng-if="sp.khuyenMai != null ">
+                                                    <span ng-if="sp.khuyenMai.enabled == false"></span>
+                                                    <span ng-if="sp.khuyenMai.enabled == true">
+
+                                                        <span ng-if="currentDate >  sp.khuyenMai.ngayKetThuc.toString() "></span>
+                                                        <span ng-if="currentDate < sp.khuyenMai.ngayKetThuc.toString()">
+                                                            <span ng-if="currentDate < sp.khuyenMai.ngayBatDau.toString()"></span>
+                                                            <span ng-if="currentDate > sp.khuyenMai.ngayBatDau.toString()">
+                                                                <a href="#" class="new-mark-box">{{sp.khuyenMai.chietKhau}} %</a>
+                                                            </span>
+                                                        </span>
+                                                    </span>
+                                                </span>
+                                            </span>
+                                            <!--            Ket thuc Khuyen mai -->
+
                                             <div class="overlay-content">
                                                 <ul>
                                                     <li><a href="#" title="Quick view"><i class="fa fa-search"></i></a>
@@ -773,16 +1382,414 @@
                                                     <i class="fa fa-star"></i>
                                                     <i class="fa fa-star"></i>
                                                     <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star-half-empty"></i>
                                                 </div>
                                                 <div class="review-box">
                                                     <span>1 Review(s)</span>
                                                 </div>
                                             </div>
-                                            <a href="single-product.html">Blouse</a>
+                                            <a href="#/chitietsanpham/{{item.idSanPham}}">{{item.tenSanPham}}</a>
                                             <div class="price-box">
-                                                <span class="price">$22.95</span>
-                                                <span class="old-price">$27.00</span>
+                                                <span ng-if="item.listChiTietSanPham.length == 1">
+                                                    <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ </span>
+                                                </span>
+                                                <span ng-if="item.listChiTietSanPham.length > 1">
+                                                    <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ</span>~ <span
+                                                        class="price"> {{ itemWithGiaLN.get(item.idSanPham)}} đ</span>
+                                                </span>
+                                                <span ng-if="item.listChiTietSanPham.length == 1">
+                                                <span class="old-price"
+                                                      ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ
+                                               </span>
+                                                <span ng-if="item.listChiTietSanPham.length > 1">
+                                                    <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ ~
+                                                     <span class="old-price" ng-bind="getGiaLNOld(item.listChiTietSanPham)"></span>đ
+                                            </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- SINGLE-PRODUCT-ITEM END -->
+
+                                </div>
+                                <!-- SINGLE ITEM END -->
+                                <!-- SINGLE ITEM START -->
+                                <div class="item">
+                                    <!-- SINGLE-PRODUCT-ITEM START -->
+                                    <div class="single-product-item" ng-repeat="item in featureSanPhams | limitTo : 2 : 6">
+                                        <div class="product-image">
+                                            <a href="#/chitietsanpham/{{item.idSanPham}}"><img
+                                                    src="/assets/images/{{item.listAnhSanPham[0].link}}"
+                                                    alt="product-image"/></a>
+                                            <!--            Khuyen mai-->
+                                            <span ng-repeat="sp in item.listChiTietSanPham ">
+                                                <span ng-if="sp.khuyenMai == null "></span>
+                                                <span ng-if="sp.khuyenMai != null ">
+                                                    <span ng-if="sp.khuyenMai.enabled == false"></span>
+                                                    <span ng-if="sp.khuyenMai.enabled == true">
+
+                                                        <span ng-if="currentDate >  sp.khuyenMai.ngayKetThuc.toString() "></span>
+                                                        <span ng-if="currentDate < sp.khuyenMai.ngayKetThuc.toString()">
+                                                            <span ng-if="currentDate < sp.khuyenMai.ngayBatDau.toString()"></span>
+                                                            <span ng-if="currentDate > sp.khuyenMai.ngayBatDau.toString()">
+                                                                <a href="#" class="new-mark-box">{{sp.khuyenMai.chietKhau}} %</a>
+                                                            </span>
+                                                        </span>
+                                                    </span>
+                                                </span>
+                                            </span>
+                                            <!--            Ket thuc Khuyen mai -->
+
+                                            <div class="overlay-content">
+                                                <ul>
+                                                    <li><a href="#" title="Quick view"><i class="fa fa-search"></i></a>
+                                                    </li>
+                                                    <li><a href="#" title="Quick view"><i
+                                                            class="fa fa-shopping-cart"></i></a></li>
+                                                    <li><a href="#" title="Quick view"><i class="fa fa-retweet"></i></a>
+                                                    </li>
+                                                    <li><a href="#" title="Quick view"><i class="fa fa-heart-o"></i></a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="product-info">
+                                            <div class="customar-comments-box">
+                                                <div class="rating-box">
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star-half-empty"></i>
+                                                </div>
+                                                <div class="review-box">
+                                                    <span>1 Review(s)</span>
+                                                </div>
+                                            </div>
+                                            <a href="#/chitietsanpham/{{item.idSanPham}}">{{item.tenSanPham}}</a>
+                                            <div class="price-box">
+                                                <span ng-if="item.listChiTietSanPham.length == 1">
+                                                    <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ </span>
+                                                </span>
+                                                <span ng-if="item.listChiTietSanPham.length > 1">
+                                                    <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ</span>~ <span
+                                                        class="price"> {{ itemWithGiaLN.get(item.idSanPham)}} đ</span>
+                                                </span>
+                                                <span ng-if="item.listChiTietSanPham.length == 1">
+                                                <span class="old-price"
+                                                      ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ
+                                               </span>
+                                                <span ng-if="item.listChiTietSanPham.length > 1">
+                                                    <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ ~
+                                                     <span class="old-price" ng-bind="getGiaLNOld(item.listChiTietSanPham)"></span>đ
+                                            </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- SINGLE-PRODUCT-ITEM END -->
+
+                                </div>
+                                <!-- SINGLE ITEM END -->
+                                <!-- SINGLE ITEM START -->
+                                <div class="item">
+                                    <!-- SINGLE-PRODUCT-ITEM START -->
+                                    <div class="single-product-item" ng-repeat="item in featureSanPhams | limitTo : 2 : 8">
+                                        <div class="product-image">
+                                            <a href="#/chitietsanpham/{{item.idSanPham}}"><img
+                                                    src="/assets/images/{{item.listAnhSanPham[0].link}}"
+                                                    alt="product-image"/></a>
+                                            <!--            Khuyen mai-->
+                                            <span ng-repeat="sp in item.listChiTietSanPham ">
+                                                <span ng-if="sp.khuyenMai == null "></span>
+                                                <span ng-if="sp.khuyenMai != null ">
+                                                    <span ng-if="sp.khuyenMai.enabled == false"></span>
+                                                    <span ng-if="sp.khuyenMai.enabled == true">
+
+                                                        <span ng-if="currentDate >  sp.khuyenMai.ngayKetThuc.toString() "></span>
+                                                        <span ng-if="currentDate < sp.khuyenMai.ngayKetThuc.toString()">
+                                                            <span ng-if="currentDate < sp.khuyenMai.ngayBatDau.toString()"></span>
+                                                            <span ng-if="currentDate > sp.khuyenMai.ngayBatDau.toString()">
+                                                                <a href="#" class="new-mark-box">{{sp.khuyenMai.chietKhau}} %</a>
+                                                            </span>
+                                                        </span>
+                                                    </span>
+                                                </span>
+                                            </span>
+                                            <!--            Ket thuc Khuyen mai -->
+
+                                            <div class="overlay-content">
+                                                <ul>
+                                                    <li><a href="#" title="Quick view"><i class="fa fa-search"></i></a>
+                                                    </li>
+                                                    <li><a href="#" title="Quick view"><i
+                                                            class="fa fa-shopping-cart"></i></a></li>
+                                                    <li><a href="#" title="Quick view"><i class="fa fa-retweet"></i></a>
+                                                    </li>
+                                                    <li><a href="#" title="Quick view"><i class="fa fa-heart-o"></i></a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="product-info">
+                                            <div class="customar-comments-box">
+                                                <div class="rating-box">
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star-half-empty"></i>
+                                                </div>
+                                                <div class="review-box">
+                                                    <span>1 Review(s)</span>
+                                                </div>
+                                            </div>
+                                            <a href="#/chitietsanpham/{{item.idSanPham}}">{{item.tenSanPham}}</a>
+                                            <div class="price-box">
+                                                <span ng-if="item.listChiTietSanPham.length == 1">
+                                                    <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ </span>
+                                                </span>
+                                                <span ng-if="item.listChiTietSanPham.length > 1">
+                                                    <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ</span>~ <span
+                                                        class="price"> {{ itemWithGiaLN.get(item.idSanPham)}} đ</span>
+                                                </span>
+                                                <span ng-if="item.listChiTietSanPham.length == 1">
+                                                <span class="old-price"
+                                                      ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ
+                                               </span>
+                                                <span ng-if="item.listChiTietSanPham.length > 1">
+                                                    <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ ~
+                                                     <span class="old-price" ng-bind="getGiaLNOld(item.listChiTietSanPham)"></span>đ
+                                            </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- SINGLE-PRODUCT-ITEM END -->
+
+                                </div>
+                                <!-- SINGLE ITEM END -->
+                                <!-- SINGLE ITEM START -->
+                                <div class="item">
+                                    <!-- SINGLE-PRODUCT-ITEM START -->
+                                    <div class="single-product-item" ng-repeat="item in featureSanPhams | limitTo : 2 : 10">
+                                        <div class="product-image">
+                                            <a href="#/chitietsanpham/{{item.idSanPham}}"><img
+                                                    src="/assets/images/{{item.listAnhSanPham[0].link}}"
+                                                    alt="product-image"/></a>
+                                            <!--            Khuyen mai-->
+                                            <span ng-repeat="sp in item.listChiTietSanPham ">
+                                                <span ng-if="sp.khuyenMai == null "></span>
+                                                <span ng-if="sp.khuyenMai != null ">
+                                                    <span ng-if="sp.khuyenMai.enabled == false"></span>
+                                                    <span ng-if="sp.khuyenMai.enabled == true">
+
+                                                        <span ng-if="currentDate >  sp.khuyenMai.ngayKetThuc.toString() "></span>
+                                                        <span ng-if="currentDate < sp.khuyenMai.ngayKetThuc.toString()">
+                                                            <span ng-if="currentDate < sp.khuyenMai.ngayBatDau.toString()"></span>
+                                                            <span ng-if="currentDate > sp.khuyenMai.ngayBatDau.toString()">
+                                                                <a href="#" class="new-mark-box">{{sp.khuyenMai.chietKhau}} %</a>
+                                                            </span>
+                                                        </span>
+                                                    </span>
+                                                </span>
+                                            </span>
+                                            <!--            Ket thuc Khuyen mai -->
+
+                                            <div class="overlay-content">
+                                                <ul>
+                                                    <li><a href="#" title="Quick view"><i class="fa fa-search"></i></a>
+                                                    </li>
+                                                    <li><a href="#" title="Quick view"><i
+                                                            class="fa fa-shopping-cart"></i></a></li>
+                                                    <li><a href="#" title="Quick view"><i class="fa fa-retweet"></i></a>
+                                                    </li>
+                                                    <li><a href="#" title="Quick view"><i class="fa fa-heart-o"></i></a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="product-info">
+                                            <div class="customar-comments-box">
+                                                <div class="rating-box">
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star-half-empty"></i>
+                                                </div>
+                                                <div class="review-box">
+                                                    <span>1 Review(s)</span>
+                                                </div>
+                                            </div>
+                                            <a href="#/chitietsanpham/{{item.idSanPham}}">{{item.tenSanPham}}</a>
+                                            <div class="price-box">
+                                                <span ng-if="item.listChiTietSanPham.length == 1">
+                                                    <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ </span>
+                                                </span>
+                                                <span ng-if="item.listChiTietSanPham.length > 1">
+                                                    <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ</span>~ <span
+                                                        class="price"> {{ itemWithGiaLN.get(item.idSanPham)}} đ</span>
+                                                </span>
+                                                <span ng-if="item.listChiTietSanPham.length == 1">
+                                                <span class="old-price"
+                                                      ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ
+                                               </span>
+                                                <span ng-if="item.listChiTietSanPham.length > 1">
+                                                    <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ ~
+                                                     <span class="old-price" ng-bind="getGiaLNOld(item.listChiTietSanPham)"></span>đ
+                                            </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- SINGLE-PRODUCT-ITEM END -->
+
+                                </div>
+                                <!-- SINGLE ITEM END -->
+                                <!-- SINGLE ITEM START -->
+                                <div class="item">
+                                    <!-- SINGLE-PRODUCT-ITEM START -->
+                                    <div class="single-product-item" ng-repeat="item in featureSanPhams | limitTo : 2 : 12">
+                                        <div class="product-image">
+                                            <a href="#/chitietsanpham/{{item.idSanPham}}"><img
+                                                    src="/assets/images/{{item.listAnhSanPham[0].link}}"
+                                                    alt="product-image"/></a>
+                                            <!--            Khuyen mai-->
+                                            <span ng-repeat="sp in item.listChiTietSanPham ">
+                                                <span ng-if="sp.khuyenMai == null "></span>
+                                                <span ng-if="sp.khuyenMai != null ">
+                                                    <span ng-if="sp.khuyenMai.enabled == false"></span>
+                                                    <span ng-if="sp.khuyenMai.enabled == true">
+
+                                                        <span ng-if="currentDate >  sp.khuyenMai.ngayKetThuc.toString() "></span>
+                                                        <span ng-if="currentDate < sp.khuyenMai.ngayKetThuc.toString()">
+                                                            <span ng-if="currentDate < sp.khuyenMai.ngayBatDau.toString()"></span>
+                                                            <span ng-if="currentDate > sp.khuyenMai.ngayBatDau.toString()">
+                                                                <a href="#" class="new-mark-box">{{sp.khuyenMai.chietKhau}} %</a>
+                                                            </span>
+                                                        </span>
+                                                    </span>
+                                                </span>
+                                            </span>
+                                            <!--            Ket thuc Khuyen mai -->
+
+                                            <div class="overlay-content">
+                                                <ul>
+                                                    <li><a href="#" title="Quick view"><i class="fa fa-search"></i></a>
+                                                    </li>
+                                                    <li><a href="#" title="Quick view"><i
+                                                            class="fa fa-shopping-cart"></i></a></li>
+                                                    <li><a href="#" title="Quick view"><i class="fa fa-retweet"></i></a>
+                                                    </li>
+                                                    <li><a href="#" title="Quick view"><i class="fa fa-heart-o"></i></a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="product-info">
+                                            <div class="customar-comments-box">
+                                                <div class="rating-box">
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star-half-empty"></i>
+                                                </div>
+                                                <div class="review-box">
+                                                    <span>1 Review(s)</span>
+                                                </div>
+                                            </div>
+                                            <a href="#/chitietsanpham/{{item.idSanPham}}">{{item.tenSanPham}}</a>
+                                            <div class="price-box">
+                                                <span ng-if="item.listChiTietSanPham.length == 1">
+                                                    <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ </span>
+                                                </span>
+                                                <span ng-if="item.listChiTietSanPham.length > 1">
+                                                    <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ</span>~ <span
+                                                        class="price"> {{ itemWithGiaLN.get(item.idSanPham)}} đ</span>
+                                                </span>
+                                                <span ng-if="item.listChiTietSanPham.length == 1">
+                                                <span class="old-price"
+                                                      ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ
+                                               </span>
+                                                <span ng-if="item.listChiTietSanPham.length > 1">
+                                                    <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ ~
+                                                     <span class="old-price" ng-bind="getGiaLNOld(item.listChiTietSanPham)"></span>đ
+                                            </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- SINGLE-PRODUCT-ITEM END -->
+
+                                </div>
+                                <!-- SINGLE ITEM END -->
+                                <!-- SINGLE ITEM START -->
+                                <div class="item">
+                                    <!-- SINGLE-PRODUCT-ITEM START -->
+                                    <div class="single-product-item" ng-repeat="item in featureSanPhams | limitTo : 2 : 14">
+                                        <div class="product-image">
+                                            <a href="#/chitietsanpham/{{item.idSanPham}}"><img
+                                                    src="/assets/images/{{item.listAnhSanPham[0].link}}"
+                                                    alt="product-image"/></a>
+                                            <!--            Khuyen mai-->
+                                            <span ng-repeat="sp in item.listChiTietSanPham ">
+                                                <span ng-if="sp.khuyenMai == null "></span>
+                                                <span ng-if="sp.khuyenMai != null ">
+                                                    <span ng-if="sp.khuyenMai.enabled == false"></span>
+                                                    <span ng-if="sp.khuyenMai.enabled == true">
+
+                                                        <span ng-if="currentDate >  sp.khuyenMai.ngayKetThuc.toString() "></span>
+                                                        <span ng-if="currentDate < sp.khuyenMai.ngayKetThuc.toString()">
+                                                            <span ng-if="currentDate < sp.khuyenMai.ngayBatDau.toString()"></span>
+                                                            <span ng-if="currentDate > sp.khuyenMai.ngayBatDau.toString()">
+                                                                <a href="#" class="new-mark-box">{{sp.khuyenMai.chietKhau}} %</a>
+                                                            </span>
+                                                        </span>
+                                                    </span>
+                                                </span>
+                                            </span>
+                                            <!--            Ket thuc Khuyen mai -->
+
+                                            <div class="overlay-content">
+                                                <ul>
+                                                    <li><a href="#" title="Quick view"><i class="fa fa-search"></i></a>
+                                                    </li>
+                                                    <li><a href="#" title="Quick view"><i
+                                                            class="fa fa-shopping-cart"></i></a></li>
+                                                    <li><a href="#" title="Quick view"><i class="fa fa-retweet"></i></a>
+                                                    </li>
+                                                    <li><a href="#" title="Quick view"><i class="fa fa-heart-o"></i></a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="product-info">
+                                            <div class="customar-comments-box">
+                                                <div class="rating-box">
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star-half-empty"></i>
+                                                </div>
+                                                <div class="review-box">
+                                                    <span>1 Review(s)</span>
+                                                </div>
+                                            </div>
+                                            <a href="#/chitietsanpham/{{item.idSanPham}}">{{item.tenSanPham}}</a>
+                                            <div class="price-box">
+                                                <span ng-if="item.listChiTietSanPham.length == 1">
+                                                    <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ </span>
+                                                </span>
+                                                <span ng-if="item.listChiTietSanPham.length > 1">
+                                                    <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ</span>~ <span
+                                                        class="price"> {{ itemWithGiaLN.get(item.idSanPham)}} đ</span>
+                                                </span>
+                                                <span ng-if="item.listChiTietSanPham.length == 1">
+                                                <span class="old-price"
+                                                      ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ
+                                               </span>
+                                                <span ng-if="item.listChiTietSanPham.length > 1">
+                                                    <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ ~
+                                                     <span class="old-price" ng-bind="getGiaLNOld(item.listChiTietSanPham)"></span>đ
+                                            </span>
                                             </div>
                                         </div>
                                     </div>
@@ -792,333 +1799,30 @@
                                 <!-- SINGLE ITEM START -->
                                 <div class="item">
                                     <!-- SINGLE-PRODUCT-ITEM START -->
-                                    <div class="single-product-item">
+                                    <div class="single-product-item" ng-repeat="item in featureSanPhams | limitTo : 2 : 16">
                                         <div class="product-image">
-                                            <a href="#"><img src="img/product/sale/9.jpg" alt="product-image"/></a>
-                                            <a href="#" class="new-mark-box">sale!</a>
-                                            <div class="overlay-content">
-                                                <ul>
-                                                    <li><a href="#" title="Quick view"><i class="fa fa-search"></i></a>
-                                                    </li>
-                                                    <li><a href="#" title="Quick view"><i
-                                                            class="fa fa-shopping-cart"></i></a></li>
-                                                    <li><a href="#" title="Quick view"><i class="fa fa-retweet"></i></a>
-                                                    </li>
-                                                    <li><a href="#" title="Quick view"><i class="fa fa-heart-o"></i></a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="product-info">
-                                            <div class="customar-comments-box">
-                                                <div class="rating-box">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star-half-empty"></i>
-                                                    <i class="fa fa-star-half-empty"></i>
-                                                </div>
-                                                <div class="review-box">
-                                                    <span>1 Review(s)</span>
-                                                </div>
-                                            </div>
-                                            <a href="single-product.html">Printed Dress</a>
-                                            <div class="price-box">
-                                                <span class="price">$23.40</span>
-                                                <span class="old-price">$26.00</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- SINGLE-PRODUCT-ITEM END -->
-                                    <!-- SINGLE-PRODUCT-ITEM START -->
-                                    <div class="single-product-item">
-                                        <div class="product-image">
-                                            <a href="#"><img src="img/product/sale/5.jpg" alt="product-image"/></a>
-                                            <a href="#" class="new-mark-box">new</a>
-                                            <div class="overlay-content">
-                                                <ul>
-                                                    <li><a href="#" title="Quick view"><i class="fa fa-search"></i></a>
-                                                    </li>
-                                                    <li><a href="#" title="Quick view"><i
-                                                            class="fa fa-shopping-cart"></i></a></li>
-                                                    <li><a href="#" title="Quick view"><i class="fa fa-retweet"></i></a>
-                                                    </li>
-                                                    <li><a href="#" title="Quick view"><i class="fa fa-heart-o"></i></a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="product-info">
-                                            <div class="customar-comments-box">
-                                                <div class="rating-box">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star-half-empty"></i>
-                                                </div>
-                                                <div class="review-box">
-                                                    <span>1 Review(s)</span>
-                                                </div>
-                                            </div>
-                                            <a href="single-product.html">Printed Dress</a>
-                                            <div class="price-box">
-                                                <span class="price">$50.99</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- SINGLE-PRODUCT-ITEM END -->
-                                </div>
-                                <!-- SINGLE ITEM END -->
-                                <!-- SINGLE ITEM START -->
-                                <div class="item">
-                                    <!-- SINGLE-PRODUCT-ITEM START -->
-                                    <div class="single-product-item">
-                                        <div class="product-image">
-                                            <a href="#"><img src="img/product/sale/12.jpg" alt="product-image"/></a>
-                                            <a href="#" class="new-mark-box">new</a>
-                                            <div class="overlay-content">
-                                                <ul>
-                                                    <li><a href="#" title="Quick view"><i class="fa fa-search"></i></a>
-                                                    </li>
-                                                    <li><a href="#" title="Quick view"><i
-                                                            class="fa fa-shopping-cart"></i></a></li>
-                                                    <li><a href="#" title="Quick view"><i class="fa fa-retweet"></i></a>
-                                                    </li>
-                                                    <li><a href="#" title="Quick view"><i class="fa fa-heart-o"></i></a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="product-info">
-                                            <div class="customar-comments-box">
-                                                <div class="rating-box">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star-half-empty"></i>
-                                                    <i class="fa fa-star-half-empty"></i>
-                                                </div>
-                                                <div class="review-box">
-                                                    <span>1 Review(s)</span>
-                                                </div>
-                                            </div>
-                                            <a href="single-product.html">Printed Summer Dress</a>
-                                            <div class="price-box">
-                                                <span class="price">$28.98</span>
-                                                <span class="old-price">$30.51</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- SINGLE-PRODUCT-ITEM END -->
-                                    <!-- SINGLE-PRODUCT-ITEM START -->
-                                    <div class="single-product-item">
-                                        <div class="product-image">
-                                            <a href="#"><img src="img/product/sale/13.jpg" alt="product-image"/></a>
-                                            <a href="#" class="new-mark-box">new</a>
-                                            <div class="overlay-content">
-                                                <ul>
-                                                    <li><a href="#" title="Quick view"><i class="fa fa-search"></i></a>
-                                                    </li>
-                                                    <li><a href="#" title="Quick view"><i
-                                                            class="fa fa-shopping-cart"></i></a></li>
-                                                    <li><a href="#" title="Quick view"><i class="fa fa-retweet"></i></a>
-                                                    </li>
-                                                    <li><a href="#" title="Quick view"><i class="fa fa-heart-o"></i></a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="product-info">
-                                            <div class="customar-comments-box">
-                                                <div class="rating-box">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="review-box">
-                                                    <span>1 Review(s)</span>
-                                                </div>
-                                            </div>
-                                            <a href="single-product.html">Printed Summer Dress</a>
-                                            <div class="price-box">
-                                                <span class="price">$30.50</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- SINGLE-PRODUCT-ITEM END -->
-                                </div>
-                                <!-- SINGLE ITEM END -->
-                                <!-- SINGLE ITEM START -->
-                                <div class="item">
-                                    <!-- SINGLE-PRODUCT-ITEM START -->
-                                    <div class="single-product-item">
-                                        <div class="product-image">
-                                            <a href="#"><img src="img/product/sale/7.jpg" alt="product-image"/></a>
-                                            <a href="#" class="new-mark-box">new</a>
-                                            <div class="overlay-content">
-                                                <ul>
-                                                    <li><a href="#" title="Quick view"><i class="fa fa-search"></i></a>
-                                                    </li>
-                                                    <li><a href="#" title="Quick view"><i
-                                                            class="fa fa-shopping-cart"></i></a></li>
-                                                    <li><a href="#" title="Quick view"><i class="fa fa-retweet"></i></a>
-                                                    </li>
-                                                    <li><a href="#" title="Quick view"><i class="fa fa-heart-o"></i></a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="product-info">
-                                            <div class="customar-comments-box">
-                                                <div class="rating-box">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star-half-empty"></i>
-                                                    <i class="fa fa-star-half-empty"></i>
-                                                </div>
-                                                <div class="review-box">
-                                                    <span>1 Review(s)</span>
-                                                </div>
-                                            </div>
-                                            <a href="single-product.html">Printed Chiffon Dress</a>
-                                            <div class="price-box">
-                                                <span class="price">$16.40</span>
-                                                <span class="old-price">$20.50</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- SINGLE-PRODUCT-ITEM END -->
-                                    <!-- SINGLE-PRODUCT-ITEM START -->
-                                    <div class="single-product-item">
-                                        <div class="product-image">
-                                            <a href="#"><img src="img/product/sale/11.jpg" alt="product-image"/></a>
-                                            <a href="#" class="new-mark-box">new</a>
-                                            <div class="overlay-content">
-                                                <ul>
-                                                    <li><a href="#" title="Quick view"><i class="fa fa-search"></i></a>
-                                                    </li>
-                                                    <li><a href="#" title="Quick view"><i
-                                                            class="fa fa-shopping-cart"></i></a></li>
-                                                    <li><a href="#" title="Quick view"><i class="fa fa-retweet"></i></a>
-                                                    </li>
-                                                    <li><a href="#" title="Quick view"><i class="fa fa-heart-o"></i></a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="product-info">
-                                            <div class="customar-comments-box">
-                                                <div class="rating-box">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star-half-empty"></i>
-                                                    <i class="fa fa-star-half-empty"></i>
-                                                </div>
-                                                <div class="review-box">
-                                                    <span>1 Review(s)</span>
-                                                </div>
-                                            </div>
-                                            <a href="single-product.html">Printed Dress</a>
-                                            <div class="price-box">
-                                                <span class="price">$26.00</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- SINGLE-PRODUCT-ITEM END -->
-                                </div>
-                                <!-- SINGLE ITEM END -->
-                                <!-- SINGLE ITEM START -->
-                                <div class="item">
-                                    <!-- SINGLE-PRODUCT-ITEM START -->
-                                    <div class="single-product-item">
-                                        <div class="product-image">
-                                            <a href="#"><img src="img/product/sale/10.jpg" alt="product-image"/></a>
-                                            <a href="#" class="new-mark-box">new</a>
-                                            <div class="overlay-content">
-                                                <ul>
-                                                    <li><a href="#" title="Quick view"><i class="fa fa-search"></i></a>
-                                                    </li>
-                                                    <li><a href="#" title="Quick view"><i
-                                                            class="fa fa-shopping-cart"></i></a></li>
-                                                    <li><a href="#" title="Quick view"><i class="fa fa-retweet"></i></a>
-                                                    </li>
-                                                    <li><a href="#" title="Quick view"><i class="fa fa-heart-o"></i></a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="product-info">
-                                            <div class="customar-comments-box">
-                                                <div class="rating-box">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star-half-empty"></i>
-                                                    <i class="fa fa-star-half-empty"></i>
-                                                </div>
-                                                <div class="review-box">
-                                                    <span>1 Review(s)</span>
-                                                </div>
-                                            </div>
-                                            <a href="single-product.html">Printed Dress</a>
-                                            <div class="price-box">
-                                                <span class="price">$26.00</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- SINGLE-PRODUCT-ITEM END -->
-                                    <!-- SINGLE-PRODUCT-ITEM START -->
-                                    <div class="single-product-item">
-                                        <div class="product-image">
-                                            <a href="#"><img src="img/product/sale/2.jpg" alt="product-image"/></a>
-                                            <a href="#" class="new-mark-box">new</a>
-                                            <div class="overlay-content">
-                                                <ul>
-                                                    <li><a href="#" title="Quick view"><i class="fa fa-search"></i></a>
-                                                    </li>
-                                                    <li><a href="#" title="Quick view"><i
-                                                            class="fa fa-shopping-cart"></i></a></li>
-                                                    <li><a href="#" title="Quick view"><i class="fa fa-retweet"></i></a>
-                                                    </li>
-                                                    <li><a href="#" title="Quick view"><i class="fa fa-heart-o"></i></a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="product-info">
-                                            <div class="customar-comments-box">
-                                                <div class="rating-box">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="review-box">
-                                                    <span>1 Review(s)</span>
-                                                </div>
-                                            </div>
-                                            <a href="single-product.html">Blouse</a>
-                                            <div class="price-box">
-                                                <span class="price">$27.00</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- SINGLE-PRODUCT-ITEM END -->
-                                </div>
-                                <!-- SINGLE ITEM END -->
-                                <!-- SINGLE ITEM START -->
-                                <div class="item">
-                                    <!-- SINGLE-PRODUCT-ITEM START -->
-                                    <div class="single-product-item">
-                                        <div class="product-image">
-                                            <a href="#"><img src="img/product/sale/4.jpg" alt="product-image"/></a>
-                                            <a href="#" class="new-mark-box">new</a>
+                                            <a href="#/chitietsanpham/{{item.idSanPham}}"><img
+                                                    src="/assets/images/{{item.listAnhSanPham[0].link}}"
+                                                    alt="product-image"/></a>
+                                            <!--            Khuyen mai-->
+                                            <span ng-repeat="sp in item.listChiTietSanPham ">
+                                                <span ng-if="sp.khuyenMai == null "></span>
+                                                <span ng-if="sp.khuyenMai != null ">
+                                                    <span ng-if="sp.khuyenMai.enabled == false"></span>
+                                                    <span ng-if="sp.khuyenMai.enabled == true">
+
+                                                        <span ng-if="currentDate >  sp.khuyenMai.ngayKetThuc.toString() "></span>
+                                                        <span ng-if="currentDate < sp.khuyenMai.ngayKetThuc.toString()">
+                                                            <span ng-if="currentDate < sp.khuyenMai.ngayBatDau.toString()"></span>
+                                                            <span ng-if="currentDate > sp.khuyenMai.ngayBatDau.toString()">
+                                                                <a href="#" class="new-mark-box">{{sp.khuyenMai.chietKhau}} %</a>
+                                                            </span>
+                                                        </span>
+                                                    </span>
+                                                </span>
+                                            </span>
+                                            <!--            Ket thuc Khuyen mai -->
+
                                             <div class="overlay-content">
                                                 <ul>
                                                     <li><a href="#" title="Quick view"><i class="fa fa-search"></i></a>
@@ -1145,294 +1849,28 @@
                                                     <span>1 Review(s)</span>
                                                 </div>
                                             </div>
-                                            <a href="single-product.html">Faded Short Sleeves T-shirt</a>
+                                            <a href="#/chitietsanpham/{{item.idSanPham}}">{{item.tenSanPham}}</a>
                                             <div class="price-box">
-                                                <span class="price">$16.51</span>
+                                                <span ng-if="item.listChiTietSanPham.length == 1">
+                                                    <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ </span>
+                                                </span>
+                                                <span ng-if="item.listChiTietSanPham.length > 1">
+                                                    <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ</span>~ <span
+                                                        class="price"> {{ itemWithGiaLN.get(item.idSanPham)}} đ</span>
+                                                </span>
+                                                <span ng-if="item.listChiTietSanPham.length == 1">
+                                                <span class="old-price"
+                                                      ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ
+                                               </span>
+                                                <span ng-if="item.listChiTietSanPham.length > 1">
+                                                    <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ ~
+                                                     <span class="old-price" ng-bind="getGiaLNOld(item.listChiTietSanPham)"></span>đ
+                                            </span>
                                             </div>
                                         </div>
                                     </div>
                                     <!-- SINGLE-PRODUCT-ITEM END -->
-                                    <!-- SINGLE-PRODUCT-ITEM START -->
-                                    <div class="single-product-item">
-                                        <div class="product-image">
-                                            <a href="#"><img src="img/product/sale/6.jpg" alt="product-image"/></a>
-                                            <a href="#" class="new-mark-box">new</a>
-                                            <div class="overlay-content">
-                                                <ul>
-                                                    <li><a href="#" title="Quick view"><i class="fa fa-search"></i></a>
-                                                    </li>
-                                                    <li><a href="#" title="Quick view"><i
-                                                            class="fa fa-shopping-cart"></i></a></li>
-                                                    <li><a href="#" title="Quick view"><i class="fa fa-retweet"></i></a>
-                                                    </li>
-                                                    <li><a href="#" title="Quick view"><i class="fa fa-heart-o"></i></a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="product-info">
-                                            <div class="customar-comments-box">
-                                                <div class="rating-box">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="review-box">
-                                                    <span>1 Review(s)</span>
-                                                </div>
-                                            </div>
-                                            <a href="single-product.html">Printed Chiffon Dress</a>
-                                            <div class="price-box">
-                                                <span class="price">$16.40</span>
-                                                <span class="old-price">$20.50</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- SINGLE-PRODUCT-ITEM END -->
-                                </div>
-                                <!-- SINGLE ITEM END -->
-                                <!-- SINGLE ITEM START -->
-                                <div class="item">
-                                    <!-- SINGLE-PRODUCT-ITEM START -->
-                                    <div class="single-product-item">
-                                        <div class="product-image">
-                                            <a href="#"><img src="img/product/sale/8.jpg" alt="product-image"/></a>
-                                            <a href="#" class="new-mark-box">new</a>
-                                            <div class="overlay-content">
-                                                <ul>
-                                                    <li><a href="#" title="Quick view"><i class="fa fa-search"></i></a>
-                                                    </li>
-                                                    <li><a href="#" title="Quick view"><i
-                                                            class="fa fa-shopping-cart"></i></a></li>
-                                                    <li><a href="#" title="Quick view"><i class="fa fa-retweet"></i></a>
-                                                    </li>
-                                                    <li><a href="#" title="Quick view"><i class="fa fa-heart-o"></i></a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="product-info">
-                                            <div class="customar-comments-box">
-                                                <div class="rating-box">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star-half-empty"></i>
-                                                </div>
-                                                <div class="review-box">
-                                                    <span>1 Review(s)</span>
-                                                </div>
-                                            </div>
-                                            <a href="single-product.html">Printed Dress</a>
-                                            <div class="price-box">
-                                                <span class="price">$26.00</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- SINGLE-PRODUCT-ITEM END -->
-                                    <!-- SINGLE-PRODUCT-ITEM START -->
-                                    <div class="single-product-item">
-                                        <div class="product-image">
-                                            <a href="#"><img src="img/product/sale/13.jpg" alt="product-image"/></a>
-                                            <a href="#" class="new-mark-box">new</a>
-                                            <div class="overlay-content">
-                                                <ul>
-                                                    <li><a href="#" title="Quick view"><i class="fa fa-search"></i></a>
-                                                    </li>
-                                                    <li><a href="#" title="Quick view"><i
-                                                            class="fa fa-shopping-cart"></i></a></li>
-                                                    <li><a href="#" title="Quick view"><i class="fa fa-retweet"></i></a>
-                                                    </li>
-                                                    <li><a href="#" title="Quick view"><i class="fa fa-heart-o"></i></a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="product-info">
-                                            <div class="customar-comments-box">
-                                                <div class="rating-box">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="review-box">
-                                                    <span>1 Review(s)</span>
-                                                </div>
-                                            </div>
-                                            <a href="single-product.html">Printed Summer Dress</a>
-                                            <div class="price-box">
-                                                <span class="price">$30.50</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- SINGLE-PRODUCT-ITEM END -->
-                                </div>
-                                <!-- SINGLE ITEM END -->
-                                <!-- SINGLE ITEM START -->
-                                <div class="item">
-                                    <!-- SINGLE-PRODUCT-ITEM START -->
-                                    <div class="single-product-item">
-                                        <div class="product-image">
-                                            <a href="#"><img src="img/product/sale/12.jpg" alt="product-image"/></a>
-                                            <a href="#" class="new-mark-box">new</a>
-                                            <div class="overlay-content">
-                                                <ul>
-                                                    <li><a href="#" title="Quick view"><i class="fa fa-search"></i></a>
-                                                    </li>
-                                                    <li><a href="#" title="Quick view"><i
-                                                            class="fa fa-shopping-cart"></i></a></li>
-                                                    <li><a href="#" title="Quick view"><i class="fa fa-retweet"></i></a>
-                                                    </li>
-                                                    <li><a href="#" title="Quick view"><i class="fa fa-heart-o"></i></a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="product-info">
-                                            <div class="customar-comments-box">
-                                                <div class="rating-box">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star-half-empty"></i>
-                                                    <i class="fa fa-star-half-empty"></i>
-                                                </div>
-                                                <div class="review-box">
-                                                    <span>1 Review(s)</span>
-                                                </div>
-                                            </div>
-                                            <a href="single-product.html">Printed Summer Dress</a>
-                                            <div class="price-box">
-                                                <span class="price">$28.98</span>
-                                                <span class="old-price">$30.51</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- SINGLE-PRODUCT-ITEM END -->
-                                    <!-- SINGLE-PRODUCT-ITEM START -->
-                                    <div class="single-product-item">
-                                        <div class="product-image">
-                                            <a href="#"><img src="img/product/sale/3.jpg" alt="product-image"/></a>
-                                            <a href="#" class="new-mark-box">new</a>
-                                            <div class="overlay-content">
-                                                <ul>
-                                                    <li><a href="#" title="Quick view"><i class="fa fa-search"></i></a>
-                                                    </li>
-                                                    <li><a href="#" title="Quick view"><i
-                                                            class="fa fa-shopping-cart"></i></a></li>
-                                                    <li><a href="#" title="Quick view"><i class="fa fa-retweet"></i></a>
-                                                    </li>
-                                                    <li><a href="#" title="Quick view"><i class="fa fa-heart-o"></i></a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="product-info">
-                                            <div class="customar-comments-box">
-                                                <div class="rating-box">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="review-box">
-                                                    <span>1 Review(s)</span>
-                                                </div>
-                                            </div>
-                                            <a href="single-product.html">Printed Summer Dress</a>
-                                            <div class="price-box">
-                                                <span class="price">$30.50</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- SINGLE-PRODUCT-ITEM END -->
-                                </div>
-                                <!-- SINGLE ITEM END -->
-                                <!-- SINGLE ITEM START -->
-                                <div class="item">
-                                    <!-- SINGLE-PRODUCT-ITEM START -->
-                                    <div class="single-product-item">
-                                        <div class="product-image">
-                                            <a href="#"><img src="img/product/sale/7.jpg" alt="product-image"/></a>
-                                            <a href="#" class="new-mark-box">new</a>
-                                            <div class="overlay-content">
-                                                <ul>
-                                                    <li><a href="#" title="Quick view"><i class="fa fa-search"></i></a>
-                                                    </li>
-                                                    <li><a href="#" title="Quick view"><i
-                                                            class="fa fa-shopping-cart"></i></a></li>
-                                                    <li><a href="#" title="Quick view"><i class="fa fa-retweet"></i></a>
-                                                    </li>
-                                                    <li><a href="#" title="Quick view"><i class="fa fa-heart-o"></i></a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="product-info">
-                                            <div class="customar-comments-box">
-                                                <div class="rating-box">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star-half-empty"></i>
-                                                    <i class="fa fa-star-half-empty"></i>
-                                                </div>
-                                                <div class="review-box">
-                                                    <span>1 Review(s)</span>
-                                                </div>
-                                            </div>
-                                            <a href="single-product.html">Printed Summer Dress</a>
-                                            <div class="price-box">
-                                                <span class="price">$28.98</span>
-                                                <span class="old-price">$30.51</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- SINGLE-PRODUCT-ITEM END -->
-                                    <!-- SINGLE-PRODUCT-ITEM START -->
-                                    <div class="single-product-item">
-                                        <div class="product-image">
-                                            <a href="#"><img src="img/product/sale/8.jpg" alt="product-image"/></a>
-                                            <a href="#" class="new-mark-box">new</a>
-                                            <div class="overlay-content">
-                                                <ul>
-                                                    <li><a href="#" title="Quick view"><i class="fa fa-search"></i></a>
-                                                    </li>
-                                                    <li><a href="#" title="Quick view"><i
-                                                            class="fa fa-shopping-cart"></i></a></li>
-                                                    <li><a href="#" title="Quick view"><i class="fa fa-retweet"></i></a>
-                                                    </li>
-                                                    <li><a href="#" title="Quick view"><i class="fa fa-heart-o"></i></a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="product-info">
-                                            <div class="customar-comments-box">
-                                                <div class="rating-box">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="review-box">
-                                                    <span>1 Review(s)</span>
-                                                </div>
-                                            </div>
-                                            <a href="single-product.html">Printed Summer Dress</a>
-                                            <div class="price-box">
-                                                <span class="price">$30.50</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- SINGLE-PRODUCT-ITEM END -->
+
                                 </div>
                                 <!-- SINGLE ITEM END -->
                             </div>
@@ -1630,5 +2068,8 @@
         </div>
     </section>
     <!-- LATEST-NEWS-AREA END -->
+    <script src="/assets/angular/angular.js"></script>
     <script src="/assets/js/main.js"></script>
+
+
 </div>
