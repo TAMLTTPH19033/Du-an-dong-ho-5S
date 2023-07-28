@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface KhuyenMaiRepository extends JpaRepository<KhuyenMai,Integer> {
 
-    @Query("SELECT km FROM KhuyenMai km WHERE UPPER(CONCAT(km.idKhuyenMai,' ', km.maKhuyenMai,' ', km.tenKhuyenMai,' ',km.moTaKhuyenMai,' ', km.ngayBatDau,' ', km.ngayKetThuc,' ',km.enabled))LIKE %?1%")
+    @Query("SELECT km FROM KhuyenMai km WHERE UPPER(CONCAT(km.idKhuyenMai,' ', km.maKhuyenMai,' ', km.tenKhuyenMai,' ',km.moTaKhuyenMai,' ', km.ngayBatDau,' ', km.ngayKetThuc,' ',km.enabled,' ',km.chietKhau))LIKE %?1%")
     public Page<KhuyenMai> findAll(String keyword, Pageable pageable);
 
     public KhuyenMai findByTenKhuyenMai(String ten);

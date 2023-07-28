@@ -56,7 +56,7 @@ public class ThuongHieuController {
         model.addAttribute("sortDir",sortDir);
         model.addAttribute("reverseSortDir",reverseSortDir);
         model.addAttribute("keyword",keyword);
-        return "thuonghieu/brands";
+        return "admin/thuonghieu/brands";
 
     }
 
@@ -75,7 +75,7 @@ public class ThuongHieuController {
     public String newThuongHieu(Model model){
         model.addAttribute("thuongHieu",new ThuongHieu());
         model.addAttribute("pageTitle","Tạo Mới Thương Hiệu");
-        return "thuonghieu/brands_form";
+        return "admin/thuonghieu/brands_form";
     }
 
     @PostMapping("/brands/save")
@@ -93,7 +93,7 @@ public class ThuongHieuController {
             ThuongHieu thuongHieu = service.get(id);
             model.addAttribute("thuongHieu", thuongHieu);
             model.addAttribute("pageTitle", "Update Thương Hiệu (ID: " + id + ")");
-            return "thuonghieu/brands_form";
+            return "admin/thuonghieu/brands_form";
         } catch (ThuongHieuNotFoundException ex) {
             redirectAttributes.addFlashAttribute("message", ex.getMessage());
             return "redirect:/brands";

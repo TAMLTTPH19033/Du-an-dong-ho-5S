@@ -49,7 +49,7 @@ public class DayDeoController {
         model.addAttribute("sortDir",sortDir);
         model.addAttribute("reverseSortDir",reverseSortDir);
         model.addAttribute("keyword",keyword);
-        return "daydeo/straps";
+        return "admin/daydeo/straps";
     }
 
     @GetMapping("straps/{id}/enabled/{status}")
@@ -67,7 +67,7 @@ public class DayDeoController {
     public String newDayDeo(Model model){
         model.addAttribute("dayDeo", new DayDeo());
         model.addAttribute("pageTitle", "Tạo Mới Dây Đeo");
-        return "daydeo/straps_form";
+        return "admin/daydeo/straps_form";
     }
 
     @PostMapping("straps/save")
@@ -85,7 +85,7 @@ public class DayDeoController {
             DayDeo dayDeo = service.get(id);
             model.addAttribute("dayDeo",dayDeo);
             model.addAttribute("pageTitle", "Update Dây Đeo (ID :" + id + ")");
-            return "dayDeo/straps_form";
+            return "admin/dayDeo/straps_form";
         }catch (DayDeoNotFoundException ex) {
             redirectAttributes.addFlashAttribute("message", ex.getMessage());
             return "redirect:/straps";

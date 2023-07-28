@@ -2,6 +2,7 @@ myApp.controller("homeCtrl", function ($scope, $http,$window,$rootScope) {
 
     $scope.newSanPhams = [];
     $scope.hotSanPhams = [];
+    $scope.featureSanPhams = [];
     $scope.itemWithGiaNN = new Map();
     $scope.itemWithGiaLN = new Map();
     $scope.idSanPham ="" ;
@@ -12,8 +13,17 @@ myApp.controller("homeCtrl", function ($scope, $http,$window,$rootScope) {
             $scope.hotSanPhams = resp.data.listSPbanChay;
             console.log(resp.data.listSPbanChay);
             $scope.newSanPhams = resp.data.listSPmoiNhat;
+            $scope.featureSanPhams = resp.data.listSPNoiBat;
 
             $scope.hotSanPhams.forEach(item=>{
+                $scope.getGiaNN(item.idSanPham)
+                $scope.getGiaLN(item.idSanPham)
+            })
+            $scope.newSanPhams.forEach(item=>{
+                $scope.getGiaNN(item.idSanPham)
+                $scope.getGiaLN(item.idSanPham)
+            })
+            $scope.featureSanPhams.forEach(item=>{
                 $scope.getGiaNN(item.idSanPham)
                 $scope.getGiaLN(item.idSanPham)
             })

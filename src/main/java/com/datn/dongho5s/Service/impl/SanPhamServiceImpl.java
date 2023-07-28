@@ -56,9 +56,17 @@ public class SanPhamServiceImpl implements SanPhamService {
     }
 
     @Override
-    public List<SanPham> getSPnew() {
-        sanPhamRepository.getSPnew();
-        return sanPhamRepository.getSPnew();
+    public List<SanPhamDetailResponse> getSPnew() {
+        List<SanPham> listSanPham = sanPhamRepository.getSPnew();
+        List<SanPhamDetailResponse> responseList = listSanPham.stream().map(SanPhamMapping::mapEntitytoResponse).collect(Collectors.toList());
+        return responseList;
+    }
+
+    @Override
+    public List<SanPhamDetailResponse> getSPFeature() {
+        List<SanPham> listSanPham = sanPhamRepository.findAll();
+        List<SanPhamDetailResponse> responseList = listSanPham.stream().map(SanPhamMapping::mapEntitytoResponse).collect(Collectors.toList());
+        return responseList;
     }
 
     @Override
