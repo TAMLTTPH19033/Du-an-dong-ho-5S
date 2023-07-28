@@ -1,6 +1,6 @@
 
 <!-- MAIN-CONTENT-SECTION START -->
-		<section class="main-content-section">
+		<section class="main-content-section" >
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -29,7 +29,7 @@
 										<input type="text" value="" name="email" id="email" class="form-control input-feild" required>
 									</div>
 									<div class="submit-button">
-										<a href="checkout-registration.html" id="SubmitCreate" class="btn main-btn">
+										<a href="signup.html" id="SubmitCreate" class="btn main-btn">
 											<span>
 												<i class="fa fa-user submit-icon"></i>
 												Create an account
@@ -43,28 +43,55 @@
 					</div>
 					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 						<!-- REGISTERED-ACCOUNT START -->
-						<div class="primari-box registered-account">
-							<form class="new-account-box" id="accountLogin" method="post" action="#">
+						<div class="primari-box registered-account" ng-controller="loginCtrl">
+							<form class="new-account-box" id="accountLogin" method="post" novalidate name="formLogin" >
 								<h3 class="box-subheading">Already registered?</h3>
 								<div class="form-content">
 									<div class="form-group primary-form-group">
 										<label for="loginemail">Email address</label>
-										<input type="text" value="" name="email" id="loginemail" class="form-control input-feild">
+										<input type="email"  name="txtTen" id="loginemail"  ng-model="username" class="form-control input-feild" required>
+										<small
+												id="fullnae"
+												ng-show="formLogin.txtTen.$error.required"
+												class="form-text text-danger"
+										>Vui lòng nhập email</small
+										>
 									</div>
 									<div class="form-group primary-form-group">
 										<label for="password">Password</label>
-										<input type="password" value="" name="password" id="password" class="form-control input-feild">
+										<input type="password"  name="txtPass"  ng-model="password" id="password" class="form-control input-feild" required>
+										<small
+												id="passwrd"
+												ng-show="formLogin.txtPass.$error.required"
+												class="form-text text-danger"
+										>Vui lòng nhập pass</small
+										>
+										<small
+												id="passrd"
+												ng-show="formLogin.txtPass.$error.maxlength"
+												class="form-text text-danger"
+										>Không nhập mật khẩu quá 30 kí tự</small
+										>
+										<small
+												id="pasword"
+												ng-show="formLogin.txtPass.$error.maxlength"
+												class="form-text text-danger"
+										>Không nhập mật khẩu ít hơn 4 kí tự</small
+										>
 									</div>
-									<div class="forget-password">
-										<p><a href="#">Forgot your password?</a></p>
-									</div>
-									<div class="submit-button">
-										<a href="my-account.html" id="signinCreate" class="btn main-btn">
+<!--									<div class="forget-password">-->
+<!--										<p><a href="#">Forgot your password?</a></p>-->
+<!--									</div>-->
+									<span class="text-danger" ng-show="error">
+                     				 {{errorMessages}}
+                    				</span>
+									<div class="submit-button"  ng-click="logins()">
+										<p id="signinCreate" class="btn main-btn">
 										<span>
 											<i class="fa fa-lock submit-icon"></i>
 											 Sign in
 										</span>
-										</a>
+										</p>
 									</div>
 								</div>
 							</form>							

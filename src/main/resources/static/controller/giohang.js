@@ -11,8 +11,17 @@ myApp.controller("cartCtrl", function ($scope,$rootScope, $http,$window,checkOut
                 $scope.cart = resp.data;
                 // console.log($scope.cart);
             }).catch(error => {
-                console.log(error)
-
+                if(error.status == 403) {
+                    Swal.fire({
+                        icon: "warning",
+                        title: "Bạn chưa đăng nhập !",
+                        text: "Hãy đăng nhập để tiếp tục shopping!",
+                        showConfirmButton: true,
+                        closeOnClickOutside: true,
+                        timer: 5600,
+                    });
+                    $window.location.href = '#login';
+                }
             });
         }else{
             Swal.fire({
@@ -63,7 +72,7 @@ myApp.controller("cartCtrl", function ($scope,$rootScope, $http,$window,checkOut
     $scope.giam = function (item, soLuong) {
         if (item) {
                 if (item.soLuongSanPham <= 1) {
-                    $scope.remove(item);
+                    $scope.removeSP(item);
                     return;
                 }
             }
@@ -120,7 +129,7 @@ myApp.controller("cartCtrl", function ($scope,$rootScope, $http,$window,checkOut
     }
 
     //xóa sanpham trong giỏ hàng
-    $scope.remove = function (item) {
+    $scope.removeSP= function (item) {
         if (item) {
             $scope.delete(item);
             $scope.total -= item.giaBan * item.soLuongSanPham;
@@ -142,7 +151,7 @@ myApp.controller("cartCtrl", function ($scope,$rootScope, $http,$window,checkOut
     $scope.change = function (item) {
         if (item) {
             if (item.soLuongSanPham < 1) {
-                $scope.remove(item);
+                $scope.removeSP(item);
                 return;
             }
             $scope.update(item);

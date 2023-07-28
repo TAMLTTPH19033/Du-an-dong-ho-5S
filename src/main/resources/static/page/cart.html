@@ -1,8 +1,8 @@
 
-<div>
+
 
 <!-- MAIN-CONTENT-SECTION START -->
-<section class="main-content-section">
+<section class="main-content-section" ng-controller="cartCtrl">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -18,7 +18,7 @@
 		<div class="row">
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 				<!-- SHOPPING-CART SUMMARY START -->
-				<h2 class="page-title">Shopping-cart summary <span class="shop-pro-item">Your shopping cart contains: 2 products</span></h2>
+				<h2 class="page-title">Shopping-cart summary <span class="shop-pro-item">Your shopping cart contains: {{totalSp}}</span></h2>
 				<!-- SHOPPING-CART SUMMARY END -->
 			</div>
 
@@ -56,100 +56,48 @@
 						</thead>
 						<!-- TABLE HEADER END -->
 						<!-- TABLE BODY START -->
+
 						<tbody>
 						<!-- SINGLE CART_ITEM START -->
-						<tr>
+						<tr ng-repeat="item in cart" ng-init = "setTotals(item)">
 							<td class="cart-product">
-								<a href="#"><img alt="Blouse" src="/assets/img/product/cart-image1.jpg"></a>
+								<a href="#/chitietsanpham/{{item.chiTietSanPham.sanPham.idSanPham}}"><img alt="Blouse" src="/assets/images/{{item.chiTietSanPham.sanPham.listAnhSanPham[0].link}}" width="37%"></a>
 							</td>
 							<td class="cart-description">
-								<p class="product-name"><a href="#">Faded Short Sleeves T-shirt</a></p>
+								<p class="product-name"><a href="#/chitietsanpham/{{item.chiTietSanPham.sanPham.idSanPham}}">{{item.chiTietSanPham.sanPham.tenSanPham}} </a></p>
 								<small>SKU : demo_1</small>
-								<small><a href="#">Size : S, Color : Orange</a></small>
+								<small><a href="#">Size :{{item.chiTietSanPham.kichCo.tenKichCo}} , Color : {{item.chiTietSanPham.mauSac.tenMauSac}} </a></small>
 							</td>
 							<td class="cart-avail"><span class="label label-success">In stock</span></td>
 							<td class="cart-unit">
 								<ul class="price text-right">
-									<li class="price">$16.51</li>
+									<li class="price special-price"> {{item.giaBan | number}} </li>
+									<span ng-if="item.giaBan == item.chiTietSanPham.giaSanPham"></span>
+									<span ng-if="item.giaBan != item.chiTietSanPham.giaSanPham">
+										<li class="price-percent-reduction small">&nbsp;{{item.chiTietSanPham.khuyenMai.chietKhau}}%&nbsp;</li>
+									     <li class="old-price">{{item.chiTietSanPham.giaSanPham | number}} đ</li>
+                                     </span>
 								</ul>
 							</td>
 							<td class="cart_quantity text-center">
 								<div class="cart-plus-minus-button">
-									<input class="cart-plus-minus" type="text" name="qtybutton" value="0">
+									<input class="cart-plus-minus" type="text"  name="soLuongSanPham"
+										   value="{{item.soLuongSanPham}}">
+									<div class="dec qtybutton" ng-click="giam(item)">-</div>
+									<div class="inc qtybutton"  ng-click="tang(item)">+</div>
 								</div>
 							</td>
 							<td class="cart-delete text-center">
 											<span>
-												<a href="#" class="cart_quantity_delete" title="Delete"><i class="fa fa-trash-o"></i></a>
+												<p class="cart_quantity_delete" title="Delete" ng-click="removeSP(item)"><i class="fa fa-trash-o"></i></p>
 											</span>
 							</td>
 							<td class="cart-total">
-								<span class="price">$16.51</span>
+								<span class="price">{{item.soLuongSanPham * item.giaBan}}</span>
 							</td>
-						</tr>
+						</tr >
 						<!-- SINGLE CART_ITEM END -->
-						<!-- SINGLE CART_ITEM START -->
-						<tr>
-							<td class="cart-product">
-								<a href="#"><img alt="Blouse" src="/assets/img/product/cart-image2.jpg"></a>
-							</td>
-							<td class="cart-description">
-								<p class="product-name"><a href="#">Blouse</a></p>
-								<small>SKU : demo_2</small>
-								<small><a href="#">Size : S, Color : Black</a></small>
-							</td>
-							<td class="cart-avail"><span class="label label-success">In stock</span></td>
-							<td class="cart-unit">
-								<ul class="price text-right">
-									<li class="price special-price">$24.00</li>
-									<li class="price-percent-reduction small">&nbsp;-3%&nbsp;</li>
-									<li class="old-price">$27.00</li>
-								</ul>
-							</td>
-							<td class="cart_quantity text-center">
-								<div class="cart-plus-minus-button">
-									<input class="cart-plus-minus" type="text" name="qtybutton" value="0">
-								</div>
-							</td>
-							<td class="cart-delete text-center">
-								<a href="#" class="cart_quantity_delete" title="Delete"><i class="fa fa-trash-o"></i></a>
-							</td>
-							<td class="cart-total">
-								<span class="price">$22.95</span>
-							</td>
-						</tr>
-						<!-- SINGLE CART_ITEM END -->
-						<!-- SINGLE CART_ITEM START -->
-						<tr>
-							<td class="cart-product">
-								<a href="#"><img alt="Blouse" src="/assets/img/product/cart-image3.jpg"></a>
-							</td>
-							<td class="cart-description">
-								<p class="product-name"><a href="#">Printed Summer Dress</a></p>
-								<small>SKU : demo_5</small>
-								<small><a href="#">Size : M, Color : Blue</a></small>
-							</td>
-							<td class="cart-avail"><span class="label label-success">In stock</span></td>
-							<td class="cart-unit">
-								<ul class="price text-right">
-									<li class="price special-price">$30.45</li>
-									<li class="price-percent-reduction small">&nbsp;-7.05%&nbsp;</li>
-									<li class="old-price">$37.50</li>
-								</ul>
-							</td>
-							<td class="cart_quantity text-center">
-								<div class="cart-plus-minus-button">
-									<input class="cart-plus-minus" type="text" name="qtybutton" value="0">
-								</div>
-							</td>
-							<td class="cart-delete text-center">
-								<a href="#" class="cart_quantity_delete" title="Delete"><i class="fa fa-trash-o"></i></a>
-							</td>
-							<td class="cart-total">
-								<span class="price">$30.45</span>
-							</td>
-						</tr>
-						<!-- SINGLE CART_ITEM END -->
+
 						</tbody>
 						<!-- TABLE BODY END -->
 						<!-- TABLE FOOTER START -->
@@ -157,11 +105,11 @@
 						<tr class="cart-total-price">
 							<td class="cart_voucher" colspan="3" rowspan="4"></td>
 							<td class="text-right" colspan="3">Total products (tax excl.)</td>
-							<td id="total_product" class="price" colspan="1">$76.46</td>
+							<td id="total_product" class="price" colspan="1">{{total}}</td>
 						</tr>
 						<tr>
 							<td class="text-right" colspan="3">Total shipping</td>
-							<td id="total_shipping" class="price" colspan="1">$5.00</td>
+							<td id="total_shipping" class="price" colspan="1">0.00</td>
 						</tr>
 						<tr>
 							<td class="text-right" colspan="3">Total vouchers (tax excl.)</td>
@@ -172,7 +120,7 @@
 								<span>Total</span>
 							</td>
 							<td id="total-price-container" class="price" colspan="1">
-								<span id="total-price">$76.46</span>
+								<span id="total-price">{{total}}</span>
 							</td>
 						</tr>
 						</tfoot>
@@ -182,48 +130,7 @@
 				</div>
 				<!-- CART TABLE_BLOCK END -->
 			</div>
-			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-				<div class="first_item primari-box mycartaddress-info">
-					<!-- SINGLE ADDRESS START -->
-					<ul class="address">
-						<li>
-							<h3 class="page-subheading box-subheading">
-								Delivery address (BootExperts Office)
-							</h3>
-						</li>
-						<li><span class="address_name">BootExperts</span></li>
-						<li><span class="address_company">Web development Company</span></li>
-						<li><span class="address_address1">Bonossri</span></li>
-						<li><span class="address_address2">D-Block</span></li>
-						<li><span class="">Rampura</span></li>
-						<li><span class="">Dhaka</span></li>
-						<li><span class="address_phone">+880 1735161598</span></li>
-						<li><span class="address_phone_mobile">+880 1975161598</span></li>
-					</ul>
-					<!-- SINGLE ADDRESS END -->
-				</div>
-			</div>
-			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-				<div class="second_item primari-box mycartaddress-info">
-					<!-- SINGLE ADDRESS START -->
-					<ul class="address">
-						<li>
-							<h3 class="page-subheading box-subheading">
-								Invoice address (BootExperts Home)
-							</h3>
-						</li>
-						<li><span class="address_name">BootExperts</span></li>
-						<li><span class="address_company">Web development Company</span></li>
-						<li><span class="address_address1">Dhaka</span></li>
-						<li><span class="address_address2">Bonossri</span></li>
-						<li><span class="">Dhaka-1205</span></li>
-						<li><span class="">Rampura</span></li>
-						<li><span class="address_phone">+880 1735161598</span></li>
-						<li><span class="address_phone_mobile">+880 1975161598</span></li>
-					</ul>
-					<!-- SINGLE ADDRESS END -->
-				</div>
-			</div>
+
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 				<!-- RETURNE-CONTINUE-SHOP START -->
 				<div class="returne-continue-shop">
@@ -234,6 +141,5 @@
 			</div>
 		</div>
 	</div>
-</section>
+</section >
 <!-- MAIN-CONTENT-SECTION END -->
-</div>

@@ -1,8 +1,8 @@
 myApp.controller("loginCtrl", function ($scope,$rootScope ,$http,$location, $window) {
-    let currentUser = localStorage.getItem("currentUser");
-    if(currentUser){
-        $location.path("/");
-    }
+    // let currentUser = localStorage.getItem("currentUser");
+    // if(currentUser){
+    //     $location.path("/");
+    // }
     $scope.errorMessages="";
 
     $scope.currentUser ={
@@ -10,7 +10,7 @@ myApp.controller("loginCtrl", function ($scope,$rootScope ,$http,$location, $win
         username :"",
         token :""
     };
-    $scope.login = function() {
+    $scope.logins = function() {
         $scope.loginRequest = {
             username : $scope.username,
             password : $scope.password
