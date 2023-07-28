@@ -1,7 +1,7 @@
 const detailSanPhamAPI =
   "http://localhost:8080/san-pham/san-pham-detail/id-san-pham=";
 const getPhanHoiAPI = "http://localhost:8080/phan-hoi/get/idSanPham=";
-
+const getSanPhamCungThuongHieuAPI = "http://localhost:8080/san-pham/cung-thuong-hieu=";
 myApp.controller(
   "TrangChiTietSanPhamController",
   function (
@@ -19,6 +19,9 @@ myApp.controller(
     $scope.sanPhamDetail;
     $scope.isFirstRun = 0;
     $scope.soLuong = 1;
+    $scope.moreInfo="active";
+    $scope.dataSheet="";
+    $scope.review="";
 
     $scope.phanHoi = [];
     $scope.pageSize = 1;
@@ -27,7 +30,7 @@ myApp.controller(
     $scope.totalPages;
     $scope.check;
     $scope.Items =[];
-
+    $scope.spCungThuongHieu = [];
 
     var setDayDeo = new Set();
     var setVatLieu = new Set();
@@ -69,6 +72,20 @@ myApp.controller(
           console.log(error);
         });
     };
+
+    $scope.changeTab = function (tab){
+      $scope.moreInfo="";
+      $scope.dataSheet="";
+      $scope.review="";
+      if(tab==1){
+        $scope.moreInfo="active";
+      }else if(tab==2){
+        $scope.dataSheet="active";
+      }else{
+        $scope.review="active";
+      }
+    }
+
     $scope.tang = function () {
       $scope.soLuong = $scope.soLuong + 1;
     };
@@ -79,6 +96,18 @@ myApp.controller(
       }
       $scope.soLuong = $scope.soLuong - 1;
     };
+
+    $scope.getCungThuongHieu = function (idThuongHieu){
+      $http
+          .get(getSanPhamCungThuongHieuAPI + idThuongHieu)
+          .then(function (response) {
+            $scope.spCungThuongHieu = response.data;
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+    }
+
     $scope.getDetailSanPham($scope.idSp);
     var getSettingAttributeSp = function (listChiTietSanPham) {
       listChiTietSanPham.forEach((ctsp) => {
@@ -287,9 +316,10 @@ myApp.controller(
           giaBan: $scope.getGia(),
           idChiTietSanPham: $scope.chiTietSanPham.idChiTietSanPham,
           soLuong: $scope.soLuong,
+          chiTietSanPham: $scope.chiTietSanPham
         },
       ]);
-      $location.path("/thanhtoan");
+      $location.path("/checkout");
     };
 
     $scope.PhanHoiAPI = function () {
