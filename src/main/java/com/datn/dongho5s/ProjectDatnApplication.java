@@ -12,7 +12,7 @@ public class ProjectDatnApplication {
 
 // Secret Key = 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
 	public static void main(String[] args) throws Exception {
-		DiaChiAPI.callGetTinhThanhAPI();
+//		DiaChiAPI.callGetTinhThanhAPI();
 //		Integer idTP = 207;
 //		Integer idQH = 2118;
 //		Integer idPX = 381301;,381308,381306
