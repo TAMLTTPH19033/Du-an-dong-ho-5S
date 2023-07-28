@@ -29,8 +29,9 @@ public class TrangChuRestController {
     @GetMapping("")
    public ResponseEntity<?> home(){
          List<SanPhamDetailResponse> listSPbanChay = sanPhamService.getSPchay();
-         List<SanPham> listSPmoiNhat = sanPhamService.getSPnew();
-        TrangChuResponse trangChuResponse = new TrangChuResponse(listSPbanChay,listSPmoiNhat);
+        List<SanPhamDetailResponse> listSPmoiNhat = sanPhamService.getSPnew();
+        List<SanPhamDetailResponse> listSPnoiBat = sanPhamService.getSPFeature();
+        TrangChuResponse trangChuResponse = new TrangChuResponse(listSPbanChay,listSPmoiNhat,listSPnoiBat);
 //        System.out.println(trangChuResponse);
         return ResponseEntity.status(HttpStatus.OK).body(trangChuResponse);
     }

@@ -14,5 +14,6 @@ import java.util.List;
 @Getter
 public class TrangChuResponse {
     private List<SanPhamDetailResponse> listSPbanChay;
-    private List<SanPham> listSPmoiNhat;
+    private List<SanPhamDetailResponse> listSPmoiNhat;
+    private List<SanPhamDetailResponse> listSPNoiBat;
 }

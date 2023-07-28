@@ -8,7 +8,7 @@ myApp.config(function ($routeProvider, $locationProvider,$httpProvider) {
     // })
     .when("/", {
       templateUrl: "page/trangchu.html",
-      // controller :"homeCtrl"
+      controller :"homeCtrl"
     })
       .when("/about", {
       templateUrl: "page/about-us.html",
