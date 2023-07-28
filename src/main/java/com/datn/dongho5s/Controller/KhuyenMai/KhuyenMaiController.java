@@ -48,14 +48,14 @@ public class KhuyenMaiController {
         model.addAttribute("sortDir", sortDir);
         model.addAttribute("reverseSortDir",reverseSortDir);
         model.addAttribute("keyword", keyword);
-        return "khuyenmai/discounts";
+        return "admin/khuyenmai/discounts";
 
     }
     @GetMapping("/discounts/new")
     public String newKhuyenMai(Model model){
         model.addAttribute("khuyenMai", new KhuyenMai());
         model.addAttribute("pageTitle", "Tạo Mới Khuyến Mãi");
-        return "khuyenmai/discounts_form";
+        return "admin/khuyenmai/discounts_form";
     }
 
     @PostMapping("/discounts/save")
@@ -75,7 +75,7 @@ public class KhuyenMaiController {
             KhuyenMai khuyenMai = service.get(id);
             model.addAttribute("khuyenMai",khuyenMai);
             model.addAttribute("pageTitle","Update Khuyến Mãi (ID : " + id + ")");
-            return "khuyenmai/discounts_form";
+            return "admin/khuyenmai/discounts_form";
         }catch (KhuyenMaiNotFoundException ex){
             redirectAttributes.addFlashAttribute("message",ex.getMessage());
             return "redirect:/discounts";

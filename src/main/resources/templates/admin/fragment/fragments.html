@@ -1,19 +1,19 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
 <!-- fragment cho header-->
-<head th:fragment="page_head(title)">
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="Content-Type" content="text/html">
-    <link rel="stylesheet" type="text/css" th:href="@{/fontawesome/all.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
-    <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
-    <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
-    <script type="text/javascript" th:src="@{/js/index.js}"></script>
 
-    <title>[[${title}]]</title>
+
+<head th:fragment="page_head">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link th:href="@{/css/styles.css}" rel="stylesheet" />
+    <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.5/umd/popper.min.js}"></script>
+    <script th:src="@{https://use.fontawesome.com/releases/v6.3.0/js/all.js}" crossorigin="anonymous"></script>
+    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script th:src="@{/js/scripts.js}"></script>
+    <script th:src="@{/js/datatables-simple-demo.js}"></script>
 </head>
 <body>
 

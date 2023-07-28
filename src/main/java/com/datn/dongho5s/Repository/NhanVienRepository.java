@@ -11,6 +11,15 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface NhanVienRepository extends PagingAndSortingRepository<NhanVien,Integer> {
+
+    public NhanVien findByEmail(String email);
+
+    public NhanVien findByTen(String ten);
+
+    boolean existsByEmail(String email);
+
+    boolean existsByTen(String ten);
+
     @Query("SELECT nv FROM NhanVien nv WHERE nv.email = :email")
     public  NhanVien getNhanVienByEmail(@Param("email") String email);
 

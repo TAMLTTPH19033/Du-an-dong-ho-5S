@@ -66,7 +66,7 @@ public class WebSecurityConfig  {
     private final AccountFilter accountFilter;
 
     @Autowired
-     SecurityConfiguration securityConfiguration;
+    SecurityConfiguration securityConfiguration;
 
     public WebSecurityConfig(AuthenticationProvider authenticationProvider, AccountFilter accountFilter) {
         this.authenticationProvider = authenticationProvider;
@@ -83,12 +83,6 @@ public class WebSecurityConfig  {
                 .disable()
                 .authorizeRequests()
                 .antMatchers("/api/giohang/**","/api/phan-hoi/**").hasAuthority("ROLE_CUSTOMER")
-                .antMatchers("/users/**").hasAuthority("ROLE_ADMIN")
-                .antMatchers("/categories/**").hasAnyAuthority("ROLE_ADMIN","ROLE_STAFF")
-                .antMatchers("/users/**", "/categories/**")
-                .authenticated()
-                .and()
-                .rememberMe().userDetailsService(securityConfiguration.userDetailsService())
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -97,5 +91,6 @@ public class WebSecurityConfig  {
                 .addFilterBefore(accountFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
+
 
 }
