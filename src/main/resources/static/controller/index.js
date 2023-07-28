@@ -113,6 +113,7 @@ myApp.controller("indexCtrl", function ($rootScope,$scope, $http,$window, $locat
       $http.defaults.headers.common.Authorization = "Bearer " + $scope.currentUser.token;
     }
 else{
+      $rootScope.currentUser ="";
       $http.defaults.headers.common.Authorization = "";
     }
 

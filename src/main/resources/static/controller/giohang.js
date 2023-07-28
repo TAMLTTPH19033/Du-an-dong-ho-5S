@@ -5,7 +5,7 @@ myApp.controller("cartCtrl", function ($scope,$rootScope, $http,$window,checkOut
 
     let currentUser = JSON.parse(localStorage.getItem("currentUser"));
     //load cart
-    $scope.index = function () {
+    $rootScope.index = function () {
         if(currentUser != null) {
             $http.get(`/api/giohang/${currentUser.idKhachHang}`).then((resp) => {
                 $scope.cart = resp.data;
@@ -35,15 +35,18 @@ myApp.controller("cartCtrl", function ($scope,$rootScope, $http,$window,checkOut
             $window.location.href = '#login';
         }
     };
-    $scope.index();
+    $rootScope.index();
 
     // toorng sp vaf toorng tieefn
     $scope.setTotals = function (item) {
+
         if (item) {
             $scope.total += item.giaBan * item.soLuongSanPham;
             $scope.totalSp +=  item.soLuongSanPham;
         }
     };
+
+
 
 
     // api update soLuongtronggiohang
