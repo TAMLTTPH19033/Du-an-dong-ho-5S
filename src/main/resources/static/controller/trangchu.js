@@ -29,9 +29,64 @@ myApp.controller("homeCtrl", function ($scope, $http,$window,$rootScope) {
             })
         });
         $rootScope.currentDate = new Date().toISOString();
-        console.log($scope.currentDate < '2023-07-26T17:00:00.000+00:00')
     };
     $scope.init();
+
+    //cart
+    $scope.cart = [];
+    $scope.total = 0;
+    $scope.totalSp = 0;
+    let currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    $rootScope.index = function () {
+        if(currentUser != null) {
+            $http.get(`/api/giohang/${currentUser.idKhachHang}`).then((resp) => {
+                $scope.cart = resp.data;
+                // console.log($scope.cart);
+            }).catch(error => {
+                if(error.status == 403) {
+                    Swal.fire({
+                        icon: "warning",
+                        title: "Bạn chưa đăng nhập !",
+                        text: "Hãy đăng nhập để tiếp tục shopping!",
+                        showConfirmButton: true,
+                        closeOnClickOutside: true,
+                        timer: 5600,
+                    });
+                    $window.location.href = '#login';
+                }
+            });
+        }else{
+            Swal.fire({
+                icon: "warning",
+                title: "Bạn chưa đăng nhập !",
+                text: "Hãy đăng nhập để tiếp tục shopping!",
+                showConfirmButton: true,
+                closeOnClickOutside: true,
+                timer: 5600,
+            });
+            $window.location.href = '#login';
+        }
+    };
+    $rootScope.index();
+    $scope.setTotals = function (item) {
+
+        if (item) {
+            $scope.total += item.giaBan * item.soLuongSanPham;
+            $scope.totalSp +=  item.soLuongSanPham;
+        }
+    };
+    $scope.removeSP= function (item) {
+        if (item) {
+            $scope.delete(item);
+            $scope.total -= item.giaBan * item.soLuongSanPham;
+            $scope.totalSp -= item.soLuongSanPham;
+            // console.log($scope.cart);
+        }
+    };
+
+    // kt cart
+
+
 
     $scope.spkm ;
     $scope.getGiaNN = function (idSanPham){

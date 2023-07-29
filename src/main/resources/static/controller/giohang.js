@@ -5,14 +5,23 @@ myApp.controller("cartCtrl", function ($scope,$rootScope, $http,$window,checkOut
 
     let currentUser = JSON.parse(localStorage.getItem("currentUser"));
     //load cart
-    $scope.index = function () {
+    $rootScope.index = function () {
         if(currentUser != null) {
             $http.get(`/api/giohang/${currentUser.idKhachHang}`).then((resp) => {
                 $scope.cart = resp.data;
                 // console.log($scope.cart);
             }).catch(error => {
-                console.log(error)
-
+                if(error.status == 403) {
+                    Swal.fire({
+                        icon: "warning",
+                        title: "Bạn chưa đăng nhập !",
+                        text: "Hãy đăng nhập để tiếp tục shopping!",
+                        showConfirmButton: true,
+                        closeOnClickOutside: true,
+                        timer: 5600,
+                    });
+                    $window.location.href = '#login';
+                }
             });
         }else{
             Swal.fire({
@@ -26,15 +35,18 @@ myApp.controller("cartCtrl", function ($scope,$rootScope, $http,$window,checkOut
             $window.location.href = '#login';
         }
     };
-    $scope.index();
+    $rootScope.index();
 
     // toorng sp vaf toorng tieefn
     $scope.setTotals = function (item) {
+
         if (item) {
             $scope.total += item.giaBan * item.soLuongSanPham;
             $scope.totalSp +=  item.soLuongSanPham;
         }
     };
+
+
 
 
     // api update soLuongtronggiohang
@@ -63,7 +75,7 @@ myApp.controller("cartCtrl", function ($scope,$rootScope, $http,$window,checkOut
     $scope.giam = function (item, soLuong) {
         if (item) {
                 if (item.soLuongSanPham <= 1) {
-                    $scope.remove(item);
+                    $scope.removeSP(item);
                     return;
                 }
             }
@@ -120,7 +132,7 @@ myApp.controller("cartCtrl", function ($scope,$rootScope, $http,$window,checkOut
     }
 
     //xóa sanpham trong giỏ hàng
-    $scope.remove = function (item) {
+    $scope.removeSP= function (item) {
         if (item) {
             $scope.delete(item);
             $scope.total -= item.giaBan * item.soLuongSanPham;
@@ -142,7 +154,7 @@ myApp.controller("cartCtrl", function ($scope,$rootScope, $http,$window,checkOut
     $scope.change = function (item) {
         if (item) {
             if (item.soLuongSanPham < 1) {
-                $scope.remove(item);
+                $scope.removeSP(item);
                 return;
             }
             $scope.update(item);

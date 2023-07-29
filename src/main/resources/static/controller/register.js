@@ -56,7 +56,7 @@ myApp.controller("registerCtrl", function ($scope,$rootScope, $http,$location) {
         }
     );
 
-    $scope.register = function(){
+    $scope.registerClient = function(){
         let user = angular.copy($scope.user);
         console.log(user)
         $http.post('/api/register',user)
@@ -64,7 +64,16 @@ myApp.controller("registerCtrl", function ($scope,$rootScope, $http,$location) {
                 // resp.data.createDate= new Date(resp.data.createDate);
                 // $scope.items.push(resp.data);
                 // $scope.reset();
-                alert("Them thanh cong")
+                Swal.fire({
+                    icon: "warning",
+                    title: "Đăng ký thành công!",
+                    text: "Hãy đăng nhập để  mua hàng nhé!",
+                    showConfirmButton: false,
+                    closeOnClickOutside: false,
+                    allowOutsideClick: false,
+                    timer: 1600,
+                });
+                $location.path("/login")
             }).catch(error =>{
             alert("Loi roi")
         })

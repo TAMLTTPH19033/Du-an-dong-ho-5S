@@ -32,11 +32,11 @@ myApp.config(function ($routeProvider, $locationProvider,$httpProvider) {
       controller :"cartCtrl"
     })
     .when("/signup", {
-      templateUrl: "page/checkout-registration.html",
+      templateUrl: "page/signup.html",
       controller: "registerCtrl"
     })
     .when("/login", {
-      templateUrl: "page/registration.html",
+      templateUrl: "page/signin.html",
       controller:"loginCtrl"
 
     }).when("/address", {
@@ -89,7 +89,9 @@ myApp.factory('responseObserver', function responseObserver($q, $window) {
     'responseError': function(errorResponse) {
       switch (errorResponse.status) {
         case 403:
-          $window.location.href = '#login';
+          $window.localStorage.removeItem('currentUser');
+          // $http.defaults.headers.common.Authorization = "";
+          $window.location.reload();
           break;
         // case 500:
         //   $window.location.href = '/login';
@@ -111,6 +113,7 @@ myApp.controller("indexCtrl", function ($rootScope,$scope, $http,$window, $locat
       $http.defaults.headers.common.Authorization = "Bearer " + $scope.currentUser.token;
     }
 else{
+      $rootScope.currentUser ="";
       $http.defaults.headers.common.Authorization = "";
     }
 
