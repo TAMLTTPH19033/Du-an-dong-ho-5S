@@ -32,7 +32,7 @@ myApp.config(function ($routeProvider, $locationProvider,$httpProvider) {
       controller :"cartCtrl"
     })
     .when("/signup", {
-      templateUrl: "page/checkout-signin.html",
+      templateUrl: "page/signup.html",
       controller: "registerCtrl"
     })
     .when("/login", {
@@ -91,7 +91,7 @@ myApp.factory('responseObserver', function responseObserver($q, $window) {
         case 403:
           $window.localStorage.removeItem('currentUser');
           // $http.defaults.headers.common.Authorization = "";
-          $window.location.href = '#login';
+          $window.location.reload();
           break;
         // case 500:
         //   $window.location.href = '/login';
