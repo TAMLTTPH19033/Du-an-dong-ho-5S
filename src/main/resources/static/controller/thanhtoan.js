@@ -6,10 +6,10 @@ const thanhToanVNPayAPI = "http://localhost:8080/don-hang/thanh-toan-vnpay";
 myApp.controller(
   "ThanhToanCtrl",
   function ($scope, $rootScope, $http, checkOutDataService, $window) {
-    if (new URLSearchParams(window.location.search).get("message") != null) {
-      var mess = new URLSearchParams(window.location.search).get("message");
-      alert("Lỗi" + mess);
-    }
+    // if (new URLSearchParams(window.location.search).get("message") != null) {
+    //   var mess = new URLSearchParams(window.location.search).get("message");
+    //   alert("Lỗi" + mess);
+    // }
 
     $scope.listHoaDonChiTietRequest = [];
     $scope.soLuongSanPham;
@@ -30,7 +30,8 @@ myApp.controller(
       let currentUser = JSON.parse(localStorage.getItem("currentUser"));
     $scope.getThongTinCaNhan = () => {
       $http
-        .get(getThongTinCaNhanAPI + currentUser.idKhachHang)
+        // .get(getThongTinCaNhanAPI + currentUser.idKhachHang)
+          .get(getThongTinCaNhanAPI + 1)
         .then((response) => {
           $scope.thongtincanhan = response.data;
           $scope.diaChiGiaoHangs = $scope.thongtincanhan.listDiaChi;
@@ -66,10 +67,10 @@ myApp.controller(
         });
     };
 
-    $scope.thanhToan = () => {
+    $scope.thanhToan = (isVNPAY) => {
       $scope.checkOutRequest = {
-        // khachHangId: $rootScope.idKhachHang,
-        khachHangId: currentUser.idKhachHang,
+        // khachHangId: 1,
+        khachHangId: $scope.thongtincanhan.id,
         listHoaDonChiTietRequest:
           $scope.listHoaDonChiTietRequest,
         idQuanHuyen: $scope.diaChiGiaoHang.idQuanHuyen,
@@ -79,7 +80,7 @@ myApp.controller(
         soLuongSanPham: $scope.soLuongSanPham,
         phiVanChuyen: $scope.fee,
       };
-      if ($scope.isVNPAY) {
+      if (isVNPAY==true) {
         $http
           .post(thanhToanVNPayAPI, $scope.checkOutRequest)
           .then(function (response) {

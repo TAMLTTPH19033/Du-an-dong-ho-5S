@@ -34,6 +34,7 @@ public class SanPhamRestController {
     @PostMapping("/tim-kiem")
     public ResponseEntity<?> TimKiemSanPham (@RequestBody TimKiemRequest timKiemRequest){
 //        try {
+            validDataTimKiem(timKiemRequest);
             Set<TimKiemResponse> result = sanPhamService.getSanPhamByCondition(timKiemRequest);
             return ResponseEntity.status(HttpStatus.OK).body(result);
 //        }catch(Exception e){
@@ -54,4 +55,18 @@ public class SanPhamRestController {
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
+    void validDataTimKiem(TimKiemRequest req){
+        if(req.getDayDeoId().size()==0)
+            req.setDayDeoId(null);
+        if(req.getDanhMucId().size()==0)
+            req.setDanhMucId(null);
+        if(req.getMauSacId().size()==0)
+            req.setMauSacId(null);
+        if(req.getThuongHieuId().size()==0)
+            req.setThuongHieuId(null);
+        if(req.getVatLieuId().size()==0)
+            req.setVatLieuId(null);
+        if(req.getSizeId().size()==0)
+            req.setSizeId(null);
+    }
 }

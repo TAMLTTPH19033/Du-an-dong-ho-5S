@@ -26,13 +26,13 @@ public interface SanPhamRepository extends JpaRepository<SanPham, Integer> {
                     "INNER JOIN KichCo kc ON ctsp.kichCo.idKichCo = kc.idKichCo " +
                     "INNER JOIN VatLieu vl ON ctsp.vatLieu.idVatLieu = vl.idVatLieu " +
                     "INNER JOIN MauSac ms ON ctsp.mauSac.idMauSac = ms.idMauSac " +
-                    "WHERE (:#{#req.thuongHieuId} is null or :#{#req.thuongHieuId}= sp.thuongHieu.idThuongHieu) " +
-                    "AND (:#{#req.danhMucId} is null or :#{#req.danhMucId}= sp.danhMuc.id) " +
-                    "AND (:#{#req.dayDeoId} is null or :#{#req.dayDeoId}= ctsp.dayDeo.idDayDeo) " +
-                    "AND (:#{#req.sizeId} is null or :#{#req.sizeId}= ctsp.kichCo.idKichCo) " +
-                    "AND (:#{#req.vatLieuId} is null or :#{#req.vatLieuId}= ctsp.vatLieu.idVatLieu) " +
-                    "AND (:#{#req.mauSacId} is null or :#{#req.mauSacId}= ctsp.mauSac.idMauSac) " +
-                    "AND (:#{#req.tenSanPham} is null or :#{#req.tenSanPham} like '%' || :#{#req.tenSanPham} || '%')")
+                    "WHERE (:#{#req.thuongHieuId} is null or sp.thuongHieu.idThuongHieu IN (:#{#req.thuongHieuId}) ) " +
+                    "AND (:#{#req.danhMucId} is null or sp.danhMuc.id IN (:#{#req.danhMucId}) ) " +
+                    "AND (:#{#req.dayDeoId} is null or ctsp.dayDeo.idDayDeo IN (:#{#req.dayDeoId}) ) " +
+                    "AND (:#{#req.sizeId} is null or ctsp.kichCo.idKichCo IN (:#{#req.sizeId}) ) " +
+                    "AND (:#{#req.vatLieuId} is null or ctsp.vatLieu.idVatLieu IN (:#{#req.vatLieuId}) ) " +
+                    "AND (:#{#req.mauSacId} is null or ctsp.mauSac.idMauSac IN (:#{#req.mauSacId}) ) " +
+                    "AND (:#{#req.tenSanPham} is null or :#{#req.tenSanPham} like '%' || :#{#req.tenSanPham} || '%')" )
     List<SanPham> getListSanPhamByCondition(@Param("req") TimKiemRequest req);
 
     @Query(value = "SELECT  * FROM sanpham ORDER BY sanpham.id_san_pham DESC LIMIT 8", nativeQuery = true)

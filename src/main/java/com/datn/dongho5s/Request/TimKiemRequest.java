@@ -4,23 +4,27 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
+
+import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class TimKiemRequest{
     @JsonProperty("thuongHieuId")
-    private Integer thuongHieuId;
+    private List<Integer> thuongHieuId;
     @JsonProperty("danhMucId")
-    private Integer danhMucId;
+    private List<Integer> danhMucId;
     @JsonProperty("sizeId")
-    private Integer sizeId;
+    private List<Integer> sizeId;
     @JsonProperty("mauSacId")
-    private Integer mauSacId;
+    private List<Integer> mauSacId;
     @JsonProperty("vatLieuId")
-    private Integer vatLieuId;
+    private List<Integer> vatLieuId;
     @JsonProperty("dayDeoId")
-    private Integer dayDeoId;
+    private List<Integer> dayDeoId;
     @JsonProperty("tenSanPham")
     private String tenSanPham;
 }
