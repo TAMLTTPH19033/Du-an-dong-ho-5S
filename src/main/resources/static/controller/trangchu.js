@@ -44,27 +44,30 @@ myApp.controller("homeCtrl", function ($scope, $http,$window,$rootScope) {
                 // console.log($scope.cart);
             }).catch(error => {
                 if(error.status == 403) {
-                    Swal.fire({
-                        icon: "warning",
-                        title: "Bạn chưa đăng nhập !",
-                        text: "Hãy đăng nhập để tiếp tục shopping!",
-                        showConfirmButton: true,
-                        closeOnClickOutside: true,
-                        timer: 5600,
-                    });
-                    $window.location.href = '#login';
+                return null ;
+                    // Swal.fire({
+                    //     icon: "warning",
+                    //     title: "Bạn chưa đăng nhập !",
+                    //     text: "Hãy đăng nhập để tiếp tục shopping!",
+                    //     showConfirmButton: true,
+                    //     closeOnClickOutside: true,
+                    //     timer: 5600,
+                    // });
+                    // $window.location.href = '#login';
                 }
             });
         }else{
-            Swal.fire({
-                icon: "warning",
-                title: "Bạn chưa đăng nhập !",
-                text: "Hãy đăng nhập để tiếp tục shopping!",
-                showConfirmButton: true,
-                closeOnClickOutside: true,
-                timer: 5600,
-            });
-            $window.location.href = '#login';
+            return null ;
+            $window.location.reload();
+            // Swal.fire({
+            //     icon: "warning",
+            //     title: "Bạn chưa đăng nhập !",
+            //     text: "Hãy đăng nhập để tiếp tục shopping!",
+            //     showConfirmButton: true,
+            //     closeOnClickOutside: true,
+            //     timer: 5600,
+            // });
+            // $window.location.href = '#login';
         }
     };
     $rootScope.index();

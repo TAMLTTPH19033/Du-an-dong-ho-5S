@@ -2,8 +2,16 @@ package com.datn.dongho5s.Service.impl;
 
 
 import com.datn.dongho5s.Entity.DonHang;
+import com.datn.dongho5s.Entity.HoaDonChiTiet;
+import com.datn.dongho5s.Entity.SanPham;
 import com.datn.dongho5s.Repository.DonHangRepository;
+import com.datn.dongho5s.Response.DonHangResponse;
+import com.datn.dongho5s.Response.HoaDonChiTietResponse;
+import com.datn.dongho5s.Response.SanPhamDetailResponse;
 import com.datn.dongho5s.Service.DonHangService;
+import com.datn.dongho5s.mapper.DonHangMapping;
+import com.datn.dongho5s.mapper.HoaDonChiTietMapping;
+import com.datn.dongho5s.mapper.SanPhamMapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -12,6 +20,7 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class DonHangServiceImpl implements DonHangService {
@@ -64,5 +73,26 @@ public class DonHangServiceImpl implements DonHangService {
     @Override
     public void updateTrangThaiDonHang(DonHang donHang) {
         donHangRepository.updateTrangThaiDonHang(donHang);
+    }
+
+    @Override
+    public List<HoaDonChiTietResponse> findHDCTbyDH(Integer idDonhang) {
+        List<HoaDonChiTiet> listHDCT = donHangRepository.findHDCTbyDH(idDonhang);
+        List<HoaDonChiTietResponse> responseList = listHDCT.stream().map(HoaDonChiTietMapping::mapEntitytoResponse).collect(Collectors.toList());
+        return responseList;
+    }
+
+    @Override
+    public List<DonHangResponse> findAllHD(Integer idKhachHang) {
+        List<DonHang> listHD = donHangRepository.findAllHD(idKhachHang);
+        List<DonHangResponse> responseList = listHD.stream().map(DonHangMapping::mapEntitytoResponse).collect(Collectors.toList());
+        return responseList;
+    }
+
+    @Override
+    public List<DonHangResponse> findHDByStatus(Integer idKhachHang, Integer trangThaiDonHang) {
+        List<DonHang> listHD = donHangRepository.findHDByStatus(idKhachHang,trangThaiDonHang);
+        List<DonHangResponse> responseList = listHD.stream().map(DonHangMapping::mapEntitytoResponse).collect(Collectors.toList());
+        return responseList;
     }
 }

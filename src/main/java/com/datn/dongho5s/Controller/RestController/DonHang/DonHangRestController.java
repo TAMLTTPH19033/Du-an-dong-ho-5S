@@ -13,6 +13,8 @@ import com.datn.dongho5s.GiaoHangNhanhService.Request.PhiVanChuyenRequest;
 import com.datn.dongho5s.GiaoHangNhanhService.Request.TaoDonHangRequestGHN;
 import com.datn.dongho5s.Request.HoaDonChiTietRequest;
 import com.datn.dongho5s.Request.ThemDonHangRequest;
+import com.datn.dongho5s.Response.DonHangResponse;
+import com.datn.dongho5s.Response.HoaDonChiTietResponse;
 import com.datn.dongho5s.Response.VNPayUrlResponse;
 import com.datn.dongho5s.Service.DonHangService;
 import com.datn.dongho5s.Service.HoaDonChiTietService;
@@ -23,12 +25,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.websocket.server.PathParam;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -316,4 +320,32 @@ public class DonHangRestController {
         }
     }
 
+
+  @GetMapping("/findAll/{idKhachHang}")
+    public ResponseEntity<?> getAllDH(@PathVariable("idKhachHang") Integer idKhachHang) {
+        try {
+            List<DonHangResponse> responseList = donHangService.findAllHD(idKhachHang);
+            return ResponseEntity.status(HttpStatus.OK).body(responseList);
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }
+  }
+    @GetMapping("/findByStatus/{idKhachHang}")
+    public ResponseEntity<?> getDHbyStatus(@PathVariable("idKhachHang") Integer idKhachHang, @PathParam("status") Integer status) {
+        try {
+            List<DonHangResponse> responseList = donHangService.findHDByStatus(idKhachHang,status);
+            return ResponseEntity.status(HttpStatus.OK).body(responseList);
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }
+    }
+    @GetMapping("/findHDCT/{idDonHang}")
+    public ResponseEntity<?> findHDCT(@PathVariable("idDonHang") Integer idDonHang) {
+        try {
+            List<HoaDonChiTietResponse> responseList = donHangService.findHDCTbyDH(idDonHang);
+            return ResponseEntity.status(HttpStatus.OK).body(responseList);
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }
+    }
 }

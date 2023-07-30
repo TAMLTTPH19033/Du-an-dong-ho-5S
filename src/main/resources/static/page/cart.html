@@ -12,7 +12,7 @@
 							<b>My Cart</b>
 							<span class="ajax-cart-quantity">{{totalSp}}</span>
 						</a>
-						<div class="shipping-cart-overly">
+						<div class="shipping-cart-overly" style="overflow: scroll">
 							<div class="shipping-item"  ng-repeat="item in cart">
 								<span class="cross-icon" ng-click="removeSP(item)"><i class="fa fa-times-circle"></i></span>
 								<div class="shipping-item-image" style="width: 30%">
@@ -369,6 +369,7 @@
 						<!-- TABLE HEADER START -->
 						<thead>
 						<tr>
+							<th class="cart-product"></th>
 							<th class="cart-product">Product</th>
 							<th class="cart-description">Description</th>
 							<th class="cart-avail text-center">Availability</th>
@@ -384,6 +385,9 @@
 						<tbody>
 						<!-- SINGLE CART_ITEM START -->
 						<tr ng-repeat="item in cart" ng-init = "setTotals(item)">
+							<td>
+								<input type="checkbox"  ng-checked="selection.indexOf(item) > -1" ng-click="toggleSelection(item)" />
+							</td>
 							<td class="cart-product">
 								<a href="#/chitietsanpham/{{item.chiTietSanPham.sanPham.idSanPham}}"><img alt="Blouse" src="/assets/images/{{item.chiTietSanPham.sanPham.listAnhSanPham[0].link}}" width="37%"></a>
 							</td>
@@ -406,7 +410,7 @@
 							<td class="cart_quantity text-center">
 								<div class="cart-plus-minus-button">
 									<input class="cart-plus-minus" type="text"  name="soLuongSanPham"
-										   value="{{item.soLuongSanPham}}">
+										   value="{{item.soLuongSanPham}}" readonly >
 									<div class="dec qtybutton" ng-click="giam(item)">-</div>
 									<div class="inc qtybutton"  ng-click="tang(item)">+</div>
 								</div>
@@ -427,20 +431,20 @@
 						<!-- TABLE FOOTER START -->
 						<tfoot>
 						<tr class="cart-total-price">
-							<td class="cart_voucher" colspan="3" rowspan="4"></td>
-							<td class="text-right" colspan="3">Total products (tax excl.)</td>
+							<td class="cart_voucher" colspan="4" rowspan="4"></td>
+							<td class="text-right" colspan="4">Total products (tax excl.)</td>
 							<td id="total_product" class="price" colspan="1">{{total}}</td>
 						</tr>
 						<tr>
-							<td class="text-right" colspan="3">Total shipping</td>
+							<td class="text-right" colspan="4">Total shipping</td>
 							<td id="total_shipping" class="price" colspan="1">0.00</td>
 						</tr>
 						<tr>
-							<td class="text-right" colspan="3">Total vouchers (tax excl.)</td>
+							<td class="text-right" colspan="4">Total vouchers (tax excl.)</td>
 							<td class="price" colspan="1">$0.00</td>
 						</tr>
 						<tr>
-							<td class="total-price-container text-right" colspan="3">
+							<td class="total-price-container text-right" colspan="4">
 								<span>Total</span>
 							</td>
 							<td id="total-price-container" class="price" colspan="1">

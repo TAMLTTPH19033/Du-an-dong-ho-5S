@@ -41,15 +41,15 @@ public class PhanHoiServiceImpl implements PhanHoiService {
     @Autowired
     KhachHangRepository khachHangRepository;
     @Override
-    public List<PhanHoiResponse> findAll(Integer idSanPham) {
-        List<PhanHoi> phanHoiList = phanHoiRepository.findAll(idSanPham);
+    public List<PhanHoiResponse> findAll(Integer idChiTietSanPham) {
+        List<PhanHoi> phanHoiList = phanHoiRepository.findAll(idChiTietSanPham);
         List<PhanHoiResponse> responseList = phanHoiList.stream().map(PhanHoiMapping::mapEntitytoResponse).collect(Collectors.toList());
         return responseList;
     }
 
     @Override
-    public boolean checkPhanHoi(Integer idKhachHang, Integer idSanPham) {
-        List<HoaDonChiTiet> donHangList = donHangRepository.findHDDonHang(idKhachHang,idSanPham);
+    public boolean checkPhanHoi(Integer idKhachHang, Integer idChiTietSanPham) {
+        List<HoaDonChiTiet> donHangList = donHangRepository.findHDDonHang(idKhachHang,idChiTietSanPham);
         System.out.println(donHangList);
         if (donHangList.isEmpty()){
             System.out.println("rỗng rồi");
@@ -57,7 +57,7 @@ public class PhanHoiServiceImpl implements PhanHoiService {
         }
         if(donHangList != null){
             System.out.println("sai rồi");
-            Optional<PhanHoi> phanHoi = phanHoiRepository.findPhanHoi(idKhachHang,idSanPham);
+            Optional<PhanHoi> phanHoi = phanHoiRepository.findPhanHoi(idKhachHang,idChiTietSanPham);
             if (phanHoi.isPresent()){
                 return  true;
             }else {

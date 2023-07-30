@@ -13,9 +13,9 @@ import java.util.Optional;
 public interface PhanHoiRepository extends JpaRepository<PhanHoi,Integer> {
 
     @Query(value = "select ph from PhanHoi ph where ph.chiTietSanPham.idChiTietSanPham = ?1")
-    List<PhanHoi> findAll(Integer idSanPham);
+    List<PhanHoi> findAll(Integer idChiTietSanPham);
     @Query(value = "select ph from PhanHoi ph where ph.khachHang.idKhachHang = ?1 and ph.chiTietSanPham.idChiTietSanPham = ?2 ")
-    Optional<PhanHoi> findPhanHoi(Integer idKhachHang, Integer idSanPham);
+    Optional<PhanHoi> findPhanHoi(Integer idKhachHang, Integer idChiTietSanPham);
 
     @Query(value = "select count(ph) from PhanHoi ph where ph.khachHang.idKhachHang = ?1 and ph.chiTietSanPham.idChiTietSanPham = ?2")
     PhanHoi countPhanHoi(Integer idKhachHang, Integer idChiTietSanPham);
