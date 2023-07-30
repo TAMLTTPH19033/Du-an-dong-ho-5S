@@ -26,142 +26,146 @@
         </li>
     </ul>
 </nav>
+
 <div id="layoutSidenav">
     <div th:replace="admin/fragment/navigation:: menu"></div>
 
     <div id="layoutSidenav_content">
-    <div class="container">
-        <h2>Quản lý Đơn hàng</h2>
-    </div>
+        <div class="container">
+            <h2>Quản lý Đơn hàng</h2>
+        </div>
 
-    <div>
+        <div>
 
-        <form method="POST">
-            <div class="row">
-                <div class="col-md-5">
-                    <label class="sr-only" for="start">Ngày bắt đầu</label>
-                    <div class="input-group mb-2">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text">Ngày bắt đầu</div>
+            <form method="GET">
+                <div class="row">
+                    <div class="col-md-5">
+                        <label class="sr-only" for="start">Ngày bắt đầu</label>
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">Ngày bắt đầu</div>
+                            </div>
+                            <input type="date" class="form-control" id="start" name="dateStart">
                         </div>
-                        <input type="date" class="form-control" id="start" name="dateStart">
+                    </div>
+                    <div class="col-md-5">
+                        <label class="sr-only" for="end">Ngày kết thúc</label>
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">Ngày kết thúc</div>
+                            </div>
+                            <input type="date" class="form-control" id="end" name="dateEnd">
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <button type="submit" class="btn btn-outline-dark mb-2" th:formaction="@{'/don-hang/search/date'}">Tìm kiếm</button>
                     </div>
                 </div>
-                <div class="col-md-5">
-                    <label class="sr-only" for="end">Ngày kết thúc</label>
-                    <div class="input-group mb-2">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text">Ngày kết thúc</div>
-                        </div>
-                        <input type="date" class="form-control" id="end" name="dateEnd">
-                    </div>
-                </div>
-                <div class="col-2">
-                    <button type="submit" class="btn btn-outline-dark mb-2" th:formaction="@{'/don-hang/search/date'}">Tìm kiếm</button>
-                </div>
-            </div>
-        </form>
+            </form>
 
-        <table class="table table-bordered table-striped table-hover table-responsive-xl">
-            <thead class="thead-dark">
-            <tr>
-                <th>#</th>
-                <th>Địa chỉ</th>
-                <th>Ngày giao hàng</th>
-                <th>Ngày tạo</th>
-                <th>Phí vận chuyển</th>
-                <th>Tổng tiền sản phẩm</th>
-                <th>Thành tiền</th>
-                <th>Trạng thái</th>
-                <Th>Action</Th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="cat, iterStat : ${list}">
-                <td th:text="${__${iterStat.index + 1}__}">1</td>
-                <td style="max-width: 220px">
-                    [[${cat.diaChi}]],
-                    [[${diaChiAPI.callGetPhuongXaAPI(cat.idQuanHuyen).get(cat.idPhuongXa)}]],
-                    [[${diaChiAPI.callGetQuanHuyenAPI(cat.idTinhThanh).get(cat.idQuanHuyen)}]],
-                    [[${diaChiCache.hashMapTinhThanh.get(cat.idTinhThanh)}]]
-                </td>
-                <td>[[${#dates.format(cat.ngayGiaoHang, 'dd-MM-yyyy')}]]</td>
-                <td>[[${#dates.format(cat.ngayTao, 'dd-MM-yyyy')}]]</td>
-                <td>[[${cat.phiVanChuyen}]]đ</td>
-                <td>[[${cat.tongTien}]]đ</td>
-                <td>[[${cat.tongTien + cat.phiVanChuyen}]]đ</td>
-                <td th:text="${cat.trangThaiDonHang == 0 ? 'Chưa thanh toán' :
-                        (cat.trangThaiDonHang == 1 ? 'Đang giao' : 'Đã thanh toán')}">
-                </td>
-                <td>
-                    <a class="icon-green btn btn-outline-danger"
-                       style="text-decoration: none"
-                       th:href="@{'/hoa-don-chi-tiet/search/' + ${cat.idDonHang}}">Xem</a>
+            <table class="table table-bordered table-striped table-hover table-responsive-xl">
+                <thead class="thead-dark">
+                <tr>
+                    <th>#</th>
+                    <th>Địa chỉ</th>
+                    <th>Ngày giao hàng</th>
+                    <th>Ngày tạo</th>
+                    <th>Phí vận chuyển</th>
+                    <th>Tổng tiền sản phẩm</th>
+                    <th>Thành tiền</th>
+                    <th>Trạng thái</th>
+                    <Th>Action</Th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="cat, iterStat : ${list}">
+                    <td th:text="${__${iterStat.index + 1}__}">1</td>
+                    <td style="max-width: 220px">
+                        [[${cat.diaChi}]],
+                        [[${diaChiAPI.callGetPhuongXaAPI(cat.idQuanHuyen).get(cat.idPhuongXa)}]],
+                        [[${diaChiAPI.callGetQuanHuyenAPI(cat.idTinhThanh).get(cat.idQuanHuyen)}]],
+                        [[${diaChiCache.hashMapTinhThanh.get(cat.idTinhThanh)}]]
+                    </td>
+                    <td>[[${#dates.format(cat.ngayGiaoHang, 'dd-MM-yyyy')}]]</td>
+                    <td>[[${#dates.format(cat.ngayTao, 'dd-MM-yyyy')}]]</td>
+                    <td>[[${cat.phiVanChuyen}]]đ</td>
+                    <td>[[${cat.tongTien}]]đ</td>
+                    <td>[[${cat.tongTien + cat.phiVanChuyen}]]đ</td>
+                    <td th:text="${cat.trangThaiDonHang == 0 ? 'Chưa thanh toán' :
+                            (cat.trangThaiDonHang == 1 ? 'Đang giao' : 'Đã thanh toán')}">
+                    </td>
+                    <td>
+                        <a class="icon-green btn btn-outline-danger"
+                           style="text-decoration: none"
+                           th:href="@{'/hoa-don-chi-tiet/search/' + ${cat.idDonHang}}">Xem</a>
 
-                    <a class="btn btn-outline-primary"
-                       data-bs-toggle="modal"
-                       data-bs-target="#capNhatTrangThai"
-                       style="text-decoration: none"
-                       th:href="@{'/don-hang/get/' + ${cat.idDonHang}}"
-                       title="Chi tiết">Cập nhật</a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+                        <a class="btn btn-outline-primary"
+                           data-bs-toggle="modal"
+                           data-bs-target="#capNhatTrangThai"
+                           style="text-decoration: none"
+                        >Cập nhật</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
 
-    <div th:if="${totalPages > 1}">
-        <nav>
-            <ul class="pagination justify-content-center">
-                <li th:class="${currentPage > 1 ?'page-item' : 'page-item disabled'}">
-                    <a th:replace="fragment/fragments::page_donhang_link(1, 'Trang Đầu')" ></a>
-                </li>
-                <li th:class="${currentPage > 1 ?'page-item' : 'page-item disabled'}">
-                    <a th:replace="fragment/fragments::page_donhang_link(${currentPage - 1}, Trước)"></a>
-                </li>
+        </div>
 
-                <li th:class="${currentPage != i ? 'page-item': 'page-item disabled' }"
-                    th:each="i : ${#numbers.sequence(currentPage == 1 ? currentPage : (currentPage - 1),(currentPage + 1) < totalPages ? (currentPage + 1) : totalPages )}">
-                    <a th:replace="fragment/fragments::page_donhang_link(${i}, ${i})"></a>
-                </li>
+        <div th:if="${totalPages > 1}">
+            <nav>
+                <ul class="pagination justify-content-center">
+                    <li th:class="${currentPage > 1 ?'page-item' : 'page-item disabled'}">
+                        <a th:replace="admin/fragment/fragments::page_donhang_link(1, 'Trang Đầu')" ></a>
+                    </li>
+                    <li th:class="${currentPage > 1 ?'page-item' : 'page-item disabled'}">
+                        <a th:replace="admin/fragment/fragments::page_donhang_link(${currentPage - 1}, Trước)"></a>
+                    </li>
 
-                <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
-                    <a th:replace="fragment/fragments::page_donhang_link(${currentPage + 1}, Sau)"></a>
-                </li>
-                <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
-                    <a th:replace="fragment/fragments::page_donhang_link(${totalPages}, 'Trang Cuối')"></a>
-                </li>
-            </ul>
-        </nav>
-    </div>
+                    <li th:class="${currentPage != i ? 'page-item': 'page-item disabled' }"
+                        th:each="i : ${#numbers.sequence(currentPage == 1 ? currentPage : (currentPage - 1),(currentPage + 1) < totalPages ? (currentPage + 1) : totalPages )}">
+                        <a th:replace="admin/fragment/fragments::page_donhang_link(${i}, ${i})"></a>
+                    </li>
 
-    <div th:replace="fragment/fragments::footer"></div>
+                    <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
+                        <a th:replace="admin/fragment/fragments::page_donhang_link(${currentPage + 1}, Sau)"></a>
+                    </li>
+                    <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
+                        <a th:replace="admin/fragment/fragments::page_donhang_link(${totalPages}, 'Trang Cuối')"></a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <div th:replace="admin/fragment/fragments::footer"></div>
+        </div>
     </div>
 </div>
 
-    <!-- Modal -->
-    <div class="modal fade" id="capNhatTrangThai" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="capNhatTrangThaiLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="capNhatTrangThaiLabel">Cập nhật trạng thái đơn hàng</h1>
+
+<!-- Modal -->
+<div class="modal fade" id="capNhatTrangThai" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="capNhatTrangThaiLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="capNhatTrangThaiLabel">Cập nhật trạng thái đơn hàng</h1>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-8">
+                    <label for="trangThai" class="form-label">Trạng thái</label>
+                    <select id="trangThai" class="form-select">
+                        <option selected>Chưa thanh toán</option>
+                        <option>Đang giao</option>
+                        <option>Đã thanh toán</option>
+                    </select>
                 </div>
-                <div class="modal-body">
-                    <div class="col-md-8">
-                        <label for="trangThai" class="form-label">Trạng thái</label>
-                        <select id="trangThai" class="form-select">
-                            <option selected>Chưa thanh toán</option>
-                            <option>Đang giao</option>
-                            <option>Đã thanh toán</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Hủy</button>
-                    <a type="button" class="btn btn-outline-danger"
-                       th:href="@{'/don-hang/update/3'}"
-                       data-bs-dismiss="modal">Xác nhận</a>
-                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Hủy</button>
+                <a type="button"
+                   class="btn btn-outline-danger"
+                   th:href="@{'/hoa-don-chi-tiet/search/' + id}"
+                   data-bs-dismiss="modal">Xác nhận
+                </a>
             </div>
         </div>
     </div>
@@ -182,5 +186,6 @@
     document.getElementById("start").value = todayFormatted; // Set giá trị mặc định cho input
     document.getElementById("end").value = todayFormatted; // Set giá trị mặc định cho input
 </script>
+
 </body>
 </html>
