@@ -25,6 +25,7 @@ import javax.persistence.Table;
 import java.util.Date;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Data
@@ -37,6 +38,9 @@ public class DonHang {
     @Column(name = "id_don_hang")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idDonHang;
+
+    @JoinColumn(name = "ma_don_hang")
+    private String maDonHang;
 
     @ManyToOne
     @JoinColumn(name = "id_nhan_vien")

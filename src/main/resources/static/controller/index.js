@@ -164,7 +164,7 @@ else{
       allowOutsideClick: false,
       timer: 5600,
     });
-    $location.path("/login")
-    // $window.location.reload();
+    // $location.path("/login")
+    $window.location.reload();
   }
 })
