@@ -62,42 +62,6 @@ public class DonHangRestController {
     @Autowired
     HttpServletRequest request;
 
-//    @PostMapping("/them-don-hang")
-//    public ResponseEntity<?> taoDonHang(@RequestBody ThemDonHangRequest themDonHangRequest) {
-//        try {
-//            System.out.println(themDonHangRequest.toString());
-//            KhachHang khachHang = khachHangService.findKhachHangById(themDonHangRequest.getKhachHangId());
-//            DonHang donHang = DonHang.builder()
-//                    .khachHang(khachHang)
-//                    .ngayTao(new Timestamp(System.currentTimeMillis()))
-//                    .trangThaiDonHang(1)
-//                    .idTinhThanh(themDonHangRequest.getIdTinhThanh())
-//                    .idQuanHuyen(themDonHangRequest.getIdQuanHuyen())
-//                    .idPhuongXa(themDonHangRequest.getIdPhuongXa())
-//                    .diaChi(themDonHangRequest.getDiaChi())
-//                    .phiVanChuyen(themDonHangRequest.getPhiVanChuyen())
-//                    .ghiChu(themDonHangRequest.getGhiChu())
-//                    .build();
-//            DonHang savedDonHang = donHangService.save(donHang);
-//            List<HoaDonChiTiet> listHoaDonChiTiet = hdctService.convertToListHoaDonChiTiet(themDonHangRequest.getListHoaDonChiTietRequest(), savedDonHang.getIdDonHang());
-//            hdctService.saveAll(listHoaDonChiTiet);
-//            TaoDonHangRequestGHN requestGHN = TaoDonHangRequestGHN.builder()
-//                    .note(themDonHangRequest.getGhiChu())
-//                    .toName(khachHang.getTenKhachHang())
-//                    .toPhone(khachHang.getSoDienThoai())
-//                    .toAddress(themDonHangRequest.getDiaChi())
-//                    .idQuanHuyen(themDonHangRequest.getIdQuanHuyen())
-//                    .idPhuongXa(themDonHangRequest.getIdPhuongXa())
-//                    .soLuongSanPham(themDonHangRequest.getSoLuongSanPham())
-//                    .listItems(toListChiTietItem(listHoaDonChiTiet))
-//                    .build();
-//            ThemDonHangResponseGHN responseGHN = DonHangAPI.createOrder(requestGHN);
-//            System.out.println(responseGHN.toString());
-//            return ResponseEntity.status(HttpStatus.OK).body(responseGHN);
-//        } catch (Exception e) {
-//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-//        }
-//    }
 
     @PostMapping("/tinh-phi-van-chuyen")
     public ResponseEntity<?> getPhiVanChuyen(@RequestBody PhiVanChuyenRequest phiVanChuyenRequest) {
@@ -244,58 +208,6 @@ public class DonHangRestController {
         return ResponseEntity.status(HttpStatus.OK).body(new VNPayUrlResponse(paymentUrl));
     }
 
-    @GetMapping("/thong-tin-thanh-toan")
-    public ResponseEntity<?> thongTinThanhToan() {
-        try {
-
-	/*  IPN URL: Record payment results from VNPAY
-	Implementation steps:
-	Check checksum
-	Find transactions (vnp_TxnRef) in the database (checkOrderId)
-	Check the payment status of transactions before updating (checkOrderStatus)
-	Check the amount (vnp_Amount) of transactions before updating (checkAmount)
-	Update results to Database
-	Return recorded results to VNPAY
-	*/
-
-            Map fields = new HashMap();
-            for (Enumeration params = request.getParameterNames(); params.hasMoreElements(); ) {
-                String fieldName = (String) params.nextElement();
-                String fieldValue = request.getParameter(fieldName);
-                if ((fieldValue != null) && (fieldValue.length() > 0)) {
-                    fields.put(fieldName, fieldValue);
-                }
-            }
-            System.out.println(request.getParameter("vnp_ReturnUrl"));
-            fields.forEach((key, value) -> System.out.printf("%s: %s%n", key, value));
-            String vnp_SecureHash = request.getParameter("vnp_SecureHash");
-            if (fields.containsKey("vnp_SecureHash")) {
-                fields.remove("vnp_SecureHash");
-            }
-            DonHang donhang = donHangService.getById(Integer.valueOf(request.getParameter("vnp_TxnRef")));
-            if (donhang != null) {
-                if ("00".equals(request.getParameter("vnp_ResponseCode"))) {
-                    System.out.println("Thanh toán thành công nè");
-                    donhang.setTrangThaiDonHang(1);
-                    donHangService.save(donhang);
-                    TaoDonHangRequestGHN donHangRequestGHN = createGHNRequest(donhang);
-                    ThemDonHangResponseGHN responseGHN = DonHangAPI.createOrder(donHangRequestGHN);
-                    System.out.println(responseGHN);
-//                                //TODO xử lý trừ số luojwgn sản phẩm
-                    return ResponseEntity.status(HttpStatus.OK).body(responseGHN);
-                } else {
-                    System.out.println("Không thành công");
-                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new String("Thanh toán không thành công"));
-                }
-            } else {
-                System.out.println("Không tìm thấy order");
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new String("Không tìm thấy order của bạn"));
-            }
-        } catch (Exception e) {
-            System.out.println("k xdc");
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new String("Lỗi không xác định"));
-        }
-    }
 
     private TaoDonHangRequestGHN createGHNRequest(DonHang donhang) {
         try {

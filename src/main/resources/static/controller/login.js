@@ -30,7 +30,7 @@ myApp.controller("loginCtrl", function ($scope,$rootScope ,$http,$location, $win
                     timer: 1600,
                 });
 
-                // $window.location.href = '#index';
+                $window.location.href = '#index';
                 $window.location.reload();
                 $scope.error = false;
             }

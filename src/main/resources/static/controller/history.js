@@ -37,7 +37,7 @@ myApp.controller(
         //     }
         // }
 
-            if (currentUser != null) {
+           if (currentUser != null) {
                 $http.get(`/don-hang/findAll/${currentUser.idKhachHang}`)
                     .then((resp) => {
                         $scope.donHang = resp.data;

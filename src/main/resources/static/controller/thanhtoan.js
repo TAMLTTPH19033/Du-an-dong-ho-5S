@@ -36,8 +36,8 @@ myApp.controller(
       let currentUser = JSON.parse(localStorage.getItem("currentUser"));
     $scope.getThongTinCaNhan = () => {
       $http
-        // .get(getThongTinCaNhanAPI + currentUser.idKhachHang)
-          .get(getThongTinCaNhanAPI + 1)
+        .get(getThongTinCaNhanAPI + currentUser.idKhachHang)
+          // .get(getThongTinCaNhanAPI + 1)
         .then((response) => {
           $scope.thongtincanhan = response.data;
           $scope.diaChiGiaoHangs = $scope.thongtincanhan.listDiaChi;
