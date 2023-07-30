@@ -45,13 +45,13 @@ public class DiaChiRestController {
 
     }
 
-    @GetMapping("/get-thanh-pho")
+    @GetMapping("/get-tinh-thanh")
     public ResponseEntity<HashMap<Integer,String>> getThanhPho (){
         return ResponseEntity.ok(DiaChiCache.hashMapTinhThanh);
     }
 
-    @GetMapping("/get-quan-huyen/{idQuanHuyen}")
-    public ResponseEntity<HashMap<Integer,String>> getQuanHuyen (@PathVariable ("idQuanHuyen") Integer id){
+    @GetMapping("/get-quan-huyen/{idThanhPho}")
+    public ResponseEntity<HashMap<Integer,String>> getQuanHuyen (@PathVariable ("idThanhPho") Integer id){
         try {
             return ResponseEntity.ok(DiaChiAPI.callGetQuanHuyenAPI(id));
         } catch (Exception e) {
@@ -59,8 +59,8 @@ public class DiaChiRestController {
         }
     }
 
-    @GetMapping("/get-phuong-xa/{idPhuongXa}")
-    public ResponseEntity<HashMap<String,String>> getPhuongXa (@PathVariable ("idPhuongXa") Integer id){
+    @GetMapping("/get-phuong-xa/{idQuanHuyen}")
+    public ResponseEntity<HashMap<String,String>> getPhuongXa (@PathVariable ("idQuanHuyen") Integer id){
         try {
             return ResponseEntity.ok(DiaChiAPI.callGetPhuongXaAPI(id));
         } catch (Exception e) {
