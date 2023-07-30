@@ -73,18 +73,6 @@ myApp.controller(
         });
     };
 
-    $scope.changeTab = function (tab){
-      $scope.moreInfo="";
-      $scope.dataSheet="";
-      $scope.review="";
-      if(tab==1){
-        $scope.moreInfo="active";
-      }else if(tab==2){
-        $scope.dataSheet="active";
-      }else{
-        $scope.review="active";
-      }
-    }
 
     $scope.tang = function () {
       $scope.soLuong = $scope.soLuong + 1;
@@ -260,6 +248,43 @@ myApp.controller(
       }
     }
 
+
+    $scope.changeTab = function (tab){
+
+          $scope.moreInfo="";
+      $scope.dataSheet="";
+      $scope.review="";
+      if(tab==1){
+        $scope.moreInfo="active";
+      }else if(tab==2){
+        $scope.dataSheet="active";
+      }else{
+        $scope.review="active";
+        $scope.PhanHoiAPI();
+        $scope.$watchGroup(["phanHoi"], function () {
+          $scope.pages = [];
+          var startPage = Math.max(1, $scope.currentPage - $scope.maxPagesToShow);
+          var endPage = Math.max(
+              $scope.totalPages,
+              $scope.currentPage + $scope.maxPagesToShow
+          );
+          for (var i = startPage; i <= endPage; i++) {
+            $scope.pages.push(i);
+          }
+
+          var startIndex = ($scope.currentPage - 1) * $scope.pageSize;
+          var endIndex = startIndex + $scope.pageSize;
+          $scope.Items = $scope.phanHoi.slice(startIndex, endIndex);
+          console.log($scope.phanHoi, "phanhoi");
+          console.log( $scope.pages);
+
+          // $scope.checkPhanHoiAPI();
+        });
+
+        $scope.checkPhanHoiAPI();
+
+      }
+    }
     $scope.addToCart = function () {
       if(currentUser) {
         var item = {
@@ -334,8 +359,10 @@ myApp.controller(
           $scope.totalPages = Math.ceil(
             $scope.phanHoi.length / $scope.pageSize
           );
-          console.log(response.data);
+          console.log( $scope.totalPages);
+          $scope.checkPhanHoiAPI();
         })
+
         .catch(function (error) {
           console.log(error);
         });
@@ -388,7 +415,8 @@ myApp.controller(
     };
 
     $scope.checkPhanHoiAPI = function () {
-      const idChiTietSanPham = $scope.chiTietSanPham.idChiTietSanPham;
+
+      var idChiTietSanPham = $scope.chiTietSanPham.idChiTietSanPham;
       if(currentUser) {
         $http
             .get(
@@ -427,7 +455,7 @@ myApp.controller(
               console.log(resp);
               alert("Them thanh cong");
               $scope.PhanHoiAPI();
-              $scope.checkPhanHoiAPI();
+              // $scope.checkPhanHoiAPI();
 
               // $window.location.reload();
             })
@@ -452,7 +480,7 @@ myApp.controller(
 myApp.directive("starRating", function () {
   return {
     template:
-      '<ul class="rating">' +
+      '<ul class="rating" >' +
       '<li ng-repeat="star in stars" ng-class="star">' +
       "\u2605" +
       "</li>" +
@@ -485,7 +513,7 @@ myApp.directive("starRatings", function () {
     restrict: "A",
     template:
       '<ul class="rating">' +
-      '<li ng-repeat="star in stars" ng-class="star" ng-click="toggle($index)">' +
+      '<li ng-repeat="star in stars" ng-class="star"   ng-click="toggle($index)">' +
       "\u2605" +
       "</li>" +
       "</ul>",
@@ -501,6 +529,7 @@ myApp.directive("starRatings", function () {
           scope.stars.push({
             filled: i < scope.ratingValue,
           });
+          // elem[i].css("color","yellow")
         }
       };
 

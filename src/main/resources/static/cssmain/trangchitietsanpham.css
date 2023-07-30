@@ -77,8 +77,42 @@ ul.rating {
   font-size:20px;
 }
 .rating .filled {
-  color: orangered;
+  color: orang  ered;
 }
 .clear{
   margin-top:20px;
+}
+.tracking nav ul li a {
+  color: #050505;
+  display: block;
+  font-size: 14px;
+  line-height: 55px;
+  transition: all 300ms ease 0s;
+  text-align: center;
+}
+
+.tracking nav ul li {
+  /*border-bottom: 2px solid orange;*/
+  display: inline-block;
+  width: 147px;
+
+}
+.tracking nav ul li a:hover {
+  color: #FF4F4F;
+}
+.tracking nav ul li a:active {
+  color: #FF4F4F;
+  border-bottom: 2px solid #FF4F4F;
+}
+.tracking nav ul .active{
+  border-bottom: 2px solid #FF4F4F;
+}
+.tracking nav ul .active a{
+  color: #FF4F4F;
+}
+
+
+
+#fixed {
+  overflow: auto;
 }

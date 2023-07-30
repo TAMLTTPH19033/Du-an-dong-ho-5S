@@ -1,5 +1,6 @@
 package com.datn.dongho5s.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -29,6 +30,7 @@ public class HoaDonChiTiet {
 
     @ManyToOne
     @JoinColumn(name = "id_don_hang")
+    @JsonIgnore
     private DonHang donHang;
 
     @ManyToOne
