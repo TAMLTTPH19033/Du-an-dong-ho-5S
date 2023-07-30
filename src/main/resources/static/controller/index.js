@@ -42,10 +42,10 @@ myApp.config(function ($routeProvider, $locationProvider,$httpProvider) {
     }).when("/address", {
     templateUrl: "page/checkout-address.html",
 
-  }).when("/shipping", {
+    }).when("/shipping", {
     templateUrl: "page/checkout-shipping.html",
 
-  })
+    })
 
     .when("/checkout", {
       templateUrl: "page/checkout.html",
@@ -58,6 +58,14 @@ myApp.config(function ($routeProvider, $locationProvider,$httpProvider) {
     .when("/suathongtincanhan", {
       templateUrl: "page/my-.html",
       controller: "ThongTinCaNhanController"
+    })
+    .when("/success", {
+      templateUrl: "page/success.html",
+      controller: "success"
+    })
+    .when("/fail", {
+      templateUrl: "page/fail.html",
+      controller: "fail"
     })
     .otherwise({
       redirectTo: "/",

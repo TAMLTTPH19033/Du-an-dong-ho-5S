@@ -2,6 +2,9 @@ const themDonHangApi = "http://localhost:8080/don-hang/them-don-hang";
 const getThongTinCaNhanAPI = "http://localhost:8080/khach-hang/thong-tin/";
 const getFeeAPI = "http://localhost:8080/don-hang/tinh-phi-van-chuyen";
 const thanhToanVNPayAPI = "http://localhost:8080/don-hang/thanh-toan-vnpay";
+const getTinhThanhAPI = "http://localhost:8080/dia-chi/get-tinh-thanh";
+const getQuanHuyenAPI = "http://localhost:8080/dia-chi/get-quan-huyen/";
+const getPhuongXaAPI = "http://localhost:8080/dia-chi/get-phuong-xa/";
 
 myApp.controller(
   "ThanhToanCtrl",
@@ -14,8 +17,11 @@ myApp.controller(
     $scope.listHoaDonChiTietRequest = [];
     $scope.soLuongSanPham;
     $scope.listHoaDonChiTietRequest = checkOutDataService.getData();
-    if ($scope.listHoaDonChiTietRequest.length == 0) {
+     console.log($scope.listHoaDonChiTietRequest);
+
+    if ($scope.listHoaDonChiTietRequest == undefined) {
       alert("Please select item");
+      $window.location.href = '#index';
       return;
     } else {
       console.log("");
@@ -85,7 +91,6 @@ myApp.controller(
           .post(thanhToanVNPayAPI, $scope.checkOutRequest)
           .then(function (response) {
             var url = response.data.url;
-            console.log(url);
             $window.open(url, "_self");
           })
           .catch((error) => {
@@ -114,5 +119,22 @@ myApp.controller(
       };
       $scope.getFee();
     });
+
+    $scope.getListThanhPho = () =>{
+        $http
+            .get(getTinhThanhAPI)
+            .then(function (response) {
+                $scope.listThanhPho = new Map();
+                for (const key in response.data) {
+                    $scope.listThanhPho.set(key, response.data.key);
+                }
+                console.log($scope.listThanhPho.get(201))
+            })
+            .catch(function (error){
+                console.log(error);
+            })
+
+    }
+      $scope.getListThanhPho();
   }
 );
