@@ -42,22 +42,22 @@ public class MainController {
         return "admin/login";
     }
 
-//    @PostMapping("/loginAdmin")
-//    public ModelAndView authenticateUser(@Valid LoginRequest loginRequest, BindingResult bindingResult, Model model) {
-//        // Xử lý đăng nhập và kiểm tra kết quả
+    @PostMapping("/loginAdmin")
+    public ModelAndView authenticateUser(@Valid LoginRequest loginRequest, BindingResult bindingResult, Model model) throws Exception {
+        // Xử lý đăng nhập và kiểm tra kết quả
 //        try {
-//            Authentication authentication = authenticate(loginRequest.getUsername(), loginRequest.getPassword());
-//            SecurityContextHolder.getContext().setAuthentication(authentication);
-//            NhanVien userEntity = nhanVienRepository.getNhanVienByEmail(authentication.getName());
-//            String jwt = tokenProvider.generateToken(authentication);
-//
-//            // Thực hiện chuyển hướng đến view "login-success.html" và truyền dữ liệu cần hiển thị
-//            ModelAndView mv = new ModelAndView("admin/index");
-//            mv.addObject("token", jwt);
-//            mv.addObject("id", userEntity.getId());
-//            mv.addObject("description", "Đăng nhập thành công");
-//            mv.addObject("name", userEntity.getEmail());
-//            return mv;
+        Authentication authentication = authenticate(loginRequest.getUsername(), loginRequest.getPassword());
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        NhanVien userEntity = nhanVienRepository.getNhanVienByEmail(authentication.getName());
+        String jwt = tokenProvider.generateToken(authentication);
+
+        // Thực hiện chuyển hướng đến view "login-success.html" và truyền dữ liệu cần hiển thị
+        ModelAndView mv = new ModelAndView("admin/index");
+        mv.addObject("token", jwt);
+        mv.addObject("id", userEntity.getId());
+        mv.addObject("description", "Đăng nhập thành công");
+        mv.addObject("name", userEntity.getEmail());
+        return mv;
 //        } catch (Exception e) {
 //            System.out.println(e);
 //            // Xử lý lỗi và chuyển hướng đến view "login-fail.html"
@@ -65,7 +65,7 @@ public class MainController {
 //            mv.addObject("errorMessage", "Sai mật khẩu hoặc email");
 //            return mv;
 //        }
-//    }
+    }
     public Authentication authenticate(String username, String password) throws Exception {
         try {
             return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));

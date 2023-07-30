@@ -1,8 +1,5 @@
 myApp.controller("loginCtrl", function ($scope,$rootScope ,$http,$location, $window) {
-    // let currentUser = localStorage.getItem("currentUser");
-    // if(currentUser){
-    //     $location.path("/");
-    // }
+
     $scope.errorMessages="";
 
     $scope.currentUser ={
@@ -33,8 +30,8 @@ myApp.controller("loginCtrl", function ($scope,$rootScope ,$http,$location, $win
                     timer: 1600,
                 });
 
-                window.location.href = '#index';
-                // window.location.reload();
+                // $window.location.href = '#index';
+                $window.location.reload();
                 $scope.error = false;
             }
         }).catch(error =>{

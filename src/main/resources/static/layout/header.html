@@ -13,7 +13,7 @@
                     <div class="currenty-converter">
                         <form method="post" action="#" id="currency-set">
                             <div class="current-currency">
-                                <span class="cur-label">Currency : </span><strong>USD</strong>
+                                <span class="cur-label">Currency : </span><strong>VNĐ</strong>
                             </div>
                             <ul class="currency-list currency-toogle">
                                 <li>
@@ -55,6 +55,7 @@
                             <li><a href="#signup">Sign up</a></li>
                         </ul>
                         <ul class="list-inline" ng-if="currentUser.username != null">
+                            <li><a style="cursor: pointer" ng-click="logouts()">Logout</a></li>
                             <li><a href="#cart">My Cart</a></li>
                             <li><a href="#account">My Account</a></li>
                                 <li><a href="#wishlist">Wishlist</a></li>

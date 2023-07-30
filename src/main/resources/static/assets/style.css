@@ -1762,16 +1762,16 @@ div.client-carousel .owl-item img {
 10. home page 2	
 -------------------------*/
 body.index-2 .welcome-info span, body.index-2 .current-currency strong, body.index-2 .current-lang strong, body.index-2 .languages-choose li a:hover, body.index-2 .currency-list li a:hover, body.index-2 .header-right-menu nav ul li a:hover, body.index-2 span.cross-icon:hover, body.index-2 .shipping-item-text span a.pro-cat:hover, body.index-2 span.pro-quality a:hover, body.index-2 .product-info a:hover, body.index-2 h2.left-title a:hover, body.index-2 .latest-news-area .left-title-area h2.left-title a:hover, body.index-2 .single-latest-post h2 a:hover, body.index-2 .read-more a:hover, body.index-2 .single-facality:hover .facality-text h3, body.index-2 .info-text p a:hover, body.index-2 .single-f-widget ul li a:hover, body.index-2 .copy-right address a, body.index-2 .latest-news-row h2.center-title a:hover, body.index-2 .drodown-mega-menu .mega-menu-list a:hover{
-  color: #C1A300;
+	color:#FF4F4F;
 }
 body.index-2 .search-button, body.index-2 .header-right-callus::before, body.index-2 .ajax-cart-quantity, body.index-2 a.shop-link:hover span.ajax-cart-quantity, body.index-2 .ajax-cart-quantity:hover, body.index-2 .shipping-checkout-btn a:hover, body.index-2 .nivo-caption a:hover, body.index-2 div.nivo-controlNav a.active, body.index-2 .slider-bolut:hover, body.index-2 div.nivo-controlNav a.nivo-control:hover, body.index-2 .new-mark-box, body.index-2 .overlay-content ul li a:hover, body.index-2 .single-facality:hover .facality-icon, body.index-2 .newsletter-area, body.index-2 .flow-us-link li a:hover, body.index-2 .bstore-scrollertop:hover{
-	background:#C1A300;
+	background:#FF4F4F;
 }
 body.index-2 .search-button:hover{
 	background:#3A3D42;
 }
 body.index-2 .drodown-mega-menu{
-	border-bottom:3px solid #C1A300;
+	border-bottom:3px solid #FF4F4F;
 }
 body.index-2 .new-product-area{
 	margin-top:50px;
@@ -1812,7 +1812,7 @@ body.index-2 .category-heading h2{
 	word-wrap: break-word;
 }
 body.index-2 .category-heading h2:before{
-	background: #a08803 none repeat scroll 0 0;
+	background: #FF4F4F none repeat scroll 0 0;
 	content: "";
 	display: block;
 	float: left;
@@ -1919,7 +1919,7 @@ body.index-2 .category-menu-list ul li .cat-left-drop-menu-left ul li a{
 	color:#333;
 }
 body.index-2 .category-menu-list ul li .cat-left-drop-menu-left ul li a:hover{
-	color:#C1A300;
+	color:#FF4F4F;
 }
 body.index-2 .category-menu-list ul li a.menu-item-heading{
 	background: transparent none repeat scroll 0 0;
@@ -1935,7 +1935,7 @@ body.index-2 .category-menu-list ul li a.menu-item-heading{
 }
 body.index-2 .category-menu-list ul li a.menu-item-heading:hover{
 	background:none;
-	color:#C1A300;
+	color:#FF4F4F;
 }
 body.index-2 .category-menu-list ul li .cat-left-drop-menu-single{
 	width:215px;
@@ -1966,7 +1966,7 @@ body.index-2 .category-menu-list ul li .cat-left-drop-menu-single ul li a{
 	color:#333;
 }
 body.index-2 .category-menu-list ul li .cat-left-drop-menu-single ul li a:hover{
-	color:#C1A300;
+	color:#FF4F4F;
 }
 body.index-2 .category-menu-list ul li:hover .cat-left-drop-menu-single{
 	visibility: visible;
@@ -2029,8 +2029,8 @@ body.index-2 .home2-new-pro-carousel .owl-wrapper .owl-item, body.index-2 .home2
 	padding:0 15px;
 }
 body.index-2 i.owl-prev-icon:hover, body.index-2 i.owl-next-icon:hover{
-	border: 2px solid #C1A300;
-	color: #C1A300;
+	border: 2px solid #FF4F4F;
+	color: #FF4F4F;
 }
 body.index-2 .overlay-content ul li a{
 	width:65px;
@@ -2054,13 +2054,13 @@ body.index-2 .latest-news-row .left-title-area h2.left-title{
 10.7 client area
 -------------------------*/
 body.index-2 .single-client:hover{
-	border:1px solid #C1A300;
+	border:1px solid #FF4F4F;
 }
 /*-----------------------
 10.8 facality area
 -------------------------*/
 body.index-2 .single-facality:hover, body.index-2 .flow-us-link li a:hover{
-	border-color: #C1A300;
+	border-color: #FF4F4F;
 }
 /*-----------------------
 10.9 main content full column
