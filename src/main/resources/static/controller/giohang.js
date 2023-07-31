@@ -2,7 +2,7 @@ myApp.controller("cartCtrl", function ($scope,$rootScope, $http,$window,checkOut
     $scope.cart = [];
     $scope.total = 0;
     $scope.totalSp = 0;
-
+    $scope.errorSelectedSP;
     let currentUser = JSON.parse(localStorage.getItem("currentUser"));
     //load cart
     $rootScope.index = function () {
@@ -177,16 +177,20 @@ myApp.controller("cartCtrl", function ($scope,$rootScope, $http,$window,checkOut
 
     $scope.buy = () => {
         $scope.chiTietSanPham=[];
+        if($scope.selection.length == 0){
+            $scope.errorSelectedSP = "* Vui lòng chọn sản phẩm!";
+            return;
+        }
         $scope.selection.forEach(item=>{
             $scope.chiTietSanPham.push({
                 idChiTietSanPham: item.chiTietSanPham.idChiTietSanPham,
                 giaBan: item.giaBan,
-                soLuong: item.soLuongSanPham
+                soLuong: item.soLuongSanPham,
+                chiTietSanPham: item.chiTietSanPham
             })
         })
-        console.log($scope.chiTietSanPham,"CTSP")
         checkOutDataService.setData($scope.chiTietSanPham);
-        $location.path("/thanhtoan");
+        $location.path("/checkout");
       };
 
 
