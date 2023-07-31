@@ -57,42 +57,6 @@ public class DonHangController {
     @Autowired
     HttpServletRequest request;
 
-    @PostMapping("/them-don-hang")
-    public RedirectView taoDonHang(@RequestBody ThemDonHangRequest themDonHangRequest) {
-        try {
-            System.out.println(themDonHangRequest.toString());
-            KhachHang khachHang = khachHangService.findKhachHangById(themDonHangRequest.getKhachHangId());
-            DonHang donHang = DonHang.builder()
-                    .khachHang(khachHang)
-                    .ngayTao(new Timestamp(System.currentTimeMillis()))
-                    .trangThaiDonHang(0)
-                    .idTinhThanh(themDonHangRequest.getIdTinhThanh())
-                    .idQuanHuyen(themDonHangRequest.getIdQuanHuyen())
-                    .idPhuongXa(themDonHangRequest.getIdPhuongXa())
-                    .diaChi(themDonHangRequest.getDiaChi())
-                    .phiVanChuyen(themDonHangRequest.getPhiVanChuyen())
-                    .ghiChu(themDonHangRequest.getGhiChu())
-                    .build();
-            DonHang savedDonHang = donHangService.save(donHang);
-            List<HoaDonChiTiet> listHoaDonChiTiet = hdctService.convertToListHoaDonChiTiet(themDonHangRequest.getListHoaDonChiTietRequest(), savedDonHang.getIdDonHang());
-            hdctService.saveAll(listHoaDonChiTiet);
-            TaoDonHangRequestGHN requestGHN = TaoDonHangRequestGHN.builder()
-                    .note(themDonHangRequest.getGhiChu())
-                    .toName(khachHang.getTenKhachHang())
-                    .toPhone(khachHang.getSoDienThoai())
-                    .toAddress(themDonHangRequest.getDiaChi())
-                    .idQuanHuyen(themDonHangRequest.getIdQuanHuyen())
-                    .idPhuongXa(themDonHangRequest.getIdPhuongXa())
-                    .soLuongSanPham(themDonHangRequest.getSoLuongSanPham())
-                    .listItems(toListChiTietItem(listHoaDonChiTiet))
-                    .build();
-            ThemDonHangResponseGHN responseGHN = DonHangAPI.createOrder(requestGHN);
-            System.out.println(responseGHN.toString());
-            return new RedirectView("http://localhost:8080/index#/success");
-        } catch (Exception e) {
-            return new RedirectView("http://localhost:8080/index#/fail");
-        }
-    }
     private List<ChiTietItemRequestGHN> toListChiTietItem(List<HoaDonChiTiet> listHDCT) {
         List<ChiTietItemRequestGHN> result = new ArrayList<>();
         listHDCT.forEach(hdct -> {

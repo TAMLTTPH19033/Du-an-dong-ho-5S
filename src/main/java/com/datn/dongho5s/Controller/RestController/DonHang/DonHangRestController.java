@@ -32,6 +32,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.websocket.server.PathParam;
@@ -72,6 +73,43 @@ public class DonHangRestController {
             return ResponseEntity.status(HttpStatus.OK).body(fee);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
+
+    @PostMapping("/them-don-hang")
+    public ResponseEntity<?> taoDonHang(@RequestBody ThemDonHangRequest themDonHangRequest) {
+        try {
+            System.out.println(themDonHangRequest.toString());
+            KhachHang khachHang = khachHangService.findKhachHangById(themDonHangRequest.getKhachHangId());
+            DonHang donHang = DonHang.builder()
+                    .khachHang(khachHang)
+                    .ngayTao(new Timestamp(System.currentTimeMillis()))
+                    .trangThaiDonHang(0)
+                    .idTinhThanh(themDonHangRequest.getIdTinhThanh())
+                    .idQuanHuyen(themDonHangRequest.getIdQuanHuyen())
+                    .idPhuongXa(themDonHangRequest.getIdPhuongXa())
+                    .diaChi(themDonHangRequest.getDiaChi())
+                    .phiVanChuyen(themDonHangRequest.getPhiVanChuyen())
+                    .ghiChu(themDonHangRequest.getGhiChu())
+                    .build();
+            DonHang savedDonHang = donHangService.save(donHang);
+            List<HoaDonChiTiet> listHoaDonChiTiet = hdctService.convertToListHoaDonChiTiet(themDonHangRequest.getListHoaDonChiTietRequest(), savedDonHang.getIdDonHang());
+            hdctService.saveAll(listHoaDonChiTiet);
+            TaoDonHangRequestGHN requestGHN = TaoDonHangRequestGHN.builder()
+                    .note(themDonHangRequest.getGhiChu())
+                    .toName(khachHang.getTenKhachHang())
+                    .toPhone(khachHang.getSoDienThoai())
+                    .toAddress(themDonHangRequest.getDiaChi())
+                    .idQuanHuyen(themDonHangRequest.getIdQuanHuyen())
+                    .idPhuongXa(themDonHangRequest.getIdPhuongXa())
+                    .soLuongSanPham(themDonHangRequest.getSoLuongSanPham())
+                    .listItems(toListChiTietItem(listHoaDonChiTiet))
+                    .build();
+            ThemDonHangResponseGHN responseGHN = DonHangAPI.createOrder(requestGHN);
+            System.out.println(responseGHN.toString());
+            return ResponseEntity.status(HttpStatus.OK).body(responseGHN);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e);
         }
     }
 
@@ -142,36 +180,6 @@ public class DonHangRestController {
         vnp_Params.put("vnp_Locale", location);
         vnp_Params.put("vnp_ReturnUrl", vnp_ReturnUrl);
         vnp_Params.put("vnp_IpAddr", vnp_IpAddr);
-
-//        String fullName = (khachHang.getTenKhachHang()).trim();
-//        if (fullName != null && !fullName.isEmpty()) {
-//            int idx = fullName.indexOf(' ');
-//            if(idx ==-1){
-//                vnp_Params.put("vnp_Bill_LastName", fullName);
-//            }else {
-//                String firstName = fullName.substring(0, idx);
-//                String lastName = fullName.substring(fullName.lastIndexOf(' ') + 1);
-//                vnp_Params.put("vnp_Bill_FirstName", firstName);
-//                vnp_Params.put("vnp_Bill_LastName", lastName);
-//            }
-//        }
-//        vnp_Params.put("vnp_Inv_Phone", khachHang.getSoDienThoai());
-//        vnp_Params.put("khachHangId", String.valueOf(themDonHangRequest.getKhachHangId()));
-//        vnp_Params.put("vnp_Bill_Country", String.valueOf(themDonHangRequest.getIdQuanHuyen()));
-//        vnp_Params.put("vnp_Bill_City", String.valueOf(themDonHangRequest.getIdPhuongXa()));
-//        vnp_Params.put("vnp_Bill_Address", themDonHangRequest.getDiaChi());
-//        vnp_Params.put("ghiChu", themDonHangRequest.getGhiChu());
-//        vnp_Params.put("soLuongSanPham", String.valueOf(themDonHangRequest.getSoLuongSanPham()));
-//        vnp_Params.put("phiVanChuyen", String.valueOf(themDonHangRequest.getPhiVanChuyen()));
-//        List<HoaDonChiTietRequest> list = themDonHangRequest.getListHoaDonChiTietRequest();
-//        ObjectMapper objectMapper = new ObjectMapper();
-//        String jsonString = null;
-//        try {
-//            jsonString = objectMapper.writeValueAsString(list);
-//        } catch (JsonProcessingException e) {
-//            e.printStackTrace();
-//        }
-//        vnp_Params.put("listHoaDonChiTietRequest", jsonString);
 
         Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Etc/GMT+7"));
         SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");

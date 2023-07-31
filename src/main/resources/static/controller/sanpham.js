@@ -102,7 +102,6 @@ myApp.controller("SanPhamController", function ($scope, $rootScope, $http,$filte
       dayDeoId: $scope.dayDeoIds,
       tenSanPham: $scope.tenSanPham,
     };
-    console.log($scope.conditionRequest)
     $http
       .post(searchAPI, $scope.conditionRequest)
       .then(function (response) {
@@ -118,6 +117,7 @@ myApp.controller("SanPhamController", function ($scope, $rootScope, $http,$filte
   };
   $scope.searchList();
   $scope.$watchGroup(["listSanPham"], function () {
+    $scope.currentPage=1;
     $scope.pages = [];
     var startPage = Math.max(1, $scope.currentPage - $scope.maxPagesToShow);
     var endPage = Math.min(
