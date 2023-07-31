@@ -93,4 +93,15 @@ public class DonHang {
     @ToString.Exclude
     private List<HoaDonChiTiet> listHoaDonChiTiet ;
 
+    public DonHang(Integer idDonHang, Date ngayTao, Double tongTien, Double phiVanChuyen) {
+        this.idDonHang = idDonHang;
+        this.ngayTao = ngayTao;
+//        this.ngayGiaoHang = ngayGiaoHang;
+        this.tongTien = tongTien;
+        this.phiVanChuyen = phiVanChuyen;
+    }
+
+    public DonHang(Double phiVanChuyen) {
+        this.phiVanChuyen = phiVanChuyen;
+    }
 }
