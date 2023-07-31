@@ -70,13 +70,17 @@ myApp.config(function ($routeProvider, $locationProvider,$httpProvider) {
       controller: "fail"
     })
 
-    .when("/history/0", {
+    .when("/history/all", {
         templateUrl: "page/historyAll.html",
         controller: "historyCtrl"
     })
-      .when("/history/1", {
+      .when("/history/0", {
         templateUrl: "page/DHChoThanhToan.html",
         controller: "historyChoCtrl"
+      })
+      .when("/history/1", {
+        templateUrl: "page/DHDangChuanBi.html",
+        controller: "historyWaitCtrl"
       })
       .when("/history/2", {
         templateUrl: "page/DHDangGiao.html",

@@ -48,4 +48,10 @@ public class ChiTietSanPhamServiceImpl implements ChiTietSanPhamService {
     public ChiTietSanPham getChiTietSanPhamById(Integer id) {
         return chiTietSanPhamRepository.findById(id).get();
     }
+
+    @Override
+    public ChiTietSanPham update(ChiTietSanPham chiTietSanPham) {
+
+        return chiTietSanPhamRepository.save(chiTietSanPham);
+    }
 }

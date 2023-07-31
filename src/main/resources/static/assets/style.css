@@ -1797,7 +1797,7 @@ body.index-2 .left-category-menu{
 body.index-2 .left-product-cat{}
 body.index-2 .category-heading{}
 body.index-2 .category-heading h2{
-	background: #c1a300 none repeat scroll 0 0;
+	background: #FF4F4F none repeat scroll 0 0;
 	color: #fff;
 	cursor: pointer;
 	font-size:14px;
@@ -2212,7 +2212,7 @@ span.after{
 	border: 1px solid #fff;
 	border-bottom-left-radius: 4px;
 	border-top-left-radius: 4px;
-	color: #fd7e01;
+	color: #FF4F4F;
 	float: left;
 	font-size: 25px;
 	line-height: 48px;
@@ -2435,8 +2435,8 @@ i.color-green{
 	color:#A0D468;
 }
 i.color-yellow{
-	background:#F1C40F;
-	color:#F1C40F;
+	background:#FF4F4F;
+	color:#FF4F4F;
 }
 i.color-pink{
 	background:#FCCACD;

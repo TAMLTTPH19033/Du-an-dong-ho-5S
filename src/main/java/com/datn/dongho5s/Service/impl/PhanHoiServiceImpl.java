@@ -55,14 +55,21 @@ public class PhanHoiServiceImpl implements PhanHoiService {
             System.out.println("rỗng rồi");
             return true;
         }
+        Long countPH =phanHoiRepository.countPhanHoi(idKhachHang,idChiTietSanPham);
+        Long countHDCT =phanHoiRepository.countHDCT(idKhachHang,idChiTietSanPham);
         if(donHangList != null){
-            System.out.println("sai rồi");
-            Optional<PhanHoi> phanHoi = phanHoiRepository.findPhanHoi(idKhachHang,idChiTietSanPham);
-            if (phanHoi.isPresent()){
-                return  true;
-            }else {
-                return false ;
+            if(countPH < countHDCT){
+                return false;
+            }else{
+               return true;
             }
+//            System.out.println("sai rồi");
+//            Optional<PhanHoi> phanHoi = phanHoiRepository.findPhanHoi(idKhachHang,idChiTietSanPham);
+//            if (phanHoi.isPresent()){
+//                return  true;
+//            }else {
+//                return false ;
+//            }
         }else {
             return true;
         }
@@ -88,4 +95,17 @@ public class PhanHoiServiceImpl implements PhanHoiService {
         PhanHoiResponse phanHoiResponse = PhanHoiMapping.mapEntitytoResponse(phanHoiRepository.save(phanHoi));
         return phanHoiResponse;
     }
+
+    @Override
+    public Long countPH(Integer idKhachHang, Integer idChiTietSanPham) {
+        System.out.println(phanHoiRepository.countPhanHoi(idKhachHang,idChiTietSanPham));
+        return phanHoiRepository.countPhanHoi(idKhachHang,idChiTietSanPham);
+    }
+
+    @Override
+    public Long countHDCT(Integer idKhachHang, Integer idChiTietSanPham) {
+        return phanHoiRepository.countHDCT(idKhachHang,idChiTietSanPham);
+    }
+
+
 }

@@ -44,4 +44,11 @@ public class PhanHoiRestController {
         PhanHoiResponse phanHoiResponse = phanHoiService.addPhanHoi(phanHoiRequest);
         return ResponseEntity.status(HttpStatus.OK).body(phanHoiResponse);
     }
+
+//    @GetMapping("/phan-hoi/countHDCT")
+//    public ResponseEntity<?> count(@Param("idKhachHang") Integer idKhachHang , @Param("idChiTietSanPham") Integer idChiTietSanPham){
+//        Integer countPH = phanHoiService.countHDCT(idKhachHang,idChiTietSanPham);
+//        System.out.println(countPH  );
+//        return ResponseEntity.status(HttpStatus.OK).body(countPH);
+//    }
 }

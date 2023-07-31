@@ -15,4 +15,7 @@ public interface PhanHoiService {
 
     PhanHoiResponse addPhanHoi(PhanHoiRequest phanHoiRequest);
 
+    Long countPH(Integer idKhachHang, Integer idChiTietSanPham);
+    Long countHDCT(Integer idKhachHang, Integer idChiTietSanPham);
+
 }

@@ -1,18 +1,27 @@
 package com.datn.dongho5s.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.List;
 
 @Entity
 @Data
@@ -73,4 +82,12 @@ public class ChiTietSanPham {
 
     @Column(name = "so_luong")
     private Integer soLuong;
+
+    @OneToMany(mappedBy = "chiTietSanPham", cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @JsonIgnore
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private List<PhanHoi> listPhanHoi ;
+
 }
