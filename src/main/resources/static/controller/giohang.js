@@ -151,7 +151,7 @@ myApp.controller("cartCtrl", function ($scope,$rootScope, $http,$window,checkOut
         }
     };
 
-    $scope.change = function (item) {
+    $scope.changeSL = function (item) {
         if (item) {
             if (item.soLuongSanPham < 1) {
                 $scope.removeSP(item);
@@ -161,10 +161,23 @@ myApp.controller("cartCtrl", function ($scope,$rootScope, $http,$window,checkOut
             $scope.setTotals(item)
         }
     };
+    $scope.selection=[];
+    $scope.toggleSelection = function toggleSelection(item) {
+        var idx = $scope.selection.indexOf(item);
+        // is currently selected
+        if (idx > -1) {
+            $scope.selection.splice(idx, 1);
+        }
+        // is newly selected
+        else {
+            $scope.selection.push(item);
+        }
+        console.log($scope.selection)
+    };
 
     $scope.buy = () => {
         $scope.chiTietSanPham=[];
-        $scope.cart.forEach(item=>{
+        $scope.selection.forEach(item=>{
             $scope.chiTietSanPham.push({
                 idChiTietSanPham: item.chiTietSanPham.idChiTietSanPham,
                 giaBan: item.giaBan,
@@ -175,5 +188,7 @@ myApp.controller("cartCtrl", function ($scope,$rootScope, $http,$window,checkOut
         checkOutDataService.setData($scope.chiTietSanPham);
         $location.path("/thanhtoan");
       };
+
+
 
 })

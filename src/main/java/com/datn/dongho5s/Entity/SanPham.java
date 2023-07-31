@@ -35,6 +35,9 @@ public class SanPham {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idSanPham;
 
+    @JoinColumn(name = "ma_san_pham")
+    private String maSanPham;
+
     @ManyToOne
     @JoinColumn(name = "id_thuong_hieu")
     private ThuongHieu thuongHieu;

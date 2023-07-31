@@ -5,6 +5,7 @@ import com.datn.dongho5s.Entity.DanhMuc;
 import com.datn.dongho5s.Entity.DonHang;
 import com.datn.dongho5s.Entity.HoaDonChiTiet;
 import com.datn.dongho5s.Entity.PhanHoi;
+import com.datn.dongho5s.Service.DonHangService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -23,7 +24,7 @@ public interface DonHangRepository extends JpaRepository<DonHang, Integer> {
 
     @Query(value = "select hdct from HoaDonChiTiet hdct where hdct.donHang.khachHang.idKhachHang = ?1 and hdct.chiTietSanPham.idChiTietSanPham = ?2 and hdct.donHang.trangThaiDonHang = 3")
 
-    List<HoaDonChiTiet> findHDDonHang(Integer idKhachHang, Integer idSanPham);
+    List<HoaDonChiTiet> findHDDonHang(Integer idKhachHang, Integer idChiTietSanPham);
 
     @Query(value = """
                 SELECT d
@@ -58,4 +59,15 @@ public interface DonHangRepository extends JpaRepository<DonHang, Integer> {
                 WHERE d.idDonHang = :#{#donHang.idDonHang}
             """)
     void updateTrangThaiDonHang(@Param("donHang") DonHang donHang);
+
+
+    @Query(value = "select hdct from HoaDonChiTiet hdct where hdct.donHang =?1 ")
+    List<HoaDonChiTiet> findHDCTbyDH(Integer idDonhang);
+
+    @Query(value = "select dh from DonHang dh where dh.khachHang.idKhachHang = ?1 ")
+    List<DonHang> findAllHD(Integer idKhachHang);
+
+    @Query(value = "select dh from DonHang dh where dh.khachHang.idKhachHang = ?1 and dh.trangThaiDonHang = ?2")
+    List<DonHang> findHDByStatus(Integer idKhachHang, Integer trangThaiDonHang);
+
 }

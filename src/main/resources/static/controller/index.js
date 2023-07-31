@@ -42,15 +42,16 @@ myApp.config(function ($routeProvider, $locationProvider,$httpProvider) {
     }).when("/address", {
     templateUrl: "page/checkout-address.html",
 
-  }).when("/shipping", {
+    }).when("/shipping", {
     templateUrl: "page/checkout-shipping.html",
 
-  })
+    })
 
     .when("/checkout", {
       templateUrl: "page/checkout.html",
       controller: "ThanhToanCtrl"
     })
+
     .when("/chitietsanpham/:idSp", {
       templateUrl: "page/single-product.html",
       controller: "TrangChiTietSanPhamController"
@@ -59,6 +60,40 @@ myApp.config(function ($routeProvider, $locationProvider,$httpProvider) {
       templateUrl: "page/my-.html",
       controller: "ThongTinCaNhanController"
     })
+
+    .when("/success", {
+      templateUrl: "page/success.html",
+      controller: "success"
+    })
+    .when("/fail", {
+      templateUrl: "page/fail.html",
+      controller: "fail"
+    })
+
+    .when("/history/0", {
+        templateUrl: "page/historyAll.html",
+        controller: "historyCtrl"
+    })
+      .when("/history/1", {
+        templateUrl: "page/DHChoThanhToan.html",
+        controller: "historyChoCtrl"
+      })
+      .when("/history/2", {
+        templateUrl: "page/DHDangGiao.html",
+        controller: "historyShippingCtrl"
+      })
+      .when("/history/3", {
+        templateUrl: "page/DHHoanThanh.html",
+        controller: "historyDoneCtrl"
+      })
+      .when("/history/4", {
+        templateUrl: "page/DHDaHuy.html",
+        controller: "historyCancelCtrl"
+      }) .when("/history/5", {
+        templateUrl: "page/DHHoanTra.html",
+        controller: "historyReturnCtrl"
+      })
+
     .otherwise({
       redirectTo: "/",
     });
@@ -117,19 +152,19 @@ else{
       $http.defaults.headers.common.Authorization = "";
     }
 
-  $rootScope.logout = function (){
+  $rootScope.logouts = function (){
     $window.localStorage.removeItem('currentUser');
     $http.defaults.headers.common.Authorization = "";
     Swal.fire({
       icon: "warning",
       title: "Đã đăng xuất!",
-      text: "Quay lại trang chủ!",
+      text: "Đăng xuất thành công!",
       showConfirmButton: false,
       closeOnClickOutside: false,
       allowOutsideClick: false,
-      timer: 1600,
+      timer: 5600,
     });
-    // $location.path("/")
-    window.location.reload();
+    // $location.path("/login")
+    $window.location.reload();
   }
 })

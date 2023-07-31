@@ -103,17 +103,24 @@
 											<a href="#">Write a review</a>
 										</div>		
 									</div>
-									<div class="single-product-condition">
-										<p>Reference: <span>demo_1</span></p>
-										<!--Todo chiet khau-->
-										<p>Sale: <span>Chieu khau o day</span></p>
+									<div ng-if="chiTietSanPham.giaSanPham == getGia()">
+										<div class="single-product-condition">
+											<p>Reference: <span>demo_1</span></p>
+										</div>
+										<div class="single-product-price" >
+											<h2 ng-bind="getGia()"> đ</h2>
+										</div>
 									</div>
-									<div class="single-product-price" ng-if="chiTietSanPham.giaSanPham == getGia()">
-										<h2 ng-bind="getGia()"> đ</h2>
-									</div>
-									<div class="single-product-price" ng-if="chiTietSanPham.giaSanPham != getGia()">
+									<div ng-if="chiTietSanPham.giaSanPham != getGia()">
+										<div class="single-product-condition">
+											<p>Reference: <span>demo_1</span></p>
+											<!--Todo chiet khau-->
+											<p>Sale: <span>{{chiTietSanPham.khuyenMai.tenKhuyenMai}}</span></p>
+										</div>
+									<div class="single-product-price">
 										<h2>{{chiTietSanPham.giaSanPham}} đ</h2>
 										<h3 ng-bind="getGia()"> đ</h3>
+									</div>
 									</div>
 <!--									<div class="single-product-desc">-->
 <!--										<p>Faded short sleeves t-shirt with high neckline. Soft and stretchy material for a comfortable fit. Accessorize with a straw hat and you're ready for summer!</p>-->
@@ -127,10 +134,12 @@
 										<a href="#"><i class="fa fa-heart"></i></a>
 									</div>
 									<div class="single-product-quantity">
-										<p class="small-title">Quantity</p> 
+										<p class="small-title" style=" margin-right: 16px">Quantity</p>
 										<div class="cart-quantity">
 											<div class="cart-plus-minus-button single-qty-btn">
-												<input class="cart-plus-minus sing-pro-qty" type="text" name="qtybutton" ng-model="soLuong">
+												<div class="dec qtybutton" ng-click="giam(item)" style="">-</div>
+												<input class="cart-plus-minus sing-pro-qty" type="text" name="qtybutton" ng-model="soLuong" readonly style="margin: 0;width: 30px; text-align: center">
+												<div class="inc qtybutton"  ng-click="tang(item)"  style="margin: 0">+</div>
 											</div>
 										</div>
 									</div>
@@ -155,8 +164,8 @@
 										<a class="color-blue" href="#"><span></span></a>
 									</div>
 									<div class="single-product-add-cart">
-										<a class="add-cart-text" title="Thêm vào giỏ hàng" ng-click="addToCart()">Thêm vào giỏ hàng</a>
-										<a class="add-cart-text" title="Mua ngay" ng-click="buyNow()">Mua ngay</a>
+										<button class="add-cart-text" title="Thêm vào giỏ hàng" ng-click="addToCart()">Thêm vào giỏ hàng</button>
+										<button class="add-cart-text" title="Mua ngay" ng-click="buyNow()">Mua ngay</button>
 									</div>
 								</div>
 							</div>
@@ -173,9 +182,9 @@
 <!--										<li><a href="#review" data-toggle="tab">reviews</a></li>-->
 <!--									</ul>-->
 									<ul class="nav nav-tabs more-info-tab">
-										<li class="{{moreInfo}}"><a ng-click="changeTab(1)" data-toggle="tab">more info</a></li>
-										<li class="{{dataSheet}}"><a ng-click="changeTab(2)" data-toggle="tab">data sheet</a></li>
-										<li class="{{review}}"><a ng-click="changeTab(3)" data-toggle="tab">reviews</a></li>
+										<li class="{{moreInfo}}"><a class="btn" ng-click="changeTab(1)" data-toggle="tab">more info</a></li>
+										<li class="{{dataSheet}}"><a class="btn" ng-click="changeTab(2)" data-toggle="tab">data sheet</a></li>
+										<li class="{{review}}"><a class="btn" ng-click="changeTab(3)" data-toggle="tab">reviews</a></li>
 									</ul>
 									  <!-- Tab panes -->
 									<div class="tab-content">
@@ -224,33 +233,65 @@
 												</table>				
 											</div>
 										</div>
-										<div class="tab-pane {{dataSheet}}" id="review">
+										<div class="tab-pane {{review}}" id="review">
 											<div class="row tab-review-row">
-												<div class="col-xs-5 col-sm-4 col-md-4 col-lg-3 padding-5">
-													<div class="tab-rating-box">
-														<span>Grade</span>
-														<div class="rating-box">
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star-half-empty"></i>
-														</div>	
+												<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 " >
+													<div class="tab-rating-box" ng-repeat="p in Items">
+														<span>{{p.noiDungPhanHoi}}</span>
+														<div star-rating rating-value="p.danhGia" max="5"></div>
 														<div class="review-author-info">
-															<strong>write A REVIEW</strong>
-															<span>06/22/2015</span>
+															<strong>{{p.khachHang.tenKhachHang}} </strong>
+															<span>{{p.thoiGianPhanHoi | date: 'dd/MM/yyyy'}}</span>
 														</div>															
 													</div>
-												</div>
-												<div class="col-xs-7 col-sm-8 col-md-8 col-lg-9 padding-5">
-													<div class="write-your-review">
-														<p><strong>write A REVIEW</strong></p>
-														<p>write A REVIEW</p>
-														<span class="usefull-comment">Was this comment useful to you? <span>Yes</span><span>No</span></span>
-														<a href="#">Report abuse </a>
+													<div class="text-center" ng-if="pages.length == 0 ">
+														<p>Chưa có phản hồi nào</p>
+													</div>
+													<div ng-if="pages.length > 0 ">
+														<nav aria-label="Page navigation" style="text-align: center">
+															<ul class="pagination justify-content-center"  style="margin: 10px 20px;">
+																<li class="page-item">
+																	<button class="page-link" style="color: #000000;" ng-click="previousPage()">Trước</button>
+																</li>
+																<li class="page-item" ng-repeat="page in pages">
+																	<button class="page-link" style="color: #000000;padding: 0 3px;margin: 0 -3px;" ng-click="changePage(page)">{{ page }}
+																	</button>
+																</li>
+																<li class="page-item">
+																	<button class="page-link" style="color: #000000;" ng-click="nextPage()">Tiếp</button>
+																</li>
+															</ul>
+														</nav >
 													</div>
 												</div>
-												<a href="#" class="write-review-btn">Write your review!</a>
+												<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 padding-5">
+													<div class="text-center" ng-if="pages.length == 0 ">
+
+													</div>
+													<div ng-if="pages.length > 0 ">
+														<div class="write-your-review">
+															<p><strong>write A REVIEW</strong></p>
+															<p>write A REVIEW</p>
+															<span class="usefull-comment">Was this comment useful to you? <span>Yes</span><span>No</span></span>
+														</div>
+													</div>
+													<!-- form send-->
+													<span ng-if="check == true">
+												</span>
+													<span ng-if="check == false">
+													<span class="rating-selection">
+														<form ng-submit="sendRate()">
+															<div star-ratings  rating-value="ratings.current" max="5"></div>
+															<input type="text" id="noiDungPhanHoi" name="noiDungPhanHoi" ng-model="noiDungPhanHoi"/>
+															<a class="btn" class="write-review-btn" ng-click="sendRate()">Send your review!</a>
+														</form>
+													</span>
+												</span>
+													<!-- form send-->
+												</div>
+												<br>
+
+
 											</div>
 										</div>
 									</div>									

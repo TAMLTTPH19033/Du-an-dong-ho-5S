@@ -42,6 +42,7 @@ public class SecurityConfiguration {
                 if(customer != null){
                     return customer.get();
                 }else {
+                    System.out.println(staff);
                     return staff.get();
                 }
             }
