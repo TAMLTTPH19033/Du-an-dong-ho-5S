@@ -65,7 +65,7 @@ public class DonHangController {
             DonHang donHang = DonHang.builder()
                     .khachHang(khachHang)
                     .ngayTao(new Timestamp(System.currentTimeMillis()))
-                    .trangThaiDonHang(1)
+                    .trangThaiDonHang(0)
                     .idTinhThanh(themDonHangRequest.getIdTinhThanh())
                     .idQuanHuyen(themDonHangRequest.getIdQuanHuyen())
                     .idPhuongXa(themDonHangRequest.getIdPhuongXa())
