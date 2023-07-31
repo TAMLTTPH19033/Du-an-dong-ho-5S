@@ -17,15 +17,15 @@ $(document).ready(function(){
 ----------------------------------------- */		
 	$( "#price-range" ).slider({
 		range: true,
-		min: 1,
+		min: 0,
 		max: 100,
-		values: [ 10, 90 ],
+		values: [ 1, 10 ],
 		slide: function( event, ui ) {
-			$( "#slidevalue" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+			$( "#slidevalue" ).val( ui.values[ 0 ]+ " triệu vnđ" + " - " + ui.values[ 1 ]+ " triệu vnđ" );
 		}
 	});
-	$( "#slidevalue" ).val( "$" + $( "#price-range" ).slider( "values", 0 ) +
-		" - $" + $( "#price-range" ).slider( "values", 1 ) );	
+	$( "#slidevalue" ).val( $( "#price-range" ).slider( "values", 0 )+ " triệu vnđ" +
+		" - " + $( "#price-range" ).slider( "values", 1 )+ " triệu vnđ" );
 		
 /*---------------------------------------
 	scroll to top

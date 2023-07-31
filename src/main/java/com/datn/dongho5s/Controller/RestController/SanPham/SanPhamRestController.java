@@ -34,7 +34,9 @@ public class SanPhamRestController {
     @PostMapping("/tim-kiem")
     public ResponseEntity<?> TimKiemSanPham (@RequestBody TimKiemRequest timKiemRequest){
 //        try {
-            validDataTimKiem(timKiemRequest);
+//        System.out.println(timKiemRequest.toString());
+//            validDataTimKiem(timKiemRequest);
+        System.out.println(timKiemRequest.toString());
             Set<TimKiemResponse> result = sanPhamService.getSanPhamByCondition(timKiemRequest);
             return ResponseEntity.status(HttpStatus.OK).body(result);
 //        }catch(Exception e){
