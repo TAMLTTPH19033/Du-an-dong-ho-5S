@@ -2717,7 +2717,8 @@ ul.pagination-bar{}
 }
 .showing-next-prev ul li a.pagi-num:hover, .showing-next-prev ul li.active a.pagi-num{
 	background:#f6f6f6 none repeat scroll 0 0;
-	color:#333;
+	color:#0c63e4;
+	font-weight: bold;
 }
 .showing-next-prev ul li span{
 	background: #d2d0d0 none repeat scroll 0 0;
@@ -4689,4 +4690,37 @@ a.write-review-btn{
 .img-responsive{}
 .category-tag{
 	overflow:hidden;
+}
+.radio-container {
+	display: inline-block;
+	position: relative;
+}
+
+/* Ẩn radio button mặc định */
+.custom-radio {
+	position: absolute;
+	opacity: 0;
+	cursor: pointer;
+}
+
+/* Style mặc định của nút radio */
+.custom-button-radio {
+	display: inline-block;
+	padding: 8px 16px;
+	background-color: #f1f1f1;
+	border: 2px solid black;
+	border-radius: 5px;
+	cursor: pointer;
+	user-select: none;
+}
+
+/* Style khi radio được chọn (selected) */
+.custom-radio:checked + .custom-button-radio {
+	background-color: black;
+	color: white;
+	border-color: white;
+}
+.custom-radio:disabled + .custom-button-radio {
+	opacity: 0.4; /* Tùy chỉnh độ mờ */
+	cursor: not-allowed;
 }

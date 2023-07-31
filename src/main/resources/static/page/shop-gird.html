@@ -19,21 +19,8 @@
 							<h2 class="left-title pro-g-page-title">Catalog</h2>
 							<!-- SINGLE SIDEBAR ENABLED FILTERS START -->
 							<div class="product-single-sidebar">
-								<span class="sidebar-title">ENABLED FILTERS:</span>
-								<ul class="filtering-menu">
-									<li>
-										Categories: Dresses 
-										<a href="#"><i class="fa fa-remove"></i></a>
-									</li>
-									<li>
-										Avaiale: In stock 
-										<a href="#"><i class="fa fa-remove"></i></a>
-									</li>
-									<li>
-										Categories: Dresses 
-										<a href="#"><i class="fa fa-remove"></i></a>
-									</li>
-								</ul>
+								<span class="sidebar-title">Tên</span>
+								<input type="text"  name="ten" ng-model="tenSanPham" class="form-control input-feild" >
 							</div>
 							<!-- SINGLE SIDEBAR ENABLED FILTERS END -->
 							<!-- SINGLE SIDEBAR CATEGORIES START -->
@@ -165,65 +152,53 @@
 									<div class="shoort-by">
 										<label for="productShort">Sort by</label>
 										<div class="short-select-option">
-											<select name="sortby" id="productShort">
-												<option value="">--</option>
-												<option value="">Price: Lowest first</option>
-												<option value="">Price: Highest first</option>
-												<option value="">Product Name: A to Z</option>
-												<option value="">Product Name: Z to A</option>
-												<option value="">In stock</option>
-												<option value="">Reference: Lowest first</option>
-												<option value="">Reference: Highest first</option>
+											<select name="sortby" id="productShort" ng-model="selectedSortOption" ng-change="handleSortChange()">
+												<option value="0">--</option>
+												<option value="1">Price: Lowest first</option>
+												<option value="2">Price: Highest first</option>
+												<option value="3">Product Name: A to Z</option>
+												<option value="4">Product Name: Z to A</option>
 											</select>												
 										</div>
 									</div>
 									<!-- SHOORT-BY END -->
 									<!-- SHOW-PAGE START -->
-									<div class="show-page">
-										<label for="perPage">Show</label>
-										<div class="s-page-select-option">
-											<select name="show" id="perPage">
-												<option value="">11</option>
-												<option value="">12</option>
-											</select>													
-										</div>
-										<span>per page</span>										
-									</div>
+<!--									<div class="show-page">-->
+<!--										<label for="perPage">Show</label>-->
+<!--										<div class="s-page-select-option">-->
+<!--											<select name="show" id="perPage">-->
+<!--												<option value="">11</option>-->
+<!--												<option value="">12</option>-->
+<!--											</select>													-->
+<!--										</div>-->
+<!--										<span>per page</span>										-->
+<!--									</div>-->
 									<!-- SHOW-PAGE END -->
 									<!-- VIEW-SYSTEAM START -->
-									<div class="view-systeam">
-										<label for="perPage">View:</label>
-										<ul>
-											<li class="active"><a href="shop-gird.html"><i class="fa fa-th-large"></i></a><br />Grid</li>
-											<li><a href="shop-list.html"><i class="fa fa-th-list"></i></a><br />List</li>
-										</ul>
-									</div>
+<!--									<div class="view-systeam">-->
+<!--										<label for="perPage">View:</label>-->
+<!--										<ul>-->
+<!--											<li class="active"><a href="shop-gird.html"><i class="fa fa-th-large"></i></a><br />Grid</li>-->
+<!--											<li><a href="shop-list.html"><i class="fa fa-th-list"></i></a><br />List</li>-->
+<!--										</ul>-->
+<!--									</div>-->
 									<!-- VIEW-SYSTEAM END -->
 								</div>
 								<!-- PRODUCT-SHOOTING-RESULT START -->
-								<div class="product-shooting-result">
-									<form action="#">
-										<button class="btn compare-button">
-											Compare (<span class="compare-value">1</span>)
-											<i class="fa fa-chevron-right"></i>
-										</button>
-									</form>
+								<div class="product-shooting-result product-shooting-result-border">
 									<div class="showing-item">
-										<span>Showing 1 - 12 of 13 items</span>
+										<!--								<span>Showing 1 - 12 of 13 items</span>-->
 									</div>
 									<div class="showing-next-prev">
 										<ul class="pagination-bar">
-											<li class="disabled">
-												<a href="#" ><i class="fa fa-chevron-left"></i>Previous</a>
+											<li ng-class="{ 'disabled' : isFirstPage }">
+												<a  ng-click="previousPage()"><i class="fa fa-chevron-left "></i>Previous</a>
 											</li>
-											<li class="active">
-												<span><a class="pagi-num" href="#">1</a></span>
+											<li ng-class="{ 'active' : page == currentPage }" ng-repeat="page in pages" ng-click="changePage(page)">
+												<span><a class="pagi-num" >{{ page }}</a></span>
 											</li>
-											<li>
-												<span><a class="pagi-num" href="#">2</a></span>
-											</li>
-											<li>
-												<a href="#" >Next<i class="fa fa-chevron-right"></i></a>
+											<li ng-class="{ 'disabled' : isLastPage }">
+												<a ng-click="nextPage()">Next<i class="fa fa-chevron-right" ></i></a>
 											</li>
 										</ul>
 										<form action="#">
@@ -297,28 +272,19 @@
 						<!-- ALL GATEGORY-PRODUCT END -->
 						<!-- PRODUCT-SHOOTING-RESULT START -->
 						<div class="product-shooting-result product-shooting-result-border">
-							<form action="#">
-								<button class="btn compare-button">
-									Compare (<strong class="compare-value">1</strong>)
-									<i class="fa fa-chevron-right"></i>
-								</button>
-							</form>
 							<div class="showing-item">
-								<span>Showing 1 - 12 of 13 items</span>
+<!--								<span>Showing 1 - 12 of 13 items</span>-->
 							</div>
 							<div class="showing-next-prev">
 								<ul class="pagination-bar">
-									<li class="disabled">
-										<a href="#" ><i class="fa fa-chevron-left"></i>Previous</a>
+									<li ng-class="{ 'disabled' : isFirstPage }">
+										<a  ng-click="previousPage()"><i class="fa fa-chevron-left "></i>Previous</a>
 									</li>
-									<li class="active">
-										<span><a class="pagi-num" href="#">1</a></span>
+									<li ng-class="{ 'active' : page == currentPage }" ng-repeat="page in pages" ng-click="changePage(page)">
+										<span><a class="pagi-num" >{{ page }}</a></span>
 									</li>
-									<li>
-										<span><a class="pagi-num" href="#">2</a></span>
-									</li>
-									<li>
-										<a href="#" >Next<i class="fa fa-chevron-right"></i></a>
+									<li ng-class="{ 'disabled' : isLastPage }">
+										<a ng-click="nextPage()">Next<i class="fa fa-chevron-right" ></i></a>
 									</li>
 								</ul>
 								<form action="#">

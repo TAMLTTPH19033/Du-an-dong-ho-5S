@@ -144,25 +144,34 @@
 										</div>
 									</div>
 									<div class="single-product-color">
-										<p class="small-title">Color </p>
-										<a href="#"><span></span></a>
-										<a class="color-blue" href="#"><span></span></a>
+										<p class="small-title">Dây Đeo </p>
+										<div class="radio-container" ng-repeat="dd in listDayDeo">
+											<input type="radio" name="daydeoOption" id="daydeo{{dd}}" class="custom-radio" ng-model="$parent.selectedDD" ng-value="dd">
+											<label for="daydeo{{dd}}" class="custom-button-radio">{{dd}}</label>
+										</div>
 									</div>
 									<div class="single-product-color">
-										<p class="small-title">Color </p>
-										<a href="#"><span></span></a>
-										<a class="color-blue" href="#"><span></span></a>
+										<p class="small-title">Vật liệu </p>
+										<div class="radio-container" ng-repeat="vl in listVatLieu">
+											<input type="radio" name="vatlieuOption" id="vatlieu{{vl}}" class="custom-radio" ng-model="$parent.selectedVL" ng-value="vl" ng-disabled="!setAvaiableVatLieu.has(vl)" >
+											<label for="vatlieu{{vl}}" class="custom-button-radio">{{vl}}</label>
+										</div>
 									</div>
 									<div class="single-product-color">
-										<p class="small-title">Color </p> 
-										<a href="#"><span></span></a>
-										<a class="color-blue" href="#"><span></span></a>
+										<p class="small-title">Màu sắc </p>
+										<div class="radio-container" ng-repeat="ms in listMauSac">
+											<input type="radio" name="mausacOption" id="mausac{{ms}}" class="custom-radio" ng-model="$parent.selectedMS" ng-value="ms" ng-disabled="!setAvaiableMauSac.has(ms)" >
+											<label for="mausac{{ms}}" class="custom-button-radio">{{ms}}</label>
+										</div>
 									</div>
 									<div class="single-product-size">
-										<p class="small-title">Color </p>
-										<a href="#"><span></span></a>
-										<a class="color-blue" href="#"><span></span></a>
+										<p class="small-title">Kích cỡ </p>
+										<div class="radio-container" ng-repeat="kc in listKichCo">
+											<input type="radio" name="kickcoOption" id="kichco{{kc}}" class="custom-radio" ng-model="$parent.selectedKC" ng-value="kc" ng-disabled="!setAvaiableKichCo.has(kc)" >
+											<label for="kichco{{kc}}" class="custom-button-radio">{{kc}}</label>
+										</div>
 									</div>
+									<br>
 									<div class="single-product-add-cart">
 										<button class="add-cart-text" title="Thêm vào giỏ hàng" ng-click="addToCart()">Thêm vào giỏ hàng</button>
 										<button class="add-cart-text" title="Mua ngay" ng-click="buyNow()">Mua ngay</button>
