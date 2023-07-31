@@ -1,5 +1,6 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/fragment/fragments:: page_head"></head>
 <body>
 <div th:fragment="menu">
     <div id="layoutSidenav_nav">
@@ -13,79 +14,79 @@
                     </a>
                     <div class="sb-sidenav-menu-heading">Menu</div>
 
-                    <a class="nav-link collapsed" th:href="@{/users}"  data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                    <a class="nav-link collapsed" id="users" th:href="@{/users}" >
                         <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                         User
                     </a>
-                    <a class="nav-link collapsed" th:href="@{/products}" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                    <a class="nav-link collapsed" id="products" th:href="@{/products}" >
                         <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                         Product
                     </a>
-                    <a class="nav-link collapsed" th:href="@{/categories}" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                    <a class="nav-link collapsed" id="categories" th:href="@{/categories}">
                         <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                         Categories
                     </a>
-                    <a class="nav-link collapsed" th:href="@{/brands}" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                    <a class="nav-link collapsed" id="brands" th:href="@{/brands}">
                         <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                         Brands
                     </a>
-                    <a class="nav-link collapsed" th:href="@{/customers}" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                    <a class="nav-link collapsed" id="customers" th:href="@{/customers}" >
                         <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                         Customers
                     </a>
-                    <a class="nav-link collapsed" th:href="@{/cards}" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                    <a class="nav-link collapsed" id="cards" th:href="@{/cards}" >
                         <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                         Card
                     </a>
-                    <a class="nav-link collapsed" th:href="@{/cardsDetail}" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                    <a class="nav-link collapsed" id="cardsDetails" th:href="@{/cardsDetail}" >
                         <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                         CardDetail
                     </a>
-                    <a class="nav-link collapsed" th:href="@{/orders}" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                    <a class="nav-link collapsed" id="orders" th:href="@{/orders}" >
                         <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                         Orders
                     </a>
-                    <a class="nav-link collapsed" th:href="@{/ordersDetail}" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                    <a class="nav-link collapsed" id="ordersDetail" th:href="@{/ordersDetail}" >
                         <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                         OrdersDetail
                     </a>
-                    <a class="nav-link collapsed" th:href="@{/statisticals}" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                    <a class="nav-link collapsed" id="statisticals" th:href="@{/statisticals}" >
                         <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                         Statisticals
                     </a>
-                    <a class="nav-link collapsed" th:href="@{/posts}" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                    <a class="nav-link collapsed" id="posts" th:href="@{/posts}" >
                         <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                         Posts
                     </a>
-                    <a class="nav-link collapsed" th:href="@{/seri}" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                    <a class="nav-link collapsed" id="seri" th:href="@{/seri}" >
                         <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                         Seri
                     </a>
-                    <a class="nav-link collapsed" th:href="@{/straps}" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                    <a class="nav-link collapsed" id="straps" th:href="@{/straps}" >
                         <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                         Straps
                     </a>
-                    <a class="nav-link collapsed" th:href="@{/sizes}" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                    <a class="nav-link collapsed" id="sizes" th:href="@{/sizes}" >
                         <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                         Sizes
                     </a>
-                    <a class="nav-link collapsed" th:href="@{/materials}" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                    <a class="nav-link collapsed" id="materials" th:href="@{/materials}" >
                         <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                         Materials
                     </a>
-                    <a class="nav-link collapsed" th:href="@{/colors}" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                    <a class="nav-link collapsed" id="colors" th:href="@{/colors}">
                         <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                         Colors
                     </a>
-                    <a class="nav-link collapsed" th:href="@{/don-hang}" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                    <a class="nav-link collapsed" id="don-hang" th:href="@{/don-hang}" >
                         <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                         DonHang
                     </a>
-                    <a class="nav-link collapsed" th:href="@{/ban-hang}" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                    <a class="nav-link collapsed" id="ban-hang" th:href="@{/ban-hang}" >
                         <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                         BanHang
                     </a>
-                    <a class="nav-link collapsed" th:href="@{/discounts}" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                    <a class="nav-link collapsed" id="discounts" th:href="@{/discounts}" >
                         <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                         DisCounts
                     </a>
