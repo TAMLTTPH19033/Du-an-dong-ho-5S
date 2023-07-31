@@ -5,6 +5,7 @@ import com.datn.dongho5s.Entity.DonHang;
 import com.datn.dongho5s.Entity.HoaDonChiTiet;
 import com.datn.dongho5s.Entity.SanPham;
 import com.datn.dongho5s.Repository.DonHangRepository;
+import com.datn.dongho5s.Request.DonHangRequest;
 import com.datn.dongho5s.Response.DonHangResponse;
 import com.datn.dongho5s.Response.HoaDonChiTietResponse;
 import com.datn.dongho5s.Response.SanPhamDetailResponse;
@@ -86,6 +87,7 @@ public class DonHangServiceImpl implements DonHangService {
     public List<DonHangResponse> findAllHD(Integer idKhachHang) {
         List<DonHang> listHD = donHangRepository.findAllHD(idKhachHang);
         List<DonHangResponse> responseList = listHD.stream().map(DonHangMapping::mapEntitytoResponse).collect(Collectors.toList());
+        responseList.sort((o1,o2) -> o2.getNgayTao().compareTo(o1.getNgayTao()));
         return responseList;
     }
 
@@ -93,6 +95,29 @@ public class DonHangServiceImpl implements DonHangService {
     public List<DonHangResponse> findHDByStatus(Integer idKhachHang, Integer trangThaiDonHang) {
         List<DonHang> listHD = donHangRepository.findHDByStatus(idKhachHang,trangThaiDonHang);
         List<DonHangResponse> responseList = listHD.stream().map(DonHangMapping::mapEntitytoResponse).collect(Collectors.toList());
+        responseList.sort((o1,o2) -> o2.getNgayTao().compareTo(o1.getNgayTao()));
         return responseList;
+    }
+
+    @Override
+    public DonHangResponse updateDH(DonHangRequest donHangRequest) {
+        try{
+
+        DonHang donHang = donHangRepository.findByIdDonHang(donHangRequest.getIdDonHang());
+        if(donHang != null){
+            if(donHangRequest.getLyDo() == null){
+                return null ;
+            }else {
+                donHang.setLyDo(donHangRequest.getLyDo());
+                donHang.setTrangThaiDonHang(donHangRequest.getTrangThaiDonHang());
+                donHang = donHangRepository.save(donHang);
+            }
+        }
+
+        DonHangResponse donHangResponse = DonHangMapping.mapEntitytoResponse(donHang);
+        return donHangResponse;
+        }catch (Exception e){
+            return null;
+        }
     }
 }

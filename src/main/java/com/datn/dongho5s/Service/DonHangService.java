@@ -2,6 +2,7 @@ package com.datn.dongho5s.Service;
 
 import com.datn.dongho5s.Entity.DonHang;
 import com.datn.dongho5s.Entity.HoaDonChiTiet;
+import com.datn.dongho5s.Request.DonHangRequest;
 import com.datn.dongho5s.Response.DonHangResponse;
 import com.datn.dongho5s.Response.HoaDonChiTietResponse;
 import org.springframework.data.domain.Page;
@@ -32,5 +33,9 @@ public interface DonHangService {
     List<DonHangResponse> findAllHD(Integer idKhachHang);
 
     List<DonHangResponse> findHDByStatus(Integer idKhachHang, Integer trangThaiDonHang);
+
+    public DonHangResponse updateDH(DonHangRequest donHangRequest);
+
+
 
 }

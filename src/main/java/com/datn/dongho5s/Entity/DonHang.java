@@ -80,6 +80,11 @@ public class DonHang {
     @Column(name = "ghi_chu")
     private String ghiChu;
 
+    @Column(name = "ly_do")
+    private String lyDo;
+
+
+
 
     @OneToMany(mappedBy = "donHang", cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)

@@ -4,12 +4,15 @@ import com.datn.dongho5s.Entity.DayDeo;
 import com.datn.dongho5s.Entity.KhuyenMai;
 import com.datn.dongho5s.Entity.KichCo;
 import com.datn.dongho5s.Entity.MauSac;
+import com.datn.dongho5s.Entity.PhanHoi;
 import com.datn.dongho5s.Entity.SanPham;
 import com.datn.dongho5s.Entity.VatLieu;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -43,4 +46,5 @@ public class ChiTietSanPhamResponse {
     private Double giaSanPham;
 
     private Integer soLuong;
+    List<PhanHoi> listPhanHoi;
 }

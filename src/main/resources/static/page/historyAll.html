@@ -39,8 +39,9 @@
                 <div class="tracking">
                     <nav>
                         <ul class="list-tracking" >
-                            <li class="active"><a href="#history/0"  data-toggle="tab">Tất cả</a> </li>
-                            <li><a href="#history/1"  data-toggle="tab">Chờ xác nhận </a> </li>
+                            <li class="active"><a href="#history/all"  data-toggle="tab">Tất cả</a> </li>
+                            <li><a href="#history/0"  data-toggle="tab">Chờ xác nhận </a> </li>
+                            <li><a href="#history/1"  data-toggle="tab">Đang chuẩn bị </a> </li>
                             <li > <a href="#history/2"  data-toggle="tab">Đang giao hàng</a> </li>
                             <li> <a href="#history/3" data-toggle="tab">Hoàn thành</a></li>
                             <li > <a href="#history/4" data-toggle="tab">Đã hủy</a></li>
@@ -58,14 +59,15 @@
                 </div>
                     <div ng-if="donHang.length > 0">
                     <div class="shipping-cart" >
-                        <div ng-repeat="item in donHang ">
+                        <div ng-repeat="item in donHang " style="padding: 10px; margin: 20px -10px; box-shadow: black 1px 1px 4px;">
                             <br>
-                            <div style="font-size: medium">
-                                <div >Mã đơn hàng : {{item.idDonHang}}</div>
-                                <div >Ngày Tạo : {{item.ngayTao}}</div>
+                            <div style="font-size: medium; padding: 0 10px;position: relative">
+                                <div >Mã đơn hàng : {{item.maDonHang}}</div>
+                                <div >Ngày Tạo : {{item.ngayTao | date : "short"}}</div>
                                 <div>Địa Chỉ : {{item.diaChiGiaoHang}}</div>
+                                <span style="position: absolute; right: 32px;top: 10px;color: #3ab19c;text-transform: uppercase;">Đơn hàng đã hoàn thành</span>
                             </div>
-                        <div class="shipping-item"  ng-repeat="h in item.hoaDonChiTiets" >
+                        <div class="shipping-item"  ng-repeat="h in item.hoaDonChiTiets" style="line-height: 22px; padding: 10px;">
 <!--                            <span class="cross-icon" ng-click="removeSP(item)"><i class="fa fa-times-circle"></i></span>-->
                             <div class=" shipping-item-image" style="width: 10%">
                                 <a href="#/chitietsanpham/{{h.chiTietSanPham.sanPham.idSanPham}}"><img src="/assets/images/{{h.chiTietSanPham.sanPham.listAnhSanPham[0].link}}" width="100%" alt="shopping image" /></a>
@@ -74,7 +76,7 @@
                                  <a href="#" class="pro-cat">{{h.chiTietSanPham.sanPham.tenSanPham}} </a>
                                 <div>{{h.soLuong}} <span class="pro-quan-x">x</span></div>
                                 <span class="pro-quality"><a href="#sanpham">Phân loại : {{h.chiTietSanPham.kichCo.tenKichCo}},{{h.chiTietSanPham.mauSac.tenMauSac}}</a></span>
-                                <ul class="price text-right">
+                                <ul class="price text-right" style="    position: absolute; right: 20px;top: 53px; " >
                                     <li class="price special-price"> {{h.giaBan * h.soLuong | number}} </li>
                                     <span ng-if="h.giaBan == h.chiTietSanPham.giaSanPham"></span>
                                     <span ng-if="h.giaBan != h.chiTietSanPham.giaSanPham">
@@ -96,8 +98,8 @@
                                 <span>Total</span>
                             </div>
                         </div>
-                                <div class="shipping-checkout-btn">
-                            <a href="#checkout"  style="background: #FF4F4F">Yêu cầu <i class="fa fa-chevron-right"></i></a>
+                                <div class="shipping-checkout-btn" style="    padding: 0 10px 20px; background: none">
+                            <a href="#checkout"  style="background: #FF4F4F">Xem Chi tiết</a>
                         </div>
                             </div>
                         </div>
