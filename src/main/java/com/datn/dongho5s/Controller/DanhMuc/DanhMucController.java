@@ -30,7 +30,6 @@ public class DanhMucController {
     private DanhmucService service;
 
     @GetMapping("/admin/categories")
-//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String listFirstPage(Model model){
         return listByPage(1,model,"ten","asc",null);
     }

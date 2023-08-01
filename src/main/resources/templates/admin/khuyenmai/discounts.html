@@ -9,12 +9,16 @@
     <div th:replace="admin/fragment/navigation:: menu"></div>
 
     <div id="layoutSidenav_content">
-        <main>
+        <main style="margin-left: 10px">
     <div>
         <h2>Quản lý Danh Mục</h2>
-        <a style="text-decoration: none" th:href="@{/admin/discounts/new}">Tạo Mới Khuyến Mãi</a>
+        <a style="text-decoration: none" th:href="@{/admin/discounts/new}">
+            <i style="color: green" class="fas fa-plus"></i>
+        </a>
         &nbsp;|&nbsp;
-        <a style="text-decoration: none" th:href="@{/admin/discounts/export/excel}">Export To Excel</a>
+        <a style="text-decoration: none" th:href="@{/admin/discounts/export/excel}">
+            <i class="far fa-file-excel"></i>
+        </a>
     </div>
 
     <div th:if="${message != null}" class="alert alert-success text-center">
@@ -64,8 +68,9 @@
                 <td>[[${km.chietKhau}]]</td>
                 <td>[[${km.enabled}]]</td>
                 <td>
-                    <a class="icon-green" style="text-decoration: none" th:href="@{'/admin/discounts/edit/' + ${km.idKhuyenMai}}"
-                       title="Thay đổi thông tin">Update</a>
+                    <a class="icon-green" style="text-decoration: none" th:href="@{'/admin/discounts/edit/' + ${km.idKhuyenMai}}" title="Thay đổi thông tin">
+                        <i style="color: blue" class="fas fa-edit"></i>
+                    </a>
                 </td>
             </tr>
             </tbody>
