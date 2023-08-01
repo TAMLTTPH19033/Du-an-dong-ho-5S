@@ -1,7 +1,7 @@
 const settingAPI = "http://localhost:8080/san-pham/get-setting";
 const searchAPI = "http://localhost:8080/san-pham/tim-kiem";
 
-myApp.controller("SanPhamController", function ($scope, $rootScope, $http,$filter) {
+myApp.controller("SanPhamController", function ($scope, $rootScope, $http,$filter,checkSearchService) {
   $scope.listSetting = {};
   $scope.listSanPham = [];
   $scope.danhMucIds = [];
@@ -19,6 +19,7 @@ myApp.controller("SanPhamController", function ($scope, $rootScope, $http,$filte
   $scope.isLastPage=false;
   $scope.selectedSortOption = 0;
   $scope.price;
+  $scope.conditionRequest= checkSearchService.getData();
   $scope.itemWithGiaNN = new Map();
   $scope.itemWithGiaLN = new Map()
   $rootScope.currentDate = new Date().toISOString();
@@ -31,7 +32,6 @@ myApp.controller("SanPhamController", function ($scope, $rootScope, $http,$filte
   }
   $scope.changeDayDeos = function () {
     $scope.selectedDayDeos = $filter('filter')($scope.listSetting.listDayDeo, {checked: true});
-    console.log($scope.selectedDayDeos)
   }
   $scope.changeVatLieus = function () {
     $scope.selectedVatLieus = $filter('filter')($scope.listSetting.listVatLieu, {checked: true});
@@ -96,15 +96,7 @@ myApp.controller("SanPhamController", function ($scope, $rootScope, $http,$filte
   };
   $scope.getSettings();
   $scope.searchList = function () {
-    $scope.conditionRequest = {
-      thuongHieuId: $scope.thuongHieuIds,
-      danhMucId: $scope.danhMucIds,
-      sizeId: $scope.kichCoIds,
-      mauSacId: $scope.mauSacIds,
-      vatLieuId: $scope.vatLieuIds,
-      dayDeoId: $scope.dayDeoIds,
-      tenSanPham: $scope.tenSanPham,
-    };
+
     $http
       .post(searchAPI, $scope.conditionRequest)
       .then(function (response) {
@@ -119,7 +111,22 @@ myApp.controller("SanPhamController", function ($scope, $rootScope, $http,$filte
         console.log(error);
       });
   };
-  $scope.searchList();
+  // Kiểm tra dữ liệu khi chuyển trang từ trang chủ
+  if ($scope.conditionRequest == undefined) {
+    $scope.conditionRequest = {
+      thuongHieuId: $scope.thuongHieuIds,
+      danhMucId: $scope.danhMucIds,
+      sizeId: $scope.kichCoIds,
+      mauSacId: $scope.mauSacIds,
+      vatLieuId: $scope.vatLieuIds,
+      dayDeoId: $scope.dayDeoIds,
+      tenSanPham: $scope.tenSanPham,
+    };
+    $scope.searchList();
+  } else {
+    $scope.searchList();
+  }
+
   $scope.$watchGroup(["listSanPham"], function () {
     $scope.currentPage=1;
     $scope.pages = [];
@@ -134,7 +141,6 @@ myApp.controller("SanPhamController", function ($scope, $rootScope, $http,$filte
 
     var startIndex = ($scope.currentPage - 1) * $scope.pageSize;
     var endIndex = startIndex + $scope.pageSize;
-    console.log($scope.pages);
     $scope.displayedItems = $scope.listSanPham.slice(startIndex, endIndex);
     $scope.displayedItems.forEach(item=>{
       $scope.getGiaNN(item.sanPhamID)
@@ -157,7 +163,6 @@ myApp.controller("SanPhamController", function ($scope, $rootScope, $http,$filte
     for (var i = startPage; i <= endPage; i++) {
       $scope.pages.push(i);
     }
-    console.log($scope.pages);
     $scope.displayedItems = $scope.listSanPham.slice(startIndex, endIndex);
     $scope.displayedItems.forEach(item=>{
       $scope.getGiaNN(item.sanPhamID)
@@ -180,7 +185,6 @@ myApp.controller("SanPhamController", function ($scope, $rootScope, $http,$filte
       for (var i = startPage; i <= endPage; i++) {
         $scope.pages.push(i);
       }
-      console.log($scope.pages);
       $scope.displayedItems = $scope.listSanPham.slice(startIndex, endIndex);
       $scope.displayedItems.forEach(item=>{
         $scope.getGiaNN(item.sanPhamID)
@@ -205,7 +209,6 @@ myApp.controller("SanPhamController", function ($scope, $rootScope, $http,$filte
       for (var i = startPage; i <= endPage; i++) {
         $scope.pages.push(i);
       }
-      console.log($scope.pages);
       $scope.displayedItems = $scope.listSanPham.slice(startIndex, endIndex);
       $scope.displayedItems.forEach(item=>{
         $scope.getGiaNN(item.sanPhamID)
