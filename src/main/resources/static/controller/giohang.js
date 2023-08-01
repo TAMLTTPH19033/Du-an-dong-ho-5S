@@ -2,10 +2,16 @@ myApp.controller("cartCtrl", function ($scope,$rootScope, $http,$window,checkOut
     $scope.cart = [];
     $scope.total = 0;
     $scope.totalSp = 0;
+    $scope.totalnavBar = 0;
+    $scope.totalSpnavBar  = 0;
+    $scope.selection=[];
+
     $scope.errorSelectedSP;
     let currentUser = JSON.parse(localStorage.getItem("currentUser"));
     //load cart
     $rootScope.index = function () {
+        $scope.total = 0;
+        $scope.totalSp = 0;
         if(currentUser != null) {
             $http.get(`/api/giohang/${currentUser.idKhachHang}`).then((resp) => {
                 $scope.cart = resp.data;
@@ -38,11 +44,22 @@ myApp.controller("cartCtrl", function ($scope,$rootScope, $http,$window,checkOut
     $rootScope.index();
 
     // toorng sp vaf toorng tieefn
+    $scope.setTotalnavBar  = function (item) {
+
+        if (item) {
+
+            $scope.totalnavBar  += item.giaBan * item.soLuongSanPham;
+            $scope.totalSpnavBar  +=  item.soLuongSanPham;
+
+        }
+    };
     $scope.setTotals = function (item) {
 
         if (item) {
             $scope.total += item.giaBan * item.soLuongSanPham;
             $scope.totalSp +=  item.soLuongSanPham;
+
+
         }
     };
 
@@ -81,9 +98,11 @@ myApp.controller("cartCtrl", function ($scope,$rootScope, $http,$window,checkOut
             }
             item.soLuongSanPham = Number(item.soLuongSanPham) - 1;
             soLuong = item.soLuongSanPham;
-            $scope.update(item,soLuong);
+        var sp = $scope.selection.find((e) => e === item)
+        if(sp){
             $scope.total -= item.giaBan ;
             $scope.totalSp-- ;
+        }
     };
     $scope.tang = function (item,soLuong) {
         if (item) {
@@ -99,8 +118,12 @@ myApp.controller("cartCtrl", function ($scope,$rootScope, $http,$window,checkOut
             item.soLuongSanPham = Number(item.soLuongSanPham) + 1;
             soLuong = item.soLuongSanPham;
             $scope.update(item,soLuong);
-            $scope.total += item.giaBan ;
-            $scope.totalSp++ ;
+            var sp = $scope.selection.find((e) => e === item)
+            if(sp){
+                $scope.total += item.giaBan ;
+                $scope.totalSp++ ;
+            }
+
         }
     };
 
@@ -135,9 +158,11 @@ myApp.controller("cartCtrl", function ($scope,$rootScope, $http,$window,checkOut
     $scope.removeSP= function (item) {
         if (item) {
             $scope.delete(item);
-            $scope.total -= item.giaBan * item.soLuongSanPham;
-            $scope.totalSp -= item.soLuongSanPham;
-            // console.log($scope.cart);
+        var sp = $scope.selection.find((e) => e === item)
+        if(sp){
+            $scope.total -= item.giaBan * item.soLuongSanPham ;
+            $scope.totalSp -= item.soLuongSanPham ;
+        }
         }
     };
 
@@ -161,18 +186,21 @@ myApp.controller("cartCtrl", function ($scope,$rootScope, $http,$window,checkOut
             $scope.setTotals(item)
         }
     };
-    $scope.selection=[];
     $scope.toggleSelection = function toggleSelection(item) {
         var idx = $scope.selection.indexOf(item);
         // is currently selected
         if (idx > -1) {
             $scope.selection.splice(idx, 1);
+            $scope.total -= item.giaBan * item.soLuongSanPham;
+            $scope.totalSp -=  item.soLuongSanPham;
+
         }
         // is newly selected
         else {
             $scope.selection.push(item);
+            $scope.setTotals(item);
         }
-        console.log($scope.selection)
+
     };
 
     $scope.buy = () => {

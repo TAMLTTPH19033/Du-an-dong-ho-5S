@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import java.util.HashMap;
 
 public interface AccountService {
-    ResponseEntity<?> register (RegisterRequest registerRequest) throws BadRequestException;
+    ResponseEntity<?> register (RegisterRequest registerRequest) throws Exception;
     HashMap<Integer,String> getListTP();
     HashMap<Integer,String> getListQuan( Integer idTP) throws Exception;
     HashMap<String,String> getListPhuong( Integer idQH) throws  Exception;
