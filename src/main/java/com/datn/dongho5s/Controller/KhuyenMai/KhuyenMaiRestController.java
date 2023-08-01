@@ -14,7 +14,7 @@ public class KhuyenMaiRestController {
     @Autowired
     KhuyenMaiService service;
 
-    @PostMapping("/discounts/check_name")
+    @PostMapping("/admin/discounts/check_name")
     public String checkDuplicateTenAndMa(@Param("id") Integer id, @Param("ten") String ten, @Param("ma") String ma) {
         boolean isUnique = service.checkUnique(id, ten, ma);
         return isUnique ? "OK" : "Duplicated";

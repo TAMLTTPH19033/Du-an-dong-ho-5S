@@ -27,12 +27,12 @@ public class ThuongHieuController {
     @Autowired
     private ThuongHieuService service;
 
-    @GetMapping("/brands")
+    @GetMapping("/admin/brands")
     public String listFirstPage(Model model){
         return listByPage(1,model,"tenThuongHieu","asc",null);
     }
 
-    @GetMapping("/brands/page/{pageNum}")
+    @GetMapping("/admin/brands/page/{pageNum}")
     private String listByPage(@PathVariable(name = "pageNum") int pageNum, Model model,
                               @Param("sortField") String sortField,@Param("sortDir") String sortDir,
                               @Param("keyword") String keyword){
@@ -60,7 +60,7 @@ public class ThuongHieuController {
 
     }
 
-    @GetMapping("brands/{id}/enabled/{status}")
+    @GetMapping("/admin/brands/{id}/enabled/{status}")
     public String updateThuongHieuEnabledStatus(@PathVariable("id") Integer id,
                                                 @PathVariable("status")boolean enabled,
                                                 RedirectAttributes redirectAttributes){
@@ -71,21 +71,21 @@ public class ThuongHieuController {
         return "redirect:/brands";
     }
 
-    @GetMapping("/brands/new")
+    @GetMapping("/admin/brands/new")
     public String newThuongHieu(Model model){
         model.addAttribute("thuongHieu",new ThuongHieu());
         model.addAttribute("pageTitle","Tạo Mới Thương Hiệu");
         return "admin/thuonghieu/brands_form";
     }
 
-    @PostMapping("/brands/save")
+    @PostMapping("/admin/brands/save")
     public String saveThuongHieu(ThuongHieu thuongHieu, RedirectAttributes redirectAttributes){
         service.save(thuongHieu);
         redirectAttributes.addFlashAttribute("message","Thay Đổi Thành Công");
         return "redirect:/brands";
     }
 
-    @GetMapping("/brands/edit/{id}")
+    @GetMapping("/admin/brands/edit/{id}")
     public String editThuongHieu(@PathVariable(name = "id") Integer id,
                                  Model model,
                                  RedirectAttributes redirectAttributes){
@@ -103,14 +103,14 @@ public class ThuongHieuController {
         }
     }
 
-    @GetMapping("/brands/export/csv")
+    @GetMapping("/admin/brands/export/csv")
     public void exportToCSV(HttpServletResponse response) throws IOException {
         List<ThuongHieu> listThuongHieu = service.getAllThuongHieu();
         ThuongHieuCsvExporter exporter = new ThuongHieuCsvExporter();
         exporter.export(listThuongHieu,response);
     }
 
-    @GetMapping("/brands/export/excel")
+    @GetMapping("/admin/brands/export/excel")
     public void exportToExcel(HttpServletResponse response) throws IOException {
         List<ThuongHieu> listThuongHieu = service.getAllThuongHieu();
         ThuongHieuExcelExporter exporter = new ThuongHieuExcelExporter();

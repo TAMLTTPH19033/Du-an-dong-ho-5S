@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,12 +29,13 @@ public class DanhMucController {
     @Autowired
     private DanhmucService service;
 
-    @GetMapping("/categories")
+    @GetMapping("/admin/categories")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String listFirstPage(Model model){
         return listByPage(1,model,"ten","asc",null);
     }
 
-    @GetMapping("/categories/page/{pageNum}")
+    @GetMapping("/admin/categories/page/{pageNum}")
     public String listByPage(@PathVariable(name = "pageNum") int pageNum, Model model,
                              @Param("sortField")String sortField , @Param("sortDir")String sortDir,
                              @Param("keyword")String keyword
@@ -66,7 +68,7 @@ public class DanhMucController {
 
     }
 
-    @GetMapping("/categories/{id}/enabled/{status}")
+    @GetMapping("/admin/categories/{id}/enabled/{status}")
     public String updateDanhMucEnabledStatus(@PathVariable("id") Integer id,
                                               @PathVariable("status") boolean enabled,
                                               RedirectAttributes redirectAttributes){
@@ -77,21 +79,21 @@ public class DanhMucController {
         return "redirect:/categories";
     }
 
-    @GetMapping("/categories/new")
+    @GetMapping("/admin/categories/new")
     public String newDanhMuc(Model model){
         model.addAttribute("danhMuc", new DanhMuc());
         model.addAttribute("pageTitle","Tạo Mới Danh Mục");
         return "admin/danhmuc/categories_form";
     }
 
-    @PostMapping("/categories/save")
+    @PostMapping("/admin/categories/save")
     public String saveDanhMuc(DanhMuc danhMuc, RedirectAttributes redirectAttributes){
          service.save(danhMuc);
         redirectAttributes.addFlashAttribute("message","Thay Đổi Thành Công");
         return "redirect:/categories";
     }
 
-    @GetMapping("/categories/edit/{id}")
+    @GetMapping("/admin/categories/edit/{id}")
     public String editUser(@PathVariable(name = "id") Integer id,
                            Model model,
                            RedirectAttributes redirectAttributes){
@@ -110,14 +112,14 @@ public class DanhMucController {
 
     }
 
-    @GetMapping("/categories/export/csv")
+    @GetMapping("/admin/categories/export/csv")
     public void exportToCSV(HttpServletResponse response) throws IOException {
         List<DanhMuc> listDanhMuc = service.listAll();
         DanhMucCsvExporter exporter = new DanhMucCsvExporter();
         exporter.export(listDanhMuc,response);
     }
 
-    @GetMapping("/categories/export/excel")
+    @GetMapping("/admin/categories/export/excel")
     public void exportToExcel(HttpServletResponse response) throws IOException {
         List<DanhMuc> listDanhMuc = service.listAll();
         DanhMucExcelExporter exporter = new DanhMucExcelExporter();

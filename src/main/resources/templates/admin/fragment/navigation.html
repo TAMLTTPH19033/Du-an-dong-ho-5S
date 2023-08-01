@@ -2,7 +2,31 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="admin/fragment/fragments:: page_head"></head>
 <body>
+
+<div th:fragment="navbar">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+        <!-- Navbar Brand-->
+        <a class="navbar-brand ps-3" href="/">Đồng Hồ 5S</a>
+        <!-- Sidebar Toggle-->
+        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+        <!-- Navbar Search-->
+
+        <!-- Navbar-->
+        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="#!">Settings</a></li>
+                    <li><a class="dropdown-item" href="#!">Activity Log</a></li>
+                    <li><hr class="dropdown-divider" /></li>
+                    <li><a class="dropdown-item" href="#!">Logout</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+</div>
 <div th:fragment="menu">
+
     <div id="layoutSidenav_nav">
         <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
             <div class="sb-sidenav-menu">
@@ -13,80 +37,79 @@
                         Biểu Đồ
                     </a>
                     <div class="sb-sidenav-menu-heading">Menu</div>
-
-                    <a class="nav-link collapsed" id="users" th:href="@{/users}" >
+                    <a class="nav-link collapsed" id="users" th:href="@{/admin/users}" >
                         <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                         User
                     </a>
-                    <a class="nav-link collapsed" id="products" th:href="@{/products}" >
+                    <a class="nav-link collapsed" id="products" th:href="@{/admin/products}" >
                         <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                         Product
                     </a>
-                    <a class="nav-link collapsed" id="categories" th:href="@{/categories}">
+                    <a class="nav-link collapsed" id="categories" th:href="@{/admin/categories}">
                         <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                         Categories
                     </a>
-                    <a class="nav-link collapsed" id="brands" th:href="@{/brands}">
+                    <a class="nav-link collapsed" id="brands" th:href="@{/admin/brands}">
                         <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                         Brands
                     </a>
-                    <a class="nav-link collapsed" id="customers" th:href="@{/customers}" >
+                    <a class="nav-link collapsed" id="customers" th:href="@{/admin/customers}" >
                         <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                         Customers
                     </a>
-                    <a class="nav-link collapsed" id="cards" th:href="@{/cards}" >
+                    <a class="nav-link collapsed" id="cards" th:href="@{/admin/cards}" >
                         <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                         Card
                     </a>
-                    <a class="nav-link collapsed" id="cardsDetails" th:href="@{/cardsDetail}" >
+                    <a class="nav-link collapsed" id="cardsDetails" th:href="@{/admin/cardsDetail}" >
                         <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                         CardDetail
                     </a>
-                    <a class="nav-link collapsed" id="orders" th:href="@{/orders}" >
+                    <a class="nav-link collapsed" id="orders" th:href="@{/admin/orders}" >
                         <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                         Orders
                     </a>
-                    <a class="nav-link collapsed" id="ordersDetail" th:href="@{/ordersDetail}" >
+                    <a class="nav-link collapsed" id="ordersDetail" th:href="@{/admin/ordersDetail}" >
                         <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                         OrdersDetail
                     </a>
-                    <a class="nav-link collapsed" id="statisticals" th:href="@{/statisticals}" >
+                    <a class="nav-link collapsed" id="statisticals" th:href="@{/admin/statisticals}" >
                         <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                         Statisticals
                     </a>
-                    <a class="nav-link collapsed" id="posts" th:href="@{/posts}" >
+                    <a class="nav-link collapsed" id="posts" th:href="@{/admin/posts}" >
                         <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                         Posts
                     </a>
-                    <a class="nav-link collapsed" id="seri" th:href="@{/seri}" >
+                    <a class="nav-link collapsed" id="seri" th:href="@{/admin/seri}" >
                         <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                         Seri
                     </a>
-                    <a class="nav-link collapsed" id="straps" th:href="@{/straps}" >
+                    <a class="nav-link collapsed" id="straps" th:href="@{/admin/straps}" >
                         <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                         Straps
                     </a>
-                    <a class="nav-link collapsed" id="sizes" th:href="@{/sizes}" >
+                    <a class="nav-link collapsed" id="sizes" th:href="@{/admin/sizes}" >
                         <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                         Sizes
                     </a>
-                    <a class="nav-link collapsed" id="materials" th:href="@{/materials}" >
+                    <a class="nav-link collapsed" id="materials" th:href="@{/admin/materials}" >
                         <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                         Materials
                     </a>
-                    <a class="nav-link collapsed" id="colors" th:href="@{/colors}">
+                    <a class="nav-link collapsed" id="colors" th:href="@{/admin/colors}">
                         <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                         Colors
                     </a>
-                    <a class="nav-link collapsed" id="don-hang" th:href="@{/don-hang}" >
+                    <a class="nav-link collapsed" id="don-hang" th:href="@{/admin/don-hang}" >
                         <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                         DonHang
                     </a>
-                    <a class="nav-link collapsed" id="ban-hang" th:href="@{/ban-hang}" >
+                    <a class="nav-link collapsed" id="ban-hang" th:href="@{/admin/ban-hang}" >
                         <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                         BanHang
                     </a>
-                    <a class="nav-link collapsed" id="discounts" th:href="@{/discounts}" >
+                    <a class="nav-link collapsed" id="discounts" th:href="@{/admin/discounts}" >
                         <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                         DisCounts
                     </a>

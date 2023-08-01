@@ -28,7 +28,6 @@ public class WebSecurityConfig  {
         this.accountFilter = accountFilter;
     }
 
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         return http
@@ -37,7 +36,9 @@ public class WebSecurityConfig  {
                 .csrf()
                 .disable()
                 .authorizeRequests()
+                .antMatchers("/images/**", "/js/**", "/webjars/**").permitAll()
                 .antMatchers("/api/giohang/**","/api/phan-hoi/**").hasAuthority("ROLE_CUSTOMER")
+                .antMatchers("/admin/**").hasAnyAuthority("ROLE_STAFF", "ROLE_ADMIN")
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
