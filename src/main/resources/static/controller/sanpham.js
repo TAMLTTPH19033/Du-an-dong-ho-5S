@@ -20,6 +20,9 @@ myApp.controller("SanPhamController", function ($scope, $rootScope, $http,$filte
   $scope.selectedSortOption = 0;
   $scope.price;
   $scope.conditionRequest= checkSearchService.getData();
+  $scope.itemWithGiaNN = new Map();
+  $scope.itemWithGiaLN = new Map()
+  $rootScope.currentDate = new Date().toISOString();
 
   $scope.changeDanhMucs = function () {
     $scope.selectedDanhMucs = $filter('filter')($scope.listSetting.listDanhMuc, {checked: true});
@@ -102,6 +105,7 @@ myApp.controller("SanPhamController", function ($scope, $rootScope, $http,$filte
           $scope.listSanPham.length / $scope.pageSize
         );
         console.log(response.data);
+
       })
       .catch(function (error) {
         console.log(error);
@@ -138,6 +142,12 @@ myApp.controller("SanPhamController", function ($scope, $rootScope, $http,$filte
     var startIndex = ($scope.currentPage - 1) * $scope.pageSize;
     var endIndex = startIndex + $scope.pageSize;
     $scope.displayedItems = $scope.listSanPham.slice(startIndex, endIndex);
+    $scope.displayedItems.forEach(item=>{
+      $scope.getGiaNN(item.sanPhamID)
+      $scope.getGiaLN(item.sanPhamID)
+    })
+
+
   });
 
   $scope.changePage = function (page) {
@@ -154,6 +164,10 @@ myApp.controller("SanPhamController", function ($scope, $rootScope, $http,$filte
       $scope.pages.push(i);
     }
     $scope.displayedItems = $scope.listSanPham.slice(startIndex, endIndex);
+    $scope.displayedItems.forEach(item=>{
+      $scope.getGiaNN(item.sanPhamID)
+      $scope.getGiaLN(item.sanPhamID)
+    })
     $scope.checkFirstLastPage();
   };
 
@@ -172,7 +186,12 @@ myApp.controller("SanPhamController", function ($scope, $rootScope, $http,$filte
         $scope.pages.push(i);
       }
       $scope.displayedItems = $scope.listSanPham.slice(startIndex, endIndex);
+      $scope.displayedItems.forEach(item=>{
+        $scope.getGiaNN(item.sanPhamID)
+        $scope.getGiaLN(item.sanPhamID)
+      })
       $scope.checkFirstLastPage();
+
     }
   };
 
@@ -191,6 +210,10 @@ myApp.controller("SanPhamController", function ($scope, $rootScope, $http,$filte
         $scope.pages.push(i);
       }
       $scope.displayedItems = $scope.listSanPham.slice(startIndex, endIndex);
+      $scope.displayedItems.forEach(item=>{
+        $scope.getGiaNN(item.sanPhamID)
+        $scope.getGiaLN(item.sanPhamID)
+      })
       $scope.checkFirstLastPage();
     }
   };
@@ -226,5 +249,47 @@ myApp.controller("SanPhamController", function ($scope, $rootScope, $http,$filte
       default:
         // Trường hợp "--" hoặc không xử lý gì cả
     }
+  }
+
+
+  $scope.spkm ;
+  $scope.getGiaNN = function (idSanPham){
+    $http
+        .get(`/api/index/getSPKM?idCTSP=${idSanPham}`)
+        .then((resp) => {
+          $scope.spkm = resp.data;
+          console.log(resp.data,"data")
+          $scope.spkm.sort(function(a, b){return a.giaSanPham - b.giaSanPham});
+          $scope.itemWithGiaNN.set(idSanPham,$scope.spkm[0].giaSanPham);
+          console.log($scope.itemWithGiaNN.get(idSanPham));
+        })
+        .catch((e)=>{
+          console.log(e);
+        });
+  }
+
+  $scope.getGiaLN = function (idSanPham){
+    $http
+        .get(`/api/index/getSPKM?idCTSP=${idSanPham}`)
+        .then((resp) => {
+          $scope.spkm = resp.data;
+          console.log(resp.data,"data")
+          $scope.spkm.sort(function(a, b){return a.giaSanPham - b.giaSanPham});
+          $scope.itemWithGiaLN.set(idSanPham,$scope.spkm[$scope.spkm.length-1].giaSanPham);
+          console.log($scope.itemWithGiaLN.get(idSanPham));
+        })
+        .catch((e)=>{
+          console.log(e);
+        });
+  }
+
+
+  $scope.getGiaNNOld = function (listCT){
+    listCT.sort(function(a, b){return a.giaSanPham - b.giaSanPham})
+    return listCT[0].giaSanPham;
+  }
+  $scope.getGiaLNOld = function (listCT){
+    listCT.sort(function(a, b){return a.giaSanPham - b.giaSanPham})
+    return listCT[listCT.length-1].giaSanPham;
   }
 });
