@@ -1,5 +1,5 @@
-myApp.controller("homeCtrl", function ($scope, $http,$window,$rootScope) {
-
+myApp.controller("homeCtrl", function ($scope, $http,$window,$rootScope,checkSearchService,$location) {
+    $scope.listSetting = {};
     $scope.newSanPhams = [];
     $scope.hotSanPhams = [];
     $scope.featureSanPhams = [];
@@ -132,4 +132,72 @@ myApp.controller("homeCtrl", function ($scope, $http,$window,$rootScope) {
         return listCT[listCT.length-1].giaSanPham;
     }
 
+    $scope.getSettings = function () {
+        $http
+            .get(settingAPI)
+            .then(function (response) {
+                $scope.listSetting = response.data;
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+    $scope.getSettings();
+
+    $scope.searchDanhMuc = function (id){
+        checkSearchService.setData(
+            {
+                thuongHieuId: [],
+                danhMucId: [id],
+                sizeId: [],
+                mauSacId: [],
+                vatLieuId: [],
+                dayDeoId: [],
+                tenSanPham: null
+            }
+        );
+        $location.path("/sanpham");
+    }
+    $scope.searchThuongHieu = function (id){
+        checkSearchService.setData(
+            {
+                thuongHieuId: [id],
+                danhMucId: [],
+                sizeId: [],
+                mauSacId: [],
+                vatLieuId: [],
+                dayDeoId: [],
+                tenSanPham: null
+            }
+        );
+        $location.path("/sanpham");
+    }
+    $scope.searchDayDeo = function (id){
+        checkSearchService.setData(
+            {
+                thuongHieuId: [],
+                danhMucId: [],
+                sizeId: [],
+                mauSacId: [],
+                vatLieuId: [],
+                dayDeoId: [id],
+                tenSanPham: null
+            }
+        );
+        $location.path("/sanpham");
+    }
+    $scope.searchVatLieu = function (id){
+        checkSearchService.setData(
+            {
+                thuongHieuId: [],
+                danhMucId: [],
+                sizeId: [],
+                mauSacId: [],
+                vatLieuId: [id],
+                dayDeoId: [],
+                tenSanPham: null
+            }
+        );
+        $location.path("/sanpham");
+    }
 })
