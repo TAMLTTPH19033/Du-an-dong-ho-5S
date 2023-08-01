@@ -9,11 +9,11 @@
 					<div class="shopping-cart">
 						<a class="shop-link" href="#cart" title="View my shopping cart">
 							<i class="fa fa-shopping-cart cart-icon" ></i>
-							<b>My Cart</b>
-							<span class="ajax-cart-quantity">{{totalSp}}</span>
+							<b>Gỏ hàng</b>
+							<span class="ajax-cart-quantity">{{totalSpnavBar }}</span>
 						</a>
 						<div class="shipping-cart-overly" style="overflow: scroll">
-							<div class="shipping-item"  ng-repeat="item in cart">
+							<div class="shipping-item"  ng-repeat="item in cart" ng-init="setTotalnavBar(item)">
 								<span class="cross-icon" ng-click="removeSP(item)"><i class="fa fa-times-circle"></i></span>
 								<div class="shipping-item-image" style="width: 30%">
 									<a href="#/chitietsanpham/{{item.chiTietSanPham.sanPham.idSanPham}}"><img src="/assets/images/{{item.chiTietSanPham.sanPham.listAnhSanPham[0].link}}" alt="shopping image" /></a>
@@ -28,15 +28,15 @@
 							<div class="shipping-total-bill">
 								<div class="cart-prices">
 									<span class="shipping-cost">0.00</span>
-									<span>Shipping</span>
+									<span>Vận chuyển (Tạm tính)</span>
 								</div>
 								<div class="total-shipping-prices">
-									<span class="shipping-total">{{total}}</span>
-									<span>Total</span>
+									<span class="shipping-total">{{totalnavBar }}</span>
+									<span>Tổng</span>
 								</div>
 							</div>
 							<div class="shipping-checkout-btn">
-								<a href="#checkout">Check out <i class="fa fa-chevron-right"></i></a>
+								<a href="#checkout">Thanh toán <i class="fa fa-chevron-right"></i></a>
 							</div>
 						</div>
 					</div>
@@ -48,7 +48,7 @@
 				<div class="mainmenu">
 					<nav>
 						<ul class="list-inline mega-menu">
-							<li class="active"><a href="#index">Home</a>
+							<li class="active"><a href="#index">Trang chủ</a>
 								<!--                                &lt;!&ndash; DROPDOWN MENU START &ndash;&gt;-->
 								<!--                                <div class="home-var-menu">-->
 								<!--                                    <ul class="home-menu">-->
@@ -332,9 +332,9 @@
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 				<!-- BSTORE-BREADCRUMB START -->
 				<div class="bstore-breadcrumb">
-					<a href="#index">HOMe</a>
+					<a href="#index">Trang chủ</a>
 					<span><i class="fa fa-caret-right	"></i></span>
-					<span>Your shopping cart</span>
+					<span>Giỏ hàng của bạn</span>
 				</div>
 				<!-- BSTORE-BREADCRUMB END -->
 			</div>
@@ -342,7 +342,7 @@
 		<div class="row">
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 				<!-- SHOPPING-CART SUMMARY START -->
-				<h2 class="page-title">Shopping-cart summary <span class="shop-pro-item">Your shopping cart contains: {{totalSp}}</span></h2>
+				<h2 class="page-title">Shopping-cart summary <span class="shop-pro-item">Số sản phâmt trong giỏ hàng của bạn : {{totalSpnavBar}}</span></h2>
 				<!-- SHOPPING-CART SUMMARY END -->
 			</div>
 
@@ -351,13 +351,10 @@
 				<div class="shoping-cart-menu">
 					<ul class="step">
 						<li class="step-current first">
-							<span>01. Summary</span>
-						</li>
-						<li class="step-todo third">
-							<span>01. Address</span>
+							<span>01. Giỏ hàng</span>
 						</li>
 						<li class="step-todo last" id="step_end">
-							<span>03. Payment</span>
+							<span>02. Thanh toán</span>
 						</li>
 					</ul>
 				</div>
@@ -370,13 +367,13 @@
 						<thead>
 						<tr>
 							<th class="cart-product"></th>
-							<th class="cart-product">Product</th>
-							<th class="cart-description">Description</th>
-							<th class="cart-avail text-center">Availability</th>
-							<th class="cart-unit text-right">Unit price</th>
-							<th class="cart_quantity text-center">Qty</th>
+							<th class="cart-product">Sản phẩm</th>
+							<th class="cart-description">Mô tả</th>
+							<th class="cart-avail text-center">Tình trạng</th>
+							<th class="cart-unit text-right">Giá bán</th>
+							<th class="cart_quantity text-center">Số lượng</th>
 							<th class="cart-delete">&nbsp;</th>
-							<th class="cart-total text-right">Total</th>
+							<th class="cart-total text-right">Tổng tiền </th>
 						</tr>
 						</thead>
 						<!-- TABLE HEADER END -->
@@ -384,7 +381,7 @@
 
 						<tbody>
 						<!-- SINGLE CART_ITEM START -->
-						<tr ng-repeat="item in cart" ng-init = "setTotals(item)">
+						<tr ng-repeat="item in cart">
 							<td>
 								<input type="checkbox"  ng-checked="selection.indexOf(item) > -1" ng-click="toggleSelection(item)" />
 							</td>
@@ -393,7 +390,7 @@
 							</td>
 							<td class="cart-description">
 								<p class="product-name"><a href="#/chitietsanpham/{{item.chiTietSanPham.sanPham.idSanPham}}">{{item.chiTietSanPham.sanPham.tenSanPham}} </a></p>
-								<small>SKU : demo_1</small>
+								<small>Mã :{{chitietsanpham.maChiTietSanPham}}</small>
 								<small><a href="#">Size :{{item.chiTietSanPham.kichCo.tenKichCo}} , Color : {{item.chiTietSanPham.mauSac.tenMauSac}} </a></small>
 							</td>
 							<td class="cart-avail"><span class="label label-success">In stock</span></td>
@@ -410,7 +407,7 @@
 							<td class="cart_quantity text-center">
 								<div class="cart-plus-minus-button">
 									<input class="cart-plus-minus" type="text"  name="soLuongSanPham"
-										   value="{{item.soLuongSanPham}}" readonly >
+										   value="{{item.soLuongSanPham}}" ng-disabled="true" >
 									<div class="dec qtybutton" ng-click="giam(item)">-</div>
 									<div class="inc qtybutton"  ng-click="tang(item)">+</div>
 								</div>
@@ -432,23 +429,23 @@
 						<tfoot>
 						<tr class="cart-total-price">
 							<td class="cart_voucher" colspan="4" rowspan="4"></td>
-							<td class="text-right" colspan="4">Total products (tax excl.)</td>
-							<td id="total_product" class="price" colspan="1">{{total}}</td>
+							<td class="text-right" colspan="4">Tổng tiền(tax excl.)</td>
+							<td id="total_product" class="price" colspan="1">{{total}} đ</td>
 						</tr>
 						<tr>
-							<td class="text-right" colspan="4">Total shipping</td>
-							<td id="total_shipping" class="price" colspan="1">0.00</td>
+							<td class="text-right" colspan="4">Phí vận chuyển (Tạm tính)</td>
+							<td id="total_shipping" class="price" colspan="1">0.00đ</td>
 						</tr>
 						<tr>
-							<td class="text-right" colspan="4">Total vouchers (tax excl.)</td>
-							<td class="price" colspan="1">$0.00</td>
+							<td class="text-right" colspan="4">Tổng giảm giá (tax excl.)</td>
+							<td class="price" colspan="1">0.00đ</td>
 						</tr>
 						<tr>
 							<td class="total-price-container text-right" colspan="4">
-								<span>Total</span>
+								<span>Tổng</span>
 							</td>
 							<td id="total-price-container" class="price" colspan="1">
-								<span id="total-price">{{total}}</span>
+								<span id="total-price">{{total}} đ</span>
 							</td>
 						</tr>
 						</tfoot>

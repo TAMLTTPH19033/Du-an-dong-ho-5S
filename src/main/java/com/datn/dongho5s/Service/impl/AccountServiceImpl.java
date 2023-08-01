@@ -38,41 +38,50 @@ public class AccountServiceImpl implements AccountService {
     @Autowired
     DiaChiRepository diaChiRepository;
     @Override
-    public ResponseEntity<?> register(RegisterRequest registerRequest) throws BadRequestException {
-        Optional<KhachHang> findKHbyEmail = Optional.ofNullable(khachHangRepository.getKhachHangByEmail(registerRequest.getEmail()));
-        Optional<NhanVien> findNVbyEmail = Optional.ofNullable(nhanVienRepository.getNhanVienByEmail(registerRequest.getEmail()));
-        if(findKHbyEmail.isPresent() && findNVbyEmail.isPresent()){
-            throw new BadRequestException("Email đã tồn tại ");
-        }else{
-            KhachHang khachHang = KhachHang.builder()
-                    .idKhachHang(null)
-                    .email(registerRequest.getEmail())
-                    .enabled(true)
-                    .gioiTinh(registerRequest.getGioiTinh())
-                    .password(passwordEncoder.encode(registerRequest.getPassword()))
-                    .tenKhachHang(registerRequest.getTenKhachHang())
-                    .ngaySinh(registerRequest.getNgaySinh())
-                    .ngaySua(new Date())
-                    .soDienThoai(registerRequest.getSoDienThoai())
-                    .thoiGianTaoTaiKhoan(new Timestamp(new Date().getTime()))
+    public ResponseEntity<?> register(RegisterRequest registerRequest) throws Exception {
+//        try {
+            KhachHang findKHbyEmail = khachHangRepository.getKhachHangByEmail(registerRequest.getEmail());
+            if(registerRequest.getIdTinhThanh() ==null || registerRequest.getIdQuanHuyen()== null || registerRequest.getIdPhuongXa() == null){
+                throw new BadRequestException("Mời bạn nhập địa chỉ ");
+            }
+            if(registerRequest.getNgaySinh().after(new Date())){
+                throw new BadRequestException("Ngày sinh sai rùi ");
+            }
+            if (findKHbyEmail != null) {
+                throw new BadRequestException("Email đã tồn tại ");
+            } else {
+                KhachHang khachHang = KhachHang.builder()
+                        .idKhachHang(null)
+                        .email(registerRequest.getEmail())
+                        .enabled(true)
+                        .gioiTinh(registerRequest.getGioiTinh())
+                        .password(passwordEncoder.encode(registerRequest.getPassword()))
+                        .tenKhachHang(registerRequest.getTenKhachHang())
+                        .ngaySinh(registerRequest.getNgaySinh())
+                        .ngaySua(new Date())
+                        .soDienThoai(registerRequest.getSoDienThoai())
+                        .thoiGianTaoTaiKhoan(new Timestamp(new Date().getTime()))
 
-                    .build();
-            KhachHang khachHang1 = khachHangRepository.save(khachHang);
+                        .build();
+                KhachHang khachHang1 = khachHangRepository.save(khachHang);
 
-            DiaChi diaChi = DiaChi.builder()
-                    .diaChi(registerRequest.getDiaChi())
-                    .idTinhThanh(registerRequest.getIdTinhThanh())
-                    .idQuanHuyen(registerRequest.getIdQuanHuyen())
-                    .idPhuongXa(registerRequest.getIdPhuongXa())
-                    .ghiChu("")
-                    .maBuuChinh(123)
-                    .khachHang(khachHang1)
-                    .trangThaiMacDinh(0)
-                    .soDienThoai(registerRequest.getSoDienThoai())
-                    .build();
-            DiaChi diaChi1 = diaChiRepository.save(diaChi);
-            return new ResponseEntity<>(khachHang1, HttpStatus.OK);
-        }
+                DiaChi diaChi = DiaChi.builder()
+                        .diaChi(registerRequest.getDiaChi())
+                        .idTinhThanh(registerRequest.getIdTinhThanh())
+                        .idQuanHuyen(registerRequest.getIdQuanHuyen())
+                        .idPhuongXa(registerRequest.getIdPhuongXa())
+                        .ghiChu("")
+                        .maBuuChinh(123)
+                        .khachHang(khachHang1)
+                        .trangThaiMacDinh(0)
+                        .soDienThoai(registerRequest.getSoDienThoai())
+                        .build();
+                DiaChi diaChi1 = diaChiRepository.save(diaChi);
+                return new ResponseEntity<>(khachHang1, HttpStatus.OK);
+            }
+//        }catch (Exception e){
+//            throw new Exception("Đăng nhập thất bại");
+//        }
     }
 
     @Override
