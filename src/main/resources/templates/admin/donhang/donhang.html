@@ -2,216 +2,251 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 
-<head th:replace="admin/fragment/fragments:: page_head"></head>
+    <head th:replace="admin/fragment/fragments:: page_head"></head>
 
-<body class="sb-nav-fixed">
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
 
-<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-    <!-- Navbar Brand-->
-    <a class="navbar-brand ps-3" href="/">Đồng Hồ 5S</a>
-    <!-- Sidebar Toggle-->
-    <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
-    <!-- Navbar Search-->
+        .nav-item:hover .nav-link {
+            font-weight: bold;
+        }
+        .tracking nav ul li a {
+            color: #050505;
+            display: block;
+            font-size: 14px;
+            line-height: 55px;
+            transition: all 300ms ease 0s;
+            text-align: center;
+            text-decoration: none;
+        }
 
-    <!-- Navbar-->
-    <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="#!">Settings</a></li>
-                <li><a class="dropdown-item" href="#!">Activity Log</a></li>
-                <li><hr class="dropdown-divider" /></li>
-                <li><a class="dropdown-item" href="#!">Logout</a></li>
+        .tracking nav ul li {
+            /*border-bottom: 2px solid orange;*/
+            display: inline-block;
+            width: 16%;
+
+        }
+        .tracking nav ul li a:hover {
+            color: #FF4F4F;
+        }
+        .tracking nav ul li a:active {
+            color: #FF4F4F;
+            border-bottom: 2px solid #FF4F4F;
+        }
+        .tracking nav ul .active{
+            border-bottom: 2px solid #FF4F4F;
+        }
+        .tracking nav ul .active a{
+            color: #FF4F4F;
+        }
+
+        .breadcrumb {
+            background-color: #f2f2f2;
+            padding: 10px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            padding: 5px 20px;
+        }
+
+        .breadcrumb a {
+            color: #666;
+            text-decoration: none;
+            font-weight: bold;
+            margin-right: 10px;
+            margin-left: 10px;
+            font-size: 20px;
+        }
+    </style>
+
+    <body class="sb-nav-fixed">
+
+        <!-- NAV -->
+
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+            <!-- Navbar Brand-->
+            <a class="navbar-brand ps-3" href="/">Đồng Hồ 5S</a>
+            <!-- Sidebar Toggle-->
+            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+            <!-- Navbar Search-->
+
+            <!-- Navbar-->
+            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#!">Settings</a></li>
+                        <li><a class="dropdown-item" href="#!">Activity Log</a></li>
+                        <li><hr class="dropdown-divider" /></li>
+                        <li><a class="dropdown-item" href="#!">Logout</a></li>
+                    </ul>
+                </li>
             </ul>
-        </li>
-    </ul>
-</nav>
+        </nav>
+        <!-- END NAV -->
 
-<div id="layoutSidenav">
-    <div th:replace="admin/fragment/navigation:: menu"></div>
+        <!-- Article NAV -->
+        <div id="layoutSidenav">
+            <div th:replace="admin/fragment/navigation:: menu"></div>
 
-    <div id="layoutSidenav_content">
-        <div class="container">
-            <h2>Quản lý Đơn hàng</h2>
-        </div>
-
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-            dafmlsk,gfdkl,masmdf,.kasdm nfsdmd d
-        </button>
-
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+            <!-- aside -->
+            <div id="layoutSidenav_content">
+                <!-- MAIN-CONTENT-SECTION START -->
+                <section class="main-content-section">
+                    <div class="row">
+                        <div class="breadcrumb">
+                            <a href="#">Đơn hàng</a>
+                        </div>
                     </div>
-                    <div class="modal-body">
-                        ...
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="box-shadow: #bbbbc1 -1px 0px 5px 0px; margin-bottom: 30px">
+                                <div class="tracking">
+                                    <nav>
+                                        <ul class="list-tracking" >
+                                            <li class="active"><a href="#"  data-toggle="tab">Tất cả</a> </li>
+                                            <li><a href="#"  data-toggle="tab">Chờ xác nhận </a> </li>
+                                            <li > <a href="#"  data-toggle="tab">Đang giao hàng</a> </li>
+                                            <li> <a href="#" data-toggle="tab">Hoàn thành</a></li>
+                                            <li > <a href="#" data-toggle="tab">Đã hủy</a></li>
+                                            <li > <a href="#"  data-toggle="tab">Trả hàng/hoàn hiền</a> </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 tab-content" >
+                                <div>
+                                    <div class="shipping-cart" >
+                                        <form method="GET">
+                                            <div class="row">
+                                                <div class="col-md-5">
+                                                    <label class="sr-only" for="start">Ngày bắt đầu</label>
+                                                    <div class="input-group mb-2">
+                                                        <div class="input-group-prepend">
+                                                            <div class="input-group-text">Ngày bắt đầu</div>
+                                                        </div>
+                                                        <input type="date" class="form-control" id="start" name="dateStart">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-5">
+                                                    <label class="sr-only" for="end">Ngày kết thúc</label>
+                                                    <div class="input-group mb-2">
+                                                        <div class="input-group-prepend">
+                                                            <div class="input-group-text">Ngày kết thúc</div>
+                                                        </div>
+                                                        <input type="date" class="form-control" id="end" name="dateEnd">
+                                                    </div>
+                                                </div>
+                                                <div class="col-2">
+                                                    <button type="submit" style="width: 100%" class="btn btn-outline-dark mb-2" th:formaction="@{'/don-hang/search/date'}">Tìm kiếm</button>
+                                                </div>
+                                            </div>
+                                        </form>
+
+                                        <table class="table table-bordered table-striped table-hover table-responsive-xl" style="margin-top: 20px">
+                                            <thead class="thead-dark">
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Địa chỉ</th>
+                                                    <th>Ngày giao hàng</th>
+                                                    <th>Ngày tạo</th>
+                                                    <th>Phí vận chuyển</th>
+                                                    <th>Tổng tiền sản phẩm</th>
+                                                    <th>Thành tiền</th>
+                                                    <th>Trạng thái</th>
+                                                    <Th>Action</Th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr th:each="cat, iterStat : ${list}">
+                                                <td th:text="${__${iterStat.index + 1}__}">1</td>
+                                                <td style="max-width: 220px">
+                                                    [[${cat.diaChi}]],
+                                                    [[${diaChiAPI.callGetPhuongXaAPI(cat.idQuanHuyen).get(cat.idPhuongXa)}]],
+                                                    [[${diaChiAPI.callGetQuanHuyenAPI(cat.idTinhThanh).get(cat.idQuanHuyen)}]],
+                                                    [[${diaChiCache.hashMapTinhThanh.get(cat.idTinhThanh)}]]
+                                                </td>
+                                                <td>[[${#dates.format(cat.ngayGiaoHang, 'dd-MM-yyyy')}]]</td>
+                                                <td>[[${#dates.format(cat.ngayTao, 'dd-MM-yyyy')}]]</td>
+                                                <td>[[${cat.phiVanChuyen}]]đ</td>
+                                                <td>[[${cat.tongTien}]]đ</td>
+                                                <td>[[${cat.tongTien + cat.phiVanChuyen}]]đ</td>
+                                                <td th:text="${cat.trangThaiDonHang == 0 ? 'Chưa thanh toán' :
+                                                        (cat.trangThaiDonHang == 1 ? 'Đang giao' : 'Đã thanh toán')}">
+                                                </td>
+                                                <td>
+                                                    <a class="icon-green btn btn-outline-danger"
+                                                       style="text-decoration: none"
+                                                       th:href="@{'/hoa-don-chi-tiet/search/' + ${cat.idDonHang}}">Xem</a>
+
+                                                    <a class="btn btn-outline-primary"
+                                                       data-bs-toggle="modal"
+                                                       data-bs-target="#capNhatTrangThai"
+                                                       style="text-decoration: none"
+                                                    >Cập nhật</a>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+
+                                    <div th:if="${totalPages > 1}">
+                                        <nav>
+                                            <ul class="pagination justify-content-center">
+                                                <li th:class="${currentPage > 1 ?'page-item' : 'page-item disabled'}">
+                                                    <a th:replace="admin/fragment/fragments::page_donhang_link(1, 'Trang Đầu')" ></a>
+                                                </li>
+                                                <li th:class="${currentPage > 1 ?'page-item' : 'page-item disabled'}">
+                                                    <a th:replace="admin/fragment/fragments::page_donhang_link(${currentPage - 1}, Trước)"></a>
+                                                </li>
+
+                                                <li th:class="${currentPage != i ? 'page-item': 'page-item disabled' }"
+                                                    th:each="i : ${#numbers.sequence(currentPage == 1 ? currentPage : (currentPage - 1),(currentPage + 1) < totalPages ? (currentPage + 1) : totalPages )}">
+                                                    <a th:replace="admin/fragment/fragments::page_donhang_link(${i}, ${i})"></a>
+                                                </li>
+
+                                                <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
+                                                    <a th:replace="admin/fragment/fragments::page_donhang_link(${currentPage + 1}, Sau)"></a>
+                                                </li>
+                                                <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
+                                                    <a th:replace="admin/fragment/fragments::page_donhang_link(${totalPages}, 'Trang Cuối')"></a>
+                                                </li>
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
-                </div>
+                </section>
+                <!-- MAIN-CONTENT-SECTION END -->
             </div>
         </div>
-
-        <div>
-
-            <form method="GET">
-                <div class="row">
-                    <div class="col-md-5">
-                        <label class="sr-only" for="start">Ngày bắt đầu</label>
-                        <div class="input-group mb-2">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text">Ngày bắt đầu</div>
-                            </div>
-                            <input type="date" class="form-control" id="start" name="dateStart">
-                        </div>
-                    </div>
-                    <div class="col-md-5">
-                        <label class="sr-only" for="end">Ngày kết thúc</label>
-                        <div class="input-group mb-2">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text">Ngày kết thúc</div>
-                            </div>
-                            <input type="date" class="form-control" id="end" name="dateEnd">
-                        </div>
-                    </div>
-                    <div class="col-2">
-                        <button type="submit" class="btn btn-outline-dark mb-2" th:formaction="@{'/don-hang/search/date'}">Tìm kiếm</button>
-                    </div>
-                </div>
-            </form>
-
-            <table class="table table-bordered table-striped table-hover table-responsive-xl">
-                <thead class="thead-dark">
-                <tr>
-                    <th>#</th>
-                    <th>Địa chỉ</th>
-                    <th>Ngày giao hàng</th>
-                    <th>Ngày tạo</th>
-                    <th>Phí vận chuyển</th>
-                    <th>Tổng tiền sản phẩm</th>
-                    <th>Thành tiền</th>
-                    <th>Trạng thái</th>
-                    <Th>Action</Th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="cat, iterStat : ${list}">
-                    <td th:text="${__${iterStat.index + 1}__}">1</td>
-                    <td style="max-width: 220px">
-                        [[${cat.diaChi}]],
-                        [[${diaChiAPI.callGetPhuongXaAPI(cat.idQuanHuyen).get(cat.idPhuongXa)}]],
-                        [[${diaChiAPI.callGetQuanHuyenAPI(cat.idTinhThanh).get(cat.idQuanHuyen)}]],
-                        [[${diaChiCache.hashMapTinhThanh.get(cat.idTinhThanh)}]]
-                    </td>
-                    <td>[[${#dates.format(cat.ngayGiaoHang, 'dd-MM-yyyy')}]]</td>
-                    <td>[[${#dates.format(cat.ngayTao, 'dd-MM-yyyy')}]]</td>
-                    <td>[[${cat.phiVanChuyen}]]đ</td>
-                    <td>[[${cat.tongTien}]]đ</td>
-                    <td>[[${cat.tongTien + cat.phiVanChuyen}]]đ</td>
-                    <td th:text="${cat.trangThaiDonHang == 0 ? 'Chưa thanh toán' :
-                            (cat.trangThaiDonHang == 1 ? 'Đang giao' : 'Đã thanh toán')}">
-                    </td>
-                    <td>
-                        <a class="icon-green btn btn-outline-danger"
-                           style="text-decoration: none"
-                           th:href="@{'/hoa-don-chi-tiet/search/' + ${cat.idDonHang}}">Xem</a>
-
-                        <a class="btn btn-outline-primary"
-                           data-bs-toggle="modal"
-                           data-bs-target="#capNhatTrangThai"
-                           style="text-decoration: none"
-                        >Cập nhật</a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-
-        </div>
-
-        <div th:if="${totalPages > 1}">
-            <nav>
-                <ul class="pagination justify-content-center">
-                    <li th:class="${currentPage > 1 ?'page-item' : 'page-item disabled'}">
-                        <a th:replace="admin/fragment/fragments::page_donhang_link(1, 'Trang Đầu')" ></a>
-                    </li>
-                    <li th:class="${currentPage > 1 ?'page-item' : 'page-item disabled'}">
-                        <a th:replace="admin/fragment/fragments::page_donhang_link(${currentPage - 1}, Trước)"></a>
-                    </li>
-
-                    <li th:class="${currentPage != i ? 'page-item': 'page-item disabled' }"
-                        th:each="i : ${#numbers.sequence(currentPage == 1 ? currentPage : (currentPage - 1),(currentPage + 1) < totalPages ? (currentPage + 1) : totalPages )}">
-                        <a th:replace="admin/fragment/fragments::page_donhang_link(${i}, ${i})"></a>
-                    </li>
-
-                    <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
-                        <a th:replace="admin/fragment/fragments::page_donhang_link(${currentPage + 1}, Sau)"></a>
-                    </li>
-                    <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
-                        <a th:replace="admin/fragment/fragments::page_donhang_link(${totalPages}, 'Trang Cuối')"></a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-
+        <!-- END article -->
+        <!--  Footer      -->
         <div th:replace="admin/fragment/fragments::footer"></div>
-        </div>
-    </div>
-</div>
-star
 
-<!-- Modal -->
-<div class="modal fade" id="capNhatTrangThai" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="capNhatTrangThaiLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="capNhatTrangThaiLabel">Cập nhật trạng thái đơn hàng</h1>
-            </div>
-            <div class="modal-body">
-                <div class="col-md-8">
-                    <label for="trangThai" class="form-label">Trạng thái</label>
-                    <select id="trangThai" class="form-select">
-                        <option selected>Chưa thanh toán</option>
-                        <option>Đang giao</option>
-                        <option>Đã thanh toán</option>
-                    </select>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Hủy</button>
-                <a type="button"
-                   class="btn btn-outline-danger"
-                   th:href="@{'/hoa-don-chi-tiet/search/' + id}"
-                   data-bs-dismiss="modal">Xác nhận
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-    var today = new Date();
-    var dd = today.getDate();
-    var mm = today.getMonth()+1; // Tháng bắt đầu từ 0
-    var yyyy = today.getFullYear();
-    if(dd<10){
-        dd='0'+dd;
-    }
-    if(mm<10){
-        mm='0'+mm;
-    }
-    var todayFormatted = yyyy+'-'+mm+'-'+dd; // Chuỗi ngày tháng được định dạng theo định dạng của input type="date"
-    document.getElementById("start").value = todayFormatted; // Set giá trị mặc định cho input
-    document.getElementById("end").value = todayFormatted; // Set giá trị mặc định cho input
-</script>
-
-</body>
+        <script>
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth()+1; // Tháng bắt đầu từ 0
+            var yyyy = today.getFullYear();
+            if(dd<10){
+                dd='0'+dd;
+            }
+            if(mm<10){
+                mm='0'+mm;
+            }
+            var todayFormatted = yyyy+'-'+mm+'-'+dd; // Chuỗi ngày tháng được định dạng theo định dạng của input type="date"
+            document.getElementById("start").value = todayFormatted; // Set giá trị mặc định cho input
+            document.getElementById("end").value = todayFormatted; // Set giá trị mặc định cho input
+        </script>
+    </body>
 </html>
