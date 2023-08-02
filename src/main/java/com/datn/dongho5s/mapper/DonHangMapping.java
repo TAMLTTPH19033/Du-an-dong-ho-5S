@@ -13,6 +13,7 @@ public class DonHangMapping {
     public  static DonHangResponse mapEntitytoResponse(DonHang donHang){
         DonHangResponse donHangResponse =  DonHangResponse.builder()
                 .idDonHang(donHang.getIdDonHang())
+                .maDonHang(donHang.getMaDonHang())
                 .diaChi(donHang.getDiaChi())
                 .ghiChu(donHang.getGhiChu())
                 .idPhuongXa(donHang.getIdPhuongXa())
@@ -25,6 +26,7 @@ public class DonHangMapping {
                 .trangThaiDonHang(donHang.getTrangThaiDonHang())
                 .tongTien(donHang.getTongTien())
                 .hoaDonChiTiets(donHang.getListHoaDonChiTiet())
+                .lyDo(donHang.getLyDo())
                 .build();
         return donHangResponse;
     }

@@ -1,7 +1,7 @@
 const settingAPI = "http://localhost:8080/san-pham/get-setting";
 const searchAPI = "http://localhost:8080/san-pham/tim-kiem";
 
-myApp.controller("SanPhamController", function ($scope, $rootScope, $http,$filter) {
+myApp.controller("SanPhamController", function ($scope, $rootScope, $http,$filter,checkSearchService) {
   $scope.listSetting = {};
   $scope.listSanPham = [];
   $scope.danhMucIds = [];
@@ -11,10 +11,18 @@ myApp.controller("SanPhamController", function ($scope, $rootScope, $http,$filte
   $scope.kichCoIds = [];
   $scope.mauSacIds = [];
   $scope.tenSanPham;
-  $scope.pageSize = 8;
+  $scope.pageSize = 1;
   $scope.currentPage = 1;
-  $scope.maxPagesToShow = 2;
+  $scope.maxPagesToShow = 1;
   $scope.totalPages;
+  $scope.isFirstPage = true;
+  $scope.isLastPage=false;
+  $scope.selectedSortOption = 0;
+  $scope.price;
+  $scope.conditionRequest= checkSearchService.getData();
+  $scope.itemWithGiaNN = new Map();
+  $scope.itemWithGiaLN = new Map()
+  $rootScope.currentDate = new Date().toISOString();
 
   $scope.changeDanhMucs = function () {
     $scope.selectedDanhMucs = $filter('filter')($scope.listSetting.listDanhMuc, {checked: true});
@@ -35,54 +43,45 @@ myApp.controller("SanPhamController", function ($scope, $rootScope, $http,$filte
     $scope.selectedMauSacs = $filter('filter')($scope.listSetting.listMauSac, {checked: true});
   }
 
-  $scope.$watchGroup(["selectedDanhMucs","selectedThuongHieus","selectedDayDeos","selectedVatLieus","selectedKichCos","selectedMauSacs",], function (newValues, oldValues) {
+  $scope.$watchGroup(["selectedDanhMucs","selectedThuongHieus","selectedDayDeos","selectedVatLieus","selectedKichCos","selectedMauSacs","price"], function (newValues, oldValues) {
     if (newValues[0] !== oldValues[0]) {
-      console.log("Thay DanhMuc");
+      $scope.danhMucIds=[];
       $scope.selectedDanhMucs.forEach(element => {
-        if(!$scope.danhMucIds.includes(element.id)){
-          $scope.danhMucIds.push(element.id)
-        }
+        $scope.danhMucIds.push(element.id)
       });
     }
     if (newValues[1] !== oldValues[1]) {
-      console.log("Thay th");
+      $scope.thuongHieuIds=[];
       $scope.selectedThuongHieus.forEach(element => {
-        if(!$scope.thuongHieuIds.includes(element.idThuongHieu)){
-          $scope.thuongHieuIds.push(element.idThuongHieu)
-        }
+        $scope.thuongHieuIds.push(element.idThuongHieu)
       });
     }
     if (newValues[2] !== oldValues[2]) {
-      console.log("Thay dd");
+      $scope.dayDeoIds=[]
       $scope.selectedDayDeos.forEach(element => {
-       if(!$scope.dayDeoIds.includes(element.idDayDeo)){
           $scope.dayDeoIds.push(element.idDayDeo)
-        }
       });
     }
     if (newValues[3] !== oldValues[3]) {
-      console.log("Thay vl");
+      $scope.vatLieuIds=[];
       $scope.selectedVatLieus.forEach(element => {
-        if(!$scope.vatLieuIds.includes(element.idVatLieu)){
-          $scope.vatLieuIds.push(element.idVatLieu)
-        }
+        $scope.vatLieuIds.push(element.idVatLieu)
       });
     }
     if (newValues[4] !== oldValues[4]) {
-      console.log("Thay kc");
+      $scope.kichCoIds=[];
       $scope.selectedKichCos.forEach(element => {
-        if(!$scope.kichCoIds.includes(element.idKichCo)){
-          $scope.kichCoIds.push(element.idKichCo)
-        }
+        $scope.kichCoIds.push(element.idKichCo)
       });
     }
     if (newValues[5] !== oldValues[5]) {
-      console.log("Thay ms");
+      $scope.mauSacIds=[];
       $scope.selectedMauSacs.forEach(element => {
-        if(!$scope.mauSacIds.includes(element.idMauSac)){
-          $scope.mauSacIds.push(element.idMauSac)
-        }
+        $scope.mauSacIds.push(element.idMauSac)
       });
+    }
+    if(newValues[6] !== oldValues[6]){
+      console.log(newValues[6]);
     }
   });
   $scope.getSettings = function () {
@@ -97,6 +96,23 @@ myApp.controller("SanPhamController", function ($scope, $rootScope, $http,$filte
   };
   $scope.getSettings();
   $scope.searchList = function () {
+
+    $http
+      .post(searchAPI, $scope.conditionRequest)
+      .then(function (response) {
+        $scope.listSanPham = response.data;
+        $scope.totalPages = Math.ceil(
+          $scope.listSanPham.length / $scope.pageSize
+        );
+        console.log(response.data);
+
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+  // Kiểm tra dữ liệu khi chuyển trang từ trang chủ
+  if ($scope.conditionRequest == undefined) {
     $scope.conditionRequest = {
       thuongHieuId: $scope.thuongHieuIds,
       danhMucId: $scope.danhMucIds,
@@ -106,21 +122,13 @@ myApp.controller("SanPhamController", function ($scope, $rootScope, $http,$filte
       dayDeoId: $scope.dayDeoIds,
       tenSanPham: $scope.tenSanPham,
     };
-    $http
-      .post(searchAPI, $scope.conditionRequest)
-      .then(function (response) {
-        $scope.listSanPham = response.data;
-        $scope.totalPages = Math.ceil(
-          $scope.listSanPham.length / $scope.pageSize
-        );
-        console.log(response.data);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
-  $scope.searchList();
+    $scope.searchList();
+  } else {
+    $scope.searchList();
+  }
+
   $scope.$watchGroup(["listSanPham"], function () {
+    $scope.currentPage=1;
     $scope.pages = [];
     var startPage = Math.max(1, $scope.currentPage - $scope.maxPagesToShow);
     var endPage = Math.min(
@@ -134,30 +142,154 @@ myApp.controller("SanPhamController", function ($scope, $rootScope, $http,$filte
     var startIndex = ($scope.currentPage - 1) * $scope.pageSize;
     var endIndex = startIndex + $scope.pageSize;
     $scope.displayedItems = $scope.listSanPham.slice(startIndex, endIndex);
+    $scope.displayedItems.forEach(item=>{
+      $scope.getGiaNN(item.sanPhamID)
+      $scope.getGiaLN(item.sanPhamID)
+    })
+
+
   });
 
   $scope.changePage = function (page) {
+    $scope.pages = [];
     $scope.currentPage = page;
+    var startPage = Math.max(1, $scope.currentPage - $scope.maxPagesToShow);
+    var endPage = Math.min(
+        $scope.totalPages,
+        $scope.currentPage + $scope.maxPagesToShow
+    );
     var startIndex = ($scope.currentPage - 1) * $scope.pageSize;
     var endIndex = startIndex + $scope.pageSize;
+    for (var i = startPage; i <= endPage; i++) {
+      $scope.pages.push(i);
+    }
     $scope.displayedItems = $scope.listSanPham.slice(startIndex, endIndex);
+    $scope.displayedItems.forEach(item=>{
+      $scope.getGiaNN(item.sanPhamID)
+      $scope.getGiaLN(item.sanPhamID)
+    })
+    $scope.checkFirstLastPage();
   };
 
   $scope.previousPage = function () {
+    $scope.pages = [];
     if ($scope.currentPage > 1) {
       $scope.currentPage--;
+      var startPage = Math.max(1, $scope.currentPage - $scope.maxPagesToShow);
+      var endPage = Math.min(
+          $scope.totalPages,
+          $scope.currentPage + $scope.maxPagesToShow
+      );
       var startIndex = ($scope.currentPage - 1) * $scope.pageSize;
       var endIndex = startIndex + $scope.pageSize;
+      for (var i = startPage; i <= endPage; i++) {
+        $scope.pages.push(i);
+      }
       $scope.displayedItems = $scope.listSanPham.slice(startIndex, endIndex);
+      $scope.displayedItems.forEach(item=>{
+        $scope.getGiaNN(item.sanPhamID)
+        $scope.getGiaLN(item.sanPhamID)
+      })
+      $scope.checkFirstLastPage();
+
     }
   };
 
   $scope.nextPage = function () {
+    $scope.pages = [];
     if ($scope.currentPage < $scope.totalPages) {
       $scope.currentPage++;
+      var startPage = Math.max(1, $scope.currentPage - $scope.maxPagesToShow);
+      var endPage = Math.min(
+          $scope.totalPages,
+          $scope.currentPage + $scope.maxPagesToShow
+      );
       var startIndex = ($scope.currentPage - 1) * $scope.pageSize;
       var endIndex = startIndex + $scope.pageSize;
+      for (var i = startPage; i <= endPage; i++) {
+        $scope.pages.push(i);
+      }
       $scope.displayedItems = $scope.listSanPham.slice(startIndex, endIndex);
+      $scope.displayedItems.forEach(item=>{
+        $scope.getGiaNN(item.sanPhamID)
+        $scope.getGiaLN(item.sanPhamID)
+      })
+      $scope.checkFirstLastPage();
     }
   };
+
+  $scope.checkFirstLastPage = function (){
+    console.log($scope.currentPage);
+    if($scope.currentPage<=1){
+      $scope.isFirstPage= true;
+    }else{
+      $scope.isFirstPage = false;
+    }
+    if($scope.currentPage >= $scope.totalPages){
+      $scope.isLastPage = true;
+    }else{
+      $scope.isLastPage=false;
+    }
+  }
+
+  $scope.handleSortChange = function() {
+    switch ($scope.selectedSortOption) {
+      case '1':
+        // $scope.displayedItems.sort((a,b)=> a.)
+        break;
+      case '2':
+        console.log("sort 2")
+        break;
+      case '3':
+        console.log("sort 3")
+        break;
+      case '4':
+        // Sắp xếp theo tên sản phẩm từ Z đến A
+        break;
+      default:
+        // Trường hợp "--" hoặc không xử lý gì cả
+    }
+  }
+
+
+  $scope.spkm ;
+  $scope.getGiaNN = function (idSanPham){
+    $http
+        .get(`/api/index/getSPKM?idCTSP=${idSanPham}`)
+        .then((resp) => {
+          $scope.spkm = resp.data;
+          console.log(resp.data,"data")
+          $scope.spkm.sort(function(a, b){return a.giaSanPham - b.giaSanPham});
+          $scope.itemWithGiaNN.set(idSanPham,$scope.spkm[0].giaSanPham);
+          console.log($scope.itemWithGiaNN.get(idSanPham));
+        })
+        .catch((e)=>{
+          console.log(e);
+        });
+  }
+
+  $scope.getGiaLN = function (idSanPham){
+    $http
+        .get(`/api/index/getSPKM?idCTSP=${idSanPham}`)
+        .then((resp) => {
+          $scope.spkm = resp.data;
+          console.log(resp.data,"data")
+          $scope.spkm.sort(function(a, b){return a.giaSanPham - b.giaSanPham});
+          $scope.itemWithGiaLN.set(idSanPham,$scope.spkm[$scope.spkm.length-1].giaSanPham);
+          console.log($scope.itemWithGiaLN.get(idSanPham));
+        })
+        .catch((e)=>{
+          console.log(e);
+        });
+  }
+
+
+  $scope.getGiaNNOld = function (listCT){
+    listCT.sort(function(a, b){return a.giaSanPham - b.giaSanPham})
+    return listCT[0].giaSanPham;
+  }
+  $scope.getGiaLNOld = function (listCT){
+    listCT.sort(function(a, b){return a.giaSanPham - b.giaSanPham})
+    return listCT[listCT.length-1].giaSanPham;
+  }
 });

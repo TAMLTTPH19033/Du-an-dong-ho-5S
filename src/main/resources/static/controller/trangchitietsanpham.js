@@ -24,13 +24,15 @@ myApp.controller(
     $scope.review="";
 
     $scope.phanHoi = [];
-    $scope.pageSize = 1;
+    $scope.pageSize = 2;
     $scope.currentPage = 1;
     $scope.maxPagesToShow = 2;
     $scope.totalPages;
     $scope.check;
     $scope.Items =[];
     $scope.spCungThuongHieu = [];
+    $rootScope.currentDate = new Date().toISOString();
+
 
     var setDayDeo = new Set();
     var setVatLieu = new Set();
@@ -58,7 +60,6 @@ myApp.controller(
           $scope.selectedKC = $scope.chiTietSanPham.kichCo.tenKichCo;
           getSettingAttributeSp($scope.sanPhamDetail.listChiTietSanPham);
           $scope.PhanHoiAPI();
-          $scope.checkPhanHoiAPI();
           $rootScope.currentDate = new Date().toISOString();
 
           getAvailabelAttribute(
@@ -173,7 +174,6 @@ myApp.controller(
         getAvailabelAttribute();
         $rootScope.currentDate = new Date().toISOString();
         $scope.PhanHoiAPI();
-        $scope.checkPhanHoiAPI();
 
 
 
@@ -261,30 +261,30 @@ myApp.controller(
       }else{
         $scope.review="active";
         $scope.PhanHoiAPI();
-        $scope.$watchGroup(["phanHoi"], function () {
-          $scope.pages = [];
-          var startPage = Math.max(1, $scope.currentPage - $scope.maxPagesToShow);
-          var endPage = Math.max(
-              $scope.totalPages,
-              $scope.currentPage + $scope.maxPagesToShow
-          );
-          for (var i = startPage; i <= endPage; i++) {
-            $scope.pages.push(i);
-          }
-
-          var startIndex = ($scope.currentPage - 1) * $scope.pageSize;
-          var endIndex = startIndex + $scope.pageSize;
-          $scope.Items = $scope.phanHoi.slice(startIndex, endIndex);
-          console.log($scope.phanHoi, "phanhoi");
-          console.log( $scope.pages);
-
-          // $scope.checkPhanHoiAPI();
-        });
-
-        $scope.checkPhanHoiAPI();
 
       }
+
     }
+
+    $scope.$watchGroup(["phanHoi"], function () {
+      $scope.currentPage=1;
+      $scope.pages = [];
+      var startPage = Math.max(1, $scope.currentPage - $scope.maxPagesToShow);
+      var endPage = Math.min(
+          $scope.totalPages,
+          $scope.currentPage + $scope.maxPagesToShow
+      );
+      for (var i = startPage; i <= endPage; i++) {
+        $scope.pages.push(i);
+      }
+
+      var startIndex = ($scope.currentPage - 1) * $scope.pageSize;
+      var endIndex = startIndex + $scope.pageSize;
+      console.log($scope.pages);
+      $scope.Items = $scope.phanHoi.slice(startIndex, endIndex);
+
+
+    });
     $scope.addToCart = function () {
       if(currentUser) {
         var item = {
@@ -360,7 +360,6 @@ myApp.controller(
             $scope.phanHoi.length / $scope.pageSize
           );
           console.log( $scope.totalPages);
-          $scope.checkPhanHoiAPI();
         })
 
         .catch(function (error) {
@@ -368,72 +367,97 @@ myApp.controller(
         });
     };
 
-
-    $scope.$watchGroup(["phanHoi"], function () {
+    $scope.changePage = function (page) {
       $scope.pages = [];
+      $scope.currentPage = page;
       var startPage = Math.max(1, $scope.currentPage - $scope.maxPagesToShow);
       var endPage = Math.min(
-        $scope.totalPages,
-        $scope.currentPage + $scope.maxPagesToShow
+          $scope.totalPages,
+          $scope.currentPage + $scope.maxPagesToShow
       );
+      var startIndex = ($scope.currentPage - 1) * $scope.pageSize;
+      var endIndex = startIndex + $scope.pageSize;
       for (var i = startPage; i <= endPage; i++) {
         $scope.pages.push(i);
       }
-
-      var startIndex = ($scope.currentPage - 1) * $scope.pageSize;
-      var endIndex = startIndex + $scope.pageSize;
+      console.log($scope.pages);
       $scope.Items = $scope.phanHoi.slice(startIndex, endIndex);
-      console.log($scope.phanHoi, "phanhoi");
-      console.log($scope.Items);
-
-      // $scope.checkPhanHoiAPI();
-    });
-
-    $scope.changePage = function (page) {
-      $scope.currentPage = page;
-      var startIndex = ($scope.currentPage - 1) * $scope.pageSize;
-      var endIndex = startIndex + $scope.pageSize;
-      $scope.Items = $scope.phanHoi.slice(startIndex, endIndex);
+      $scope.checkFirstLastPage();
     };
 
     $scope.previousPage = function () {
+      $scope.pages = [];
       if ($scope.currentPage > 1) {
         $scope.currentPage--;
+        var startPage = Math.max(1, $scope.currentPage - $scope.maxPagesToShow);
+        var endPage = Math.min(
+            $scope.totalPages,
+            $scope.currentPage + $scope.maxPagesToShow
+        );
         var startIndex = ($scope.currentPage - 1) * $scope.pageSize;
         var endIndex = startIndex + $scope.pageSize;
+        for (var i = startPage; i <= endPage; i++) {
+          $scope.pages.push(i);
+        }
+        console.log($scope.pages);
         $scope.Items = $scope.phanHoi.slice(startIndex, endIndex);
+        $scope.checkFirstLastPage();
       }
     };
 
     $scope.nextPage = function () {
+      $scope.pages = [];
       if ($scope.currentPage < $scope.totalPages) {
         $scope.currentPage++;
+        var startPage = Math.max(1, $scope.currentPage - $scope.maxPagesToShow);
+        var endPage = Math.min(
+            $scope.totalPages,
+            $scope.currentPage + $scope.maxPagesToShow
+        );
         var startIndex = ($scope.currentPage - 1) * $scope.pageSize;
         var endIndex = startIndex + $scope.pageSize;
+        for (var i = startPage; i <= endPage; i++) {
+          $scope.pages.push(i);
+        }
+        console.log($scope.pages);
         $scope.Items = $scope.phanHoi.slice(startIndex, endIndex);
+        $scope.checkFirstLastPage();
       }
     };
 
-    $scope.checkPhanHoiAPI = function () {
-
-      var idChiTietSanPham = $scope.chiTietSanPham.idChiTietSanPham;
-      if(currentUser) {
-        $http
-            .get(
-                `phan-hoi/checkPhanHoi?idKhachHang=${currentUser.idKhachHang}&idSanPham=${idChiTietSanPham}`
-            )
-            .then(function (response) {
-              $scope.check = response.data;
-              console.log(response.data);
-            })
-            .catch(function (error) {
-              console.log(error);
-            });
+    $scope.checkFirstLastPage = function (){
+      console.log($scope.currentPage);
+      if($scope.currentPage<=1){
+        $scope.isFirstPage= true;
       }else{
-        $scope.check = true;
+        $scope.isFirstPage = false;
       }
-    };
-    // $scope.checkPhanHoiAPI();
+      if($scope.currentPage >= $scope.totalPages){
+        $scope.isLastPage = true;
+      }else{
+        $scope.isLastPage=false;
+      }
+    }
+
+    // $scope.checkPhanHoiAPI = function () {
+    //
+    //   var idChiTietSanPham = $scope.chiTietSanPham.idChiTietSanPham;
+    //   if(currentUser) {
+    //     $http
+    //         .get(
+    //             `phan-hoi/checkPhanHoi?idKhachHang=${currentUser.idKhachHang}&idSanPham=${idChiTietSanPham}`
+    //         )
+    //         .then(function (response) {
+    //           $scope.check = response.data;
+    //           console.log(response.data);
+    //         })
+    //         .catch(function (error) {
+    //           console.log(error);
+    //         });
+    //   }else{
+    //     $scope.check = true;
+    //   }
+    // };
     //binhluan
     $scope.rating = 0;
     $scope.ratings = {
@@ -508,43 +532,3 @@ myApp.directive("starRating", function () {
   };
 });
 
-myApp.directive("starRatings", function () {
-  return {
-    restrict: "A",
-    template:
-      '<ul class="rating">' +
-      '<li ng-repeat="star in stars" ng-class="star"   ng-click="toggle($index)">' +
-      "\u2605" +
-      "</li>" +
-      "</ul>",
-    scope: {
-      ratingValue: "=",
-      max: "=",
-      onRatingSelected: "&",
-    },
-    link: function (scope, elem, attrs) {
-      var updateStars = function () {
-        scope.stars = [];
-        for (var i = 0; i < scope.max; i++) {
-          scope.stars.push({
-            filled: i < scope.ratingValue,
-          });
-          // elem[i].css("color","yellow")
-        }
-      };
-
-      scope.toggle = function (index) {
-        scope.ratingValue = index + 1;
-        scope.onRatingSelected({
-          rating: index + 1,
-        });
-      };
-
-      scope.$watch("ratingValue", function (oldVal, newVal) {
-        if (newVal) {
-          updateStars();
-        }
-      });
-    },
-  };
-});

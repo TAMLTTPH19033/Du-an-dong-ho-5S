@@ -23,6 +23,7 @@ public class ChiTietSanPhamMapping {
                 .trangThai(sp.getTrangThai())
                 .giaSanPham(sp.getGiaSanPham())
                 .soLuong(sp.getSoLuong())
+                .listPhanHoi(sp.getListPhanHoi())
                 .build();
         return chiTietSanPhamResponse;
     }

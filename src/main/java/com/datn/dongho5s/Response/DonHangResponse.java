@@ -18,6 +18,8 @@ import java.util.List;
 public class DonHangResponse {
     private Integer idDonHang;
 
+    private String maDonHang;
+
     private NhanVien nhanVien;
 
     private KhachHang khachHang;
@@ -42,4 +44,5 @@ public class DonHangResponse {
 
     private String ghiChu;
     private List<HoaDonChiTiet> hoaDonChiTiets;
+    private String lyDo;
 }

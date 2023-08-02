@@ -72,7 +72,9 @@ myApp.controller("registerCtrl", function ($scope,$rootScope, $http,$location) {
                 });
                 $location.path("/login")
             }).catch(error =>{
-            alert("Loi roi")
+                   $scope.errorMessage = error.data.message
+            // console.log(error)
+            // alert("Loi roi")
         })
     }
 

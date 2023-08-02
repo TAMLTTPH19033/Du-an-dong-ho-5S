@@ -8,7 +8,7 @@ const getPhuongXaAPI = "http://localhost:8080/dia-chi/get-phuong-xa/";
 
 myApp.controller(
   "ThanhToanCtrl",
-  function ($scope, $rootScope, $http, checkOutDataService, $window) {
+  function ($scope, $rootScope, $http, checkOutDataService, $window,$location) {
     // if (new URLSearchParams(window.location.search).get("message") != null) {
     //   var mess = new URLSearchParams(window.location.search).get("message");
     //   alert("Lỗi" + mess);
@@ -100,10 +100,15 @@ myApp.controller(
         $http
           .post(themDonHangApi, $scope.checkOutRequest)
           .then((response) => {
-            console.log(response.data);
+            if(response.status == 200){
+                $location.path("/success");
+            }else{
+                $location.path("/fail");
+            }
           })
           .catch((error) => {
-            console.log(error);
+              console.log(error);
+              $location.path("/fail");
           });
       }
     };

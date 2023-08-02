@@ -1,0 +1,94 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="content" th:remove="tag">
+    <div>
+        <button period="last_7_days" class="btn btn-primary button-sales-by-date m-1">7 ngày trước</button>
+        <button period="last_28_days" class="btn btn-light button-sales-by-date m-1">28 ngày trước</button>
+        <button period="last_6_months" class="btn btn-light button-sales-by-date m-1">Trong 6 tháng</button>
+        <button period="last_year" class="btn btn-light button-sales-by-date m-1">Trong 1 năm</button>
+        <button class="btn btn-light button-sales-by-date m-1">Tùy chỉnh</button>
+    </div>
+
+    <form>
+        <div id="divCustomDateRange" class="d-none">
+            From date: <input type="date" id="startDate"> &nbsp;
+            To date: <input type="date" id="endDate"> &nbsp;
+            <button type="button" class="btn btn-secondary" id="buttonViewReportByDateRange"
+            >View</button>
+        </div>
+    </form>
+
+<!--    <div align="center" style="width: 1000px;">-->
+<!--        <h2>Spring Boot Google Charts Example</h2>-->
+<!--        <div id="chart_div" style="width: 900px; height: 500px;"></div>-->
+<!--    </div>-->
+
+    <div id="chart_sales_by_date" class="mt-3"> </div>
+    <div class="row">
+        <div class="col-2">
+            <div class="card">
+                <div class="card-header"><b>Tổng Doanh Thu</b></div>
+                <div class="card-body">
+                    <span class="h3" id="textTotalGrossSales"></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-2">
+            <div class="card">
+                <div class="card-header"><b>Tổng Doanh Thu Thuần</b></div>
+                <div class="card-body">
+                    <span class="h3" id="textTotalNetSales"></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="card">
+                <div class="card-header"><b>Trung bình tổng DT</b></div>
+                <div class="card-body">
+                    <span class="h3" id="textAvgGrossSales"></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="card">
+                <div class="card-header"><b>Trung bình DT thuần</b></div>
+                <div class="card-body">
+                    <span class="h3" id="textAvgNetSales"></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-2">
+            <div class="card">
+                <div class="card-header"><b>Tổng số đơn</b></div>
+                <div class="card-body">
+                    <span class="h3" id="textTotalOrder"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--<script-->
+<!--        src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>-->
+<!--<link rel="stylesheet"-->
+<!--      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">-->
+<!--<script type="text/javascript">-->
+<!--    google.charts.load('current', {'packages':['corechart']});-->
+<!--    google.charts.setOnLoadCallback(drawChart);-->
+<!--</script>-->
+<!--<script type="text/javascript" th:src="@{/controller/sale_report_by_date.js}"></script>-->
+<!--<script th:inline="javascript">-->
+<!--    var real_data = /*[[${chartData}]]*/'noValue';-->
+
+<!--    $(document).ready(function() {-->
+<!--        google.charts.load('current', {-->
+<!--            packages : [ 'corechart', 'bar' ]-->
+<!--        });-->
+<!--        google.charts.setOnLoadCallback(drawColumnChart);-->
+<!--        google.charts.setOnLoadCallback(drawPieChart);-->
+<!--    });-->
+<!--</script>-->
+
+</body>
+</html>

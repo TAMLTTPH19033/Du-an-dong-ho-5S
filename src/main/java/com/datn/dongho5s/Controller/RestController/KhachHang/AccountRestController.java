@@ -87,7 +87,7 @@ public class AccountRestController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> singup( @Valid @RequestBody RegisterRequest registerRequest){
+    public ResponseEntity<?> singup( @Valid @RequestBody RegisterRequest registerRequest) throws Exception {
         return accountService.register(registerRequest);
     }
 

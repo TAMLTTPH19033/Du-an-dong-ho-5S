@@ -1,5 +1,5 @@
-myApp.controller("homeCtrl", function ($scope, $http,$window,$rootScope) {
-
+myApp.controller("homeCtrl", function ($scope, $http,$window,$rootScope,checkSearchService,$location) {
+    $scope.listSetting = {};
     $scope.newSanPhams = [];
     $scope.hotSanPhams = [];
     $scope.featureSanPhams = [];
@@ -11,7 +11,7 @@ myApp.controller("homeCtrl", function ($scope, $http,$window,$rootScope) {
         //load product
         $http.get(`/api/index`).then((resp) => {
             $scope.hotSanPhams = resp.data.listSPbanChay;
-            console.log(resp.data.listSPbanChay);
+            // console.log(resp.data.listSPbanChay);
             $scope.newSanPhams = resp.data.listSPmoiNhat;
             $scope.featureSanPhams = resp.data.listSPNoiBat;
 
@@ -45,29 +45,10 @@ myApp.controller("homeCtrl", function ($scope, $http,$window,$rootScope) {
             }).catch(error => {
                 if(error.status == 403) {
                 return null ;
-                    // Swal.fire({
-                    //     icon: "warning",
-                    //     title: "Bạn chưa đăng nhập !",
-                    //     text: "Hãy đăng nhập để tiếp tục shopping!",
-                    //     showConfirmButton: true,
-                    //     closeOnClickOutside: true,
-                    //     timer: 5600,
-                    // });
-                    // $window.location.href = '#login';
                 }
             });
         }else{
             return null ;
-            $window.location.reload();
-            // Swal.fire({
-            //     icon: "warning",
-            //     title: "Bạn chưa đăng nhập !",
-            //     text: "Hãy đăng nhập để tiếp tục shopping!",
-            //     showConfirmButton: true,
-            //     closeOnClickOutside: true,
-            //     timer: 5600,
-            // });
-            // $window.location.href = '#login';
         }
     };
     $rootScope.index();
@@ -83,7 +64,6 @@ myApp.controller("homeCtrl", function ($scope, $http,$window,$rootScope) {
             $scope.delete(item);
             $scope.total -= item.giaBan * item.soLuongSanPham;
             $scope.totalSp -= item.soLuongSanPham;
-            // console.log($scope.cart);
         }
     };
 
@@ -97,13 +77,12 @@ myApp.controller("homeCtrl", function ($scope, $http,$window,$rootScope) {
             .get(`/api/index/getSPKM?idCTSP=${idSanPham}`)
             .then((resp) => {
                 $scope.spkm = resp.data;
-                console.log(resp.data,"data")
                 $scope.spkm.sort(function(a, b){return a.giaSanPham - b.giaSanPham});
                 $scope.itemWithGiaNN.set(idSanPham,$scope.spkm[0].giaSanPham);
-                console.log($scope.itemWithGiaNN.get(idSanPham));
+                // console.log($scope.itemWithGiaNN.get(idSanPham));
             })
             .catch((e)=>{
-                console.log(e);
+                // console.log(e);
             });
     }
 
@@ -112,13 +91,11 @@ myApp.controller("homeCtrl", function ($scope, $http,$window,$rootScope) {
             .get(`/api/index/getSPKM?idCTSP=${idSanPham}`)
             .then((resp) => {
                 $scope.spkm = resp.data;
-                console.log(resp.data,"data")
                 $scope.spkm.sort(function(a, b){return a.giaSanPham - b.giaSanPham});
                 $scope.itemWithGiaLN.set(idSanPham,$scope.spkm[$scope.spkm.length-1].giaSanPham);
-                console.log($scope.itemWithGiaLN.get(idSanPham));
             })
             .catch((e)=>{
-                console.log(e);
+                // console.log(e);
             });
     }
 
@@ -132,4 +109,72 @@ myApp.controller("homeCtrl", function ($scope, $http,$window,$rootScope) {
         return listCT[listCT.length-1].giaSanPham;
     }
 
+    $scope.getSettings = function () {
+        $http
+            .get(settingAPI)
+            .then(function (response) {
+                $scope.listSetting = response.data;
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+    $scope.getSettings();
+
+    $scope.searchDanhMuc = function (id){
+        checkSearchService.setData(
+            {
+                thuongHieuId: [],
+                danhMucId: [id],
+                sizeId: [],
+                mauSacId: [],
+                vatLieuId: [],
+                dayDeoId: [],
+                tenSanPham: null
+            }
+        );
+        $location.path("/sanpham");
+    }
+    $scope.searchThuongHieu = function (id){
+        checkSearchService.setData(
+            {
+                thuongHieuId: [id],
+                danhMucId: [],
+                sizeId: [],
+                mauSacId: [],
+                vatLieuId: [],
+                dayDeoId: [],
+                tenSanPham: null
+            }
+        );
+        $location.path("/sanpham");
+    }
+    $scope.searchDayDeo = function (id){
+        checkSearchService.setData(
+            {
+                thuongHieuId: [],
+                danhMucId: [],
+                sizeId: [],
+                mauSacId: [],
+                vatLieuId: [],
+                dayDeoId: [id],
+                tenSanPham: null
+            }
+        );
+        $location.path("/sanpham");
+    }
+    $scope.searchVatLieu = function (id){
+        checkSearchService.setData(
+            {
+                thuongHieuId: [],
+                danhMucId: [],
+                sizeId: [],
+                mauSacId: [],
+                vatLieuId: [id],
+                dayDeoId: [],
+                tenSanPham: null
+            }
+        );
+        $location.path("/sanpham");
+    }
 })

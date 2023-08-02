@@ -80,6 +80,11 @@ public class DonHang {
     @Column(name = "ghi_chu")
     private String ghiChu;
 
+    @Column(name = "ly_do")
+    private String lyDo;
+
+
+
 
     @OneToMany(mappedBy = "donHang", cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
@@ -88,4 +93,15 @@ public class DonHang {
     @ToString.Exclude
     private List<HoaDonChiTiet> listHoaDonChiTiet ;
 
+    public DonHang(Integer idDonHang, Date ngayTao, Double tongTien, Double phiVanChuyen) {
+        this.idDonHang = idDonHang;
+        this.ngayTao = ngayTao;
+//        this.ngayGiaoHang = ngayGiaoHang;
+        this.tongTien = tongTien;
+        this.phiVanChuyen = phiVanChuyen;
+    }
+
+    public DonHang(Double phiVanChuyen) {
+        this.phiVanChuyen = phiVanChuyen;
+    }
 }
