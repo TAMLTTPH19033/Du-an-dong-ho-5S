@@ -11,6 +11,7 @@ import com.datn.dongho5s.UploadFile.FileUploadUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -30,12 +31,13 @@ public class NhanVienController {
     @Autowired
     private NhanVienService service;
 
-    @GetMapping("/users")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @GetMapping("/admin/users")
     public String listFirstPage(Model model){
         return listByPage(1,model,"email","asc",null);
     }
 
-    @GetMapping("/users/page/{pageNum}")
+    @GetMapping("/admin/users/page/{pageNum}")
     public String listByPage(@PathVariable(name = "pageNum") int pageNum, Model model,
                              @Param("sortField")String sortField , @Param("sortDir")String sortDir,
                              @Param("keyword")String keyword
@@ -68,7 +70,7 @@ public class NhanVienController {
 
     }
 
-    @GetMapping("/users/new")
+    @GetMapping("/admin/users/new")
     public String newUser(Model model){
         List<ChucVu> listChucVu = service.listChucVu();
         NhanVien nhanVien = new NhanVien();
@@ -79,7 +81,7 @@ public class NhanVienController {
         return "admin/nhanvien/user_form";
     }
 
-    @PostMapping("/users/save")
+    @PostMapping("/admin/users/save")
     public String saveUser(NhanVien nhanVien, RedirectAttributes redirectAttributes,
                            @RequestParam("image")MultipartFile multipartFile) throws IOException {
         if(!multipartFile.isEmpty()){
@@ -98,7 +100,7 @@ public class NhanVienController {
         return "redirect:/users";
     }
 
-    @GetMapping("/users/edit/{id}")
+    @GetMapping("/admin/users/edit/{id}")
     public String editUser(@PathVariable(name = "id") Integer id,
                            Model model,
                            RedirectAttributes redirectAttributes){
@@ -117,7 +119,7 @@ public class NhanVienController {
     }
 
 
-    @GetMapping("/users/delete/{id}")
+    @GetMapping("/admin/users/delete/{id}")
     public String deleteUser(@PathVariable(name = "id") Integer id,
                            Model model,
                            RedirectAttributes redirectAttributes){
@@ -130,7 +132,7 @@ public class NhanVienController {
         return "redirect:/users";
     }
 
-    @GetMapping("/users/{id}/enabled/{status}")
+    @GetMapping("/admin/users/{id}/enabled/{status}")
     public String updateNhanVienEnabledStatus(@PathVariable("id") Integer id,
                                               @PathVariable("status") boolean enabled,
                                               RedirectAttributes redirectAttributes){
@@ -141,14 +143,14 @@ public class NhanVienController {
         return "redirect:/users";
     }
 
-    @GetMapping("/users/export/csv")
+    @GetMapping("/admin/users/export/csv")
     public void exportToCSV(HttpServletResponse response) throws IOException {
         List<NhanVien> listNhanVien = service.listAll();
         NhanVienCsvExporter exporter = new NhanVienCsvExporter();
         exporter.export(listNhanVien,response);
     }
 
-    @GetMapping("/users/export/excel")
+    @GetMapping("/admin/users/export/excel")
     public void exportToExcel(HttpServletResponse response) throws IOException {
         List<NhanVien> listNhanVien = service.listAll();
         NhanVienExcelExporter exporter = new NhanVienExcelExporter();
@@ -156,11 +158,11 @@ public class NhanVienController {
 
     }
 
-//    @GetMapping("/users/export/pdf")
-//    public void exportToPDF(HttpServletResponse response) throws IOException {
-//        List<NhanVien> listNhanVien = service.listAll();
-//        NhanVienPdfExporter exporter = new NhanVienPdfExporter();
-//        exporter.export(listNhanVien,response);
-//
-//    }
+    @GetMapping("/admin/users/export/pdf")
+    public void exportToPDF(HttpServletResponse response) throws IOException {
+        List<NhanVien> listNhanVien = service.listAll();
+        NhanVienPdfExporter exporter = new NhanVienPdfExporter();
+        exporter.export(listNhanVien,response);
+
+    }
 }
