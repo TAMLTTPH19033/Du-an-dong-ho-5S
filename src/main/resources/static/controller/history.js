@@ -4,21 +4,15 @@ myApp.controller(
     ) {
         let currentUser = JSON.parse(localStorage.getItem("currentUser"));
         $scope.donHang = [];
-        $scope.dh =[];
-        $scope.pageSize = 1;
-        $scope.currentPage = 1;
-        $scope.maxPagesToShow = 1;
-        $scope.totalPages;
-        $scope.isFirstPage = true;
-        $scope.isLastPage=false;
+        $scope.items= [];
+        $scope.loading = true;
 
            if (currentUser != null) {
                 $http.get(`/don-hang/findAll/${currentUser.idKhachHang}`)
                     .then((resp) => {
-                        $scope.dh = resp.data;
-                        $scope.totalPages = Math.ceil(
-                            $scope.dh.length / $scope.pageSize
-                        );
+                        $scope.donHang = resp.data;
+                        $scope.items.push($scope.donHang[0])
+                        $scope.items.push($scope.donHang[1])
                     }).catch(error => {
                     if (error.status == 403) {
                         Swal.fire({
@@ -43,97 +37,23 @@ myApp.controller(
                 });
                 $window.location.href = '#login';
             }
-
-        $scope.$watchGroup(["dh"], function () {
-            $scope.currentPage=1;
-            $scope.pages = [];
-            var startPage = Math.max(1, $scope.currentPage - $scope.maxPagesToShow);
-            var endPage = Math.min(
-                $scope.totalPages,
-                $scope.currentPage + $scope.maxPagesToShow
-            );
-            for (var i = startPage; i <= endPage; i++) {
-                $scope.pages.push(i);
+        var i =2;
+        $scope.more = function (){
+            if(i == $scope.donHang.length){
+                $scope.loading = false;
             }
 
-            var startIndex = ($scope.currentPage - 1) * $scope.pageSize;
-            var endIndex = startIndex + $scope.pageSize;
-            console.log($scope.pages);
-            $scope.donHang = $scope.dh.slice(startIndex, endIndex);
-
-        });
-
-        $scope.changePage = function (page) {
-            $scope.pages = [];
-            $scope.currentPage = page;
-            var startPage = Math.max(1, $scope.currentPage - $scope.maxPagesToShow);
-            var endPage = Math.min(
-                $scope.totalPages,
-                $scope.currentPage + $scope.maxPagesToShow
-            );
-            var startIndex = ($scope.currentPage - 1) * $scope.pageSize;
-            var endIndex = startIndex + $scope.pageSize;
-            for (var i = startPage; i <= endPage; i++) {
-                $scope.pages.push(i);
+            for( i; i < $scope.donHang.length;i++ ){
+                $scope.newItem = $scope.donHang[i++];
+                i = i++;
+                $scope.items.push( $scope.newItem );
+                console.log($scope.items)
+                break;
             }
-            console.log($scope.pages);
-            $scope.donHang = $scope.dh.slice(startIndex, endIndex);
-            $scope.checkFirstLastPage();
-        };
 
-        $scope.previousPage = function () {
-            $scope.pages = [];
-            if ($scope.currentPage > 1) {
-                $scope.currentPage--;
-                var startPage = Math.max(1, $scope.currentPage - $scope.maxPagesToShow);
-                var endPage = Math.min(
-                    $scope.totalPages,
-                    $scope.currentPage + $scope.maxPagesToShow
-                );
-                var startIndex = ($scope.currentPage - 1) * $scope.pageSize;
-                var endIndex = startIndex + $scope.pageSize;
-                for (var i = startPage; i <= endPage; i++) {
-                    $scope.pages.push(i);
-                }
-                console.log($scope.pages);
-                $scope.donHang = $scope.dh.slice(startIndex, endIndex);
-                $scope.checkFirstLastPage();
-            }
-        };
-
-        $scope.nextPage = function () {
-            $scope.pages = [];
-            if ($scope.currentPage < $scope.totalPages) {
-                $scope.currentPage++;
-                var startPage = Math.max(1, $scope.currentPage - $scope.maxPagesToShow);
-                var endPage = Math.min(
-                    $scope.totalPages,
-                    $scope.currentPage + $scope.maxPagesToShow
-                );
-                var startIndex = ($scope.currentPage - 1) * $scope.pageSize;
-                var endIndex = startIndex + $scope.pageSize;
-                for (var i = startPage; i <= endPage; i++) {
-                    $scope.pages.push(i);
-                }
-                console.log($scope.pages);
-                $scope.donHang = $scope.dh.slice(startIndex, endIndex);
-                $scope.checkFirstLastPage();
-            }
-        };
-
-        $scope.checkFirstLastPage = function (){
-            console.log($scope.currentPage);
-            if($scope.currentPage<=1){
-                $scope.isFirstPage= true;
-            }else{
-                $scope.isFirstPage = false;
-            }
-            if($scope.currentPage >= $scope.totalPages){
-                $scope.isLastPage = true;
-            }else{
-                $scope.isLastPage=false;
-            }
         }
+        $scope.more();
+
     })
 
 myApp.controller(
@@ -142,10 +62,14 @@ myApp.controller(
     ) {
         let currentUser = JSON.parse(localStorage.getItem("currentUser"));
         $scope.donHang = [];
+        $scope.items= [];
+        $scope.loading = true;
             if (currentUser != null) {
                 $http.get(`/don-hang/findByStatus/${currentUser.idKhachHang}?status=0`)
                     .then((resp) => {
                         $scope.donHang = resp.data;
+                        $scope.items.push($scope.donHang[0])
+                        $scope.items.push($scope.donHang[1])
                     }).catch(error => {
                     if (error.status == 403) {
                         Swal.fire({
@@ -198,6 +122,22 @@ myApp.controller(
 
                }
             }
+        var i =2;
+        $scope.more = function (){
+            if(i == $scope.donHang.length){
+                $scope.loading = false;
+            }
+
+            for( i; i < $scope.donHang.length;i++ ){
+                $scope.newItem = $scope.donHang[i++];
+                i = i++;
+                $scope.items.push( $scope.newItem );
+                console.log($scope.items)
+                break;
+            }
+
+        }
+        $scope.more();
 
 
     })
@@ -208,10 +148,14 @@ myApp.controller(
     ) {
         let currentUser = JSON.parse(localStorage.getItem("currentUser"));
         $scope.donHang = [];
+        $scope.items= [];
+        $scope.loading = true;
         if (currentUser != null) {
             $http.get(`/don-hang/findByStatus/${currentUser.idKhachHang}?status=1`)
                 .then((resp) => {
                     $scope.donHang = resp.data;
+                    $scope.items.push($scope.donHang[0])
+                    $scope.items.push($scope.donHang[1])
                 }).catch(error => {
                 if (error.status == 403) {
                     Swal.fire({
@@ -236,6 +180,23 @@ myApp.controller(
             });
             $window.location.href = '#login';
         }
+
+        var i =2;
+        $scope.more = function (){
+            if(i == $scope.donHang.length){
+                $scope.loading = false;
+            }
+
+            for( i; i < $scope.donHang.length;i++ ){
+                $scope.newItem = $scope.donHang[i++];
+                i = i++;
+                $scope.items.push( $scope.newItem );
+                console.log($scope.items)
+                break;
+            }
+
+        }
+        $scope.more();
     })
 
 myApp.controller(
@@ -244,10 +205,14 @@ myApp.controller(
     ) {
         let currentUser = JSON.parse(localStorage.getItem("currentUser"));
         $scope.donHang = [];
+        $scope.items= [];
+        $scope.loading = true;
         if (currentUser != null) {
             $http.get(`/don-hang/findByStatus/${currentUser.idKhachHang}?status=2`)
                 .then((resp) => {
                     $scope.donHang = resp.data;
+                    $scope.items.push($scope.donHang[0])
+                    $scope.items.push($scope.donHang[1])
                 }).catch(error => {
                 if (error.status == 403) {
                     Swal.fire({
@@ -272,20 +237,46 @@ myApp.controller(
             });
             $window.location.href = '#login';
         }
+        var i =2;
+        $scope.more = function (){
+            if(i == $scope.donHang.length){
+                $scope.loading = false;
+            }
+
+            for( i; i < $scope.donHang.length;i++ ){
+                $scope.newItem = $scope.donHang[i++];
+                i = i++;
+                $scope.items.push( $scope.newItem );
+                console.log($scope.items)
+                break;
+            }
+
+        }
+        $scope.more();
     })
 
 myApp.controller(
     "historyDoneCtrl",
     function (  $scope, $rootScope, $http,$routeParams,$location, $window
     ) {
+        const today = new Date();
+// // Trừ đi 7 ngày
+        today.setDate(today.getDate() - 7);
+        $rootScope.expirationDate = today.toISOString();
+        console.log( $rootScope.expirationDate)
+
         let currentUser = JSON.parse(localStorage.getItem("currentUser"));
         $scope.donHang = [];
+        $scope.items= [];
+        $scope.loading = true;
         $scope.isPhanHoi;
         $scope.checkPhanHoi = new Map();
         if (currentUser != null) {
             $http.get(`/don-hang/findByStatus/${currentUser.idKhachHang}?status=3`)
                 .then((resp) => {
                     $scope.donHang = resp.data;
+                    $scope.items.push($scope.donHang[0])
+                    $scope.items.push($scope.donHang[1])
                     $scope.donHang.forEach(item => {
                             item.hoaDonChiTiets.forEach(h => {
                                 $scope.checkPhanHoiAPI(h.chiTietSanPham.idChiTietSanPham)
@@ -399,6 +390,22 @@ myApp.controller(
                 $window.location.href = '#login';
             }
         };
+        var i =2;
+        $scope.more = function (){
+            if(i == $scope.donHang.length){
+                $scope.loading = false;
+            }
+
+            for( i; i < $scope.donHang.length;i++ ){
+                $scope.newItem = $scope.donHang[i++];
+                i = i++;
+                $scope.items.push( $scope.newItem );
+                console.log($scope.items)
+                break;
+            }
+
+        }
+        $scope.more();
     })
 
 
@@ -408,10 +415,14 @@ myApp.controller(
     ) {
         let currentUser = JSON.parse(localStorage.getItem("currentUser"));
         $scope.donHang = [];
+        $scope.items= [];
+        $scope.loading = true;
         if (currentUser != null) {
             $http.get(`/don-hang/findByStatus/${currentUser.idKhachHang}?status=4`)
                 .then((resp) => {
                     $scope.donHang = resp.data;
+                    $scope.items.push($scope.donHang[0])
+                    $scope.items.push($scope.donHang[1])
                 }).catch(error => {
                 if (error.status == 403) {
                     Swal.fire({
@@ -436,6 +447,22 @@ myApp.controller(
             });
             $window.location.href = '#login';
         }
+        var i =2;
+        $scope.more = function (){
+            if(i == $scope.donHang.length){
+                $scope.loading = false;
+            }
+
+            for( i; i < $scope.donHang.length;i++ ){
+                $scope.newItem = $scope.donHang[i++];
+                i = i++;
+                $scope.items.push( $scope.newItem );
+                console.log($scope.items)
+                break;
+            }
+
+        }
+        $scope.more();
     })
 
 myApp.controller(
@@ -451,11 +478,9 @@ myApp.controller(
             $http.get(`/don-hang/findByStatus/${currentUser.idKhachHang}?status=5`)
                 .then((resp) => {
                     $scope.donHang = resp.data;
-                    console.log($scope.donHang)
                     $scope.items.push($scope.donHang[0])
                     $scope.items.push($scope.donHang[1])
 
-                    console.log($scope.items)
                 }).catch(error => {
                 if (error.status == 403) {
                     Swal.fire({

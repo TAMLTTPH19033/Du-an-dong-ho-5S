@@ -362,8 +362,8 @@
                             <li style="height: 45px"><a href="#history"><i class="fa fa-list-ol"></i><span style="font-size: 10px">Order history and details</span>	</a></li>
                             <li style="height: 45px"><a href="#"><i class="fa fa-file-o"></i><span style="font-size: 10px">My credit slips</span>	</a></li>
                             <li style="height: 45px"><a href="checkout-address.html"><i class="fa fa-building"></i><span style="font-size: 10px">My addresses</span>	</a></li>
-                            <li style="height: 45px"><a href=""><i class="fa fa-user"></i><span style="font-size: 10px">My personal information</span>	</a></li>
-                            <li style="height: 45px"><a href="wishlist.html"><i class="fa fa-heart"></i><span style="font-size: 10px">My wishlists</span>	</a></li>
+                            <li style="height: 45px"><a href="#"><i class="fa fa-user"></i><span style="font-size: 10px">My personal information</span>	</a></li>
+                            <li style="height: 45px"><a href="#wishlist"><i class="fa fa-heart"></i><span style="font-size: 10px">My wishlists</span>	</a></li>
                         </ul>
                     </div>
                 </div>
@@ -391,17 +391,22 @@
                     <div style="text-align: center; margin: 10px 0">Chưa có đơn hàng </div>
                 </div>
                     <div ng-if="donHang.length > 0">
-                    <div class="shipping-cart" >
-                        <div ng-repeat="item in donHang " style="padding: 10px; margin: 20px -10px; box-shadow: black 1px 1px 4px;">
+                    <div class="shipping-cart"  when-scrolled="more()" style=" height:550px; color: red; overflow-x:auto;">
+                        <div ng-repeat="item in donHang " style="padding: 10px 0; margin: 20px 0; box-shadow: black 1px 1px 4px;">
                             <br>
                             <div style="font-size: medium; padding: 0 10px;position: relative">
                                 <div >Mã đơn hàng : {{item.maDonHang}}</div>
                                 <div >Ngày Tạo : {{item.ngayTao | date : "short"}}</div>
                                 <div>Địa Chỉ : {{item.diaChiGiaoHang}}</div>
-                                <span style="position: absolute; right: 32px;top: 10px;color: #3ab19c;text-transform: uppercase;">Đơn hàng đã hoàn thành</span>
+                                <span ng-if="item.trangThaiDonHang == 0" style="position: absolute; right: 32px;top: 10px;color: #3ab19c;text-transform: uppercase;">Đơn hàng chờ xác nhận</span>
+                                <span ng-if="item.trangThaiDonHang == 1" style="position: absolute; right: 32px;top: 10px;color: #3ab19c;text-transform: uppercase;">Người bán đang chuẩn bị đơn hàng</span>
+                                <span ng-if="item.trangThaiDonHang == 2" style="position: absolute; right: 32px;top: 10px;color: #3ab19c;text-transform: uppercase;">Đan hàng đang giao</span>
+                                <span ng-if="item.trangThaiDonHang == 3" style="position: absolute; right: 32px;top: 10px;color: #3ab19c;text-transform: uppercase;">Đơn hàng giao thành công</span>
+                                <span ng-if="item.trangThaiDonHang == 4" style="position: absolute; right: 32px;top: 10px;color: red;text-transform: uppercase;">Đơn hàng đã hủy</span>
+                                <span ng-if="item.trangThaiDonHang == 5" style="position: absolute; right: 32px;top: 10px;color: red;text-transform: uppercase;">Yêu cầu trả hàng  hoàn tiền</span>
+                                <span ng-if="item.trangThaiDonHang == 6" style="position: absolute; right: 32px;top: 10px;color: red;text-transform: uppercase;">Đơn đã hoàn tiền</span>
                             </div>
                         <div class="shipping-item"  ng-repeat="h in item.hoaDonChiTiets" style="line-height: 22px; padding: 10px;">
-<!--                            <span class="cross-icon" ng-click="removeSP(item)"><i class="fa fa-times-circle"></i></span>-->
                             <div class=" shipping-item-image" style="width: 10%">
                                 <a href="#/chitietsanpham/{{h.chiTietSanPham.sanPham.idSanPham}}"><img src="/assets/images/{{h.chiTietSanPham.sanPham.listAnhSanPham[0].link}}" width="100%" alt="shopping image" /></a>
                             </div>
@@ -431,27 +436,14 @@
                                 <span>Total</span>
                             </div>
                         </div>
-                                <div class="shipping-checkout-btn" style="    padding: 0 10px 20px; background: none">
-                            <a href="#checkout"  style="background: #FF4F4F">Xem Chi tiết</a>
-                        </div>
+<!--                                <div class="shipping-checkout-btn" style="    padding: 0 10px 20px; background: none">-->
+<!--                            <a href="#checkout"  style="background: #FF4F4F">Xem Chi tiết</a>-->
+<!--                        </div>-->
                             </div>
                         </div>
                     </div>
                     </div>
-                <div class="showing-next-prev">
-                    <ul class="pagination-bar">
-                        <li ng-class="{ 'disabled' : isFirstPage }">
-                            <a  ng-click="previousPage()"><i class="fa fa-chevron-left "></i>Previous</a>
-                        </li>
-                        <li ng-class="{ 'active' : page == currentPage }" ng-repeat="page in pages" ng-click="changePage(page)">
-                            <span><a class="pagi-num" >{{ page }}</a></span>
-                        </li>
-                        <li ng-class="{ 'disabled' : isLastPage }">
-                            <a ng-click="nextPage()">Next<i class="fa fa-chevron-right" ></i></a>
-                        </li>
-                    </ul>
 
-                </div>
             </div>
             <!-- ACCOUNT-INFO-TEXT END -->
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">

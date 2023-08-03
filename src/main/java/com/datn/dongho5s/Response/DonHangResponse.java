@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 import java.util.List;
@@ -41,6 +42,8 @@ public class DonHangResponse {
     private String diaChi;
 
     private Double phiVanChuyen;
+
+    private  String ngayCapNhap;
 
     private String ghiChu;
     private List<HoaDonChiTiet> hoaDonChiTiets;
