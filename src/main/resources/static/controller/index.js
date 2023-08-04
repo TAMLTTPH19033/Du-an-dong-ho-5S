@@ -170,13 +170,13 @@ else{
     Swal.fire({
       icon: "warning",
       title: "Đã đăng xuất!",
-      text: "Đăng xuất thành công!",
-      showConfirmButton: false,
+      text: "Bạn hãy đăng nhập để tiếp tục mua hàng nhé!",
+      showConfirmButton: true,
       closeOnClickOutside: false,
       allowOutsideClick: false,
       timer: 5600,
     });
-    // $location.path("/login")
-    $window.location.reload();
+    $location.path("/login")
+    // $window.location.reload();
   }
 })
