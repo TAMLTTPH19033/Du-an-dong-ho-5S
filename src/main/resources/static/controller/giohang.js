@@ -1,4 +1,4 @@
-myApp.controller("cartCtrl", function ($scope,$rootScope, $http,$window,checkOutDataService,$location) {
+    myApp.controller("cartCtrl", function ($scope,$rootScope, $http,$window,checkOutDataService,$location) {
     $scope.cart = [];
     $scope.total = 0;
     $scope.totalSp = 0;

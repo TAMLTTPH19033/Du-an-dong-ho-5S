@@ -97,11 +97,15 @@ myApp.config(function ($routeProvider, $locationProvider,$httpProvider) {
       .when("/history/4", {
         templateUrl: "page/DHDaHuy.html",
         controller: "historyCancelCtrl"
-      }) .when("/history/5", {
+      })
+      .when("/history/5", {
         templateUrl: "page/DHHoanTra.html",
         controller: "historyReturnCtrl"
       })
-
+      .when("/changePass", {
+        templateUrl: "page/changePass.html",
+        controller: "ChangePassCtrl"
+      })
     .otherwise({
       redirectTo: "/",
     });
