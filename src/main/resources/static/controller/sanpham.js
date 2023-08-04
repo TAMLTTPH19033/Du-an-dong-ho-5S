@@ -19,7 +19,7 @@ myApp.controller("SanPhamController", function ($scope, $rootScope, $http,$filte
   $scope.isLastPage=false;
   $scope.selectedSortOption = 0;
   $scope.price;
-  $scope.conditionRequest= checkSearchService.getData();
+  $scope.searchServiceData= checkSearchService.getData();
   $scope.itemWithGiaNN = new Map();
   $scope.itemWithGiaLN = new Map()
   $rootScope.currentDate = new Date().toISOString();
@@ -67,6 +67,7 @@ myApp.controller("SanPhamController", function ($scope, $rootScope, $http,$filte
       $scope.selectedVatLieus.forEach(element => {
         $scope.vatLieuIds.push(element.idVatLieu)
       });
+      $scope.conditionRequest;
     }
     if (newValues[4] !== oldValues[4]) {
       $scope.kichCoIds=[];
@@ -95,24 +96,28 @@ myApp.controller("SanPhamController", function ($scope, $rootScope, $http,$filte
       });
   };
   $scope.getSettings();
+
+  if ($scope.searchServiceData == undefined) {
+    // $scope.conditionRequest = {
+    //   thuongHieuId: [],
+    //   danhMucId: [],
+    //   sizeId: [],
+    //   mauSacId: [],
+    //   vatLieuId: [],
+    //   dayDeoId: [],
+    //   tenSanPham: null
+    // };
+  }else{
+    console.log($scope.searchServiceData);
+    $scope.danhMucIds = $scope.searchServiceData.thuongHieuId;
+    $scope.thuongHieuIds = $scope.searchServiceData.danhMucId;
+    $scope.dayDeoIds = $scope.searchServiceData.dayDeoId;
+    $scope.vatLieuIds = $scope.searchServiceData.vatLieuId;
+    $scope.kichCoIds = $scope.searchServiceData.sizeId;
+    $scope.mauSacIds = $scope.searchServiceData.mauSacId;
+    $scope.tenSanPham = $scope.searchServiceData.tenSanPham;
+  }
   $scope.searchList = function () {
-
-    $http
-      .post(searchAPI, $scope.conditionRequest)
-      .then(function (response) {
-        $scope.listSanPham = response.data;
-        $scope.totalPages = Math.ceil(
-          $scope.listSanPham.length / $scope.pageSize
-        );
-        console.log(response.data);
-
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
-  // Kiểm tra dữ liệu khi chuyển trang từ trang chủ
-  if ($scope.conditionRequest == undefined) {
     $scope.conditionRequest = {
       thuongHieuId: $scope.thuongHieuIds,
       danhMucId: $scope.danhMucIds,
@@ -122,10 +127,22 @@ myApp.controller("SanPhamController", function ($scope, $rootScope, $http,$filte
       dayDeoId: $scope.dayDeoIds,
       tenSanPham: $scope.tenSanPham,
     };
-    $scope.searchList();
-  } else {
-    $scope.searchList();
-  }
+    console.log($scope.conditionRequest)
+    $http
+      .post(searchAPI, $scope.conditionRequest)
+      .then(function (response) {
+        $scope.listSanPham = response.data;
+        $scope.totalPages = Math.ceil(
+          $scope.listSanPham.length / $scope.pageSize
+        );
+
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+  // Kiểm tra dữ liệu khi chuyển trang từ trang chủ
+  $scope.searchList();
 
   $scope.$watchGroup(["listSanPham"], function () {
     $scope.currentPage=1;
@@ -235,16 +252,42 @@ myApp.controller("SanPhamController", function ($scope, $rootScope, $http,$filte
   $scope.handleSortChange = function() {
     switch ($scope.selectedSortOption) {
       case '1':
-        // $scope.displayedItems.sort((a,b)=> a.)
+        // const sortInPrice = [...$scope.listSanPham].sort((a,b)=> {
+        //   // return $scope.itemWithGiaNN.get(a.sanPhamID) - $scope.itemWithGiaNN.get(b.sanPhamID);
+        // });
+          console.log($scope.listSanPham)
+        const sortInPrice = [...$scope.listSanPham].sort((a,b)=> {
+
+              const minA = Math.min(...a.listChiTietSanPham.map(ctsp =>{
+                console.log(ctsp.idChiTietSanPham)
+                console.log($scope.itemWithGiaNN.get(ctsp.idChiTietSanPham))
+                Number($scope.itemWithGiaNN.get(ctsp.idChiTietSanPham))
+              }))
+              const minB = Math.min(...b.listChiTietSanPham.map(ctsp => $scope.itemWithGiaNN.get(ctsp.idChiTietSanPham)))
+          console.log(minA);
+          console.log(minB);
+          return minA - minB;
+            }
+        );
+        $scope.listSanPham = sortInPrice;
         break;
       case '2':
-        console.log("sort 2")
+        const sortDePrice = [...$scope.listSanPham].sort((a,b)=> {
+          return $scope.itemWithGiaNN.get(b.sanPhamID) - $scope.itemWithGiaNN.get(a.sanPhamID);
+        });
+        $scope.listSanPham = sortDePrice;
+        // $scope.getGiaNN(item.sanPhamID)
+        // $scope.getGiaLN(item.sanPhamID)
         break;
       case '3':
-        console.log("sort 3")
+        //Sắp xếp tên từ A đến Z
+          const sortAZ = [...$scope.listSanPham].sort((a,b)=>a.tenSanPham.localeCompare(b.tenSanPham));
+        $scope.listSanPham = sortAZ;
         break;
       case '4':
         // Sắp xếp theo tên sản phẩm từ Z đến A
+          const sortZA = [...$scope.listSanPham].sort((a,b)=>b.tenSanPham.localeCompare(a.tenSanPham));
+        $scope.listSanPham = sortZA;
         break;
       default:
         // Trường hợp "--" hoặc không xử lý gì cả
@@ -258,10 +301,8 @@ myApp.controller("SanPhamController", function ($scope, $rootScope, $http,$filte
         .get(`/api/index/getSPKM?idCTSP=${idSanPham}`)
         .then((resp) => {
           $scope.spkm = resp.data;
-          console.log(resp.data,"data")
           $scope.spkm.sort(function(a, b){return a.giaSanPham - b.giaSanPham});
           $scope.itemWithGiaNN.set(idSanPham,$scope.spkm[0].giaSanPham);
-          console.log($scope.itemWithGiaNN.get(idSanPham));
         })
         .catch((e)=>{
           console.log(e);
@@ -273,10 +314,8 @@ myApp.controller("SanPhamController", function ($scope, $rootScope, $http,$filte
         .get(`/api/index/getSPKM?idCTSP=${idSanPham}`)
         .then((resp) => {
           $scope.spkm = resp.data;
-          console.log(resp.data,"data")
           $scope.spkm.sort(function(a, b){return a.giaSanPham - b.giaSanPham});
           $scope.itemWithGiaLN.set(idSanPham,$scope.spkm[$scope.spkm.length-1].giaSanPham);
-          console.log($scope.itemWithGiaLN.get(idSanPham));
         })
         .catch((e)=>{
           console.log(e);
