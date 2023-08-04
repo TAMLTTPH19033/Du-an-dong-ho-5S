@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,6 +21,7 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@ToString
 @Table(name = "seri")
 public class Seri {
     @Id
@@ -28,7 +30,7 @@ public class Seri {
     private Integer idSeri;
 
     @Column(name = "id_imei")
-    private Integer idImei;
+    private String idImei;
 
     @ManyToOne
     @JoinColumn(name = "id_chi_tiet_san_pham")
