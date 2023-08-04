@@ -9,6 +9,7 @@ import com.datn.dongho5s.GiaoHangNhanhService.DiaChiAPI;
 import com.datn.dongho5s.Repository.DiaChiRepository;
 import com.datn.dongho5s.Repository.KhachHangRepository;
 import com.datn.dongho5s.Repository.NhanVienRepository;
+import com.datn.dongho5s.Request.ChangePassRequest;
 import com.datn.dongho5s.Request.RegisterRequest;
 import com.datn.dongho5s.Response.RegisterResponse;
 import com.datn.dongho5s.Service.AccountService;
@@ -19,6 +20,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashMap;
@@ -47,6 +49,9 @@ public class AccountServiceImpl implements AccountService {
             if(registerRequest.getNgaySinh().after(new Date())){
                 throw new BadRequestException("Ngày sinh sai rùi ");
             }
+        if(registerRequest.getPassword().isEmpty()){
+            throw new BadRequestException("Password không được trống ");
+        }
             if (findKHbyEmail != null) {
                 throw new BadRequestException("Email đã tồn tại ");
             } else {
@@ -102,5 +107,23 @@ public class AccountServiceImpl implements AccountService {
 
     }
 
+
+    @Override
+    public ResponseEntity<?> changePass(Principal p ,ChangePassRequest changePassRequest) throws Exception {
+        String email = p.getName();
+        KhachHang user = khachHangRepository.getKhachHangByEmail(email);
+        boolean f = passwordEncoder.matches(changePassRequest.getOldPass(), user.getPassword());
+        if(f){
+            if(!changePassRequest.getNewPass().equals(changePassRequest.getConfirmPass())){
+              throw  new BadRequestException("Xác nhận mật khẩu không khớp");
+            }else {
+                user.setPassword(passwordEncoder.encode(changePassRequest.getNewPass()));
+                 khachHangRepository.save(user);
+                return ResponseEntity.status(HttpStatus.OK).body( khachHangRepository.save(user));
+            }
+        }else {
+            throw new BadRequestException("Mật khẩu không đúng");
+        }
+    }
 
 }
