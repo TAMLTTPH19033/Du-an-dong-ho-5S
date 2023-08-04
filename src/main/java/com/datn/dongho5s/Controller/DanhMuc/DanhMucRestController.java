@@ -14,7 +14,7 @@ public class DanhMucRestController {
     @Autowired
     DanhmucService service;
 
-    @PostMapping("/categories/check_name")
+    @PostMapping("/admin/categories/check_name")
     public String checkDuplicateTen(@Param("id") Integer id ,@Param("ten") String ten) {
         return service.checkUnique(id, ten) ? "OK" : "Duplicated";
     }

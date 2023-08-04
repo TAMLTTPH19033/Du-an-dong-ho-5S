@@ -11,7 +11,7 @@ public class ThuongHieuRestController {
     @Autowired
     private ThuongHieuService service;
 
-    @PostMapping("/brands/check_name")
+    @PostMapping("/admin/brands/check_name")
     public String checkDuplicateTen(@Param("id") Integer id , @Param("ten") String ten) {
         return service.checkUnique(id, ten) ? "OK" : "Duplicated";
     }

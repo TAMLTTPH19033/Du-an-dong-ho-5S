@@ -391,8 +391,8 @@
                         <div style="text-align: center; margin: 10px 0">Chưa có đơn hàng </div>
                     </div>
                 <div ng-if="donHang.length > 0">
-                    <div class="shipping-cart" >
-                        <div ng-repeat="item in donHang " style="padding: 10px; margin: 20px -10px; box-shadow: black 1px 1px 4px;">
+                    <div class="shipping-cart"  when-scrolled="more()" style=" height:550px; color: red; overflow-x:auto;">
+                        <div ng-repeat="item in donHang " style="padding: 10px 0; margin: 20px 0; box-shadow: black 1px 1px 4px;">
                             <br>
                             <div style="font-size: medium; padding: 0 10px;position: relative">
                                 <div >Mã đơn hàng : {{item.maDonHang}}</div>
@@ -465,7 +465,10 @@
                                         <span>Total</span>
                                     </div>
                                 </div>
-                                <div class="shipping-checkout-btn" style="    padding: 0 10px 20px; background: none; display: flex">
+                                <div ng-if="expirationDate > item.ngayCapNhap.toString() ">
+                                </div>
+                                <span ng-if="  expirationDate < item.ngayCapNhap.toString() ">
+                                <div class="shipping-checkout-btn" style="    padding: 0 10px 20px; background: none; display: flex" >
                                     <a type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal"  style="padding: 10px 20px; margin-right: 10px; color: black;background: #cec7c7;">
                                         Yêu cầu hoàn hàng/Trả tiền
                                     </a>
@@ -512,6 +515,7 @@
                                     </div>
                                     <!--     modal-->
                                 </div>
+                                </span>
                             </div>
                         </div>
                     </div>

@@ -110,6 +110,7 @@ public class DonHangServiceImpl implements DonHangService {
             }else {
                 donHang.setLyDo(donHangRequest.getLyDo());
                 donHang.setTrangThaiDonHang(donHangRequest.getTrangThaiDonHang());
+                donHang.setNgayCapNhap(new Date());
                 donHang = donHangRepository.save(donHang);
             }
         }
