@@ -176,17 +176,26 @@
                                                 <td>[[${cat.phiVanChuyen}]]đ</td>
                                                 <td>[[${cat.tongTien}]]đ</td>
                                                 <td>[[${cat.tongTien + cat.phiVanChuyen}]]đ</td>
-                                                <td th:text="${cat.trangThaiDonHang == 0 ? 'Chưa thanh toán' :
-                                                        (cat.trangThaiDonHang == 1 ? 'Đang giao' : 'Đã thanh toán')}">
+                                                <!-- trạng thái đơn hàng -->
+                                                <td th:text="${
+                                                        cat.trangThaiDonHang == 0 ?  'Chờ xác nhận' :
+                                                        (cat.trangThaiDonHang == 1 ? 'Đang chuẩn bị' :
+                                                        (cat.trangThaiDonHang == 2 ? 'Đang giao' :
+                                                        (cat.trangThaiDonHang == 3 ? 'Hoàn thành' :
+                                                        (cat.trangThaiDonHang == 4 ? 'Đã hủy' :
+                                                        (cat.trangThaiDonHang == 5 ? 'Trả hàng / Hoàn tiền' : 'Đã hoàn trả')))))
+                                                    }">
                                                 </td>
                                                 <td>
                                                     <a class="icon-green btn btn-outline-danger"
                                                        style="text-decoration: none"
                                                        th:href="@{'/hoa-don-chi-tiet/search/' + ${cat.idDonHang}}">Xem</a>
 
-                                                    <a class="btn btn-outline-primary"
+                                                    <a class="btn btn-outline-primary capnhattrangthaidonhang"
                                                        data-bs-toggle="modal"
                                                        data-bs-target="#capNhatTrangThai"
+                                                       th:data-id-don-hang="${cat.idDonHang}"
+                                                       th:data-trang-thai-don-hang="${cat.trangThaiDonHang}"
                                                        style="text-decoration: none"
                                                     >Cập nhật</a>
                                                 </td>
@@ -233,6 +242,40 @@
         <!--  Footer      -->
         <div th:replace="admin/fragment/fragments::footer"></div>
 
+
+        <!--  Update status      -->
+            <!-- Modal -->
+            <div class="modal fade" id="capNhatTrangThai" tabindex="-1" aria-labelledby="capNhatTrangThaiLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title" id="capNhatTrangThaiLabel">Cập nhật</h3>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form class="row g-3">
+                                <div class="col-md-12">
+                                    <label for="trangThai" class="form-label">Trạng thái</label>
+                                    <select id="trangThai" class="form-select">
+                                        <option value="0">Chờ xác nhận</option>
+                                        <option value="1">Đang chuẩn bị</option>
+                                        <option value="2">Đang giao</option>
+                                        <option value="3">Hoàn thành</option>
+                                        <option value="4">Đã hủy</option>
+                                        <option value="5">Trả hàng / Hoàn tiền</option>
+                                        <option value="6">Đã hoàn trả</option>
+                                    </select>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Hủy</button>
+                            <button type="button" id="thayDoiTrangThai" class="btn btn-outline-danger" data-bs-dismiss="modal">Xác nhận</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <!--   update status end     -->
         <script>
             var today = new Date();
             var dd = today.getDate();
@@ -247,6 +290,33 @@
             var todayFormatted = yyyy+'-'+mm+'-'+dd; // Chuỗi ngày tháng được định dạng theo định dạng của input type="date"
             document.getElementById("start").value = todayFormatted; // Set giá trị mặc định cho input
             document.getElementById("end").value = todayFormatted; // Set giá trị mặc định cho input
+
+        //     show trang thai don hang
+            var idDonHang;
+            $('.capnhattrangthaidonhang').click(function() {
+                idDonHang = $(this).data('id-don-hang');
+                var trangThai = $(this).data('trang-thai-don-hang');
+                var selectElement = document.getElementById('trangThai');
+                for (var i = 0; i < selectElement.options.length; i++) {
+                    if (selectElement.options[i].value == trangThai) {
+                        selectElement.options[i].selected = true;
+                        break;
+                    }
+                }
+            });
+            $('#thayDoiTrangThai').click(function() {
+                var trangThai = document.getElementById('trangThai').value;
+                $.ajax({
+                    url: "/don-hang/update/"+ idDonHang + "/trang-thai/" + trangThai,
+                    method: "POST",
+                    success: function(response) {
+                        $('#result-container').html(response);
+                    },
+                    error: function(xhr, status, error) {
+                        console.log("Lỗi: " + error);
+                    }
+                });
+            });
         </script>
     </body>
 </html>

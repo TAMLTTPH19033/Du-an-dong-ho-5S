@@ -200,24 +200,17 @@ public class DonHangController {
 //        return "admin/donhang/donhang";
     }
 
-    @GetMapping("/get/{id}")
-    public void getById(
-            @PathVariable("id") int id,
-            HttpSession session
-    ) {
-        System.out.println(id);
-        session.setAttribute("donHang", donHangService.findById(id));
-    }
-
-    @PutMapping("/update/{trangThai}")
+    @PostMapping("/update/{id}/trang-thai/{trangThai}")
     public String updateStatusDonHang(
             HttpSession session,
-            @PathVariable("trangThai") int trangThai
+            @PathVariable("trangThai") int trangThai,
+            @PathVariable("id") int id
     ) {
-        DonHang donHang = (DonHang) session.getAttribute("donHang");
+        DonHang donHang = donHangService.findById(id);
         donHang.setTrangThaiDonHang(trangThai);
+
         donHangService.updateTrangThaiDonHang(donHang);
-        return "donhang/donhang";
+        return "/don-hang";
     }
 }
 

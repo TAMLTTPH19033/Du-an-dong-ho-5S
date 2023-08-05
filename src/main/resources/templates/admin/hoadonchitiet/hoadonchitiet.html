@@ -99,7 +99,7 @@
         <section class="main-content-section">
             <div class="row">
                 <div class="breadcrumb">
-                    <a href="#">Đơn hàng</a> >
+                    <a th:href="@{'/don-hang'}">Đơn hàng</a> >
                     <a href="#">Chi tiết</a>
                 </div>
             </div>
@@ -223,7 +223,8 @@
                             <div class="card-footer bg-transparent border-danger" style="text-align: center">Chúc quý khách vui vẻ! Hẹn gặp lại!</div>
                         </div>
                         <div class="d-grid gap-2">
-                            <a class="btn btn-danger" style="text-decoration: none"  th:href="@{'/hoa-don-chi-tiet/export'}"
+                            <a class="btn btn-danger" style="text-decoration: none"
+                               th:href="@{'/hoa-don-chi-tiet/export'}"
                                title="Chi tiết">Xuất hóa đơn</a>
                         </div>
                     </div>
