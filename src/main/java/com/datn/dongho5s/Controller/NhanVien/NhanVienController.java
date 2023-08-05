@@ -31,7 +31,7 @@ public class NhanVienController {
     @Autowired
     private NhanVienService service;
 
-    @PreAuthorize("hasAuthority('ADMIN')")
+//    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/admin/users")
     public String listFirstPage(Model model){
         return listByPage(1,model,"email","asc",null);
@@ -97,7 +97,7 @@ public class NhanVienController {
             service.save(nhanVien);
         }
         redirectAttributes.addFlashAttribute("message","Thay Đổi Thành Công");
-        return "redirect:/users";
+        return "redirect:/admin/users";
     }
 
     @GetMapping("/admin/users/edit/{id}")
@@ -113,7 +113,7 @@ public class NhanVienController {
             return "admin/nhanvien/user_form";
         }catch (NhanVienNotFoundException ex){
             redirectAttributes.addFlashAttribute("message",ex.getMessage());
-            return "redirect:/users";
+            return "redirect:/admin/users";
         }
 
     }
@@ -129,7 +129,7 @@ public class NhanVienController {
         }catch (NhanVienNotFoundException ex){
             redirectAttributes.addFlashAttribute("message",ex.getMessage());
         }
-        return "redirect:/users";
+        return "redirect:/admin/users";
     }
 
     @GetMapping("/admin/users/{id}/enabled/{status}")
@@ -140,7 +140,7 @@ public class NhanVienController {
         String status = enabled ? "online" : "offline";
         String message = "Nhân viên có id " + id + " thay đổi trạng thái thành " + status;
         redirectAttributes.addFlashAttribute("message",message);
-        return "redirect:/users";
+        return "redirect:/admin/users";
     }
 
     @GetMapping("/admin/users/export/csv")
