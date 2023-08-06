@@ -8,12 +8,12 @@
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <div class="header-left-menu">
                     <div class="welcome-info">
-                        Welcome <span>BootExperts</span>
+                        Welcome to<span>5S WATCH</span>
                     </div>
                     <div class="currenty-converter">
                         <form method="post" action="#" id="currency-set">
                             <div class="current-currency">
-                                <span class="cur-label">Currency : </span><strong>VNĐ</strong>
+                                <span class="cur-label">Tiền tệ : </span><strong>VNĐ</strong>
                             </div>
                             <ul class="currency-list currency-toogle">
                                 <li>
@@ -27,7 +27,7 @@
                     </div>
                     <div class="selected-language">
                         <div class="current-lang">
-                            <span class="current-lang-label">Language : </span><strong>English</strong>
+                            <span class="current-lang-label">Ngôn ngữ : </span><strong>Tiếng Việt</strong>
                         </div>
                         <ul class="languages-choose language-toogle">
                             <li>
@@ -56,10 +56,10 @@
                         </ul>
                         <ul class="list-inline" ng-if="currentUser.username != null">
                             <li><a style="cursor: pointer" ng-click="logouts()">Logout</a></li>
-                            <li><a href="#cart">My Cart</a></li>
-                            <li><a href="#account">My Account</a></li>
-                                <li><a href="#wishlist">Wishlist</a></li>
-                                <li>Wellcome {{currentUser.username}} </li>
+                            <li><a href="#cart">Giỏ hàng</a></li>
+                            <li><a href="#account">Tài khoản</a></li>
+                                <li><a href="#wishlist">Yêu thích</a></li>
+                                <li>Hi {{currentUser.username}} </li>
                         </ul>
                     </nav>
                 </div>
@@ -91,7 +91,7 @@
                     <form action="#" method="get" class="search-form-cat">
                         <div class="search-product form-group">
                             <select name="catsearch" class="cat-search">
-                                <option value="">Categories</option>
+                                <option value="">Loại</option>
                                 <option value="2">--Women</option>
                                 <option value="3">---T-Shirts</option>
                                 <option value="4">--Men</option>
