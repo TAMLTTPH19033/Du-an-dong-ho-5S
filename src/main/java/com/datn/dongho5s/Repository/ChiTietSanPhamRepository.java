@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ChiTietSanPhamRepository extends JpaRepository<ChiTietSanPham,Integer>{
+    ChiTietSanPham findByMaChiTietSanPham(String ma);
 }

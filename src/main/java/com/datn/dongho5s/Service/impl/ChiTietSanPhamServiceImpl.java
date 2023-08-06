@@ -54,4 +54,9 @@ public class ChiTietSanPhamServiceImpl implements ChiTietSanPhamService {
 
         return chiTietSanPhamRepository.save(chiTietSanPham);
     }
+
+    @Override
+    public ChiTietSanPham getChiTietSanPhamByMa(String ma) {
+        return chiTietSanPhamRepository.findByMaChiTietSanPham(ma);
+    }
 }

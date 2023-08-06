@@ -80,14 +80,14 @@
               th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>
     </th>
 
-    <th th:fragment="seri_link(fieldSeri, columnLabel)">
-        <a style="text-decoration: none; color: black"
-           th:href="@{'/admin/series/page/' + ${currentPage} + '?sortField=' + ${fieldSeri} + '&sortDir=' + ${sortField != fieldSeri ? sortDir : reverseSortDir} + ${keyword !=null ? '&keyword=' + keyword:''}}">
-            [[${columnLabel}]]
-        </a>
-        <span th:if="${sortField == fieldSeri}" style="text-decoration: none; color: black"
-              th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>
-    </th>
+<!--    <th th:fragment="seri_link(fieldSeri, columnLabel)">-->
+<!--        <a style="text-decoration: none; color: black"-->
+<!--           th:href="@{'/admin/series/page/' + ${currentPage} + '?sortField=' + ${fieldSeri} + '&sortDir=' + ${sortField != fieldSeri ? sortDir : reverseSortDir} + ${keyword !=null ? '&keyword=' + keyword:''}}">-->
+<!--            [[${columnLabel}]]-->
+<!--        </a>-->
+<!--        <span th:if="${sortField == fieldSeri}" style="text-decoration: none; color: black"-->
+<!--              th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>-->
+<!--    </th>-->
     <th th:fragment="mausac_link(fieldSeri, columnLabel)">
         <a style="text-decoration: none; color: black"
            th:href="@{'/admin/colors/page/' + ${currentPage} + '?sortField=' + ${fieldSeri} + '&sortDir=' + ${sortField != fieldSeri ? sortDir : reverseSortDir} + ${keyword !=null ? '&keyword=' + keyword:''}}">

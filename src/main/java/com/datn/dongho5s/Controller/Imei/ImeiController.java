@@ -2,8 +2,12 @@ package com.datn.dongho5s.Controller.Imei;
 
 import com.datn.dongho5s.Entity.KhuyenMai;
 import com.datn.dongho5s.Entity.Seri;
+import com.datn.dongho5s.Exception.KhuyenMaiNotFoundException;
+import com.datn.dongho5s.Service.ChiTietSanPhamService;
 import com.datn.dongho5s.Service.SeriService;
+import com.datn.dongho5s.Service.impl.KhuyenMaiServiceImpl;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.FormulaEvaluator;
@@ -12,8 +16,12 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,150 +35,141 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
 @Controller
-@RequestMapping("/seri")
+@RequestMapping("/admin/seri")
 public class ImeiController {
 
     private final String UPLOAD_DIR = "./uploads/";
+    private final Integer ITEM_PER_PAGE =10;
 
     @Autowired
     SeriService seriService;
+    @Autowired
+    ChiTietSanPhamService ctspService;
 
     @GetMapping("")
-    public String init(){
+    public String init() {
         return "admin/imei/imei";
     }
 
+    @GetMapping("/page/{pageNum}")
+    public String listByPage(@PathVariable(name = "pageNum") int pageNum, Model model,
+                             @Param("keyword")String keyword) {
+        Page<Seri> page = seriService.searchSeri(pageNum,ITEM_PER_PAGE,keyword);
+        List<Seri> listSeri = page.getContent();
+        long startCount = pageNum * ITEM_PER_PAGE +1;
+        long endCount = startCount + ITEM_PER_PAGE-1;
+        if(endCount > page.getTotalElements()){
+            endCount = page.getTotalElements();
+        }
+        model.addAttribute("currentPage",pageNum);
+        model.addAttribute("totalPages",page.getTotalPages());
+        model.addAttribute("startCount",startCount);
+        model.addAttribute("endCount",endCount);
+        model.addAttribute("totalItem",page.getTotalElements());
+        model.addAttribute("listSeri",listSeri);
+        model.addAttribute("keyword", keyword);
+        System.out.println(listSeri.size());
+        return "admin/imei/imei";
+
+    }
+
+    @GetMapping("/new")
+    public String newSeri(Model model){
+        model.addAttribute("seri", new Seri());
+        model.addAttribute("pageTitle", "Tạo Mới Seri");
+        return "admin/imei/imei_form";
+    }
+    @GetMapping("/edit/{id}")
+    public String editSeri(@PathVariable(name = "id") Integer id,
+                                Model model,
+                                RedirectAttributes redirectAttributes){
+        try{
+            model.addAttribute("edit",true);
+            Seri seri = seriService.get(id);
+            if(seri == null){
+                redirectAttributes.addFlashAttribute("message", "Không tìm thấy Imei");
+                return "redirect:/admin/seri";
+            }
+            model.addAttribute("seri",seri);
+            model.addAttribute("pageTitle","Update Imei (ID : " + id + ")");
+            return "admin/imei/imei_form";
+        }catch (Exception ex){
+            redirectAttributes.addFlashAttribute("error","Đã xảy ra lỗi trong quá trình xử lý. Vui lòng thử lại sau.");
+            return "redirect:/error";
+        }
+    }
     @PostMapping("/save")
-    public String upTrangThaiImei(Seri seri, RedirectAttributes redirectAttributes){
+    public String upTrangThaiImei(Seri seri, RedirectAttributes redirectAttributes) {
+        System.out.println(seri.toString());
 //        seriService.update(seri);
-        redirectAttributes.addFlashAttribute("message","Thay Đổi Thành Công");
-        return "redirect:/imei";
+        redirectAttributes.addAttribute("message", "Thay Đổi Thành Công");
+        return "redirect:/admin/seri";
     }
 
-    @PostMapping ("/importExcept")
-    public String uploadFile(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
-        if (file.isEmpty()) {
-            redirectAttributes.addFlashAttribute("message", "Please select a file to upload");
-            return "redirect:/imei";
+    @PostMapping("/importExcept")
+    public String uploadFile(@RequestParam("file") MultipartFile file,
+                             @RequestParam("maSCTP") String maCTSP,
+                             @RequestParam("idImei") String idImei
+            , RedirectAttributes redirectAttributes) {
+        if (maCTSP == null) {
+            redirectAttributes.addFlashAttribute("message", "Vui lòng chọn chi tiết cần them Imei");
+            return "redirect:/admin/seri";
         }
+        if (file.isEmpty() && idImei.isBlank()) {
+            redirectAttributes.addFlashAttribute("message", "Vui lòng chọn 1 trong 2 cách thức nhập seri");
+            return "redirect:/admin/seri";
+        } else if (!file.isEmpty()) {
+            try {
+                List<Seri> listSave = new ArrayList<>();
+                // Lưu file tạm thời
+                File tempFile = File.createTempFile("temp", ".xlsx");
+                file.transferTo(tempFile);
 
-        try {
-            String filePath = file.getOriginalFilename();
-            System.out.println(filePath);
-            if (filePath != null && (filePath.endsWith(".xls") || filePath.endsWith(".xlsx"))) {
-                redirectAttributes.addFlashAttribute("message", "Vui lòng chọn file excel");
-                return "redirect:/imei";
-            } else {
-                readExcel(filePath);
-            }
-            redirectAttributes.addFlashAttribute("message", "Đã nhập thành công Imei vào trong DB");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return "redirect:/imei";
-    }
-
-    public static List<Seri> readExcel(String excelFilePath) throws IOException {
-        List<Seri> listSeris = new ArrayList<>();
-
-        // Get file
-        InputStream inputStream = new FileInputStream(new File(excelFilePath));
-
-        // Get workbook
-        Workbook workbook = getWorkbook(inputStream, excelFilePath);
-
-        // Get sheet
-        Sheet sheet = workbook.getSheetAt(0);
-
-        // Get all rows
-        Iterator<Row> iterator = sheet.iterator();
-        while (iterator.hasNext()) {
-            Row nextRow = iterator.next();
-            if (nextRow.getRowNum() == 0) {
-                // Ignore header
-                continue;
-            }
-
-            Iterator<Cell> cellIterator = nextRow.cellIterator();
-
-            // Read cells and set value for book object
-            Seri seri = new Seri();
-            while (cellIterator.hasNext()) {
-                //Read cell
-                Cell cell = cellIterator.next();
-                Object cellValue = getCellValue(cell);
-                if (cellValue == null || cellValue.toString().isEmpty()) {
-                    continue;
+                // Đọc nội dung của file Excel
+                Workbook workbook = new XSSFWorkbook(tempFile);
+                Sheet sheet = workbook.getSheetAt(0);
+                for (Row row : sheet) {
+                    for (Cell cell : row) {
+                        Seri result = Seri.builder()
+                                .idImei(cell.getStringCellValue())
+                                .chiTietSanPham(ctspService.getChiTietSanPhamByMa(maCTSP))
+                                .ngayNhap(new Timestamp(System.currentTimeMillis()))
+                                .ngayBan(null)
+                                .trangThai(1)
+                                .build();
+                        listSave.add(result);
+                    }
                 }
-                // Set value for book object
-                int columnIndex = cell.getColumnIndex();
-                switch (columnIndex) {
-                    case 0:
-                        seri.setIdImei(String.valueOf(cellValue));
-                        break;
-                    default:
-                        break;
-                }
+                seriService.saveMany(listSave);
+                workbook.close();
+                redirectAttributes.addFlashAttribute("message", "Thêm list Imei thành công");
 
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (InvalidFormatException e) {
+                throw new RuntimeException(e);
             }
-            listSeris.add(seri);
+        }else {
+            Seri result = Seri.builder()
+                    .idImei(idImei)
+                    .chiTietSanPham(ctspService.getChiTietSanPhamByMa(maCTSP))
+                    .ngayNhap(new Timestamp(System.currentTimeMillis()))
+                    .ngayBan(null)
+                    .trangThai(1)
+                    .build();
+            seriService.save(result);
+            redirectAttributes.addFlashAttribute("message", "Thêm Imei thành công");
         }
 
-        workbook.close();
-        inputStream.close();
-        listSeris.forEach(item->{
-            System.out.println(item.toString());
-        });
-        return listSeris;
+        return "redirect:/admin/seri";
     }
 
-    // Get Workbook
-    private static Workbook getWorkbook(InputStream inputStream, String excelFilePath) throws IOException {
-        Workbook workbook = null;
-        if (excelFilePath.endsWith("xlsx")) {
-            workbook = new XSSFWorkbook(inputStream);
-        } else if (excelFilePath.endsWith("xls")) {
-            workbook = new HSSFWorkbook(inputStream);
-        } else {
-            throw new IllegalArgumentException("The specified file is not Excel file");
-        }
-
-        return workbook;
-    }
-
-    // Get cell value
-    private static Object getCellValue(Cell cell) {
-        CellType cellType = cell.getCellTypeEnum();
-        Object cellValue = null;
-        switch (cellType) {
-            case BOOLEAN:
-                cellValue = cell.getBooleanCellValue();
-                break;
-            case FORMULA:
-                Workbook workbook = cell.getSheet().getWorkbook();
-                FormulaEvaluator evaluator = workbook.getCreationHelper().createFormulaEvaluator();
-                cellValue = evaluator.evaluate(cell).getNumberValue();
-                break;
-            case NUMERIC:
-                cellValue = cell.getNumericCellValue();
-                break;
-            case STRING:
-                cellValue = cell.getStringCellValue();
-                break;
-            case _NONE:
-            case BLANK:
-            case ERROR:
-                break;
-            default:
-                break;
-        }
-
-        return cellValue;
-    }
 
 }
