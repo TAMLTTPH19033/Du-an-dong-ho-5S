@@ -152,7 +152,6 @@ myApp.factory('responseObserver', function responseObserver($q, $window) {
 myApp.controller("indexCtrl", function ($rootScope,$scope, $http,$window, $location){
     let currentUser = localStorage.getItem("currentUser");
     if(currentUser){
-  console.log(currentUser)
     $scope.currentUser = currentUser ? JSON.parse(currentUser) : {};
   $rootScope.currentUser =$scope.currentUser;
    $window.localStorage.setItem('currentUser', JSON.stringify($scope.currentUser));
