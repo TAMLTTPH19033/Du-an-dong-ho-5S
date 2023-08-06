@@ -8,4 +8,5 @@ public interface ChiTietSanPhamService {
     ChiTietSanPham getChiTietSanPhamById(Integer id);
 
     ChiTietSanPham update(ChiTietSanPham chiTietSanPham);
+    ChiTietSanPham getChiTietSanPhamByMa (String ma);
 }
