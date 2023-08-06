@@ -1,11 +1,10 @@
 package com.datn.dongho5s.Service.impl;
-
 import com.datn.dongho5s.Entity.ReportItem;
 import com.datn.dongho5s.Entity.DonHang;
+import com.datn.dongho5s.Entity.ReportType;
 import com.datn.dongho5s.Repository.DonHangRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -14,48 +13,38 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class MasterOrderReportService {
+public class MasterOrderReportService extends AbstractReportService {
     @Autowired private DonHangRepository repo;
-    private DateFormat dateFormater;
-    public List<ReportItem> getReportDataLast7Days(){
-        System.out.println("getReportDataLast7Days....");
-        return getReportDataLastXDays(7);
-    }
 
-    public List<ReportItem> getReportDataLast28Days(){
-        System.out.println("getReportDataLast7Days....");
-        return getReportDataLastXDays(28);
-    }
-
-    private List<ReportItem> getReportDataLastXDays(int days){
-        Date endTime = new Date();
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.DAY_OF_MONTH, -(days -1));
-        Date startTime = cal.getTime();
-        System.out.println("Start time: " + startTime);
-        System.out.println("End time: " + endTime);
-        dateFormater = new SimpleDateFormat("yyyy-MM-dd");
-        return getReportDataByDateRange(startTime, endTime, "days");
-    }
-
-    public List<ReportItem> getReportDataByDateRange(Date startTime, Date endTime){
-        dateFormater = new SimpleDateFormat("yyyy-MM-dd");
-
-        return getReportDataByDateRange(startTime, endTime, "days");
-    }
-    private List<ReportItem> getReportDataByDateRange(Date startTime, Date endTime, String period){
+    protected List<ReportItem> getReportDataByDateRangeInternal(Date startTime, Date endTime, ReportType reportType) {
         List<DonHang> listOrders = repo.findByOrderBetween(startTime, endTime);
         printRawData(listOrders);
-        List<ReportItem> listReportItems = createReportData(startTime, endTime, period);
+        List<ReportItem> listReportItems = createReportData(startTime, endTime, reportType);
+
         System.out.println();
+
         calculateSalesForReportData(listOrders, listReportItems);
+
         printReportData(listReportItems);
+
         return listReportItems;
     }
 
+
+//    public List<ReportItem> getReportDataByDateRange(Date startTime, Date endTime){
+//        return getReportDataByDateRangeR(startTime, endTime, "days");
+//    }
+//    public List<ReportItem> getReportDataByMonthRange(Date startTime, Date endTime){
+//        return getReportDataByDateRangeR(startTime, endTime, "months");
+//    }
+//    public List<ReportItem> getReportDataByYearRange(Date startTime, Date endTime){
+//        return getReportDataByDateRangeR(startTime, endTime, "years");
+//    }
+
+
     private void calculateSalesForReportData(List<DonHang> listOrders, List<ReportItem> listReportItems){
         for(DonHang order: listOrders){
-            String orderDateString = dateFormater.format(order.getNgayTao());
+            String orderDateString = dateFormatter.format(order.getNgayTao());
             ReportItem reportItem = new ReportItem(orderDateString);
             int itemIndex = listReportItems.indexOf(reportItem);
             for (ReportItem item : listReportItems) {
@@ -80,30 +69,28 @@ public class MasterOrderReportService {
         });
     }
 
-    private List<ReportItem> createReportData(Date startTime, Date endTime, String period) {
+    private List<ReportItem> createReportData(Date startTime, Date endTime, ReportType reportType) {
         List<ReportItem> listReportItems = new ArrayList<>();
         Calendar startDate = Calendar.getInstance();
         startDate.setTime(startTime);
         Calendar endDate = Calendar.getInstance();
         endDate.setTime(endTime);
-        Date currentDate = startDate.getTime();
-        String dateString = dateFormater.format(currentDate);
 
-        listReportItems.add(new ReportItem(dateString));
+        Date currentDate = startDate.getTime();
+        String dateString = dateFormatter.format(currentDate);
 
         do {
-            if (period.equals("days")) {
+            if (reportType.equals(ReportType.DAY)) {
                 startDate.add(Calendar.DAY_OF_MONTH, 1);
-            } else if (period.equals("months")){
+            } else if (reportType.equals(ReportType.MONTH)) {
                 startDate.add(Calendar.MONTH, 1);
             }
             currentDate = startDate.getTime();
-            dateString = dateFormater.format(currentDate);
+            dateString = dateFormatter.format(currentDate);
             listReportItems.add(new ReportItem(dateString));
         } while (startDate.before(endDate));
         return listReportItems;
     }
-
 
     private void printRawData(List<DonHang> listOrders){
         listOrders.forEach(order ->{
@@ -115,21 +102,15 @@ public class MasterOrderReportService {
         });
     }
 
-    public List<ReportItem> getReportDataLast6Months() {
-        return getReportDataLastXMonths(6);
-    }
 
-    public List<ReportItem> getReportDataLastYear() {
-        return getReportDataLastXMonths(12);
-    }
-    private List<ReportItem> getReportDataLastXMonths(int months){
-        Date endTime = new Date();
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.MONTH, -(months -1));
-        Date startTime = cal.getTime();
-        System.out.println("Start time: " + startTime);
-        System.out.println("End time: " + endTime);
-        dateFormater = new SimpleDateFormat("yyyy-MM");
-        return getReportDataByDateRange(startTime, endTime, "months");
-    }
+//    public List<ReportItem> getReportDataLastXYears(int years){
+//        Date endTime = new Date();
+//        Calendar cal = Calendar.getInstance();
+//        cal.add(Calendar.YEAR, -(years -1));
+//        Date startTime = cal.getTime();
+//        System.out.println("Start time: " + startTime);
+//        System.out.println("End time: " + endTime);
+//        dateFormater = new SimpleDateFormat("yyyy");
+//        return getReportDataByDateRangeR(startTime, endTime, "years");
+//    }
 }

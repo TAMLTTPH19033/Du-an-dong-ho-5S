@@ -15,6 +15,7 @@ public class ReportItem {
     private Double grossSales;
     private Double netSales;
     private int ordersCount;
+    private int productsCount;
 
     public ReportItem(String identifier, Double grossSales, Double netSales) {
         this.identifier = identifier;
@@ -34,6 +35,14 @@ public class ReportItem {
         this.identifier = identifier;
     }
 
+    public ReportItem(String identifier, Double grossSales, Double netSales, int productsCount) {
+        super();
+        this.identifier = identifier;
+        this.grossSales = grossSales;
+        this.netSales = netSales;
+        this.productsCount = productsCount;
+    }
+
     public String getIdentifier() {
         return identifier;
     }
@@ -49,6 +58,7 @@ public class ReportItem {
     public void setGrossSales(Double grossSales) {
         this.grossSales = grossSales;
     }
+
 
     public void setGrossSales() {
         this.grossSales = grossSales;
@@ -99,4 +109,18 @@ public class ReportItem {
     public void increaseOrderCount() {
         this.ordersCount++;
     }
+
+
+    public int getProductsCount() {
+        return productsCount;
+    }
+
+    public void setProductsCount(int productsCount) {
+        this.productsCount = productsCount;
+    }
+
+    public void increaseProductsCount(int count) {
+        this.productsCount += count;
+    }
+
 }
