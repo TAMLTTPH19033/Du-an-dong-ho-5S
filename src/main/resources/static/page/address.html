@@ -335,7 +335,7 @@
 	</div>
 </header>
 
-<section class="main-content-section">
+<section class="main-content-section" ng-controller="AddressCtrl">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -343,121 +343,239 @@
 				<div class="bstore-breadcrumb">
 					<a href="#index">HOMe</a>
 					<span><i class="fa fa-caret-right	"></i></span>
-					<span>Addresses</span>
+					<span>Địa chỉ</span>
 				</div>
 				<!-- BSTORE-BREADCRUMB END -->
+
+				<div class="account-info-text">
+					Welcome to your account. Here you can manage all of your personal information and orders.
+				</div>
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-				<h2 class="page-title">Addresses</h2>
-			</div>
-			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-				<!-- SHOPING-CART-MENU START -->
-				<div class="shoping-cart-menu">
-					<ul class="step">
-						<li class="step-todo first step-done">
-							<span><a href="#cart">01. Summary</a></span>
-						</li>
+		<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12" style="padding: 0">
 
-						<li class="step-current third">
-							<span>02. Address</span>
-						</li>
-
-						<li class="step-todo last" id="step_end">
-							<span>03. Payment</span>
-						</li>
+			<div class="account-info">
+				<div class="single-account-info">
+					<ul>
+						<li style="height: 46px"><a href="#changePass"><i class="fa fa-building"></i><span style="font-size: 10px">Đổi mật khẩu</span>	</a></li>
+						<li style="height: 46px"><a href="#history"><i class="fa fa-list-ol"></i><span style="font-size: 10px">Order history and details</span>	</a></li>
+						<li style="height: 46px"><a href="#"><i class="fa fa-file-o"></i><span style="font-size: 10px">My credit slips</span>	</a></li>
+						<li style="height: 46px"><a href="#my-address"><i class="fa fa-building"></i><span style="font-size: 10px">Địa chỉ</span>	</a></li>
+						<li style="height: 46px"><a href="#my-info"><i class="fa fa-user"></i><span style="font-size: 10px">Thông tin cá nhân</span>	</a></li>
+						<li style="height: 46px"><a href="#wishlist"><i class="fa fa-heart"></i><span style="font-size: 10px">My wishlists</span>	</a></li>
 					</ul>
 				</div>
-				<!-- SHOPING-CART-MENU END -->
 			</div>
-			<!-- ADDRESS AREA START -->
-			<div class="col-lg-5 col-md-5 col-sm-6 col-xs-12">
-				<div class="form-group primary-form-group p-info-group deli-address-group">
-					<label>Choose a delivery address:</label>
-					<div class="birth-day delivery-address">
-						<select id="deli-address" name="deliveryaddress">
-							<option value="">Your Office Address</option>
-							<option value="">Your Office Address</option>
-							<option value="">Other Address</option>
-						</select>
+		</div>
+		<div class="col-lg-10 col-md-12 col-sm-12 col-xs-12">
+			<h2 class="page-title" style="margin-bottom: 0">Địa chỉ của bạn </h2>
+			<a type="button"  class="btn btn-success" data-toggle="modal" data-target="#myModal4"
+			   style="position: absolute; right: 32px;top: 5px;color: white; cursor: pointer" ng-click="resetData()" >
+			Thêm địa chỉ
+			</a>
+			<!-- Modal -->
+			<div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+				 ng-controller="AddressCtrl" >
+				<div class="modal-dialog" role="document">
+					<div class="modal-content" style="top: 100px">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+									aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title" id="myModalLab">Cập nhập địa chỉ</h4>
+						</div>
+						<!--    modal body-->
+						<div class="modal-body" style=" padding: 20px 45px;">
+
+							<div class=" form-group primary-form-group p-info-group" style="display: flex">
+								<div class="col-4" style="width: 40%">
+									<label>Phường xã <sup>*</sup></label>
+									<select id="inputP" class="form-select" name="phuongXa" ng-model="phuongXa"  style="width: 97%">
+										<!--														<option selected> {{diachi.phuongXa}}</option>-->
+										<option ng-repeat ="(key,value) in pxMap" ng-value="key">
+											{{value}}
+										</option>
+									</select>
+								</div>
+								<div class="col-4" style="width: 40%">
+									<label >Quận huyện <sup>*</sup></label>
+									<select id="inptQH" class="form-select"  name="quanHuyen"   ng-model="quanHuyen"  style="width: 97%">
+										<!--														<option > {{diachi.quanHuyen}}</option>-->
+										<option ng-repeat ="(key,value) in qhMap" ng-value="key" >
+											{{value}}
+										</option>
+									</select>
+								</div>
+								<div class="col-3" style="width: 30%">
+									<label>Thành Phố <sup> *</sup></label>
+									<select id="inpuTP" class="form-select" name="thanhPho" ng-model="thanhPho" style="width: 100%">
+										<!--														<option > {{diachi.thanhPho}}</option>-->
+										<option ng-repeat ="(key,value) in tpMap" ng-value="key">
+											{{value}}
+										</option>
+									</select>
+								</div>
+
+							</div>
+							<div class="form-group primary-form-group p-info-group">
+								<label > Địa chỉ cụ thể  <sup> *</sup></label>
+								<input type="text"
+									   name="diaChi"
+									   ng-model="diachi.diachiChiTiet"
+									   required id="diahi" class="form-control">
+
+							</div>
+							<div class="form-group primary-form-group p-info-group">
+								<label > Số điện thoại<sup> *</sup></label>
+								<input type="text"
+									   name="sdt"
+									   ng-model="diachi.sdt"
+									   required id="soDieThoai" class="form-control">
+
+							</div>
+							<div class="form-group primary-form-group p-info-group">
+								<label > Ghi chú  <sup> *</sup></label>
+								<input type="text"
+									   name="ghiChu"
+									   ng-model="diachi.ghichu"
+									   required  class="form-control">
+
+							</div>
+							<span class="text-danger" ng-bind="error"></span>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Close
+							</button>
+							<button type="button" class="btn btn-primary" ng-click="postThemDiaChi()"
+									style="background: red">Xác nhận
+							</button>
+						</div>
+						<!-- modal body-->
 					</div>
 				</div>
-				<div class="form-group primary-form-group p-info-group chose-address">
-					<label class="cheker">
-						<input type="checkbox" name="checkbox">
-						<span></span>
-					</label>
-					<a href="#">Use the delivery address as the billing address.</a>
-				</div>
 			</div>
+			<!--     modal-->
 		</div>
-		<div class="row">
-			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-				<div class="first_item primari-box">
-					<!-- DELIVERY ADDRESS START -->
-					<ul class="address">
-						<li>
-							<h3 class="page-subheading box-subheading">
-								Your delivery address
-							</h3>
-						</li>
-						<li><span class="address_name">BootExperts</span></li>
-						<li><span class="address_company">Web development Company</span></li>
-						<li><span class="address_address1">Bonossri</span></li>
-						<li><span class="address_address2">D-Block</span></li>
-						<li><span class="">Rampura</span></li>
-						<li><span class="">Dhaka</span></li>
-						<li><span class="address_phone">+880 1735161598</span></li>
-						<li><span class="address_phone_mobile">+880 1975161598</span></li>
-						<li class="update-button">
-							<a href="my-cart-step-2-info.html">Update<i class="fa fa-chevron-right"></i></a>
-						</li>
-					</ul>
-					<!-- DELIVERY ADDRESS END -->
+		<div class=" col-lg-10 col-md-10 col-sm-10 col-xs-12 tab-content" >
+			<div class="shipping-cart"  style=" height:550px; overflow-x:auto;">
+						<br>
+						<div class="shipping-item" ng-repeat="dc in diaChis" style="line-height: 22px; padding: 10px; position: relative;color: black; font-size: 13px">
+							<div class="shipping-item-text"  style="width: 100%; float: right">
+								 <div>{{dc.khachHang.tenKhachHang}}</div>
+								<div>{{dc.soDienThoai}}</div>
+								<div>{{dc.phuongXa}} , {{dc.quanHuyen}}, {{dc.thanhPho}}  </div>
+								<div>{{dc.diaChi}}</div>
+								<div>Ghi chú : {{dc.ghiChu}}</div>
+							</div>
+							<a data-toggle="modal" data-target="#myModal3"
+							   style="position: absolute; right: 32px;top: 10px;color: #3ab19c; cursor: pointer"  ng-click="getdc(dc)" >
+								Cập nhập
+							</a>
+							<!-- Modal -->
+							<div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+								 ng-controller="AddressCtrl" >
+								<div class="modal-dialog" role="document">
+									<div class="modal-content" style="top: 100px">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+													aria-hidden="true">&times;</span></button>
+											<h4 class="modal-title" id="myModalLabel1">Cập nhập địa chỉ</h4>
+										</div>
+										<!--    modal body-->
+										<div class="modal-body" style=" padding: 20px 45px;">
+
+											<div class=" form-group primary-form-group p-info-group" style="display: flex">
+												<div class="col-4" style="width: 40%">
+													<label>Phường xã <sup>*</sup></label>
+													<select id="inputPX" class="form-select" name="phuongXa" ng-model="phuongXa"  style="width: 97%">
+<!--														<option selected> {{diachi.phuongXa}}</option>-->
+														<option ng-repeat ="(key,value) in pxMap" ng-value="key">
+															{{value}}
+														</option>
+													</select>
+												</div>
+												<div class="col-4" style="width: 40%">
+													<label >Quận huyện <sup>*</sup></label>
+													<select id="inputQH" class="form-select"  name="quanHuyen"   ng-model="quanHuyen"  style="width: 97%">
+<!--														<option > {{diachi.quanHuyen}}</option>-->
+														<option ng-repeat ="(key,value) in qhMap" ng-value="key" >
+															{{value}}
+														</option>
+													</select>
+												</div>
+												<div class="col-3" style="width: 30%">
+													<label>Thành Phố <sup> *</sup></label>
+													<select id="inputTP" class="form-select" name="thanhPho" ng-model="thanhPho" style="width: 100%">
+<!--														<option > {{diachi.thanhPho}}</option>-->
+														<option ng-repeat ="(key,value) in tpMap" ng-value="key">
+															{{value}}
+														</option>
+													</select>
+												</div>
+
+											</div>
+											<div class="form-group primary-form-group p-info-group">
+												<label > Địa chỉ cụ thể  <sup> *</sup></label>
+												<input type="text"
+													   name="diaChi"
+													   ng-model="diachi.diachi"
+													   required id="diaChi" class="form-control">
+
+											</div>
+											<div class="form-group primary-form-group p-info-group">
+												<label > Số điện thoại<sup> *</sup></label>
+												<input type="text"
+													   name="sdt"
+													   ng-model="diachi.sdt"
+													   required id="soDienThoai" class="form-control">
+
+											</div>
+											<div class="form-group primary-form-group p-info-group">
+												<label > Ghi chú  <sup> *</sup></label>
+												<input type="text"
+													   name="ghiChu"
+													   ng-model="diachi.ghichu"
+													   required  class="form-control">
+
+											</div>
+											<span class="text-danger" ng-bind="error"></span>
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-default" data-dismiss="modal">Close
+											</button>
+											<button type="button" class="btn btn-primary" ng-click="suaDC(diachi)"
+													style="background: red">Xác nhận
+											</button>
+										</div>
+										<!-- modal body-->
+									</div>
+								</div>
+							</div>
+							<!--     modal-->
+							<span ng-if="dc.trangThaiMacDinh == 0">
+								<span  style="position: absolute; right:100px;top: 10px;color: red; cursor: pointer" ng-click="xoa(dc)">Xóa</span>
+								<span  style="position: absolute; right: 32px;bottom: 10px;color: #3ab19c; cursor: pointer" ng-click="updateMacDinh(dc)">Đặt làm mặc định</span>
+							</span>
+							<span ng-if="dc.trangThaiMacDinh == 1">
+								<span  style="position: absolute; right: 32px;bottom: 10px;color: red;">Mặc định</span>
+							</span>
+						</div>
+
 				</div>
 			</div>
-			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-				<div class="second_item primari-box">
-					<!-- BILLING ADDRESS START -->
-					<ul class="address">
-						<li>
-							<h3 class="page-subheading box-subheading">
-								Your billing address
-							</h3>
-						</li>
-						<li><span class="address_name">BootExperts</span></li>
-						<li><span class="address_company">Web development Company</span></li>
-						<li><span class="address_address1">Dhaka</span></li>
-						<li><span class="address_address2">Bonossri</span></li>
-						<li><span class="">Dhaka-1205</span></li>
-						<li><span class="">Rampura</span></li>
-						<li><span class="address_phone">+880 1735161598</span></li>
-						<li><span class="address_phone_mobile">+880 1975161598</span></li>
-						<li class="update-button">
-							<a href="my-cart-step-2-info.html">Update<i class="fa fa-chevron-right"></i></a>
-						</li>
-					</ul>
-					<!-- BILLING ADDRESS END -->
-				</div>
+
+		<!-- ACCOUNT-INFO-TEXT END -->
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<!-- BACK TO HOME START -->
+			<div class="home-link-menu">
+				<ul>
+					<li><a href="#index"><i class="fa fa-chevron-left"></i> Home</a></li>
+				</ul>
 			</div>
-			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-				<div class="add-new-address">
-					<a href="my-cart-step-2-info.html" class="new-address-link">Add a new address<i class="fa fa-chevron-right"></i></a>
-					<div class="form-group p-info-group type-address-group">
-						<label>If you would like to add a comment about your order, please write it in the field below.</label>
-						<textarea class="form-control input-feild " name="addcomment"></textarea>
-					</div>
-				</div>
-				<!-- ADDRESS AREA START -->
-				<!-- RETURNE-CONTINUE-SHOP START -->
-				<div class="returne-continue-shop ship-address">
-					<a href="#index" class="continueshoping"><i class="fa fa-chevron-left"></i>Continue shopping</a>
-					<a href="#checkout" class="procedtocheckout">Proceed to checkout<i class="fa fa-chevron-right"></i></a>
-				</div>
-				<!-- RETURNE-CONTINUE-SHOP END -->
-			</div>
+			<!-- BACK TO HOME END -->
 		</div>
+
+
+	</div>
 	</div>
 </section>
 <!-- MAIN-CONTENT-SECTION END -->

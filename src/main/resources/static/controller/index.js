@@ -40,7 +40,7 @@ myApp.config(function ($routeProvider, $locationProvider,$httpProvider) {
       controller:"loginCtrl"
 
     }).when("/address", {
-    templateUrl: "page/checkout-address.html",
+    templateUrl: "page/address.html",
 
     }).when("/shipping", {
     templateUrl: "page/checkout-shipping.html",
@@ -60,11 +60,10 @@ myApp.config(function ($routeProvider, $locationProvider,$httpProvider) {
       templateUrl: "/page/my-info.html",
       controller: "ThongTinCaNhanController"
     })
-    .when("/update-info", {
-      templateUrl: "/page/update-info.html",
-      controller: "ThongTinCaNhanController"
-    })
-
+      .when("/my-address", {
+        templateUrl: "/page/address.html",
+        controller: "AddressCtrl"
+      })
     .when("/success", {
       templateUrl: "page/success.html",
       controller: "success"
