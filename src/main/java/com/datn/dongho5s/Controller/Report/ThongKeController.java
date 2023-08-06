@@ -11,7 +11,7 @@ import java.util.TreeMap;
 
 @Controller
 public class ThongKeController {
-    @GetMapping("/statisticals")
+    @GetMapping("/admin/statisticals")
     public String viewSalesReportHomes(){
         return "admin/thongke/statisticals";
     }
