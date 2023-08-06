@@ -24,19 +24,18 @@ public class VatLieuController {
     @Autowired
     private VatLieuService service;
 
-    @GetMapping("/materials")
+    @GetMapping("/admin/materials")
     public String listFirstPage(Model model){
         return listByPage(1,model,"tenVatLieu","asc",null);
     }
 
-    @GetMapping("/materials/page/{pageNum}")
+    @GetMapping("/admin/materials/page/{pageNum}")
     private String listByPage(@PathVariable(name = "pageNum") int pageNum, Model model,
                               @Param("sortField") String sortField,@Param("sortDir") String sortDir,
                               @Param("keyword") String keyword){
 
         Page<VatLieu> page = service.listByPage(pageNum,sortField,sortDir,keyword);
         List<VatLieu> listVatLieu = page.getContent();
-
         long startCount = (pageNum -1) * VatLieuService.MATERIALS_PER_PAGE +1;
         long endCount = startCount + VatLieuService.MATERIALS_PER_PAGE-1;
         if(endCount > page.getTotalElements()){
@@ -57,7 +56,7 @@ public class VatLieuController {
 
     }
 
-    @GetMapping("materials/{id}/enabled/{status}")
+    @GetMapping("/admin/materials/{id}/enabled/{status}")
     public String updateVatLieuEnabledStatus(@PathVariable("id") Integer id,
                                                 @PathVariable("status")boolean enabled,
                                                 RedirectAttributes redirectAttributes){
@@ -68,21 +67,21 @@ public class VatLieuController {
         return "redirect:/materials";
     }
 
-    @GetMapping("/materials/new")
+    @GetMapping("/admin/materials/new")
     public String newVatLieu(Model model){
         model.addAttribute("vatLieu",new VatLieu());
         model.addAttribute("pageTitle","Tạo Mới Vật Liệu");
         return "admin/vatlieu/material_form";
     }
 
-    @PostMapping("materials/save")
+    @PostMapping("/admin/materials/save")
     public String saveVatLieu(VatLieu vatLieu, RedirectAttributes redirectAttributes){
         service.save(vatLieu);
         redirectAttributes.addFlashAttribute("message","Thay Đổi Thành Công");
-        return "redirect:/materials";
+        return "redirect:/admin/materials";
     }
 
-    @GetMapping("materials/edit/{id}")
+    @GetMapping("/admin/materials/edit/{id}")
     public String editVatLieu(@PathVariable(name = "id") Integer id,
                                  Model model,
                                  RedirectAttributes redirectAttributes){
@@ -93,27 +92,24 @@ public class VatLieuController {
             return "admin/vatlieu/material_form";
         } catch (VatLieuNotFoundException ex) {
             redirectAttributes.addFlashAttribute("message", ex.getMessage());
-            return "redirect:/materials";
+            return "redirect:/admin/materials";
         } catch (Exception ex) {
             redirectAttributes.addFlashAttribute("error", "Đã xảy ra lỗi trong quá trình xử lý. Vui lòng thử lại sau.");
             return "redirect:/error";
         }
     }
 
-    @GetMapping("/materials/export/csv")
+    @GetMapping("/admin/materials/export/csv")
     public void exportToCSV(HttpServletResponse response) throws IOException {
         List<VatLieu> listVatLieu = service.getAllVatLieu();
         VatLieuCsvExporter exporter = new VatLieuCsvExporter();
         exporter.export(listVatLieu,response);
     }
 
-    @GetMapping("/materials/export/excel")
+    @GetMapping("/admin/materials/export/excel")
     public void exportToExcel(HttpServletResponse response) throws IOException {
         List<VatLieu> listVatLieu = service.getAllVatLieu();
         VatLieuExcelExporter exporter = new VatLieuExcelExporter();
         exporter.export(listVatLieu,response);
-
     }
-
-
 }
