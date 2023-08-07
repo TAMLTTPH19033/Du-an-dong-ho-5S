@@ -29,6 +29,11 @@ public class ThuongHieuServiceImpl implements ThuongHieuService {
     }
 
     @Override
+    public List<ThuongHieu> layDanhSachTenThuongHieu() {
+        return thuongHieuRepository.findAll();
+    }
+
+    @Override
     public Page<ThuongHieu> listByPage(int pageNumber,String sortField, String sortDir, String keyword){
         Sort sort = Sort.by(sortField);
         sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();

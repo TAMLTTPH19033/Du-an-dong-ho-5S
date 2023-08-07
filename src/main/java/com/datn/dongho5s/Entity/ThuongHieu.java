@@ -34,6 +34,11 @@ public class ThuongHieu {
     public ThuongHieu() {
     }
 
+    public ThuongHieu(Integer idThuongHieu, String tenThuongHieu) {
+        this.idThuongHieu = idThuongHieu;
+        this.tenThuongHieu = tenThuongHieu;
+    }
+
     public ThuongHieu(Integer idThuongHieu, String tenThuongHieu, String moTaThuongHieu, boolean enabled) {
         this.idThuongHieu = idThuongHieu;
         this.tenThuongHieu = tenThuongHieu;

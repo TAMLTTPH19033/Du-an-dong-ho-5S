@@ -36,6 +36,16 @@
           th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>
     </th>
 
+
+    <th th:fragment="products_link(fieldProducts, columnLabel)">
+        <a style="text-decoration: none; color: black"
+           th:href="@{'/admin/products/page/' + ${currentPage} + '?sortField=' + ${fieldProducts} + '&sortDir=' + ${sortField != fieldProducts ? sortDir : reverseSortDir} + ${keyword !=null ? '&keyword=' + keyword:''}}">
+            [[${columnLabel}]]
+        </a>
+        <span th:if="${sortField == fieldProducts}" style="text-decoration: none; color: black"
+              th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>
+    </th>
+
     <th th:fragment="danhmuc_link(fieldDanhMuc, columnLabel)">
         <a style="text-decoration: none; color: black"
            th:href="@{'/admin/categories/page/' + ${currentPage} + '?sortField=' + ${fieldDanhMuc} + '&sortDir=' + ${sortField != fieldDanhMuc ? sortDir : reverseSortDir} + ${keyword !=null ? '&keyword=' + keyword:''}}">
@@ -101,6 +111,10 @@
     <a th:fragment="page_link(pageNum, label)"
         class="page-link"
        th:href="@{'/admin/users/page/' + ${pageNum} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword' + keyword : ''}}"> [[${label}]]</a>
+
+    <a th:fragment="pageproduct_link(pageNum, label)"
+       class="page-link"
+       th:href="@{'/admin/products/page/' + ${pageNum} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword' + keyword : ''}}"> [[${label}]]</a>
 
     <a th:fragment="pagecategory_link(pageNum, label)"
        class="page-link"

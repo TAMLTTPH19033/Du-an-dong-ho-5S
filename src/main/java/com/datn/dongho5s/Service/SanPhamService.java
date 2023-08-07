@@ -1,13 +1,12 @@
 package com.datn.dongho5s.Service;
 
 
-import com.datn.dongho5s.Entity.DonHang;
+import com.datn.dongho5s.Entity.*;
+import com.datn.dongho5s.Exception.SanPhamNotFountException;
 import com.datn.dongho5s.Request.TimKiemRequest;
 import com.datn.dongho5s.Response.ChiTietSanPhamResponse;
 import com.datn.dongho5s.Response.SanPhamDetailResponse;
 import com.datn.dongho5s.Response.TimKiemResponse;
-import com.datn.dongho5s.Entity.ChiTietSanPham;
-import com.datn.dongho5s.Entity.SanPham;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
@@ -16,6 +15,8 @@ import java.util.List;
 import java.util.Set;
 
 public interface SanPhamService {
+
+    public static final int PRODUCT_PER_PAGE = 5;
 
     Set<TimKiemResponse> getSanPhamByCondition(TimKiemRequest timKiemRequest);
 
@@ -28,5 +29,18 @@ public interface SanPhamService {
 
     List<ChiTietSanPhamResponse> getSPchayKM(Integer idChiTietSanPham);
 
-    public Page<SanPham> getPageSanPham(int pageNumber);
+//    public Page<SanPham> getPageSanPham(int pageNumber);
+
+    public List<SanPham> listAll();
+
+    public SanPham save(SanPham sanPham);
+
+    public boolean checkUnique(String ten);
+
+    public SanPham get(Integer id) throws SanPhamNotFountException;
+
+    public Page<SanPham> listByPage(int pageNumber,String sortField, String sortDir, String keyword);
+
+
+
 }

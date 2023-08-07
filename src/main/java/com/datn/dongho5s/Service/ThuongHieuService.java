@@ -20,4 +20,6 @@ public interface ThuongHieuService {
     public boolean checkUnique(Integer id, String ten);
 
     public void updateThuongHieuEnabledStatus(Integer id, boolean enabled);
+
+    public List<ThuongHieu> layDanhSachTenThuongHieu();
 }
