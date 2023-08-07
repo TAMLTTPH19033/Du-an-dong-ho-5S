@@ -36,15 +36,15 @@
 								<div class="shipping-total-bill">
 									<div class="cart-prices">
 										<span class="shipping-cost">0.00</span>
-										<span>Shipping</span>
+										<span>Vận chuyển(Tạm tính)</span>
 									</div>
 									<div class="total-shipping-prices">
 										<span class="shipping-total">{{total}}</span>
-										<span>Total</span>
+										<span>Tổng</span>
 									</div>
 								</div>
 								<div class="shipping-checkout-btn">
-									<a href="#checkout">Check out <i class="fa fa-chevron-right"></i></a>
+									<a style="cursor: pointer" ng-click="buycart()">Thanh toán  <i class="fa fa-chevron-right"></i></a>
 								</div>
 							</div>
 						</div>
@@ -77,28 +77,28 @@
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 				<!-- BSTORE-BREADCRUMB START -->
 				<div class="bstore-breadcrumb">
-					<a href="#index">HOMe</a>
+					<a href="#index">Trang chủ</a>
 					<span><i class="fa fa-caret-right	"></i></span>
-					<span>Contact</span>
+					<span>Liên hệ</span>
 				</div>
 				<!-- BSTORE-BREADCRUMB END -->
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-				<h2 class="page-title contant-page-title">Customer service - Contact us</h2>
+				<h2 class="page-title contant-page-title">Dịch vụ khách hàng - Liên hệ chúng tôi</h2>
 			</div>
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 				<!-- CONTACT-US-FORM START -->
 				<div class="contact-us-form">
 					<div class="contact-form-center">
-						<h3 class="contact-subheading">send a message</h3>
+						<h3 class="contact-subheading">Gửi liên hệ</h3>
 						<!-- CONTACT-FORM START -->
 						<form class="contact-form" id="contactForm" method="post" action="#">
 							<div class="row">
 								<div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
 									<div class="form-group primary-form-group">
-										<label>Subject Heading</label>
+										<label>Tiêu đề</label>
 										<div class="con-form-select">
 											<select id="conForm" name="conform">
 												<option value="">Customar Service</option>
@@ -107,7 +107,7 @@
 										</div>
 									</div>
 									<div class="form-group primary-form-group">
-										<label>Email address</label>
+										<label>Địa chỉ email</label>
 										<input type="text" class="form-control input-feild" id="contactEmail" name="contactemail" value="">
 									</div>
 									<div class="form-group primary-form-group">

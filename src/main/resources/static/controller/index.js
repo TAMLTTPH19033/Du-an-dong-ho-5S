@@ -105,6 +105,9 @@ myApp.config(function ($routeProvider, $locationProvider,$httpProvider) {
         templateUrl: "page/changePass.html",
         controller: "ChangePassCtrl"
       })
+      .when("/chinhSach", {
+        templateUrl: "page/chinhSach.html",
+      })
     .otherwise({
       redirectTo: "/",
     });
