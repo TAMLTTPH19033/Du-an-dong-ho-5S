@@ -36,15 +36,15 @@
 									<div class="shipping-total-bill">
 										<div class="cart-prices">
 											<span class="shipping-cost">0.00</span>
-											<span>Shipping</span>
+											<span>Vận chuyển (Tạm tính)</span>
 										</div>
 										<div class="total-shipping-prices">
 											<span class="shipping-total">{{total}}</span>
-											<span>Total</span>
+											<span>Tổng</span>
 										</div>
 									</div>
 									<div class="shipping-checkout-btn">
-										<a href="#checkout">Check out <i class="fa fa-chevron-right"></i></a>
+										<a style="cursor: pointer" ng-click="buycart()">Thanh toán  <i class="fa fa-chevron-right"></i></a>
 									</div>
 								</div>
 							</div>
@@ -144,7 +144,7 @@
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<!-- BSTORE-BREADCRUMB START -->
 						<div class="bstore-breadcrumb">
-							<a href="#/index">Home<span><i class="fa fa-caret-right"></i> </span> </a>
+							<a href="#/index">Trang chủ<span><i class="fa fa-caret-right"></i> </span> </a>
 							<span> <i class="fa fa-caret-right"> </i> </span>
 							<a href="shop-gird.html"> {{sanPhamDetail.danhMuc.ten}} </a>
 							<span> {{sanPhamDetail.tenSanPham}} </span>
@@ -163,7 +163,7 @@
 <!--										Todo hiển thị hình ảnh to-->
 										<div class="tab-pane active" id="thumbnail_1">
 											<div class="single-product-image">
-												<img src="/assets/images/1.jpg" alt="single-product-image" />
+												<img src="/assets/images/{{sanPhamDetail.listAnhSanPham[0].link}}" alt="single-product-image" />
 												<span ng-if="chiTietSanPham.khuyenMai == null "></span>
 												<span ng-if="chiTietSanPham.khuyenMai != null ">
                                                     <span ng-if="chiTietSanPham.khuyenMai.enabled == false"></span>
@@ -178,7 +178,7 @@
                                                         </span>
                                                     </span>
                                                 </span>
-												<a class="fancybox" href="/assets/img/product/sale/1.jpg" data-fancybox-group="gallery"><span class="btn large-btn">View larger <i class="fa fa-search-plus"></i></span></a>
+												<a class="fancybox" href="/assets/images/{{sanPhamDetail.listAnhSanPham[0].link}}" data-fancybox-group="gallery"><span class="btn large-btn">View larger <i class="fa fa-search-plus"></i></span></a>
 											</div>	
 										</div>
 									</div>										

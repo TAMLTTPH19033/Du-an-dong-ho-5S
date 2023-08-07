@@ -1,4 +1,4 @@
-myApp.controller("homeCtrl", function ($scope, $http,$window,$rootScope,checkSearchService,$location) {
+myApp.controller("homeCtrl", function ($scope, $http,$window,$rootScope,checkSearchService,checkOutDataService,$location) {
     $scope.listSetting = {};
     $scope.newSanPhams = [];
     $scope.hotSanPhams = [];
@@ -65,7 +65,32 @@ myApp.controller("homeCtrl", function ($scope, $http,$window,$rootScope,checkSea
             $scope.totalSp -= item.soLuongSanPham;
         }
     };
-
+    //api xóa giohang
+    $scope.delete = function (item){
+        $http.delete(`/api/giohang/delete/${item.idChiTietGioHang}`)
+            .then(resp =>{
+                const index = $scope.cart.findIndex(p => p.idChiTietGioHang ==  item.idChiTietGioHang);
+                $scope.cart.splice(index,1);
+                // alert("xoa thanh cong");
+            })
+            .catch(error =>{
+                alert("Loi roi");
+                console.log("eror"+ error);
+            })
+    }
+    $scope.buycart = () => {
+        $scope.chiTietSanPham=[];
+        $scope.cart.forEach(item=>{
+            $scope.chiTietSanPham.push({
+                idChiTietSanPham: item.chiTietSanPham.idChiTietSanPham,
+                giaBan: item.giaBan,
+                soLuong: item.soLuongSanPham,
+                chiTietSanPham: item.chiTietSanPham
+            })
+        })
+        checkOutDataService.setData($scope.chiTietSanPham);
+        $location.path("/checkout");
+    };
     // kt cart
 
 
