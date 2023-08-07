@@ -1,5 +1,6 @@
 package com.datn.dongho5s.Service.impl;
 import com.datn.dongho5s.Entity.ChucVu;
+import com.datn.dongho5s.Entity.DanhMuc;
 import com.datn.dongho5s.Entity.NhanVien;
 import com.datn.dongho5s.Exception.NhanVienNotFoundException;
 import com.datn.dongho5s.Repository.ChucVuRepository;
@@ -118,18 +119,20 @@ public class NhanVienServiceImpl implements NhanVienService {
         nhanVien.setMatKhau(encodedPassword);
     }
 
-    public boolean isEmailUnique(Integer id ,String email){
-        NhanVien nhanVienByEmail = nhanVienrepo.getNhanVienByEmail(email);
-        if(nhanVienByEmail == null) return true;
-        boolean isCreateingNew = (id == null);
-        if(isCreateingNew){
-            if(nhanVienByEmail != null) return  false;
-        }else {
-            if(nhanVienByEmail.getId() != id){
+    @Override
+    public boolean isEmailUnique(Integer id, String email){
+        NhanVien nhanVienTheoEmail = nhanVienrepo.getNhanVienByEmail(email);
+        if (nhanVienTheoEmail == null) return true;
+        boolean isCreatingNew = (id == null);
+        if(isCreatingNew){
+            if(nhanVienTheoEmail != null){
+                return false;
+            }
+        }else{
+            if(nhanVienTheoEmail.getId() != id){
                 return false;
             }
         }
-
         return true;
     }
 
