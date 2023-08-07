@@ -80,6 +80,15 @@
               th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>
     </th>
 
+    <th th:fragment="kichco_link(fieldKichCo, columnLabel)">
+        <a style="text-decoration: none; color: black"
+           th:href="@{'/admin/sizes/page/' + ${currentPage} + '?sortField=' + ${fieldKichCo} + '&sortDir=' + ${sortField != fieldKichCo ? sortDir : reverseSortDir} + ${keyword !=null ? '&keyword=' + keyword:''}}">
+            [[${columnLabel}]]
+        </a>
+        <span th:if="${sortField == fieldKichCo}" style="text-decoration: none; color: black"
+              th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>
+    </th>
+
 <!--    <th th:fragment="seri_link(fieldSeri, columnLabel)">-->
 <!--        <a style="text-decoration: none; color: black"-->
 <!--           th:href="@{'/admin/series/page/' + ${currentPage} + '?sortField=' + ${fieldSeri} + '&sortDir=' + ${sortField != fieldSeri ? sortDir : reverseSortDir} + ${keyword !=null ? '&keyword=' + keyword:''}}">-->
@@ -120,9 +129,14 @@
     <a th:fragment="pagematerial_link(pageNum, label)"
        class="page-link"
        th:href="@{'/admin/materials/page/' + ${pageNum} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword' + keyword : ''}}"> [[${label}]]</a>
+
     <a th:fragment="pageseri_link(pageNum, label)"
        class="page-link"
        th:href="@{'/admin/series/page/' + ${pageNum} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword' + keyword : ''}}"> [[${label}]]</a>
+
+    <a th:fragment="pagesize_link(pageNum, label)"
+       class="page-link"
+       th:href="@{'/admin/sizes/page/' + ${pageNum} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword' + keyword : ''}}"> [[${label}]]</a>
     <!--  Quan ly Don hang  -->
     <a th:fragment="page_donhang_link(pageNum, label)"
        class="page-link"
