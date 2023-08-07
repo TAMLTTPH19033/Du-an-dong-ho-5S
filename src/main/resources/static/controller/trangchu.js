@@ -14,7 +14,6 @@ myApp.controller("homeCtrl", function ($scope, $http,$window,$rootScope,checkSea
             // console.log(resp.data.listSPbanChay);
             $scope.newSanPhams = resp.data.listSPmoiNhat;
             $scope.featureSanPhams = resp.data.listSPNoiBat;
-
             $scope.hotSanPhams.forEach(item=>{
                 $scope.getGiaNN(item.idSanPham)
                 $scope.getGiaLN(item.idSanPham)

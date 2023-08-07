@@ -14,7 +14,7 @@ myApp.config(function ($routeProvider, $locationProvider,$httpProvider) {
       templateUrl: "page/about-us.html",
     })
     .when("/contact", {
-      templateUrl: "page/contact.html",
+      templateUrl: "page/contact-us.html",
     })
     .when("/blog", {
       templateUrl: "page/blog.html",
