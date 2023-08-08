@@ -64,31 +64,7 @@
 </style>
 
 <body class="sb-nav-fixed" id="content">
-
-<!-- NAV -->
-
-<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-  <!-- Navbar Brand-->
-  <a class="navbar-brand ps-3" href="/">Đồng Hồ 5S</a>
-  <!-- Sidebar Toggle-->
-  <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
-  <!-- Navbar Search-->
-
-  <!-- Navbar-->
-  <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-    <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-        <li><a class="dropdown-item" href="#!">Settings</a></li>
-        <li><a class="dropdown-item" href="#!">Activity Log</a></li>
-        <li><hr class="dropdown-divider" /></li>
-        <li><a class="dropdown-item" href="#!">Logout</a></li>
-      </ul>
-    </li>
-  </ul>
-</nav>
-<!-- END NAV -->
-
+<div th:replace="admin/fragment/navigation:: navbar"></div>
 <!-- Article NAV -->
 <div id="layoutSidenav">
   <div th:replace="admin/fragment/navigation:: menu"></div>
@@ -284,7 +260,7 @@
                       (hd.trangThaiDonHang == 5 ? 'Trả hàng / Hoàn tiền' : 'Đã hoàn trả')))))
                     }">
                     <td>
-                      <a class="btn btn-outline-danger" th:href="@{'/ban-hang/hoa-don/' + ${hd.maDonHang}}">Chọn</a>
+                      <a class="btn btn-outline-danger" th:href="@{'/admin/ban-hang/hoa-don/' + ${hd.maDonHang}}">Chọn</a>
                     </td>
                   </tr>
                   </tbody>
@@ -420,7 +396,7 @@
   $('#themSoLuong').click(function() {
     var soLuongThem = document.getElementById('soLuongThem').value;
     $.ajax({
-      url: "/ban-hang/them/"+ maCTSP + "/" + soLuongThem,
+      url: "/admin/ban-hang/them/"+ maCTSP + "/" + soLuongThem,
       method: "POST",
       success: function(response) {
         $('#content').html(response);
@@ -433,7 +409,7 @@
   // error
   $('#taoMoi').click(function() {
     $.ajax({
-      url: "/ban-hang/hoa-don/tao-moi",
+      url: "/admin/ban-hang/hoa-don/tao-moi",
       method: "POST",
       success: function(response) {
         $('#content').html(response);
@@ -451,7 +427,7 @@
 
   $('#xoaSanPhamHDCT').click(function() {
     $.ajax({
-      url: "/ban-hang/hoa-don-chi-tiet/"+ idHDCTXoa,
+      url: "/admin/ban-hang/hoa-don-chi-tiet/"+ idHDCTXoa,
       method: "POST",
       success: function(response) {
         $('#content').html(response);
@@ -471,7 +447,7 @@
 
   $('#suaSanPham').click(function() {
     $.ajax({
-      url: "/ban-hang/hoa-don-chi-tiet/"+ idHDCTXoa,
+      url: "/admin/ban-hang/hoa-don-chi-tiet/"+ idHDCTXoa,
       method: "POST",
       success: function(response) {
         $('#content').html(response);

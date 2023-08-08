@@ -44,7 +44,7 @@ import java.util.Map;
 import java.util.TimeZone;
 
 
-@RequestMapping("/don-hang")
+@RequestMapping("/admin/don-hang")
 @Controller
 public class DonHangController {
 
@@ -214,7 +214,7 @@ public class DonHangController {
         Page<DonHang> donHangs = donHangService.getAll(1);
 
         model.addAttribute("list", donHangs.getContent());
-        return "redirect:/don-hang";
+        return "redirect:/admin/don-hang";
     }
 
     @GetMapping("/findByTrangThai/{trangThai}")

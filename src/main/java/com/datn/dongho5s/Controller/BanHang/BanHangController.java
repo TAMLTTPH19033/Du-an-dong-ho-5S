@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Controller
-@RequestMapping("/ban-hang")
+@RequestMapping("/admin/ban-hang")
 public class BanHangController {
 
     @Autowired
@@ -149,7 +149,7 @@ public class BanHangController {
 
         model.addAttribute("lstCTSP",chiTietSanPhamService.getAllSanPhamAminResponse(1));
 
-        return "redirect:/ban-hang/hoa-don/" + maDonHang;
+        return "redirect:/admin/ban-hang/hoa-don/" + maDonHang;
     }
 
     @GetMapping("/hoa-don/{maHoaDon}")
@@ -239,7 +239,7 @@ public class BanHangController {
 
         model.addAttribute("lstCTSP",chiTietSanPhamService.getAllSanPhamAminResponse(1));
 
-        return "redirect:/ban-hang/hoa-don/" + donHang.getMaDonHang();
+        return "redirect:/admin/ban-hang/hoa-don/" + donHang.getMaDonHang();
     }
 
     @PostMapping("/hoa-don-chi-tiet/{idHDCT}")
@@ -284,7 +284,7 @@ public class BanHangController {
 
         model.addAttribute("lstCTSP",chiTietSanPhamService.getAllSanPhamAminResponse(1));
 
-        return "redirect:/ban-hang/hoa-don/" + donHang.getMaDonHang();
+        return "redirect:/admin/ban-hang/hoa-don/" + donHang.getMaDonHang();
     }
     @PostMapping("/hoa-don-chi-tiet/sua/{idHDCT}")
     public String updateHDCT(
@@ -335,7 +335,7 @@ public class BanHangController {
 
         model.addAttribute("lstCTSP",chiTietSanPhamService.getAllSanPhamAminResponse(1));
 
-        return "redirect:/ban-hang/hoa-don/" + donHang.getMaDonHang();
+        return "redirect:/admin/ban-hang/hoa-don/" + donHang.getMaDonHang();
     }
 
 

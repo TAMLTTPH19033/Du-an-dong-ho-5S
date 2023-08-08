@@ -65,29 +65,7 @@
 
     <body class="sb-nav-fixed" id="content">
 
-        <!-- NAV -->
-
-        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="/">Đồng Hồ 5S</a>
-            <!-- Sidebar Toggle-->
-            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
-            <!-- Navbar Search-->
-
-            <!-- Navbar-->
-            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#!">Settings</a></li>
-                        <li><a class="dropdown-item" href="#!">Activity Log</a></li>
-                        <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="#!">Logout</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </nav>
-        <!-- END NAV -->
+    <div th:replace="admin/fragment/navigation:: navbar"></div>
 
         <!-- Article NAV -->
         <div id="layoutSidenav">
@@ -145,7 +123,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-2">
-                                                    <button type="submit" style="width: 100%" class="btn btn-outline-dark mb-2" th:formaction="@{'/don-hang/search/date'}">Tìm kiếm</button>
+                                                    <button type="submit" style="width: 100%" class="btn btn-outline-dark mb-2" th:formaction="@{'/admin/don-hang/search/date'}">Tìm kiếm</button>
                                                 </div>
                                             </div>
                                         </form>
@@ -191,7 +169,7 @@
                                                 <td>
                                                     <a class="icon-green btn btn-outline-danger"
                                                        style="text-decoration: none"
-                                                       th:href="@{'/hoa-don-chi-tiet/search/' + ${cat.idDonHang}}">Xem</a>
+                                                       th:href="@{'/admin/hoa-don-chi-tiet/search/' + ${cat.idDonHang}}">Xem</a>
 
                                                     <a class="btn btn-outline-primary capnhattrangthaidonhang"
                                                        data-bs-toggle="modal"
@@ -309,7 +287,7 @@
             $('#thayDoiTrangThai').click(function() {
                 var trangThai = document.getElementById('trangThai').value;
                 $.ajax({
-                    url: "/don-hang/update/"+ idDonHang + "/trang-thai/" + trangThai,
+                    url: "/admin/don-hang/update/"+ idDonHang + "/trang-thai/" + trangThai,
                     method: "POST",
                     success: function(response) {
                         $('#content').html(response);
@@ -332,7 +310,7 @@
 
                     if (apiValue == 99){
                         $.ajax({
-                            url: "/don-hang",
+                            url: "/admin/don-hang",
                             method: "GET",
                             success: function(response) {
                                 $('#content').html(response);
@@ -344,7 +322,7 @@
                     } else{
                         $.ajax(
                             {
-                                url: "/findByTrangThai/"+ apiValue,
+                                url: "/admin/findByTrangThai/"+ apiValue,
                                 method: "GET",
                                 success: function(response) {
                                     $('#data').html(response);
