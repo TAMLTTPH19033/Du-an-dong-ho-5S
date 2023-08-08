@@ -45,6 +45,7 @@ public class WebSecurityConfig  {
                 .antMatchers("/images/**", "/js/**", "/webjars/**").permitAll()
                 .antMatchers("/api/giohang/**","/api/phan-hoi/**").hasAuthority("ROLE_CUSTOMER")
 //                .antMatchers("/admin/users/").hasAuthority("ADMIN")
+                .antMatchers("/src/**").permitAll()
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)

@@ -71,7 +71,7 @@ public class SanPham {
     @Transient
     public String getMainImagePath(){
         if (idSanPham == null || mainImage == null) return "/assets/images/image-thumbnail.png";
-        return "/assets/images/product-images/" + this.idSanPham + "/" + this.mainImage;
+        return "/assets/images/"+ this.mainImage;
     }
 
     @Transient

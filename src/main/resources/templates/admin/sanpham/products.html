@@ -38,17 +38,6 @@
                         <input type="button" value="Clear" class="btn btn-secondary ml-2" onclick="clearFilter()"/>
                     </div>
 
-                    &nbsp;
-
-                    <div class="form-group" id="dropdownBrand">
-                        <label for="brandSelect">Tìm kiếm theo thương hiệu:</label>
-                        <select name="brandId" id="brandSelect" class="form-control">
-                            <option value="">Tất cả</option>
-                            <option th:each="brand : ${listThuongHieu}" th:value="${brand.idThuongHieu}" th:text="${brand.tenThuongHieu}"></option>
-                        </select>
-                    </div>
-                    &nbsp;
-
                 </form>
 
             </div>

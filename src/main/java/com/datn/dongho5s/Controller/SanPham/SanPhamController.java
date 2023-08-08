@@ -1,10 +1,8 @@
 package com.datn.dongho5s.Controller.SanPham;
 
-import com.datn.dongho5s.Entity.DanhMuc;
-import com.datn.dongho5s.Entity.NhanVien;
-import com.datn.dongho5s.Entity.SanPham;
-import com.datn.dongho5s.Entity.ThuongHieu;
+import com.datn.dongho5s.Entity.*;
 import com.datn.dongho5s.Exception.SanPhamNotFountException;
+import com.datn.dongho5s.Service.AnhSanPhamService;
 import com.datn.dongho5s.Service.DanhmucService;
 import com.datn.dongho5s.Service.SanPhamService;
 import com.datn.dongho5s.Service.ThuongHieuService;
@@ -36,6 +34,8 @@ public class SanPhamController {
 
     @Autowired
     private DanhmucService danhmucService;
+    @Autowired
+    private AnhSanPhamService anhSanPhamService;
 
 
 
@@ -53,7 +53,6 @@ public class SanPhamController {
         Page<SanPham> page = sanPhamService.listByPage(pageNum,sortField,sortDir,keyword);
         List<SanPham> listSanPham = page.getContent();
 
-        List<ThuongHieu> listThuongHieu = thuongHieuService.layDanhSachTenThuongHieu();
 
         long startCount = (pageNum -1) * SanPhamService.PRODUCT_PER_PAGE +1;
         long endCount = startCount + SanPhamService.PRODUCT_PER_PAGE-1;
@@ -67,7 +66,6 @@ public class SanPhamController {
         model.addAttribute("endCount",endCount);
         model.addAttribute("totalItem",page.getTotalElements());
         model.addAttribute("listSanPham",listSanPham);
-//        model.addAttribute("listThuongHieu",listThuongHieu);
         model.addAttribute("sortField",sortField);
         model.addAttribute("sortDir",sortDir);
         model.addAttribute("reverseSortDir",reverseSortDir);
@@ -93,11 +91,17 @@ public class SanPhamController {
     @PostMapping("/admin/products/save")
     public String saveProduct(SanPham sanPham, RedirectAttributes ra,
                               @RequestParam("fileImage") MultipartFile multipartFile) throws IOException {
+        System.out.println(multipartFile.getOriginalFilename());
         if(!multipartFile.isEmpty()){
             String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
             sanPham.setMainImage(fileName);
+            AnhSanPham anhSanPham = new AnhSanPham();
             SanPham savedSanPham = sanPhamService.save(sanPham);
-            String uploadDir = "src/main/resources/static/assets/images/product-images/" + savedSanPham.getIdSanPham();
+            anhSanPham.setSanPham(savedSanPham);
+            anhSanPham.setLink(multipartFile.getOriginalFilename());
+            anhSanPhamService.save(anhSanPham);
+
+            String uploadDir = "src/main/resources/static/assets/images/";;
             FileUploadUtil.saveFile(uploadDir,fileName,multipartFile);
         }else{
             sanPhamService.save(sanPham);
@@ -132,8 +136,13 @@ public class SanPhamController {
         if (!multipartFile.isEmpty()) {
             String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
             sanPham.setMainImage(fileName);
+            AnhSanPham anhSanPham = new AnhSanPham();
             SanPham savedSanPham = sanPhamService.save(sanPham);
-            String uploadDir = "src/main/resources/static/assets/images/product-images/" + savedSanPham.getIdSanPham();
+            anhSanPham.setSanPham(savedSanPham);
+            anhSanPham.setLink(multipartFile.getOriginalFilename());
+            anhSanPhamService.save(anhSanPham);
+
+            String uploadDir = "src/main/resources/static/assets/images/";
 
             FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
         } else {
