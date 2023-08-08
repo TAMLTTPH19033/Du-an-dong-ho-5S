@@ -2,6 +2,8 @@ package com.datn.dongho5s.Repository;
 
 
 import com.datn.dongho5s.Entity.ChiTietSanPham;
+import com.datn.dongho5s.Entity.DanhMuc;
+import com.datn.dongho5s.Entity.NhanVien;
 import com.datn.dongho5s.Entity.SanPham;
 import com.datn.dongho5s.Request.TimKiemRequest;
 import org.springframework.data.domain.Page;
@@ -32,10 +34,21 @@ public interface SanPhamRepository extends JpaRepository<SanPham, Integer> {
      * @return
      * product pagination
      */
-    @Query(value = """
-        SELECT sp
-        FROM SanPham sp
-    """)
-    Page<SanPham> getPageSanPham(Pageable pageable);
+//    @Query(value = """
+//        SELECT sp
+//        FROM SanPham sp
+//    """)
+//    Page<SanPham> getPageSanPham(Pageable pageable);
+
+    @Query("SELECT sp FROM SanPham  sp WHERE UPPER(CONCAT(sp.idSanPham,' ', sp.tenSanPham, ' ',sp.thuongHieu,' ', sp.danhMuc, ' ',sp.moTaSanPham)) LIKE %?1%")
+    public Page<SanPham> findAll(String keyword, Pageable pageable);
+
+    //@Query("SELECT th FROM ThuongHieu th WHERE UPPER(CONCAT(th.idThuongHieu, ' ', th.tenThuongHieu, ' ', th.moTaThuongHieu)) LIKE %?1%")
+    //    public Page<ThuongHieu> findAll(String keyword, Pageable pageable);
+
+
+    public SanPham findByTenSanPham(String tenSanPham);
+
+
 
 }

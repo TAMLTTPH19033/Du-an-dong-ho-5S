@@ -10,6 +10,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface ThuongHieuRepository extends JpaRepository<ThuongHieu,Integer> {
     @Query("UPDATE ThuongHieu th SET th.enabled = ?2 WHERE th.idThuongHieu = ?1")
@@ -21,5 +23,6 @@ public interface ThuongHieuRepository extends JpaRepository<ThuongHieu,Integer> 
 
     public ThuongHieu findByTenThuongHieu(String ten);
 
-
+    @Query("SELECT NEW ThuongHieu (th.idThuongHieu,th.tenThuongHieu) FROM ThuongHieu th ORDER BY th.tenThuongHieu")
+    public List<ThuongHieu> findUserForm();
 }

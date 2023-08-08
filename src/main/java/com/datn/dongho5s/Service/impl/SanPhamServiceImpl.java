@@ -1,8 +1,11 @@
 package com.datn.dongho5s.Service.impl;
 
-import com.datn.dongho5s.Entity.DonHang;
-import com.datn.dongho5s.Entity.SanPham;
+import com.datn.dongho5s.Entity.*;
+import com.datn.dongho5s.Exception.NhanVienNotFoundException;
+import com.datn.dongho5s.Exception.SanPhamNotFountException;
+import com.datn.dongho5s.Repository.DanhMucRepository;
 import com.datn.dongho5s.Repository.SanPhamRepository;
+import com.datn.dongho5s.Repository.ThuongHieuRepository;
 import com.datn.dongho5s.Request.TimKiemRequest;
 import com.datn.dongho5s.Response.ChiTietSanPhamResponse;
 import com.datn.dongho5s.Response.SanPhamDetailResponse;
@@ -14,30 +17,30 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.util.*;
 
-import com.datn.dongho5s.Entity.ChiTietSanPham;
 import com.datn.dongho5s.Repository.ChiTietSanPhamRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
 public class SanPhamServiceImpl implements SanPhamService {
 
-    public static final int SANPHAM_PAGE = 5;
 
     @Autowired
     SanPhamRepository sanPhamRepository;
+
+    @Autowired
+    DanhMucRepository danhMucRepository;
+
+    @Autowired
+    ThuongHieuRepository thuongHieuRepository;
 
     @Autowired
     ChiTietSanPhamRepository chiTietSanPhamRepository;
@@ -172,9 +175,53 @@ public class SanPhamServiceImpl implements SanPhamService {
 
     }
 
+//    @Override
+//    public Page<SanPham> getPageSanPham(int pageNumber) {
+//        Page<SanPham> sanPhams = sanPhamRepository.getPageSanPham(PageRequest.of(pageNumber - 1, SANPHAM_PAGE));
+//        return sanPhams;
+//    }
+
     @Override
-    public Page<SanPham> getPageSanPham(int pageNumber) {
-        Page<SanPham> sanPhams = sanPhamRepository.getPageSanPham(PageRequest.of(pageNumber - 1, SANPHAM_PAGE));
-        return sanPhams;
+    public List<SanPham> listAll(){
+        return sanPhamRepository.findAll(Sort.by("tenSanPham").ascending());
+
     }
+
+
+
+    @Override
+    public Page<SanPham> listByPage(int pageNumber,String sortField, String sortDir, String keyword){
+        Sort sort = Sort.by(sortField);
+        sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
+        Pageable pageable = PageRequest.of(pageNumber - 1 ,PRODUCT_PER_PAGE, sort);
+        if (keyword != null){
+            return sanPhamRepository.findAll(keyword,pageable);
+        }
+        return sanPhamRepository.findAll(pageable);
+
+    }
+
+    @Override
+    public SanPham save(SanPham sanPham){
+        return sanPhamRepository.save(sanPham);
+    }
+
+    @Override
+    public boolean checkUnique(String ten){
+        SanPham sanPhamTheoTen = sanPhamRepository.findByTenSanPham(ten);
+        if (sanPhamTheoTen == null) return true;
+        if(sanPhamTheoTen != null) return false;
+        return true;
+    }
+
+    @Override
+    public SanPham get(Integer id) throws SanPhamNotFountException {
+        try{
+            return sanPhamRepository.findById(id).get();
+        }catch (NoSuchElementException ex){
+            throw new SanPhamNotFountException("không tìm thấy sản phẩm có id" + id);
+        }
+    }
+
+
 }
