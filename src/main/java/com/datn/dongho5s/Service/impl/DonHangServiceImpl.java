@@ -55,6 +55,7 @@ public class DonHangServiceImpl implements DonHangService {
         return allDonHang;
     }
 
+
     @Override
     public List<DonHang> findByNgayTao(
             Date dateStart,
@@ -124,5 +125,21 @@ public class DonHangServiceImpl implements DonHangService {
         }catch (Exception e){
             return null;
         }
+    }
+
+    @Override
+    public List<DonHang> findByTrangThaiDonHang(int trangThai) {
+        return donHangRepository.findByTrangThaiDonHang(trangThai);
+    }
+
+    @Override
+    public Page<DonHang> getAllForBanHang(int pageNum) {
+        Page<DonHang> allDonHang = donHangRepository.findAllSort(PageRequest.of(pageNum - 1, 5));
+        return allDonHang;
+    }
+
+    @Override
+    public DonHang findByMaDonHang(String maDonHang) {
+        return donHangRepository.findByMaDonHang(maDonHang);
     }
 }

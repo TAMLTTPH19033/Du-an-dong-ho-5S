@@ -1,9 +1,12 @@
 package com.datn.dongho5s.Service;
 
+import com.datn.dongho5s.Entity.ChiTietSanPham;
 import com.datn.dongho5s.Entity.DonHang;
 import com.datn.dongho5s.Entity.HoaDonChiTiet;
 import com.datn.dongho5s.Request.ChiTietSanPhamRequest;
 import com.datn.dongho5s.Request.HoaDonChiTietRequest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -22,4 +25,24 @@ public interface HoaDonChiTietService {
 
     List<HoaDonChiTiet> getByHoaDonId(DonHang donHang);
 
+    public Page<HoaDonChiTiet> getHDCTByMaDonHang(String maDonHang, int pageNum);
+
+    void themSoLuongSanPham(
+            int soLuong,
+            ChiTietSanPham chiTietSanPham,
+            DonHang donHang
+    );
+
+    void xoaHDCT(
+            HoaDonChiTiet hoaDonChiTiet
+    );
+
+    HoaDonChiTiet findHoaDonChiTietById(
+            int id
+    );
+
+    void updateSoLuongInHDCT(
+            HoaDonChiTiet hoaDonChiTiet,
+            int soLuongThayDoi
+    );
 }

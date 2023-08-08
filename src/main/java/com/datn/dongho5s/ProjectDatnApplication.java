@@ -10,9 +10,9 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableJpaRepositories
 public class ProjectDatnApplication {
 
-// Secret Key = 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
-	public static void main(String[] args) throws Exception {
-		DiaChiAPI.callGetTinhThanhAPI();
+    // Secret Key = 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
+    public static void main(String[] args) throws Exception {
+        DiaChiAPI.callGetTinhThanhAPI();
 //		Integer idTP = 207;
 //		Integer idQH = 2118;
 //		Integer idPX = 381301;,381308,381306
@@ -20,8 +20,8 @@ public class ProjectDatnApplication {
 //		NGUYEN VAN A
 //		07/15
 //		123456
-		SpringApplication.run(ProjectDatnApplication.class, args);
+        SpringApplication.run(ProjectDatnApplication.class, args);
 
-	}
+    }
 
 }

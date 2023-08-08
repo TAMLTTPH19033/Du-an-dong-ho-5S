@@ -20,7 +20,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
-@RequestMapping("/hoa-don-chi-tiet")
+@RequestMapping("/admin/hoa-don-chi-tiet")
 @Controller
 public class HoaDonChiTietController {
     @Autowired
