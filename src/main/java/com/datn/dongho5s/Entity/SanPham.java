@@ -60,6 +60,7 @@ public class SanPham {
     @OneToMany(mappedBy = "sanPham", cascade = CascadeType.ALL)
     private List<AnhSanPham> listAnhSanPham;
 
+
     @Column(name = "main_image", nullable = false)
     private String mainImage;
 
@@ -77,4 +78,7 @@ public class SanPham {
     @Transient
     private String currentMainImage; // Trường ẩn để lưu tên ảnh hiện tại
 
+    public SanPham(String tenSanPham) {
+        this.tenSanPham = tenSanPham;
+    }
 }

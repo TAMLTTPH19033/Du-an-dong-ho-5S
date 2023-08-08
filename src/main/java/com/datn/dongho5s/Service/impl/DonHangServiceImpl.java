@@ -18,9 +18,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.TimeZone;
 import java.util.stream.Collectors;
 
 @Service
@@ -51,6 +54,7 @@ public class DonHangServiceImpl implements DonHangService {
         Page<DonHang> allDonHang = donHangRepository.findAll(PageRequest.of(pageNumber - 1, DONHANG_PAGE));
         return allDonHang;
     }
+
 
     @Override
     public List<DonHang> findByNgayTao(
@@ -86,7 +90,7 @@ public class DonHangServiceImpl implements DonHangService {
     @Override
     public List<DonHangResponse> findAllHD(Integer idKhachHang) {
         List<DonHang> listHD = donHangRepository.findAllHD(idKhachHang);
-        List<DonHangResponse> responseList = listHD.stream().map(DonHangMapping::mapEntitytoResponse).collect(Collectors.toList());
+        List<DonHangResponse> responseList = listHD.stream().map(DonHangMapping::mapEntitytoResponseBT).collect(Collectors.toList());
         responseList.sort((o1,o2) -> o2.getNgayTao().compareTo(o1.getNgayTao()));
         return responseList;
     }
@@ -101,6 +105,7 @@ public class DonHangServiceImpl implements DonHangService {
 
     @Override
     public DonHangResponse updateDH(DonHangRequest donHangRequest) {
+
         try{
 
         DonHang donHang = donHangRepository.findByIdDonHang(donHangRequest.getIdDonHang());
@@ -120,5 +125,21 @@ public class DonHangServiceImpl implements DonHangService {
         }catch (Exception e){
             return null;
         }
+    }
+
+    @Override
+    public List<DonHang> findByTrangThaiDonHang(int trangThai) {
+        return donHangRepository.findByTrangThaiDonHang(trangThai);
+    }
+
+    @Override
+    public Page<DonHang> getAllForBanHang(int pageNum) {
+        Page<DonHang> allDonHang = donHangRepository.findAllSort(PageRequest.of(pageNum - 1, 5));
+        return allDonHang;
+    }
+
+    @Override
+    public DonHang findByMaDonHang(String maDonHang) {
+        return donHangRepository.findByMaDonHang(maDonHang);
     }
 }

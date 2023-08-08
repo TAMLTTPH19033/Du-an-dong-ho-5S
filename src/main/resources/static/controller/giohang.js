@@ -202,8 +202,22 @@
         }
 
     };
+        $scope.buycart = () => {
+            $scope.chiTietSanPham=[];
+            $scope.cart.forEach(item=>{
+                $scope.chiTietSanPham.push({
+                    idChiTietSanPham: item.chiTietSanPham.idChiTietSanPham,
+                    giaBan: item.giaBan,
+                    soLuong: item.soLuongSanPham,
+                    chiTietSanPham: item.chiTietSanPham
+                })
+            })
+            checkOutDataService.setData($scope.chiTietSanPham);
+            $location.path("/checkout");
+        };
 
-    $scope.buy = () => {
+
+        $scope.buy = () => {
         $scope.chiTietSanPham=[];
         if($scope.selection.length == 0){
             $scope.errorSelectedSP = "* Vui lòng chọn sản phẩm!";

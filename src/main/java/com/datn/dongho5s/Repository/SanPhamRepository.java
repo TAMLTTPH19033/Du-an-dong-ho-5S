@@ -19,34 +19,6 @@ import java.util.Objects;
 @Repository
 public interface SanPhamRepository extends JpaRepository<SanPham, Integer> {
 
-//    @Query(value =
-//            "SELECT sp FROM SanPham sp " +
-//                    "INNER JOIN ThuongHieu th ON sp.thuongHieu.idThuongHieu = th.idThuongHieu " +
-//                    "INNER JOIN DanhMuc dm ON sp.danhMuc.id = dm.id " +
-//                    "INNER JOIN ChiTietSanPham ctsp ON sp.idSanPham = ctsp.sanPham.idSanPham " +
-//                    "INNER JOIN DayDeo dd ON ctsp.dayDeo.idDayDeo = dd.idDayDeo " +
-//                    "INNER JOIN KichCo kc ON ctsp.kichCo.idKichCo = kc.idKichCo " +
-//                    "INNER JOIN VatLieu vl ON ctsp.vatLieu.idVatLieu = vl.idVatLieu " +
-//                    "INNER JOIN MauSac ms ON ctsp.mauSac.idMauSac = ms.idMauSac " +
-//                    "WHERE " +
-//                    "( (:#{#ths.isEmpty() } ) or sp.thuongHieu.idThuongHieu IN (:#{#ths}) ) " +
-//                    "AND ( (:#{#dms.isEmpty()}) or sp.danhMuc.id IN (:#{#dms}) ) " +
-//                    "AND ( (:#{#dds.isEmpty() }) or ctsp.dayDeo.idDayDeo IN (:#{#dds}) ) " +
-//                    "AND ( (:#{#kcs.isEmpty()}) or ctsp.kichCo.idKichCo IN (:#{#kcs}) ) " +
-//                    "AND ( (:#{#vls.isEmpty() }) or ctsp.vatLieu.idVatLieu IN (:#{#vls}) ) " +
-//                    "AND ( (:#{#mss.isEmpty() }) or ctsp.mauSac.idMauSac IN (:#{#mss}) ) "
-//                    +"AND ( (:#{#ten.isBlank()}) )" )
-//    List<SanPham> getListSanPhamByCondition(@Param("ths") List<Integer> ths,
-//                                            @Param("dms") List<Integer> dms,
-//                                            @Param("dds") List<Integer> dds,
-//                                            @Param("kcs") List<Integer> kcs,
-//                                            @Param("vls") List<Integer> vls,
-//                                            @Param("mss") List<Integer> mss,
-//                                            @Param("ten") String ten
-////                                            @Param("fromGia") List<Integer> fromGia,
-////                                            @Param("toGia") List<Integer> toGia
-//    );
-
     @Query(value = "SELECT  * FROM sanpham ORDER BY sanpham.id_san_pham DESC LIMIT 8", nativeQuery = true)
     List<SanPham> getSPnew();
 

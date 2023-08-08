@@ -1,197 +1,463 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
 
+
 <head th:replace="admin/fragment/fragments:: page_head"></head>
 
-<body class="sb-nav-fixed">
+<style>
+  * {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
 
-<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-  <!-- Navbar Brand-->
-  <a class="navbar-brand ps-3" href="/">Đồng Hồ 5S</a>
-  <!-- Sidebar Toggle-->
-  <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
-  <!-- Navbar Search-->
+  .nav-item:hover .nav-link {
+    font-weight: bold;
+  }
+  .tracking nav ul li a {
+    color: #050505;
+    display: block;
+    font-size: 14px;
+    line-height: 55px;
+    transition: all 300ms ease 0s;
+    text-align: center;
+    text-decoration: none;
+  }
 
-  <!-- Navbar-->
-  <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-    <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-        <li><a class="dropdown-item" href="#!">Settings</a></li>
-        <li><a class="dropdown-item" href="#!">Activity Log</a></li>
-        <li><hr class="dropdown-divider" /></li>
-        <li><a class="dropdown-item" href="#!">Logout</a></li>
-      </ul>
-    </li>
-  </ul>
-</nav>
+  .tracking nav ul li {
+    /*border-bottom: 2px solid orange;*/
+    display: inline-block;
+    width: 16%;
+
+  }
+  .tracking nav ul li a:hover {
+    color: #FF4F4F;
+  }
+  .tracking nav ul li a:active {
+    color: #FF4F4F;
+    border-bottom: 2px solid #FF4F4F;
+  }
+  .tracking nav ul .active{
+    border-bottom: 2px solid #FF4F4F;
+  }
+  .tracking nav ul .active a{
+    color: #FF4F4F;
+  }
+
+  .breadcrumb {
+    background-color: #f2f2f2;
+    padding: 10px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    padding: 5px 20px;
+  }
+
+  .breadcrumb a {
+    color: #666;
+    text-decoration: none;
+    font-weight: bold;
+    margin-right: 10px;
+    margin-left: 10px;
+    font-size: 20px;
+  }
+</style>
+
+<body class="sb-nav-fixed" id="content">
+<div th:replace="admin/fragment/navigation:: navbar"></div>
+<!-- Article NAV -->
 <div id="layoutSidenav">
   <div th:replace="admin/fragment/navigation:: menu"></div>
 
+  <!-- aside -->
   <div id="layoutSidenav_content">
-        <div class="container-fluid">
-          <div>
-            <h2>Bán hàng</h2>
-          </div>
+    <!-- MAIN-CONTENT-SECTION START -->
+    <section class="main-content-section">
+      <div class="row">
+        <div class="breadcrumb">
+          <a href="#">Bán hàng</a>
+        </div>
+<!--        <span th:if="${session.donHangHienTai != null}" th:text="${session.donHangHienTai}"></span>-->
+<!--        <span th:if="${session.donHangHienTai == null}" th:text="'Giá trị không tồn tại'"></span>-->
+      </div>
+      <div style="max-width: 90%;margin: auto;">
+        <div class="row">
+          <div class="col-md-6">
+            <!--  Ban hang-->
+            <h3 style="font-weight: bold">Chi tiết hoá đơn</h3>
+            <div class="row gio-hang bg-body-tertiary p-3 rounded border border-light">
+              <table class="table">
+                <thead>
+                <tr>
+                  <th scope="col">Mã sản phẩm</th>
+                  <th scope="col">Tên sản phẩm</th>
+                  <th scope="col">Đơn giá</th>
+                  <th scope="col">Số lượng</th>
+                  <th scope="col">Khuyến mại</th>
+                  <th scope="col">Chức năng</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="hdct : ${lstHDCT}">
+                  <td th:text="${hdct.chiTietSanPham.maChiTietSanPham}"></td>
+                  <td th:text="${hdct.chiTietSanPham.sanPham.tenSanPham}"></td>
+                  <td th:text="${hdct.chiTietSanPham.giaSanPham}"></td>
+                  <td th:text="${hdct.soLuong}"></td>
+                  <td th:text="${hdct.chiTietSanPham.khuyenMai.chietKhau}"></td>
+                  <td>
+                    <a class="btn btn-outline-dark hoa-don-chi-tiet-xoa"
+                        data-bs-toggle="modal"
+                        data-bs-target="#xoaSanPham"
+                        th:data-id-hdct="${hdct.idHoaDonChiTiet}"
+                    >Xóa</a>
+                    <a class="btn btn-outline-dark hoa-don-chi-tiet-sua"
+                       data-bs-toggle="modal"
+                       data-bs-target="#suaSanPham"
+                       th:data-id-hdct="${hdct.idHoaDonChiTiet}"
+                       th:data-soLuongHienTai="${hdct.chiTietSanPham.soLuong}"
+                    >Sửa</a>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+            <!--  San pham-->
+            <div class="row gio-hang bg-body-tertiary p-3 rounded border border-light">
+              <h3 style="font-weight: bold">Sản phẩm</h3>
 
-          <!--    start -->
-          <div>
-            <div class="row">
-              <div class="col-md-8">
-                <!--  Gio hang-->
-                <div class="row gio-hang bg-body-tertiary p-3">
-                  <h3 style="font-weight: bold">Giỏ hàng</h3>
-                  <table class="table">
-                    <thead>
-                    <tr>
-                      <th scope="col">Mã sản phẩm</th>
-                      <th scope="col">Tên sản phẩm</th>
-                      <th scope="col">Đơn giá</th>
-                      <th scope="col">Số lượng</th>
-                      <th scope="col">Chức năng</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="sp, iterStat : ${lstGioHang}">
-                      <td th:text="${sp.idSanPham}"></td>
-                      <td>2022-05-05</td>
-                      <td>200,000</td>
-                      <td>20</td>
-                      <td>
-                        <button class="btn btn-outline-dark">Xóa</button>
-                      </td>
-                    </tr>
-                    </tbody>
-                  </table>
+              <div class="row">
+                <div class="col-md-7">
+                  <form>
+                    <div class="row">
+                      <input class="col-sm-8">
+                      <div class="col-sm-4">
+                        <button type="submit" class="btn btn-outline-dark">Tìm kiếm</button>
+                      </div>
+                    </div>
+                  </form>
                 </div>
-                <!--  San pham-->
-                <div class="row gio-hang bg-body-tertiary p-3">
-                  <h3 style="font-weight: bold">Sản phẩm</h3>
-
-                  <div class="row">
-                    <div class="col-md-7">
-                      <form class="form-inline">
-
-                        <div class="row mb-3">
-                          <input class="col-sm-9 col-form-label rounded-pill" placeholder="search">
-                          <div class="col-sm-3">
-                            <button type="submit" class="btn btn-outline-dark mb-2">Tìm kiếm</button>
-                          </div>
-                        </div>
-                      </form>
+                <div class="col-md-5">
+                  <form>
+                    <div class="row">
+                      <label for="danhMuc" class="col-sm-4">Thể loại</label>
+                      <div class="col-sm-8">
+                        <select class="form-select" id="danhMuc">
+                          <option selected>Cao cấp</option>
+                          <option value="1">Hạng Trung</option>
+                          <option value="2">Two</option>
+                          <option value="3">Three</option>
+                        </select>
+                      </div>
                     </div>
-                    <div class="col-md-5">
-                      <form class="form-inline">
-                        <div class="row mb-3">
-                          <label for="danhMuc" class="col-sm-4 col-form-label">Danh mục</label>
-                          <div class="col-sm-8">
-                            <select class="form-select" id="danhMuc">
-                              <option selected>Cao cấp</option>
-                              <option value="1">Hạng Trung</option>
-                              <option value="2">Two</option>
-                              <option value="3">Three</option>
-                            </select>
-                          </div>
-                        </div>
-                      </form>
-                    </div>
-                  </div>
-
-                  <table class="table">
-                    <thead>
-                      <tr>
-                        <th scope="col">Mã sản phẩm</th>
-                        <th scope="col">Tên sản phẩm</th>
-                        <th scope="col">Đơn giá</th>
-                        <th scope="col">Giảm giá</th>
-                        <th scope="col">Chất liệu</th>
-                        <th scope="col">Chức năng</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr th:each="sp, iterStat : ${listSanPham}">
-                        <td th:text="${sp.idSanPham}"></td>
-                        <td th:text="${sp.tenSanPham}"></td>
-                        <td th:text="${sp.giaSanPham}"></td>
-                        <td th:text="${sp.giaSanPham}"></td>
-                        <td th:text="${sp.giaSanPham}"></td>
-                        <td>
-                          <button class="btn btn-outline-danger">Thêm</button>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+                  </form>
                 </div>
               </div>
-              <!--  Thanh toan-->
-              <div class="col-md-4">
-                <div class="container bg-body-tertiary p-3">
-                  <h3 style="font-weight: bold">Đơn hàng</h3>
-                  <div class="card border-danger mb-3" style="max-width: 100%;">
-                    <div class="card-header bg-transparent border-danger" style="text-align: center">
-                      <h4 style="font-weight: bold;">Đồng hồ 5S</h4>
-                      <p><small>
-                        abc
-                      </small></p>
-                      <h5 style="font-weight: bold;">Hóa đơn thanh toán</h5>
-                    </div>
-                    <div class="card-body text-success">
-                      <!--                        <h5 class="card-title">Success card title</h5>-->
-                      <div class="row">
-                        <div class="col-md-6" style="padding-left: 10px;color:black">Đơn giá các sản phẩm</div>
-                        <div class="col-md-6" style="text-align: center;color:black">5454543</div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-6" style="padding-left: 10px;color:black">Phí vận chuyển</div>
-                        <div class="col-md-6" style="text-align: center;color:black">5454543</div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-6" style="padding-left: 10px;color:black">Tổng tiền</div>
-                        <div class="col-md-6" style="text-align: center;color:red">5454543</div>
-                      </div>
-                    </div>
-                    <div class="card-footer bg-transparent border-danger" style="text-align: center">Chúc quý khách vui vẻ! Hẹn gặp lại!</div>
-                  </div>
-                  <div class="d-grid gap-2">
-                    <a class="btn btn-danger" style="text-decoration: none"
-                       title="Chi tiết">Thanh toán</a>
-                  </div>
+
+              <table class="table">
+                <thead>
+                <tr>
+                  <th scope="col">Mã sản phẩm</th>
+                  <th scope="col">Tên sản phẩm</th>
+                  <th scope="col">Đơn giá</th>
+                  <th scope="col">Số lượng</th>
+                  <th scope="col">Màu sắc</th>
+                  <th scope="col">Vật liệu</th>
+                  <th scope="col">Giảm giá</th>
+                  <th scope="col">Chức năng</th>
+                </tr>
+                </thead>
+                <tbody>
+<!--                <span th:if="${session.donHangHienTai != null}" th:text="${session.donHangHienTai}"></span>-->
+<!--                <span th:if="${session.donHangHienTai == null}" th:text="'Giá trị không tồn tại'"></span>-->
+                <tr th:each="sp : ${listSanPham}">
+                  <td th:text="${sp.maChiTietSanPham}"></td>
+                  <td th:text="${sp.sanPham.tenSanPham}"></td>
+                  <td th:text="${sp.giaSanPham}"></td>
+                  <td th:text="${sp.soLuong}"></td>
+                  <td th:text="${sp.mauSac.tenMauSac}"></td>
+                  <td th:text="${sp.vatLieu.tenVatLieu}"></td>
+                  <td th:text="${sp.khuyenMai.chietKhau}"></td>
+                  <td>
+                    <a class="btn btn-outline-danger them-san-pham"
+                       data-bs-toggle="modal"
+                       data-bs-target="#soLuongSanPham"
+                       th:data-ma-ctsp="${sp.maChiTietSanPham}"
+                       th:data-so-luong-ton="${sp.soLuong}"
+                    >Thêm</a>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <!--  Thanh toan-->
+          <div class="col-md-6">
+            <!--  Thong tin hoa don-->
+            <div class="row thong-tin-hoa-don bg-body-tertiary p-3 rounded border border-light">
+              <form class="row g-3" th:object="${hoaDonAdminRequest}">
+                <div class="col-md-3">
+                  <label for="maHoaDon" class="form-label">Mã hóa đơn</label>
+                  <input type="text" class="form-control" id="maHoaDon" th:field="*{maHoaDon}" disabled style="background-color: white">
                 </div>
-                <!--  Hoa don-->
-                <div class="container hoa-don bg-body-tertiary p-3">
-                  <h3 style="font-weight: bold">Hóa đơn</h3>
-                  <table class="table">
-                    <thead>
-                    <tr>
-                      <th scope="col">Mã hóa đơn</th>
-                      <th scope="col">Ngày đặt hàng</th>
-                      <th scope="col">Tổng giá trị</th>
-                      <th scope="col">Trạng thái</th>
-                      <th scope="col">Chức năng</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="sp, iterStat : ${lstHoaDon}">
-                      <td th:text="${sp.idSanPham}"></td>
-                      <td>2022-05-05</td>
-                      <td>200,000</td>
-                      <td>Chưa thanh toán</td>
-                      <td>
-                        <button class="btn btn-outline-danger">Chọn</button>
-                      </td>
-                    </tr>
-                    </tbody>
-                  </table>
+                <div class="col-md-4">
+                  <label for="sdt" class="form-label">SĐT</label>
+                  <input type="text" class="form-control" th:field="*{sdt}" id="sdt">
                 </div>
+                <div class="col-5">
+                  <label for="ten" class="form-label">Tên khách hàng</label>
+                  <input type="text" class="form-control" id="ten" th:field="*{tenKhachHang}">
+                </div>
+                <div class="col-12">
+                  <label for="ngayTao" class="form-label">Ngày tạo</label>
+                  <input type="date" class="form-control" id="ngayTao" th:field="*{ngayTao}">
+                </div>
+                <div class="col-md-6">
+                  <label for="tongTien" class="form-label">Tổng tiền sản phẩm</label>
+                  <input type="text" class="form-control" id="tongTien" th:field="*{tongTien}">
+                </div>
+                <div class="col-md-6">
+                  <label for="giamGia" class="form-label">Giảm giá</label>
+                  <input type="text" class="form-control" id="giamGia" th:field="*{giamGia}">
+                </div>
+                <div class="col-md-12">
+                  <label for="thanhTien" class="form-label">Thành tiền</label>
+                  <input type="text" class="form-control" id="thanhTien" th:field="*{tongTienDonHang}">
+                </div>
+                <div class="col-12">
+                  <button class="btn btn-outline-primary"id="taoMoiDonHang"
+                          data-bs-toggle="modal"
+                          data-bs-target="#taoMoiHoaDon"
+                  >Tạo mới</button>
+<!--                  <button type="submit" class="btn btn-dark">Thanh toán</button>-->
+                </div>
+              </form>
+            </div>
+            <!--  San pham-->
+            <div class="row gio-hang bg-body-tertiary p-3 rounded border border-light">
+              <h3 style="font-weight: bold">Hóa đơn</h3>
+              <div class="container hoa-don bg-body-tertiary p-3 rounded border border-light">
+                <table class="table">
+                  <thead>
+                  <tr>
+                    <th scope="col">Mã hóa đơn</th>
+                    <th scope="col">Ngày tạo</th>
+                    <th scope="col">Tổng tiền</th>
+                    <th scope="col">Trạng thái</th>
+                    <th scope="col">Chức năng</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr th:each="hd : ${lstHoaDon}">
+                    <td th:text="${hd.maDonHang}"></td>
+                    <td th:text="${hd.ngayTao}"></td>
+                    <td th:text="${hd.tongTien}"></td>
+                    <td th:text="${
+                      hd.trangThaiDonHang == 0 ?  'Chờ xác nhận' :
+                      (hd.trangThaiDonHang == 1 ? 'Đang chuẩn bị' :
+                      (hd.trangThaiDonHang == 2 ? 'Đang giao' :
+                      (hd.trangThaiDonHang == 3 ? 'Hoàn thành' :
+                      (hd.trangThaiDonHang == 4 ? 'Đã hủy' :
+                      (hd.trangThaiDonHang == 5 ? 'Trả hàng / Hoàn tiền' : 'Đã hoàn trả')))))
+                    }">
+                    <td>
+                      <a class="btn btn-outline-danger" th:href="@{'/admin/ban-hang/hoa-don/' + ${hd.maDonHang}}">Chọn</a>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
-
-          <!--    end -->
-
-          <div th:replace="admin/fragment/fragments::footer"></div>
         </div>
+      </div>
+  </div>
+  </section>
+  <!-- MAIN-CONTENT-SECTION END -->
+</div>
+</div>
+<!-- END article -->
+<!--  Footer      -->
+<div th:replace="admin/fragment/fragments::footer"></div>
+
+<!--  add san pham -->
+<!-- Modal -->
+<div class="modal fade" id="soLuongSanPham" tabindex="-1" aria-labelledby="soLuongSanPhamLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="soLuongSanPhamLabel">Cập nhật</h3>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form class="row g-3">
+          <label for="soLuongThem" class="col-sm-2 col-form-label">Số lượng</label>
+          <div class="col-sm-10">
+            <input type="text" id="soLuongThem" class="form-control">
+          </div>
+        </form>
+        <label id="errorMessage" style="color: red; display: none;">Giá trị không hợp lệ!</label>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Hủy</button>
+        <button type="button" id="themSoLuong" class="btn btn-outline-danger" data-bs-dismiss="modal">Xác nhận</button>
+      </div>
+    </div>
   </div>
 </div>
+<!--   add san pham end     -->
+
+<!--  xoa san pham tu hoa don chi tiet -->
+<div class="modal fade" id="xoaSanPham" tabindex="-1" aria-labelledby="xoaSanPhamLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="xoaSanPhamLabel">Bạn có muốn xóa sản phẩm này khỏi đơn hàng không?</h3>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Hủy</button>
+        <button type="button" id="xoaSanPhamHDCT" class="btn btn-outline-danger" data-bs-dismiss="modal">Xác nhận</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--  xoa san pham tu hoa don chi tiet end -->\
+
+<!--  cap nhat so luong san pham chi tiet -->
+<!-- Modal -->
+<div class="modal fade" id="suaSanPham" tabindex="-1" aria-labelledby="suaSanPhamLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="soLuongSanPhamCTLabel">Cập nhật</h3>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form class="row g-3">
+          <label for="soLuongThem" class="col-sm-2 col-form-label">Số lượng</label>
+          <div class="col-sm-10">
+            <input type="text" id="soLuongThemCapNhat" class="form-control">
+          </div>
+        </form>
+<!--        <label id="errorMessage" style="color: red; display: none;">Giá trị không hợp lệ!</label>-->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Hủy</button>
+        <button type="button" id="capNhatSoLuong" class="btn btn-outline-danger" data-bs-dismiss="modal">Xác nhận</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--   add san pham end     -->
+
+<!--  tao moi hoa don-->
+<div class="modal fade" id="taoMoiHoaDon" tabindex="-1" aria-labelledby="taoMoiHoaDonLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="taoMoiHoaDonLabel">Bạn có muốn xóa lựa chọn?</h3>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Hủy</button>
+        <button type="button" id="taoMoi" class="btn btn-outline-danger" data-bs-dismiss="modal">Xác nhận</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--  xoa san pham tu hoa don chi tiet end -->
+<script>
+  var maCTSP;
+  var soLuongTon;
+
+  $('.them-san-pham').click(function() {
+    maCTSP = $(this).data('ma-ctsp');
+    soLuongTon = $(this).data('so-luong-ton');
+  });
+
+  $(document).ready(function() {
+    // Theo dõi sự thay đổi trong ô input
+    $("#soLuongThem").on("input", function() {
+      var soLuongThem = document.getElementById('soLuongThem').value;
+      var parttern = /^[0-9]+$/;
+      // Kiểm tra giá trị
+      if (soLuongThem > soLuongTon || soLuongThem <= 0 || !parttern.test(soLuongThem)) {
+        $("#themSoLuong").prop("disabled", true);
+        // Hiển thị thông báo lỗi
+        $("#errorMessage").show();
+      } else {
+        $("#themSoLuong").prop("disabled", false);
+        // Ẩn thông báo lỗi
+        $("#errorMessage").hide();
+      }
+    });
+  });
+
+  $('#themSoLuong').click(function() {
+    var soLuongThem = document.getElementById('soLuongThem').value;
+    $.ajax({
+      url: "/admin/ban-hang/them/"+ maCTSP + "/" + soLuongThem,
+      method: "POST",
+      success: function(response) {
+        $('#content').html(response);
+      },
+      error: function(xhr, status, error) {
+        console.log("Lỗi: " + error);
+      }
+    });
+  });
+  // error
+  $('#taoMoi').click(function() {
+    $.ajax({
+      url: "/admin/ban-hang/hoa-don/tao-moi",
+      method: "POST",
+      success: function(response) {
+        $('#content').html(response);
+      },
+      error: function(xhr, status, error) {
+        console.log("Lỗi: " + error);
+      }
+    });
+  });
+  // chuc nang xoa san pham tu hoa don chi tiet
+  var idHDCTXoa;
+  $('.hoa-don-chi-tiet-xoa').click(function() {
+    idHDCTXoa = $(this).data('id-hdct');
+  });
+
+  $('#xoaSanPhamHDCT').click(function() {
+    $.ajax({
+      url: "/admin/ban-hang/hoa-don-chi-tiet/"+ idHDCTXoa,
+      method: "POST",
+      success: function(response) {
+        $('#content').html(response);
+      },
+      error: function(xhr, status, error) {
+        console.log("Lỗi: " + error);
+      }
+    });
+  });
+  // chuc nang xoa san pham tu hoa don chi tiet end
+
+  // chuc nang cap nhat san pham tu hoa don chi tiet
+  var idHDCTSua;
+  $('.hoa-don-chi-tiet-sua').click(function() {
+    idHDCTXoa = $(this).data('id-hdct');
+  });
+
+  $('#suaSanPham').click(function() {
+    $.ajax({
+      url: "/admin/ban-hang/hoa-don-chi-tiet/"+ idHDCTXoa,
+      method: "POST",
+      success: function(response) {
+        $('#content').html(response);
+      },
+      error: function(xhr, status, error) {
+        console.log("Lỗi: " + error);
+      }
+    });
+  });
+  // chuc nang cap nhat san pham tu hoa don chi tiet end
+</script>
 </body>
 </html>

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -32,6 +33,7 @@ public class KichCo {
     private String moTaKichCo;
 
     @Column(name = "ngay_tao_kich_co")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date ngayTaoKichCo;
 
     @Column(name = "enabled",nullable = false)

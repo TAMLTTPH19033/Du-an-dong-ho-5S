@@ -28,33 +28,30 @@ public class KhachHangServiceImpl implements KhachHangService {
     }
 
     @Override
-    public KhachHang updateThongTinCaNhan(ThongTinCaNhanResponse thongTinCaNhanResponse) {
-        KhachHang khachHangExist = this.findKhachHangById(thongTinCaNhanResponse.getId());
+    public KhachHang updateThongTinCaNhan(Integer idKhachHang,ThongTinCaNhanResponse thongTinCaNhanResponse) {
+        KhachHang khachHangExist = this.findKhachHangById(idKhachHang);
         if (khachHangExist == null) {
             return null;
         }
-        return khachHangRepository.save(khachHangExist.builder()
-                .gioiTinh(thongTinCaNhanResponse.getGioiTinh())
-                .email(thongTinCaNhanResponse.getEmail())
-                .tenKhachHang(thongTinCaNhanResponse.getTenKhachHang())
-                .ngaySinh(thongTinCaNhanResponse.getNgaySinh())
-                .soDienThoai(thongTinCaNhanResponse.getSoDienThoai())
-                .idKhachHang(thongTinCaNhanResponse.getId())
-//                .diaChi(diaChiRepository.findByDiaChi(thongTinCaNhanResponse.getDiaChi()))
-                .build());
+        khachHangExist.setTenKhachHang(thongTinCaNhanResponse.getTenKhachHang());
+        khachHangExist.setGioiTinh(thongTinCaNhanResponse.getGioiTinh());
+        khachHangExist.setNgaySinh(thongTinCaNhanResponse.getNgaySinh());
+        khachHangExist.setSoDienThoai(thongTinCaNhanResponse.getSoDienThoai());
+
+        return khachHangRepository.save(khachHangExist);
     }
 
     @Override
     public ThongTinCaNhanResponse getThongTinCaNhanById(Integer id) {
-
         KhachHang khachHangExist = this.findKhachHangById(id);
-
+        DiaChi diaChi = diaChiRepository.getDiaChiDefault(id);
+        if (diaChi == null) return null;
         if (khachHangExist == null) return null;
 
         return ThongTinCaNhanResponse.builder()
                 .id(khachHangExist.getIdKhachHang())
                 .gioiTinh(khachHangExist.getGioiTinh())
-//                .diaChi(khachHangExist.getDiaChi().getDiaChi())
+                .diaChi(diaChi.getDiaChi())
                 .ngaySinh(khachHangExist.getNgaySinh())
                 .soDienThoai(khachHangExist.getSoDienThoai())
                 .email(khachHangExist.getEmail())
@@ -75,5 +72,10 @@ public class KhachHangServiceImpl implements KhachHangService {
                 .soDienThoai(khachHangExist.getSoDienThoai())
                 .tenKhachHang(khachHangExist.getTenKhachHang())
                 .build();
+    }
+
+    @Override
+    public void saveKhachHang(KhachHang khachHang) {
+        khachHangRepo.save(khachHang);
     }
 }

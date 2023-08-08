@@ -43,5 +43,23 @@ public class HoaDonChiTiet {
     @Column(name = "gia_ban")
     private Double giaBan;
 
+    public HoaDonChiTiet(String tenDanhMuc, Integer soLuong, Double giaBan, Double phiVanChuyen) {
+        this.chiTietSanPham = new ChiTietSanPham();
+        this.chiTietSanPham.setSanPham(new SanPham());
+        this.chiTietSanPham.getSanPham().setDanhMuc(new DanhMuc(tenDanhMuc));
+        this.soLuong = soLuong;
+        this.giaBan = giaBan;
+        this.setDonHang(new DonHang(phiVanChuyen));
+    }
 
+    public HoaDonChiTiet(Integer soLuong, String tenSanPham, Double giaBan, Double phiVanChuyen) {
+        this.soLuong = soLuong;
+        this.chiTietSanPham = new ChiTietSanPham();
+        this.chiTietSanPham.setSanPham(new SanPham(tenSanPham));
+        this.giaBan = giaBan;
+        this.setDonHang(new DonHang(phiVanChuyen));
+    }
+    public HoaDonChiTiet(ChiTietSanPham chiTietSanPham) {
+        this.chiTietSanPham = chiTietSanPham;
+    }
 }

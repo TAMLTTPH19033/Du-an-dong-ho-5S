@@ -11,9 +11,11 @@ import lombok.NoArgsConstructor;
 @Builder
 public class DiaChiRequest {
     private Integer idDiaChi;
+    private Integer idTinhThanh;
+    private Integer idQuanHuyen;
+    private String idPhuongXa;
     private String diaChi;
-    private Integer maBuuChinh;
     private String soDienThoai;
     private String ghiChu;
-    private Integer trangThaiMacDinh;
+
 }

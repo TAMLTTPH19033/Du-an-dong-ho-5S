@@ -7,6 +7,7 @@ import com.datn.dongho5s.Response.DonHangResponse;
 import com.datn.dongho5s.Response.HoaDonChiTietResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -36,6 +37,9 @@ public interface DonHangService {
 
     public DonHangResponse updateDH(DonHangRequest donHangRequest);
 
+    List<DonHang> findByTrangThaiDonHang(int trangThai);
 
+    Page<DonHang> getAllForBanHang(int pageNum);
 
+    public DonHang findByMaDonHang(String maDonHang);
 }

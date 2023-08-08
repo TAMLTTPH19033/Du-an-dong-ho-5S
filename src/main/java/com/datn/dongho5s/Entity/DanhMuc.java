@@ -60,4 +60,8 @@ public class DanhMuc {
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
+
+    public DanhMuc(String ten) {
+        this.ten = ten;
+    }
 }

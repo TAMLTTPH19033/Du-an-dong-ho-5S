@@ -11,7 +11,7 @@ public class VatLieuRestController {
     @Autowired
     private VatLieuService service;
 
-    @PostMapping("/materials/check_name")
+    @PostMapping("/admin/materials/check_name")
     public String checkDuplicateTen(@Param("id") Integer id , @Param("ten") String ten) {
         return service.checkUnique(id, ten) ? "OK" : "Duplicated";
     }

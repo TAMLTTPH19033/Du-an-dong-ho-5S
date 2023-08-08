@@ -5,6 +5,7 @@ import com.datn.dongho5s.Entity.DiaChi;
 import com.datn.dongho5s.Entity.KhachHang;
 import com.datn.dongho5s.GiaoHangNhanhService.DiaChiAPI;
 import com.datn.dongho5s.Request.DiaChiRequest;
+import com.datn.dongho5s.Response.DiaChiResponse;
 import com.datn.dongho5s.Service.DiaChiService;
 import com.datn.dongho5s.Service.impl.DiaChiServiceImpl;
 import lombok.AllArgsConstructor;
@@ -19,22 +20,21 @@ import java.util.List;
 @AllArgsConstructor
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/dia-chi")
+@RequestMapping("/api/dia-chi")
 public class DiaChiRestController {
     private final DiaChiServiceImpl diaChiServiceImpl;
     private final DiaChiService diaChiService;
 
-    @GetMapping("/find-all")
-    public ResponseEntity<List<DiaChi>> getAllDiaChi(){
-        List<DiaChi> lstDiaChi = diaChiServiceImpl.getAllDiaChi();
-        return ResponseEntity.status(HttpStatus.OK).body(lstDiaChi);
+    @GetMapping("/find-all/{idKhachHang}")
+    public ResponseEntity<?> getAllDiaChi(@PathVariable("idKhachHang") Integer idKhachHang) throws Exception {
+        List<DiaChiResponse> lstDiaChiResponse = diaChiServiceImpl.getDiaChiByKhachHang(idKhachHang);
+        return ResponseEntity.status(HttpStatus.OK).body(lstDiaChiResponse);
     }
 
-    @PostMapping("/them-dia-chi")
-    public ResponseEntity<DiaChi> createDiaChi (@RequestBody DiaChiRequest diaChiRequest) {
+    @PostMapping("/them-dia-chi/{idKhachHang}")
+    public ResponseEntity<DiaChi> createDiaChi (@PathVariable("idKhachHang") Integer idKhachHang,@RequestBody DiaChiRequest diaChiRequest) {
 
-        DiaChi result = diaChiServiceImpl.createDiaChi(diaChiRequest);
-
+        DiaChi result = diaChiServiceImpl.createDiaChi(idKhachHang,diaChiRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 
@@ -66,5 +66,20 @@ public class DiaChiRestController {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @PutMapping("/update/{idDiaChi}")
+    public ResponseEntity<?> updateDC(@PathVariable("idDiaChi") Integer idDiaChi, @RequestBody DiaChiRequest diaChiRequest) throws Exception {
+      DiaChiResponse diaChiResponse = diaChiServiceImpl.updateDC(idDiaChi,diaChiRequest);
+        return ResponseEntity.status(HttpStatus.OK).body(diaChiResponse);
+    }
+    @PutMapping("/updateDefault/{idKhachHang}/{idDiaChi}")
+    public ResponseEntity<?> updateDC(@PathVariable("idKhachHang") Integer idKhachHang,@PathVariable("idDiaChi") Integer idDiaCh) throws Exception {
+      DiaChiResponse diaChiResponse = diaChiServiceImpl.updateDCDefault(idKhachHang,idDiaCh);
+        return ResponseEntity.status(HttpStatus.OK).body(diaChiResponse);
+    }
+    @DeleteMapping("/delete/{idDiaChi}")
+    public void delete(@PathVariable("idDiaChi") Integer idDiaCh) throws Exception {
+       diaChiServiceImpl.delete(idDiaCh);
     }
 }

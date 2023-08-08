@@ -43,7 +43,7 @@ public class WebSecurityConfig  {
                 .authorizeRequests()
                 .antMatchers("/refresh-token").permitAll()
                 .antMatchers("/images/**", "/js/**", "/webjars/**").permitAll()
-                .antMatchers("/api/giohang/**","/api/phan-hoi/**").hasAuthority("ROLE_CUSTOMER")
+                .antMatchers("/api/giohang/**","/api/phan-hoi/**","/api/dia-chi").hasAuthority("ROLE_CUSTOMER")
 //                .antMatchers("/admin/users/").hasAuthority("ADMIN")
                 .antMatchers("/src/**").permitAll()
                 .and()

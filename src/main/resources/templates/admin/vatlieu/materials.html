@@ -1,39 +1,21 @@
-    <!doctype html>
+<!DOCTYPE html>
     <html xmlns:th="http://www.thymeleaf.org">
 
     <head th:replace="admin/fragment/fragments:: page_head"></head>
 
     <body class="sb-nav-fixed">
-    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-        <!-- Navbar Brand-->
-        <a class="navbar-brand ps-3" href="/">Đồng Hồ 5S</a>
-        <!-- Sidebar Toggle-->
-        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
-        <!-- Navbar Search-->
-
-        <!-- Navbar-->
-        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="#!">Settings</a></li>
-                    <li><a class="dropdown-item" href="#!">Activity Log</a></li>
-                    <li><hr class="dropdown-divider" /></li>
-                    <li><a class="dropdown-item" href="#!">Logout</a></li>
-                </ul>
-            </li>
-        </ul>
-    </nav>
+    <div th:replace="admin/fragment/navigation:: navbar"></div>
     <div id="layoutSidenav">
         <div th:replace="admin/fragment/navigation:: menu"></div>
+
 
         <div id="layoutSidenav_content">
             <main>
                 <div>
-                    <h2>Quản lý Dây Đeo</h2>
-                    <a style="text-decoration: none" th:href="@{/materials/new}">Tạo Mới Dây Đeo</a>
+                    <h2>Quản lý Vật Liệu</h2>
+                    <a style="text-decoration: none" th:href="@{/admin/materials/new}">Tạo Mới Vật Liệu</a>
                     &nbsp;|&nbsp;
-                    <a style="text-decoration: none" th:href="@{/materials/export/excel}">Export To Excel</a>
+                    <a style="text-decoration: none" th:href="@{/admin/materials/export/excel}">Export To Excel</a>
                 </div>
 
                 <div th:if="${message != null}" class="alert alert-success text-center">
@@ -42,7 +24,7 @@
 
 
                 <div>
-                    <form th:action="@{/materials/page/1}" class="form-inline m-3">
+                    <form th:action="@{/admin/materials/page/1}" class="form-inline m-3">
                         <div class="d-flex align-items-center">
                             <input type="hidden" name="sortField" th:value="${sortField}" />
                             <input type="hidden" name="sortDir" th:value="${sortDir}" />
@@ -75,7 +57,7 @@
                             <td>[[${vl.enabled}]]</td>
 
                             <td>
-                                <a class="icon-green" style="text-decoration: none" th:href="@{'/materials/edit/' + ${vl.idVatLieu}}"
+                                <a class="icon-green" style="text-decoration: none" th:href="@{'/admin/materials/edit/' + ${vl.idVatLieu}}"
                                    title="Thay đổi thông tin">Update</a>
                             </td>
                         </tr>
@@ -117,99 +99,5 @@
             <div th:replace="admin/fragment/fragments::footer"></div>
         </div>
     </div>
-<!--    <div class="container-fluid">-->
-<!--        <div th:replace="fragment/navigation:: menu"></div>-->
-<!--        <div>-->
-<!--            <h2>Quản lý Vật Liệu</h2>-->
-<!--            <a style="text-decoration: none" th:href="@{/materials/new}">Tạo Mới Vật Liệu</a>-->
-<!--            &nbsp;|&nbsp;-->
-<!--            <a style="text-decoration: none" th:href="@{/materials/export/excel}">Export To Excel</a>-->
-<!--        </div>-->
-
-<!--        <div th:if="${message != null}" class="alert alert-success text-center">-->
-<!--            [[${message}]]-->
-<!--        </div>-->
-
-
-<!--        <div>-->
-<!--            <form th:action="@{/materials/page/1}" class="form-inline m-3">-->
-<!--                <div class="d-flex align-items-center">-->
-<!--                    <input type="hidden" name="sortField" th:value="${sortField}" />-->
-<!--                    <input type="hidden" name="sortDir" th:value="${sortDir}" />-->
-<!--                    <label class="sr-only">Tìm Kiếm</label>-->
-<!--                    <input style="width: 250px; margin-right: 10px" type="search" name="keyword" th:value="${keyword}" placeholder="nhập từ khóa tìm kiếm" class="form-control" required />-->
-<!--                    <input style="margin-right: 10px" type="submit" value="Search" class="btn btn-primary ml-2" />-->
-<!--                    <input type="button" value="Clear" class="btn btn-secondary ml-2" onclick="clearFilter()"/>-->
-<!--                </div>-->
-<!--            </form>-->
-
-<!--        </div>-->
-
-<!--        <div class="full-details">-->
-<!--            <table class="table table-bordered table-striped table-hover table-responsive-xl">-->
-<!--                <thead class="thead-dark">-->
-<!--                <tr>-->
-<!--                    <th th:replace="fragment/fragments::vatlieu_link('idVatLieu', 'ID')"></th>-->
-<!--                    <th th:replace="fragment/fragments::vatlieu_link('tenVatLieu', 'Tên')"></th>-->
-<!--                    <th th:replace="fragment/fragments::vatlieu_link('moTaVatLieu', 'Mô Tả')"></th>-->
-<!--                    <th th:replace="fragment/fragments::vatlieu_link('enabled', 'Enabled')"></th>-->
-<!--                    <Th>Action</Th>-->
-
-<!--                </tr>-->
-<!--                </thead>-->
-<!--                <tbody>-->
-<!--                <tr th:each="vl :${listVatLieu}">-->
-<!--                    <td>[[${vl.idVatLieu}]]</td>-->
-<!--                    <td>[[${vl.tenVatLieu}]]</td>-->
-<!--                    <td>[[${vl.moTaVatLieu}]]</td>-->
-<!--                    <td>[[${vl.enabled}]]</td>-->
-
-<!--                    <td>-->
-<!--                        <a class="icon-green" style="text-decoration: none" th:href="@{'/materials/edit/' + ${vl.idVatLieu}}"-->
-<!--                           title="Thay đổi thông tin">Update</a>-->
-<!--                    </td>-->
-<!--                </tr>-->
-<!--                </tbody>-->
-<!--            </table>-->
-<!--        </div>-->
-
-<!--        <div class="text-center m-1" th:if="${totalItem > 0}">-->
-<!--            <span>Hiển thị vật liệu # [[${startCount}]] to [[${endCount}]] of [[${totalItem}]] </span>-->
-<!--        </div>-->
-<!--        <div class="text-center m-1" th:unless="${totalItem > 0}">-->
-<!--            <span>Không có vật liệu trang này</span>-->
-<!--        </div>-->
-
-<!--        <div th:if="${totalPages > 1}">-->
-<!--            <nav>-->
-<!--                <ul class="pagination justify-content-center">-->
-<!--                    <li th:class="${currentPage > 1 ?'page-item' : 'page-item disabled'}">-->
-<!--                        <a th:replace="fragment/fragments::pagematerial_link(1, 'Trang Đầu')" ></a>-->
-<!--                    </li>-->
-<!--                    <li th:class="${currentPage > 1 ?'page-item' : 'page-item disabled'}">-->
-<!--                        <a th:replace="fragment/fragments::pagematerial_link(${currentPage - 1}, Trước)"></a>-->
-<!--                    </li>-->
-<!--                    <li th:class="${currentPage != i ? 'page-item': 'page-item active' }"-->
-<!--                        th:each="i : ${#numbers.sequence(1,totalPages)}">-->
-<!--                        <a th:replace="fragment/fragments::pagematerial_link(${i}, ${i})"></a>-->
-<!--                    </li>-->
-
-<!--                    <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">-->
-<!--                        <a th:replace="fragment/fragments::pagematerial_link(${currentPage + 1}, Sau)"></a>-->
-<!--                    </li>-->
-<!--                    <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">-->
-<!--                        <a th:replace="fragment/fragments::pagematerial_link(${totalPages}, 'Trang Cuối')"></a>-->
-<!--                    </li>-->
-<!--                </ul>-->
-<!--            </nav>-->
-<!--        </div>-->
-
-
-
-
-<!--        <div th:replace="fragment/fragments::footer"></div>-->
-
-<!--    </div>-->
-
     </body>
-    </html>
+</html>

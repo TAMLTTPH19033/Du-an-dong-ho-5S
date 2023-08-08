@@ -44,7 +44,7 @@ import java.util.Map;
 import java.util.TimeZone;
 
 
-@RequestMapping("/don-hang")
+@RequestMapping("/admin/don-hang")
 @Controller
 public class DonHangController {
 
@@ -147,7 +147,6 @@ public class DonHangController {
         }
     }
 
-
     @GetMapping
     public String getForm(Model model,
                           HttpSession httpSession) {
@@ -200,24 +199,32 @@ public class DonHangController {
 //        return "admin/donhang/donhang";
     }
 
-    @GetMapping("/get/{id}")
-    public void getById(
-            @PathVariable("id") int id,
-            HttpSession session
-    ) {
-        System.out.println(id);
-        session.setAttribute("donHang", donHangService.findById(id));
-    }
-
-    @PutMapping("/update/{trangThai}")
+    @PostMapping("/update/{id}/trang-thai/{trangThai}")
     public String updateStatusDonHang(
             HttpSession session,
-            @PathVariable("trangThai") int trangThai
+            @PathVariable("trangThai") int trangThai,
+            @PathVariable("id") int id,
+            Model model
     ) {
-        DonHang donHang = (DonHang) session.getAttribute("donHang");
+        DonHang donHang = donHangService.findById(id);
         donHang.setTrangThaiDonHang(trangThai);
+
         donHangService.updateTrangThaiDonHang(donHang);
-        return "donhang/donhang";
+
+        Page<DonHang> donHangs = donHangService.getAll(1);
+
+        model.addAttribute("list", donHangs.getContent());
+        return "redirect:/admin/don-hang";
+    }
+
+    @GetMapping("/findByTrangThai/{trangThai}")
+    public String findByTrangThaiDonHang(
+            @PathVariable("trangThai") int trangThai,
+            Model model
+    ){
+        List<DonHang> donHangs = donHangService.findByTrangThaiDonHang(trangThai);
+
+        model.addAttribute("list", donHangs);
+        return "admin/donhang/search-by-trangthai";
     }
 }
-

@@ -35,6 +35,13 @@ public interface DonHangRepository extends JpaRepository<DonHang, Integer> {
     @Query(value = """
                 SELECT d
                 FROM DonHang d
+                ORDER BY d.ngayTao DESC 
+            """)
+    Page<DonHang> findAllSort(Pageable pageable);
+
+    @Query(value = """
+                SELECT d
+                FROM DonHang d
                 WHERE d.ngayTao  BETWEEN :dateStart AND :dateEnd
             """)
     List<DonHang> findByNgayTao(
@@ -60,6 +67,8 @@ public interface DonHangRepository extends JpaRepository<DonHang, Integer> {
             """)
     void updateTrangThaiDonHang(@Param("donHang") DonHang donHang);
 
+    List<DonHang> findByTrangThaiDonHang(int trangThai);
+
 
     @Query(value = "select hdct from HoaDonChiTiet hdct where hdct.donHang =?1 ")
     List<HoaDonChiTiet> findHDCTbyDH(Integer idDonhang);
@@ -73,4 +82,6 @@ public interface DonHangRepository extends JpaRepository<DonHang, Integer> {
     @Query("SELECT NEW com.datn.dongho5s.Entity.DonHang(o.idDonHang, o.ngayTao, o.tongTien, o.phiVanChuyen) FROM DonHang o " +
             "WHERE o.ngayTao BETWEEN ?1 AND ?2 ORDER BY o.ngayTao ASC")
     public List<DonHang> findByOrderBetween(Date startTime, Date endTime);
+
+    public DonHang findByMaDonHang(String maDonHang);
 }
