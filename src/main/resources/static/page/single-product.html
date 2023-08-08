@@ -438,14 +438,14 @@
 						<!-- SINGLE SIDE BAR START -->
 						<div class="single-product-right-sidebar">
 							<h2 class="left-title">Các sản phẩm cùng thương hiệu</h2>
-							<ul>
-								<!--Todo san pham cùng thương hiệu-->
+							<ul style=" width:50% ">
 								<li ng-repeat="sp in spCungThuongHieu">
-									<a href="#"><img src="/assets/img/product/sidebar_product/2.jpg" alt="" /></a>
-									<div class="r-sidebar-pro-content">
-										<h5><a href="#">Faded Short ...</a></h5>
-										<p>Faded short sleeves t-shirt with high...</p>
+									<div class="sidebar-product-image" style=" width:90% ">
+										<a href="#/chitietsanpham/{{sp.idSanPham}}"><img
+												src="/assets/images/{{sp.listAnhSanPham[0].link}}"
+												alt="product-image"/></a>
 									</div>
+									<p>{{sp.tenSanPham}}</p>
 								</li>
 							</ul>
 						</div>	

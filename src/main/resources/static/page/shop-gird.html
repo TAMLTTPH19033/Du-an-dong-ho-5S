@@ -239,7 +239,7 @@
 											<input type="checkbox" name ="kichCo" id="{{kichCo.idKichCo}}" ng-model="kichCo.checked" ng-change="changeKichCos()"/>
 											<span></span>
 										</label>
-										<a href="#">{{kichCo.tenKichCo}}></a>
+										<a href="#">{{kichCo.tenKichCo}}</a>
 									</li>
 								</ul>
 							</div>
@@ -249,8 +249,11 @@
 								<span class="sidebar-title">Màu sắc</span>
 								<ul class="product-color-var">
 									<li  ng-repeat="mauSac in listSetting.listMauSac">
-										<i class="fa fa-square color-beige"></i>
-										<a href="#">Beige<span> (1)</span></a>
+										<label class="cheker">
+											<input type="checkbox" name ="mauSac" id="{{mauSac.idMauSac}}" ng-model="mauSac.checked" ng-change="changeMauSacs()"/>
+											<span></span>
+										</label>
+										<a href="#">{{mauSac.tenMauSac}}</a>
 									</li>
 								</ul>
 							</div>

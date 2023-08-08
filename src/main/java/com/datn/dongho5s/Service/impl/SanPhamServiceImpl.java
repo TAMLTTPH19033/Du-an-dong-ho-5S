@@ -147,7 +147,6 @@ public class SanPhamServiceImpl implements SanPhamService {
         return SanPhamDetailResponse.builder()
                 .idSanPham(sp.getIdSanPham())
                 .listAnhSanPham(sp.getListAnhSanPham())
-                .giaSanPham(sp.getGiaSanPham())
                 .moTaSanPham(sp.getMoTaSanPham())
                 .tenSanPham(sp.getMoTaSanPham())
                 .danhMuc(sp.getDanhMuc())
@@ -199,6 +198,11 @@ public class SanPhamServiceImpl implements SanPhamService {
         }
         return sanPhamRepository.findAll(pageable);
 
+    }
+
+    @Override
+    public List<SanPham> getSPCungTH(ThuongHieu thuongHieu) {
+        return sanPhamRepository.findByThuongHieu(thuongHieu);
     }
 
     @Override

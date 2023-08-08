@@ -78,7 +78,7 @@ public class AccountServiceImpl implements AccountService {
                         .ghiChu("")
                         .maBuuChinh(123)
                         .khachHang(khachHang1)
-                        .trangThaiMacDinh(0)
+                        .trangThaiMacDinh(1)
                         .soDienThoai(registerRequest.getSoDienThoai())
                         .build();
                 DiaChi diaChi1 = diaChiRepository.save(diaChi);

@@ -44,9 +44,6 @@ public class SanPham {
     @Column(name = "mo_ta_san_pham")
     private String moTaSanPham;
 
-    @Column(name = "gia_san_pham")
-    private Double giaSanPham;
-
     @Column(name = "trang_thai")
     private Integer trangThai;
 

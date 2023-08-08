@@ -42,5 +42,5 @@ public interface SanPhamService {
     public Page<SanPham> listByPage(int pageNumber,String sortField, String sortDir, String keyword);
 
 
-
+    List<SanPham> getSPCungTH(ThuongHieu thuongHieu);
 }

@@ -45,8 +45,7 @@ public class DonHangAPI {
                 HttpResponse response = httpClient.execute(httpPost);
                 HttpEntity entity = response.getEntity();
                 String responseBody = EntityUtils.toString(entity);
-                System.out.println(responseBody);
-                //Mapper
+
                 ObjectMapper objectMapper = new ObjectMapper();
                 BaseResponse<PhiVanChuyenResponse> responseObject = objectMapper.readValue(responseBody, new TypeReference<>() {
                 });
