@@ -22,12 +22,12 @@ public class DayDeoController {
     @Autowired
     private DayDeoService service;
 
-    @GetMapping("/straps")
+    @GetMapping("/admin/straps")
     public String listFirstPage(Model model){
         return listByPage(1,model,"tenDayDeo","asc",null);
     }
 
-    @GetMapping("/straps/page/{pageNum}")
+    @GetMapping("/admin/straps/page/{pageNum}")
     private String listByPage(@PathVariable(name = "pageNum") int pageNum, Model model,
                               @Param("sortField") String sortField,@Param("sortDir") String sortDir,
                               @Param("keyword") String keyword) {
@@ -52,7 +52,7 @@ public class DayDeoController {
         return "admin/daydeo/straps";
     }
 
-    @GetMapping("straps/{id}/enabled/{status}")
+    @GetMapping("/admin/straps/{id}/enabled/{status}")
     public String updateDayDeoEnabledStatus(@PathVariable("id") Integer id,
                                             @PathVariable("status") boolean enabled,
                                             RedirectAttributes redirectAttributes){
@@ -63,21 +63,21 @@ public class DayDeoController {
         return "redirect:/straps";
     }
 
-    @GetMapping("/straps/new")
+    @GetMapping("/admin/straps/new")
     public String newDayDeo(Model model){
         model.addAttribute("dayDeo", new DayDeo());
         model.addAttribute("pageTitle", "Tạo Mới Dây Đeo");
         return "admin/daydeo/straps_form";
     }
 
-    @PostMapping("straps/save")
+    @PostMapping("/admin/straps/save")
     public String saveDayDeo(DayDeo dayDeo, RedirectAttributes redirectAttributes){
         service.save(dayDeo);
         redirectAttributes.addFlashAttribute("message","Thay Đổi Thành Công");
         return "redirect:/straps";
     }
 
-    @GetMapping("straps/edit/{id}")
+    @GetMapping("/admin/straps/edit/{id}")
     public String editDayDeo(@PathVariable(name = "id") Integer id,
                              Model model,
                              RedirectAttributes redirectAttributes){

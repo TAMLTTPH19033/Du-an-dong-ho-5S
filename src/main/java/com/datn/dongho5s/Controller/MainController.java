@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.Cookie;
 import javax.validation.Valid;
 
 @Controller
@@ -31,41 +32,46 @@ public class MainController {
     @Autowired
     NhanVienRepository nhanVienRepository;
 
-
-    @GetMapping("/")
+    @GetMapping("/admin")
     public String viewHome(){
         return "admin/index";
     }
+
 
     @GetMapping("/login-admin")
     public String viewLogin(){
         return "admin/login";
     }
 
-    @PostMapping("/loginAdmin")
+
+
+    @PostMapping("/admin")
     public ModelAndView authenticateUser(@Valid LoginRequest loginRequest, BindingResult bindingResult, Model model) throws Exception {
         // Xử lý đăng nhập và kiểm tra kết quả
-//        try {
-        Authentication authentication = authenticate(loginRequest.getUsername(), loginRequest.getPassword());
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        NhanVien userEntity = nhanVienRepository.getNhanVienByEmail(authentication.getName());
-        String jwt = tokenProvider.generateToken(authentication);
+        Authentication authentication;
+        try {
+            authentication = authenticate(loginRequest.getUsername(), loginRequest.getPassword());
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            NhanVien userEntity = nhanVienRepository.getNhanVienByEmail(authentication.getName());
+            String jwt = tokenProvider.generateToken(authentication);
 
-        // Thực hiện chuyển hướng đến view "login-success.html" và truyền dữ liệu cần hiển thị
-        ModelAndView mv = new ModelAndView("admin/index");
-        mv.addObject("token", jwt);
-        mv.addObject("id", userEntity.getId());
-        mv.addObject("description", "Đăng nhập thành công");
-        mv.addObject("name", userEntity.getEmail());
-        return mv;
-//        } catch (Exception e) {
-//            System.out.println(e);
-//            // Xử lý lỗi và chuyển hướng đến view "login-fail.html"
-//            ModelAndView mv = new ModelAndView("login-fail");
-//            mv.addObject("errorMessage", "Sai mật khẩu hoặc email");
-//            return mv;
-//        }
+            // Thực hiện chuyển hướng đến view "login-success.html" và truyền dữ liệu cần hiển thị
+            ModelAndView mv = new ModelAndView("admin/index");
+            mv.addObject("id", userEntity.getId());
+            mv.addObject("description", "Đăng nhập thành công");
+            mv.addObject("name", userEntity.getEmail());
+
+            // Truyền token dưới dạng hidden input trong form
+            mv.addObject("token", jwt);
+            return mv;
+        } catch (Exception ex) {
+            model.addAttribute("error", "Đăng nhập không thành công. Vui lòng kiểm tra lại email và mật khẩu.");
+            // Trả về view login
+            return new ModelAndView("admin/login");
+        }
     }
+
+
     public Authentication authenticate(String username, String password) throws Exception {
         try {
             return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));

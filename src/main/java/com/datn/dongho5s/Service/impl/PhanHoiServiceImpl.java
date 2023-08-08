@@ -44,6 +44,7 @@ public class PhanHoiServiceImpl implements PhanHoiService {
     public List<PhanHoiResponse> findAll(Integer idChiTietSanPham) {
         List<PhanHoi> phanHoiList = phanHoiRepository.findAll(idChiTietSanPham);
         List<PhanHoiResponse> responseList = phanHoiList.stream().map(PhanHoiMapping::mapEntitytoResponse).collect(Collectors.toList());
+        responseList.sort((o1,o2) -> o2.getNgayTao().compareTo(o1.getNgayTao()));
         return responseList;
     }
 

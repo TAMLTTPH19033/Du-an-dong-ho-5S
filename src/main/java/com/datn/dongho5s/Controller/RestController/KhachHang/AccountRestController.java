@@ -3,6 +3,7 @@ package com.datn.dongho5s.Controller.RestController.KhachHang;
 import com.datn.dongho5s.Entity.KhachHang;
 import com.datn.dongho5s.Exception.ErrorResponse;
 import com.datn.dongho5s.Repository.KhachHangRepository;
+import com.datn.dongho5s.Request.ChangePassRequest;
 import com.datn.dongho5s.Request.LoginRequest;
 import com.datn.dongho5s.Request.RegisterRequest;
 import com.datn.dongho5s.Response.LoginResponse;
@@ -30,6 +31,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -104,4 +106,11 @@ public class AccountRestController {
     public ResponseEntity<?> getPX(@PathVariable("idQuan") Integer idQuan) throws Exception {
         return ResponseEntity.status(HttpStatus.OK).body(accountService.getListPhuong(idQuan));
     }
+
+    @PostMapping("/changePass")
+    public ResponseEntity<?> changePass( @Valid @RequestBody ChangePassRequest changePassRequest,Principal p ) throws Exception {
+            return accountService.changePass(p, changePassRequest);
+    }
+
+
 }

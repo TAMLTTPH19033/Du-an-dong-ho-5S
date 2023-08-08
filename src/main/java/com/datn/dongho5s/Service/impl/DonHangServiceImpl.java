@@ -18,9 +18,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.TimeZone;
 import java.util.stream.Collectors;
 
 @Service
@@ -87,7 +90,7 @@ public class DonHangServiceImpl implements DonHangService {
     @Override
     public List<DonHangResponse> findAllHD(Integer idKhachHang) {
         List<DonHang> listHD = donHangRepository.findAllHD(idKhachHang);
-        List<DonHangResponse> responseList = listHD.stream().map(DonHangMapping::mapEntitytoResponse).collect(Collectors.toList());
+        List<DonHangResponse> responseList = listHD.stream().map(DonHangMapping::mapEntitytoResponseBT).collect(Collectors.toList());
         responseList.sort((o1,o2) -> o2.getNgayTao().compareTo(o1.getNgayTao()));
         return responseList;
     }
@@ -102,6 +105,7 @@ public class DonHangServiceImpl implements DonHangService {
 
     @Override
     public DonHangResponse updateDH(DonHangRequest donHangRequest) {
+
         try{
 
         DonHang donHang = donHangRepository.findByIdDonHang(donHangRequest.getIdDonHang());
@@ -111,6 +115,7 @@ public class DonHangServiceImpl implements DonHangService {
             }else {
                 donHang.setLyDo(donHangRequest.getLyDo());
                 donHang.setTrangThaiDonHang(donHangRequest.getTrangThaiDonHang());
+                donHang.setNgayCapNhap(new Date());
                 donHang = donHangRepository.save(donHang);
             }
         }

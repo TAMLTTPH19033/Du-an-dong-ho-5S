@@ -21,12 +21,12 @@ public class KhuyenMaiController {
     @Autowired
     KhuyenMaiService service;
 
-    @GetMapping("/discounts")
+    @GetMapping("/admin/discounts")
     public String listFirstPage(Model model){
         return listByPage(1,model,"tenKhuyenMai","asc",null);
     }
 
-    @GetMapping("/discounts/page/{pageNum}")
+    @GetMapping("/admin/discounts/page/{pageNum}")
     public String listByPage(@PathVariable(name = "pageNum") int pageNum, Model model,
                              @Param("sortField")String sortField,@Param("sortDir")String sortDir,
                              @Param("keyword")String keyword) {
@@ -51,14 +51,14 @@ public class KhuyenMaiController {
         return "admin/khuyenmai/discounts";
 
     }
-    @GetMapping("/discounts/new")
+    @GetMapping("/admin/discounts/new")
     public String newKhuyenMai(Model model){
         model.addAttribute("khuyenMai", new KhuyenMai());
         model.addAttribute("pageTitle", "Tạo Mới Khuyến Mãi");
         return "admin/khuyenmai/discounts_form";
     }
 
-    @PostMapping("/discounts/save")
+    @PostMapping("/admin/discounts/save")
     public String saveKhuyenMai(KhuyenMai khuyenMai, RedirectAttributes redirectAttributes){
         System.out.println(khuyenMai);
         System.out.println("controller");
@@ -67,7 +67,7 @@ public class KhuyenMaiController {
         return "redirect:/discounts";
     }
 
-    @GetMapping("/discounts/edit/{id}")
+    @GetMapping("/admin/discounts/edit/{id}")
     public String editKhuyenMai(@PathVariable(name = "id") Integer id,
                                 Model model,
                                 RedirectAttributes redirectAttributes){

@@ -4,36 +4,22 @@
 <head th:replace="admin/fragment/fragments:: page_head"></head>
 
 <body class="sb-nav-fixed">
-<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-    <!-- Navbar Brand-->
-    <a class="navbar-brand ps-3" href="/">Đồng Hồ 5S</a>
-    <!-- Sidebar Toggle-->
-    <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
-    <!-- Navbar Search-->
 
-    <!-- Navbar-->
-    <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="#!">Settings</a></li>
-                <li><a class="dropdown-item" href="#!">Activity Log</a></li>
-                <li><hr class="dropdown-divider" /></li>
-                <li><a class="dropdown-item" href="#!">Logout</a></li>
-            </ul>
-        </li>
-    </ul>
-</nav>
+<div th:replace="admin/fragment/navigation:: navbar"></div>
 <div id="layoutSidenav">
     <div th:replace="admin/fragment/navigation:: menu"></div>
 
     <div id="layoutSidenav_content">
-        <main>
+        <main style="margin-left: 10px">
         <div>
             <h2>Quản lý Danh Mục</h2>
-            <a style="text-decoration: none" th:href="@{/categories/new}">Tạo Mới Danh Mục</a>
-        &nbsp;  |&nbsp;
-            <a style="text-decoration: none" th:href="@{/categories/export/excel}">Export To Excel</a>
+            <a style="text-decoration: none" th:href="@{/admin/categories/new}">
+                <i style="color: green" class="fas fa-plus"></i>
+            </a>
+            &nbsp;|&nbsp;
+            <a style="text-decoration: none" th:href="@{/admin/categories/export/excel}">
+                <i class="far fa-file-excel"></i>
+            </a>
         </div>
 
     <div th:if="${message != null}" class="alert alert-success text-center">
@@ -42,7 +28,7 @@
 
 
     <div>
-        <form th:action="@{/categories/page/1}" class="form-inline m-3">
+        <form th:action="@{/admin/categories/page/1}" class="form-inline m-3">
             <div class="d-flex align-items-center">
                 <input type="hidden" name="sortField" th:value="${sortField}" />
                 <input type="hidden" name="sortDir" th:value="${sortDir}" />
@@ -73,8 +59,10 @@
                 <td>[[${cat.ten}]]</td>
                 <td>[[${cat.enabled}]]</td>
                 <td>
-                    <a class="icon-green" style="text-decoration: none" th:href="@{'/categories/edit/' + ${cat.id}}"
-                       title="Thay đổi thông tin">Update</a>
+                    <a class="icon-green" style="text-decoration: none" th:href="@{'/admin/categories/edit/' + ${cat.id}}"
+                       title="Thay đổi thông tin">
+                        <i style="color: blue" class="fas fa-edit"></i>
+                    </a>
                 </td>
             </tr>
             </tbody>

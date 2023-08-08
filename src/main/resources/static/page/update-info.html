@@ -35,15 +35,15 @@
                                 <div class="shipping-total-bill">
                                     <div class="cart-prices">
                                         <span class="shipping-cost">0.00</span>
-                                        <span>Shipping</span>
+                                        <span>Vận chuyển (Tạm tính)</span>
                                     </div>
                                     <div class="total-shipping-prices">
                                         <span class="shipping-total">{{total}}</span>
-                                        <span>Total</span>
+                                        <span>Tổng</span>
                                     </div>
                                 </div>
                                 <div class="shipping-checkout-btn">
-                                    <a href="#checkout">Check out <i class="fa fa-chevron-right"></i></a>
+                                    <a style="cursor: pointer" ng-click="buycart()">Thanh toán  <i class="fa fa-chevron-right"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -56,207 +56,11 @@
                 <div class="mainmenu">
                     <nav>
                         <ul class="list-inline mega-menu">
-                            <li class="active"><a href="#index">Home</a>
-                                <!--                                &lt;!&ndash; DROPDOWN MENU START &ndash;&gt;-->
-                                <!--                                <div class="home-var-menu">-->
-                                <!--                                    <ul class="home-menu">-->
-                                <!--                                        <li><a href="index.html">Home variation 1</a></li>-->
-                                <!--                                        <li><a href="index-2.html">Home variation 2</a></li>-->
-                                <!--                                    </ul>-->
-                                <!--                                </div>-->
-                                <!--                                &lt;!&ndash; DROPDOWN MENU END &ndash;&gt;-->
-                            </li>
-                            <li>
-                                <a href="#sanpham">Women</a>
-                                <!-- DRODOWN-MEGA-MENU START -->
-                                <div class="drodown-mega-menu">
-                                    <div class="left-mega col-xs-6">
-                                        <div class="mega-menu-list">
-                                            <a class="mega-menu-title" href="#sanpham">TOPS</a>
-                                            <ul>
-                                                <li><a href="#sanpham">T-shirts</a></li>
-                                                <li><a href="#sanpham">clothing</a></li>
-                                                <li><a href="#sanpham">Delivery</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="right-mega col-xs-6">
-                                        <div class="mega-menu-list">
-                                            <a class="mega-menu-title" href="#sanpham">Prodect</a>
-                                            <ul>
-                                                <li><a href="shop-gird.html">T-shirts</a></li>
-                                                <li><a href="shop-gird.html">clothing</a></li>
-                                                <li><a href="shop-gird.html">Watch</a></li>
-                                                <li><a href="shop-gird.html">Delivery</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- DRODOWN-MEGA-MENU END -->
-                            </li>
-                            <li>
-                                <a href="#sanpham">Men</a>
-                                <!-- DRODOWN-MEGA-MENU START -->
-                                <div class="drodown-mega-menu">
-                                    <div class="left-mega col-xs-6">
-                                        <div class="mega-menu-list">
-                                            <ul>
-                                                <li><a href="shop-gird.html">T-shirts</a></li>
-                                                <li><a href="shop-gird.html">clothing</a></li>
-                                                <li><a href="shop-gird.html">Delivery</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- DRODOWN-MEGA-MENU END -->
-                            </li>
-                            <li>
-                                <a href="shop-gird.html">clothing</a>
-                                <!-- DRODOWN-MEGA-MENU START -->
-                                <div class="drodown-mega-menu">
-                                    <div class="left-mega col-xs-6">
-                                        <div class="mega-menu-list">
-                                            <a class="mega-menu-title" href="shop-gird.html">TOPS</a>
-                                            <ul>
-                                                <li><a href="shop-gird.html">T-shirts</a></li>
-                                                <li><a href="shop-gird.html">clothing</a></li>
-                                                <li><a href="shop-gird.html">Delivery</a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="mega-menu-list">
-                                            <a class="mega-menu-title" href="shop-gird.html">new product</a>
-                                            <ul>
-                                                <li><a href="shop-gird.html">T-shirts</a></li>
-                                                <li><a href="shop-gird.html">clothing</a></li>
-                                                <li><a href="shop-gird.html">Delivery</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="right-mega col-xs-6">
-                                        <div class="mega-menu-list">
-                                            <a class="mega-menu-title" href="shop-gird.html">Prodect</a>
-                                            <ul>
-                                                <li><a href="shop-gird.html">T-shirts</a></li>
-                                                <li><a href="shop-gird.html">clothing</a></li>
-                                                <li><a href="shop-gird.html">Watch</a></li>
-                                                <li><a href="shop-gird.html">Delivery</a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="mega-menu-list">
-                                            <a class="mega-menu-title" href="shop-gird.html">best sale month</a>
-                                            <ul>
-                                                <li><a href="shop-gird.html">T-shirts</a></li>
-                                                <li><a href="shop-gird.html">clothing</a></li>
-                                                <li><a href="shop-gird.html">Delivery</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- DRODOWN-MEGA-MENU END -->
-                            </li>
-                            <li>
-                                <a href="shop-gird.html">Tops</a>
-                                <!-- DRODOWN-MEGA-MENU START -->
-                                <div class="drodown-mega-menu">
-                                    <div class="left-mega col-xs-4">
-                                        <div class="mega-menu-list">
-                                            <a class="mega-menu-title" href="shop-gird.html">TOPS</a>
-                                            <ul>
-                                                <li><a href="shop-gird.html">T-shirts</a></li>
-                                                <li><a href="shop-gird.html">clothing</a></li>
-                                                <li><a href="shop-gird.html">Delivery</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="right-mega col-xs-4">
-                                        <div class="mega-menu-list">
-                                            <a class="mega-menu-title" href="shop-gird.html">best sale month</a>
-                                            <ul>
-                                                <li><a href="shop-gird.html">T-shirts</a></li>
-                                                <li><a href="shop-gird.html">clothing</a></li>
-                                                <li><a href="shop-gird.html">Delivery</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="right-mega col-xs-4">
-                                        <div class="mega-menu-list">
-                                            <a class="mega-menu-title" href="shop-gird.html">top rate product</a>
-                                            <ul>
-                                                <li><a href="shop-gird.html">T-shirts</a></li>
-                                                <li><a href="shop-gird.html">clothing</a></li>
-                                                <li><a href="shop-gird.html">Delivery</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="left-mega col-xs-6">
-                                        <div class="mega-menu-list">
-                                            <a class="mega-menu-title" href="shop-gird.html">Latest product</a>
-                                            <ul>
-                                                <li><a href="shop-gird.html">T-shirts</a></li>
-                                                <li><a href="shop-gird.html">clothing</a></li>
-                                                <li><a href="shop-gird.html">Delivery</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="left-mega col-xs-6">
-                                        <div class="mega-menu-list">
-                                            <a class="mega-menu-title" href="shop-gird.html">popular product</a>
-                                            <ul>
-                                                <li><a href="shop-gird.html">T-shirts</a></li>
-                                                <li><a href="shop-gird.html">clothing</a></li>
-                                                <li><a href="shop-gird.html">Delivery</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- DRODOWN-MEGA-MENU END -->
-                            </li>
-                            <li>
-                                <a href="shop-gird.html">T-shirts</a>
-                                <!-- DRODOWN-MEGA-MENU START -->
-                                <div class="drodown-mega-menu">
-                                    <div class="left-mega col-xs-6">
-                                        <div class="mega-menu-list">
-                                            <a class="mega-menu-title" href="shop-gird.html">TOPS</a>
-                                            <ul>
-                                                <li><a href="shop-gird.html">T-shirts</a></li>
-                                                <li><a href="shop-gird.html">clothing</a></li>
-                                                <li><a href="shop-gird.html">Delivery</a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="mega-menu-list">
-                                            <a class="mega-menu-title" href="shop-gird.html">new product</a>
-                                            <ul>
-                                                <li><a href="shop-gird.html">T-shirts</a></li>
-                                                <li><a href="shop-gird.html">clothing</a></li>
-                                                <li><a href="shop-gird.html">Delivery</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="right-mega col-xs-6">
-                                        <div class="mega-menu-list">
-                                            <a class="mega-menu-title" href="shop-gird.html">Prodect</a>
-                                            <ul>
-                                                <li><a href="shop-gird.html">T-shirts</a></li>
-                                                <li><a href="shop-gird.html">clothing</a></li>
-                                                <li><a href="shop-gird.html">Watch</a></li>
-                                                <li><a href="shop-gird.html">Delivery</a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="mega-menu-list">
-                                            <a class="mega-menu-title" href="shop-gird.html">best sale month</a>
-                                            <ul>
-                                                <li><a href="shop-gird.html">T-shirts</a></li>
-                                                <li><a href="shop-gird.html">clothing</a></li>
-                                                <li><a href="shop-gird.html">Delivery</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- DRODOWN-MEGA-MENU END -->
-                            </li>
-                            <li><a href="#">Delivery</a></li>
-                            <li><a href="#about">About us</a></li>
+                            <li class="active"><a href="#index">Trang chủ</a> </li>
+                            <li> <a href="#sanpham">Sản Phẩm</a></li>
+                            <li> <a href="#chinhSach">Chính sách bảo hành và đổi trả</a></li>
+                            <li><a href="#contact">Liên hệ</a></li>
+                            <li><a href="#about">Về chúng tôi</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -354,31 +158,6 @@
 
                 <div class="row" style="padding-bottom: 20px">
                     <div class="form-group col-6">
-
-                        <div class="form-group col-6">
-                            <label for="diaChi">Địa chỉ:</label>
-                            <select class="form-control" id="diaChi" ng-model="thongtincanhan.diaChi">
-                                <option ng-repeat="dc in lstdiachi">{{dc.diaChi}}</option>
-                            </select>
-                            <div class="invalid-feedback">Please fill out this field.</div>
-
-                            <button type="button" class="btn btn-primary"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#diachimodal">
-                                Thêm
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="form-group col-6">
-                        <label for="email">Email:</label>
-                        <input type="email" class="form-control" id="email" placeholder="Tên" name="email" ng-model="thongtincanhan.email" required minlength="7">
-                        <div class="invalid-feedback">Please fill out this field.</div>
-                    </div>
-                </div>
-
-                <div class="row" style="padding-bottom: 20px">
-                    <div class="form-group col-6">
                         <label for="ngaySinh">Ngày sinh:</label>
                         <input type="date" class="form-control" id="ngaySinh" placeholder="Ngày sinh"
                                ng-model="thongtincanhan.ngaySinh"
@@ -397,8 +176,8 @@
                         <div class="invalid-feedback">Please fill out this field.</div>
                     </div>
                 </div>
-                <a type="submit" ng-click="updateThongTinCaNhan()" class="btn btn-outline-danger" style="margin-right: 20px">Cập nhật</a>
-                <a type="submit" href="#info" ng-submit="huyCapNhat()" class="btn btn-outline-primary" >Hủy</a>
+
+
             </form>
 
         </div>

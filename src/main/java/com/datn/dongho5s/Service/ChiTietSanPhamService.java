@@ -15,4 +15,5 @@ public interface ChiTietSanPhamService {
     Page<ChiTietSanPham> findByMaSP(String maSanPham, int pageNum);
     List<SanPhamAdminResponse> getAllSanPhamAminResponse(int pageNum);
     ChiTietSanPham findByMaChiTietSanPham(String maChimaTietSanPham);
+    ChiTietSanPham getChiTietSanPhamByMa (String ma);
 }

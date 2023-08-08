@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -23,9 +24,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.Date;
-import java.sql.Timestamp;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Data
@@ -83,7 +82,9 @@ public class DonHang {
     @Column(name = "ly_do")
     private String lyDo;
 
-
+    @Column(name = "ngay_cap_nhap")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date ngayCapNhap;
 
 
     @OneToMany(mappedBy = "donHang", cascade = CascadeType.ALL)

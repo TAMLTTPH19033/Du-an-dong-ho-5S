@@ -49,4 +49,40 @@ myApp.controller("loginCtrl", function ($scope,$rootScope ,$http,$location, $win
 
 })
 
+myApp.controller("ChangePassCtrl", function ($scope,$rootScope ,$http,$location, $window){
+    let currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    if(currentUser == null) {
+    Swal.fire({
+        icon: "warning",
+        title: "Bạn chưa đăng nhập !",
+        text: "Hãy đăng nhập để tiếp tục shopping!",
+        showConfirmButton: true,
+        closeOnClickOutside: true,
+        timer: 5600,
+    });
+    $window.location.href = '#login';
+}
+    $scope.changePass = function (){
 
+            let changeRequest = angular.copy($scope.changeRequest);
+            console.log(changeRequest)
+            $http.post('/api/changePass', changeRequest).then((resp) => {
+                if (resp.status == 200) {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Thành công!",
+                        text: "Bạn hãy đăng nhập lại để tiếp tục sử dụng dịch vụ nhé!",
+                        timer: 5600,
+                    });
+                    $window.localStorage.removeItem('currentUser');
+                    $http.defaults.headers.common.Authorization = "";
+                    $window.location.href = '#login';
+                }
+            }).catch(error => {
+                $scope.errorMessages = error.data.message;
+            });
+
+    }
+
+
+})

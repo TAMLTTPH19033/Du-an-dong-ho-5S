@@ -83,5 +83,23 @@ public class AccountFilterService {
         return userDetails.isEnabled();
     }
 
+    public String refreshToken(String token) {
+        // Kiểm tra tính hợp lệ của token trước khi làm mới
+        if (isTokenValid(token, null)) {
+            // Tạo lại token mới dựa trên thông tin trong token cũ
+            Claims claims = getClaims(token);
+            HashMap<String, Object> newClaims = new HashMap<>(claims);
 
+            // Set thời gian hết hạn mới cho token mới (ví dụ: 2 giờ sau khi làm mới)
+            long expirationTime = System.currentTimeMillis() + 1000 * 24 * 60 * 60;
+            newClaims.put("exp", new Date(expirationTime));
+
+            // Tạo token mới
+            return Jwts.builder().setClaims(newClaims).setIssuedAt(new Date()).setExpiration(new Date(expirationTime))
+                    .signWith(getSignInKey()).compact();
+        } else {
+            // Token không hợp lệ hoặc đã hết hạn, không làm mới
+            return null;
+        }
+    }
 }

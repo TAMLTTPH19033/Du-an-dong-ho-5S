@@ -89,4 +89,8 @@ public class ChiTietSanPhamServiceImpl implements ChiTietSanPhamService {
     public ChiTietSanPham findByMaChiTietSanPham(String maChimaTietSanPham) {
         return chiTietSanPhamRepository.findByMaChiTietSanPham(maChimaTietSanPham);
     }
+
+    public ChiTietSanPham getChiTietSanPhamByMa(String ma) {
+        return chiTietSanPhamRepository.findByMaChiTietSanPham(ma);
+    }
 }

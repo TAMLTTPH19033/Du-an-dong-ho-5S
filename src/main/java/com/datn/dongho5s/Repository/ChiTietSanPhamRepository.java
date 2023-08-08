@@ -23,7 +23,6 @@ public interface ChiTietSanPhamRepository extends JpaRepository<ChiTietSanPham,I
     public Page<ChiTietSanPham> findByMaSP(String maSanPham, Pageable pageable);
 
     public Page<ChiTietSanPham> findAll(Pageable pageable);
-    public ChiTietSanPham findByMaChiTietSanPham(String maChimaTietSanPham);
 
     @Query(value = """
         UPDATE ChiTietSanPham c
@@ -39,4 +38,6 @@ public interface ChiTietSanPhamRepository extends JpaRepository<ChiTietSanPham,I
     """)
     @Modifying
     public void updateSoLuongFromHDCT(int soLuong,int id);
+
+    ChiTietSanPham findByMaChiTietSanPham(String ma);
 }

@@ -29,11 +29,11 @@ public class KhachHangRestController {
             return new ResponseEntity<ThongTinCaNhanResponse>(HttpStatus.NOT_FOUND);
         }
     }
-    @PutMapping("/thong-tin-ca-nhan")
-    public ResponseEntity<KhachHang> updateThongTinCaNhan (
+    @PutMapping("/thong-tin-ca-nhan/update/{idKhachHang}")
+    public ResponseEntity<KhachHang> updateThongTinCaNhan (@PathVariable("idKhachHang") Integer idKhachHnag,
             @RequestBody ThongTinCaNhanResponse thongTinCaNhanResponse
     ){
-            return ResponseEntity.ok(khachHangServiceImpl.updateThongTinCaNhan(thongTinCaNhanResponse));
+            return ResponseEntity.ok(khachHangServiceImpl.updateThongTinCaNhan(idKhachHnag,thongTinCaNhanResponse));
     
     }
     @GetMapping("/thong-tin/{id}")

@@ -68,4 +68,7 @@ public class SanPham {
     @OneToMany(mappedBy = "sanPham")
     private List<AnhSanPham> listAnhSanPham;
 
+    public SanPham(String tenSanPham) {
+        this.tenSanPham = tenSanPham;
+    }
 }

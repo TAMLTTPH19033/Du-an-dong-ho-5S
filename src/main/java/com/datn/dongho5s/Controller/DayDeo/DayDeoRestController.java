@@ -11,7 +11,7 @@ public class DayDeoRestController {
     @Autowired
     private DayDeoService service;
 
-    @PostMapping("/straps/check_name")
+    @PostMapping("/admin/straps/check_name")
     public String checkDuplicateTen(@Param("id") Integer id , @Param("ten") String ten) {
         return service.checkUnique(id, ten) ? "OK" : "Duplicated";
     }
