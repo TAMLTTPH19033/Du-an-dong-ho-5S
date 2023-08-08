@@ -12,7 +12,7 @@ public class SanPhamMapping {
                 .listAnhSanPham(sp.getListAnhSanPham())
                 .giaSanPham(sp.getGiaSanPham())
                 .moTaSanPham(sp.getMoTaSanPham())
-                .tenSanPham(sp.getMoTaSanPham())
+                .tenSanPham(sp.getTenSanPham())
                 .danhMuc(sp.getDanhMuc())
                 .listChiTietSanPham(sp.getListChiTietSanPham())
                 .thuongHieu(sp.getThuongHieu())
