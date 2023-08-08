@@ -91,6 +91,7 @@ myApp.controller(
       $http
           .get(getSanPhamCungThuongHieuAPI + idThuongHieu)
           .then(function (response) {
+            console.log(response.data);
             $scope.spCungThuongHieu = response.data;
           })
           .catch(function (error) {
@@ -111,6 +112,7 @@ myApp.controller(
       $scope.listMauSac = Array.from(setMauSac);
       $scope.listKichCo = Array.from(setKichCo);
     };
+    $scope.getCungThuongHieu($scope.idSp);
     $scope.$watchGroup(
       ["selectedDD", "selectedVL", "selectedMS", "selectedKC"],
       function (newValues, oldValues) {
@@ -295,6 +297,15 @@ myApp.controller(
         };
 
         if ($scope.chiTietSanPham) {
+          if($scope.chiTietSanPham.soLuong == 0){
+            Swal.fire({
+              icon: "warning",
+              title: "Thông báo !",
+              text: "Sản phẩm đã bán hết!",
+              timer: 1600,
+            });
+            return;
+          }
           //api add gio hang
           console.log(item);
           $http

@@ -45,7 +45,4 @@ public class Seri {
     @Column(name = "trang_thai")
     private Integer trangThai;
 
-    @Column(name = "enabled",nullable = false)
-    private boolean enabled;
-
 }

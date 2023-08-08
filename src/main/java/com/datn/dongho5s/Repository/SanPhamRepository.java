@@ -5,6 +5,7 @@ import com.datn.dongho5s.Entity.ChiTietSanPham;
 import com.datn.dongho5s.Entity.DanhMuc;
 import com.datn.dongho5s.Entity.NhanVien;
 import com.datn.dongho5s.Entity.SanPham;
+import com.datn.dongho5s.Entity.ThuongHieu;
 import com.datn.dongho5s.Request.TimKiemRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,7 +20,7 @@ import java.util.Objects;
 @Repository
 public interface SanPhamRepository extends JpaRepository<SanPham, Integer> {
 
-    @Query(value = "SELECT  * FROM sanpham ORDER BY sanpham.id_san_pham DESC LIMIT 8", nativeQuery = true)
+    @Query(value = "SELECT  * FROM sanpham WHERE sanpham.trang_thai = 1 ORDER BY sanpham.id_san_pham DESC LIMIT 8", nativeQuery = true)
     List<SanPham> getSPnew();
 
 
@@ -50,5 +51,5 @@ public interface SanPhamRepository extends JpaRepository<SanPham, Integer> {
     public SanPham findByTenSanPham(String tenSanPham);
 
 
-
+    List<SanPham> findByThuongHieu(ThuongHieu thuongHieu);
 }

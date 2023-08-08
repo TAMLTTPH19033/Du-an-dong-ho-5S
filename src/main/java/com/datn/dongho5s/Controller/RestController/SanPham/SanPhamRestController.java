@@ -1,6 +1,7 @@
 package com.datn.dongho5s.Controller.RestController.SanPham;
 
 import com.datn.dongho5s.Entity.SanPham;
+import com.datn.dongho5s.Entity.ThuongHieu;
 import com.datn.dongho5s.Request.TimKiemRequest;
 import com.datn.dongho5s.Response.SanPhamDetailResponse;
 import com.datn.dongho5s.Response.TimKiemResponse;
@@ -52,8 +53,14 @@ public class SanPhamRestController {
 
     @GetMapping("/san-pham-detail/id-san-pham={idSP}")
     public ResponseEntity<?> GetSanPhamById(@PathVariable("idSP") Integer idSP){
-        System.out.println(idSP);
         SanPhamDetailResponse result = sanPhamService.getDetailSanPhamById(idSP);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
+
+    @GetMapping("/cung-thuong-hieu={idTH}")
+    public ResponseEntity<?> GetSanPhamCungTH(@PathVariable("idTH") ThuongHieu idTH){
+        System.out.println(idTH.toString());
+        List<SanPham> result = sanPhamService.getSPCungTH(idTH);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 

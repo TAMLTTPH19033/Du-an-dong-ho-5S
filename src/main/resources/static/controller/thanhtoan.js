@@ -1,10 +1,10 @@
-const themDonHangApi = "http://localhost:8080/don-hang/them-don-hang";
+const themDonHangApi = "http://localhost:8080/api/don-hang/them-don-hang";
 const getThongTinCaNhanAPI = "http://localhost:8080/khach-hang/thong-tin/";
-const getFeeAPI = "http://localhost:8080/don-hang/tinh-phi-van-chuyen";
-const thanhToanVNPayAPI = "http://localhost:8080/don-hang/thanh-toan-vnpay";
-const getTinhThanhAPI = "http://localhost:8080/dia-chi/get-tinh-thanh";
-const getQuanHuyenAPI = "http://localhost:8080/dia-chi/get-quan-huyen/";
-const getPhuongXaAPI = "http://localhost:8080/dia-chi/get-phuong-xa/";
+const getFeeAPI = "http://localhost:8080/api/don-hang/tinh-phi-van-chuyen";
+const thanhToanVNPayAPI = "http://localhost:8080/api/don-hang/thanh-toan-vnpay";
+const getTinhThanhAPI = "http://localhost:8080/api/dia-chi/get-tinh-thanh";
+const getQuanHuyenAPI = "http://localhost:8080/api/dia-chi/get-quan-huyen/";
+const getPhuongXaAPI = "http://localhost:8080/api/dia-chi/get-phuong-xa/";
 
 myApp.controller(
   "ThanhToanCtrl",
@@ -12,19 +12,28 @@ myApp.controller(
     // if (new URLSearchParams(window.location.search).get("message") != null) {
     //   var mess = new URLSearchParams(window.location.search).get("message");
     //   alert("Lỗi" + mess);
-    // }
-
+    // }let currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    let currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    if(currentUser==null){
+                Swal.fire({
+                    icon: "warning",
+                    title: "Bạn chưa đăng nhập !",
+                    text: "Hãy đăng nhập để tiếp tục shopping!",
+                    showConfirmButton: true,
+                    closeOnClickOutside: true,
+                    timer: 5600,
+                });
+                $window.location.href = '#login';
+    }
     $scope.listHoaDonChiTietRequest = [];
     $scope.soLuongSanPham;
     $scope.listHoaDonChiTietRequest = checkOutDataService.getData();
-     console.log($scope.listHoaDonChiTietRequest);
 
     if ($scope.listHoaDonChiTietRequest == undefined) {
       alert("Please select item");
       $window.location.href = '#index';
       return;
     } else {
-      console.log("");
       $scope.listHoaDonChiTietRequest.forEach((item) => {
         $scope.soLuongSanPham = +item.soLuong;
       });
@@ -33,7 +42,7 @@ myApp.controller(
     $scope.isVNPAY = false;
     $scope.fee;
     $scope.tongTien = 0;
-      let currentUser = JSON.parse(localStorage.getItem("currentUser"));
+
     $scope.getThongTinCaNhan = () => {
       $http
         .get(getThongTinCaNhanAPI + currentUser.idKhachHang)
@@ -133,7 +142,6 @@ myApp.controller(
                 for (const key in response.data) {
                     $scope.listThanhPho.set(key, response.data.key);
                 }
-                console.log($scope.listThanhPho.get(201))
             })
             .catch(function (error){
                 console.log(error);
