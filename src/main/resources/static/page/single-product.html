@@ -163,7 +163,7 @@
 <!--										Todo hiển thị hình ảnh to-->
 										<div class="tab-pane active" id="thumbnail_1">
 											<div class="single-product-image">
-												<img src="/assets/images/{{sanPhamDetail.listAnhSanPham[0].link}}" alt="single-product-image" />
+												<img src="/assets/images/{{selectImage}}" alt="single-product-image" />
 												<span ng-if="chiTietSanPham.khuyenMai == null "></span>
 												<span ng-if="chiTietSanPham.khuyenMai != null ">
                                                     <span ng-if="chiTietSanPham.khuyenMai.enabled == false"></span>
@@ -178,7 +178,7 @@
                                                         </span>
                                                     </span>
                                                 </span>
-												<a class="fancybox" href="/assets/images/{{sanPhamDetail.listAnhSanPham[0].link}}" data-fancybox-group="gallery"><span class="btn large-btn">View larger <i class="fa fa-search-plus"></i></span></a>
+												<a class="fancybox" href="/assets/images/{{selectImage}}" data-fancybox-group="gallery"><span class="btn large-btn">View larger <i class="fa fa-search-plus"></i></span></a>
 											</div>	
 										</div>
 									</div>										
@@ -187,8 +187,8 @@
 									<!-- Nav tabs -->
 									<ul class="nav nav-tabs select-product-tab bxslider">
 										<!--Todo list ảnh-->
-										<li class="active">
-											<a href="#thumbnail_1" data-toggle="tab"><img src="/assets/img/product/sidebar_product/1.jpg" alt="pro-thumbnail" /></a>
+										<li class="active" ng-repeat="anh in  sanPhamDetail.listAnhSanPham">
+											<a data-toggle="tab"><img src="/assets/images/{{anh.link}}" alt="pro-thumbnail" ng-click="changeImage(anh)" /></a>
 										</li>
 									</ul>										
 								</div>
@@ -234,7 +234,7 @@
 											<p>Sale: <span>{{chiTietSanPham.khuyenMai.tenKhuyenMai}}</span></p>
 										</div>
 									<div class="single-product-price">
-										<h2 ng-bind="getGia()"> đ </h2> <span class="old-price">{{chiTietSanPham.giaSanPham}} đ</span>
+										<h2 ng-bind="getGia() | number "><span>đ</span> </h2> <span class="old-price">{{chiTietSanPham.giaSanPham | number }} đ</span>
 									</div>
 									</div>
 <!--									<div class="single-product-desc">-->
