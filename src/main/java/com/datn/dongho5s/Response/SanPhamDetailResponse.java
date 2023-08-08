@@ -23,5 +23,5 @@ public class SanPhamDetailResponse {
     private String moTaSanPham;
     private Double giaSanPham;
     private Integer trangThai;
-    private List<ChiTietSanPham> listChiTietSanPham ;
+    private List<ChiTietSanPham> listChiTietSanPham;
 }

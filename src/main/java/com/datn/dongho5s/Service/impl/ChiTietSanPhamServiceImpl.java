@@ -3,6 +3,7 @@ package com.datn.dongho5s.Service.impl;
 
 import com.datn.dongho5s.Entity.ChiTietSanPham;
 import com.datn.dongho5s.Repository.ChiTietSanPhamRepository;
+import com.datn.dongho5s.Response.SanPhamAdminResponse;
 import com.datn.dongho5s.Response.TimKiemSettingResponse;
 import com.datn.dongho5s.Service.ChiTietSanPhamService;
 import com.datn.dongho5s.Service.DanhmucService;
@@ -12,7 +13,12 @@ import com.datn.dongho5s.Service.MauSacService;
 import com.datn.dongho5s.Service.ThuongHieuService;
 import com.datn.dongho5s.Service.VatLieuService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ChiTietSanPhamServiceImpl implements ChiTietSanPhamService {
@@ -53,5 +59,34 @@ public class ChiTietSanPhamServiceImpl implements ChiTietSanPhamService {
     public ChiTietSanPham update(ChiTietSanPham chiTietSanPham) {
 
         return chiTietSanPhamRepository.save(chiTietSanPham);
+    }
+
+    @Override
+    public Page<ChiTietSanPham> findByMaSP(String maSanPham, int pageNum) {
+        return chiTietSanPhamRepository.findByMaSP(maSanPham,PageRequest.of(pageNum - 1, 5));
+    }
+
+    @Override
+    public List<SanPhamAdminResponse> getAllSanPhamAminResponse(int pageNum) {
+        List<ChiTietSanPham> lstChiTietSanPhams = chiTietSanPhamRepository.findAll(PageRequest.of(pageNum - 1, 5)).getContent();
+        List<SanPhamAdminResponse> lst = lstChiTietSanPhams
+                .stream()
+                .map(lstSP -> SanPhamAdminResponse
+                        .builder()
+                        .idChiTietSanPham(lstSP.getIdChiTietSanPham())
+                        .maChiTietSanPham(lstSP.getMaChiTietSanPham())
+                        .giaSanPham(lstSP.getGiaSanPham())
+                        .sanPham(lstSP.getSanPham())
+                        .vatLieu(lstSP.getVatLieu())
+                        .mauSac(lstSP.getMauSac())
+                        .khuyenMai(lstSP.getKhuyenMai())
+                        .soLuong(lstSP.getSoLuong())
+                        .build()).collect(Collectors.toList());
+        return lst;
+    }
+
+    @Override
+    public ChiTietSanPham findByMaChiTietSanPham(String maChimaTietSanPham) {
+        return chiTietSanPhamRepository.findByMaChiTietSanPham(maChimaTietSanPham);
     }
 }

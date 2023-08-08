@@ -76,4 +76,9 @@ public class KhachHangServiceImpl implements KhachHangService {
                 .tenKhachHang(khachHangExist.getTenKhachHang())
                 .build();
     }
+
+    @Override
+    public void saveKhachHang(KhachHang khachHang) {
+        khachHangRepo.save(khachHang);
+    }
 }

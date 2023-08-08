@@ -27,7 +27,7 @@
         .tracking nav ul li {
             /*border-bottom: 2px solid orange;*/
             display: inline-block;
-            width: 16%;
+            width: 12%;
 
         }
         .tracking nav ul li a:hover {
@@ -63,7 +63,7 @@
         }
     </style>
 
-    <body class="sb-nav-fixed">
+    <body class="sb-nav-fixed" id="content">
 
         <!-- NAV -->
 
@@ -108,12 +108,14 @@
                                 <div class="tracking">
                                     <nav>
                                         <ul class="list-tracking" >
-                                            <li class="active"><a href="#"  data-toggle="tab">Tất cả</a> </li>
-                                            <li><a href="#"  data-toggle="tab">Chờ xác nhận </a> </li>
-                                            <li > <a href="#"  data-toggle="tab">Đang giao hàng</a> </li>
-                                            <li> <a href="#" data-toggle="tab">Hoàn thành</a></li>
-                                            <li > <a href="#" data-toggle="tab">Đã hủy</a></li>
-                                            <li > <a href="#"  data-toggle="tab">Trả hàng/hoàn hiền</a> </li>
+                                            <li class="active"><a href="#" data-api="99" data-toggle="tab">Tất cả</a> </li>
+                                            <li><a href="#"  data-toggle="tab" data-api="0">Chờ xác nhận </a> </li>
+                                            <li > <a href="#"  data-toggle="tab" data-api="1">Đang chuẩn bị</a> </li>
+                                            <li> <a href="#" data-toggle="tab" data-api="2">Đang giao</a></li>
+                                            <li> <a href="#" data-toggle="tab" data-api="3">Hoàn thành</a></li>
+                                            <li > <a href="#" data-toggle="tab" data-api="4">Đã hủy</a></li>
+                                            <li > <a href="#"  data-toggle="tab" data-api="5">Trả hàng / Hoàn hiền</a> </li>
+                                            <li > <a href="#" data-toggle="tab" data-api="6">Đã hoàn trả</a></li>
                                         </ul>
                                     </nav>
                                 </div>
@@ -148,7 +150,7 @@
                                             </div>
                                         </form>
 
-                                        <table class="table table-bordered table-striped table-hover table-responsive-xl" style="margin-top: 20px">
+                                        <table id="date" class="table table-bordered table-striped table-hover table-responsive-xl" style="margin-top: 20px">
                                             <thead class="thead-dark">
                                                 <tr>
                                                     <th>#</th>
@@ -310,11 +312,49 @@
                     url: "/don-hang/update/"+ idDonHang + "/trang-thai/" + trangThai,
                     method: "POST",
                     success: function(response) {
-                        $('#result-container').html(response);
+                        $('#content').html(response);
                     },
                     error: function(xhr, status, error) {
                         console.log("Lỗi: " + error);
                     }
+                });
+            });
+
+            //tracking
+            $(document).ready(function() {
+                $('.list-tracking li').click(function() {
+                    // Xóa lớp "active" từ tất cả các phần tử li
+                    $('.list-tracking li').removeClass('active');
+
+                    // Thêm lớp "active" vào phần tử li được nhấp vào
+                    $(this).addClass('active');
+                    var apiValue = $(this).find('a').data('api');
+
+                    if (apiValue == 99){
+                        $.ajax({
+                            url: "/don-hang",
+                            method: "GET",
+                            success: function(response) {
+                                $('#content').html(response);
+                            },
+                            error: function(xhr, status, error) {
+                                console.log("Lỗi: " + error);
+                            }
+                        });
+                    } else{
+                        $.ajax(
+                            {
+                                url: "/findByTrangThai/"+ apiValue,
+                                method: "GET",
+                                success: function(response) {
+                                    $('#data').html(response);
+                                },
+                                error: function(xhr, status, error) {
+                                    console.log("Lỗi: " + error);
+                                }
+                            });
+                    }
+
                 });
             });
         </script>

@@ -11,4 +11,6 @@ public interface KhachHangService {
     public ThongTinCaNhanResponse getThongTinCaNhanById(Integer id);
     public ThongTinToCheckoutResponse getThongTinToCheckout(Integer id);
 
+    public void saveKhachHang(KhachHang khachHang);
+
 }

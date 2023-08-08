@@ -147,7 +147,6 @@ public class DonHangController {
         }
     }
 
-
     @GetMapping
     public String getForm(Model model,
                           HttpSession httpSession) {
@@ -204,13 +203,28 @@ public class DonHangController {
     public String updateStatusDonHang(
             HttpSession session,
             @PathVariable("trangThai") int trangThai,
-            @PathVariable("id") int id
+            @PathVariable("id") int id,
+            Model model
     ) {
         DonHang donHang = donHangService.findById(id);
         donHang.setTrangThaiDonHang(trangThai);
 
         donHangService.updateTrangThaiDonHang(donHang);
-        return "/don-hang";
+
+        Page<DonHang> donHangs = donHangService.getAll(1);
+
+        model.addAttribute("list", donHangs.getContent());
+        return "redirect:/don-hang";
+    }
+
+    @GetMapping("/findByTrangThai/{trangThai}")
+    public String findByTrangThaiDonHang(
+            @PathVariable("trangThai") int trangThai,
+            Model model
+    ){
+        List<DonHang> donHangs = donHangService.findByTrangThaiDonHang(trangThai);
+
+        model.addAttribute("list", donHangs);
+        return "admin/donhang/search-by-trangthai";
     }
 }
-
