@@ -114,7 +114,7 @@
                                  style="max-height: 600px">
                                 <div class="row g-0" th:each="cat :${lstHDCT}" style="padding: 20px 10px;">
                                     <div class="col-md-5">
-                                        <img src="..." class="img-fluid rounded-start" alt="Image">
+                                        <img th:src="../static/assets/images/${cat.chiTietSanPham.sanPham.listAnhSanPham[0].link}" class="img-fluid rounded-start" alt="Image">
                                     </div>
                                     <div class="col-md-7">
                                         <div class="card-body">

@@ -84,4 +84,8 @@ public interface DonHangRepository extends JpaRepository<DonHang, Integer> {
     public List<DonHang> findByOrderBetween(Date startTime, Date endTime);
 
     public DonHang findByMaDonHang(String maDonHang);
+
+    @Transactional
+    @Modifying
+    public void deleteByMaDonHang(String maDonHang);
 }

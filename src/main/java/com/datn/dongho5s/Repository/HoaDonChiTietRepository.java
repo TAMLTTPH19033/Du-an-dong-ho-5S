@@ -66,4 +66,8 @@ public interface HoaDonChiTietRepository extends JpaRepository<HoaDonChiTiet, In
     @Query("SELECT NEW  com.datn.dongho5s.Entity.HoaDonChiTiet(d.soLuong, d.chiTietSanPham.sanPham.tenSanPham," +
             "d.giaBan, d.donHang.phiVanChuyen)" + "  FROM HoaDonChiTiet d WHERE d.donHang.ngayTao BETWEEN ?1 AND ?2")
     public List<HoaDonChiTiet> findWithProductAndTimeBetween(Date startTime, Date endTime);
+
+    @Modifying
+    @Transactional
+    public void deleteByDonHang(DonHang donHang);
 }

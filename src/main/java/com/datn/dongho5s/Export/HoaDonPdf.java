@@ -42,11 +42,13 @@ public class HoaDonPdf {
         Paragraph header1 = new Paragraph("Dong ho 5S");
         header1.setAlignment(Element.ALIGN_CENTER);
         header1.setFont(FontFactory.getFont(FontFactory.TIMES_BOLD, 16, Font.BOLD));
-
-        String diaChi = donHang.getDiaChi() + ", " +
-                diaChiAPI.callGetPhuongXaAPI(donHang.getIdQuanHuyen()).get(donHang.getIdPhuongXa()) + ", " +
-                diaChiAPI.callGetQuanHuyenAPI(donHang.getIdTinhThanh()).get(donHang.getIdQuanHuyen()) + ", " +
-                diaChiCache.hashMapTinhThanh.get(donHang.getIdTinhThanh());
+        String diaChi = "";
+        if (donHang.getDiaChi() != null){
+            diaChi = donHang.getDiaChi() + ", " +
+                    diaChiAPI.callGetPhuongXaAPI(donHang.getIdQuanHuyen()).get(donHang.getIdPhuongXa()) + ", " +
+                    diaChiAPI.callGetQuanHuyenAPI(donHang.getIdTinhThanh()).get(donHang.getIdQuanHuyen()) + ", " +
+                    diaChiCache.hashMapTinhThanh.get(donHang.getIdTinhThanh());
+        }
 
         Paragraph header2 = new Paragraph(diaChi);
         header2.setAlignment(Element.ALIGN_CENTER);
@@ -106,12 +108,12 @@ public class HoaDonPdf {
         donGia.setFont(FontFactory.getFont(FontFactory.TIMES_BOLD, 12, Font.BOLD));
 
         // phí vận chuyển
-        Paragraph pvc = new Paragraph("Phi van chuyem " + (donHang.getPhiVanChuyen()) + "d");
+        Paragraph pvc = new Paragraph("Phi van chuyem " + (donHang.getPhiVanChuyen() == null ? 0 : donHang.getPhiVanChuyen()) + "d");
         pvc.setAlignment(Element.ALIGN_RIGHT);
         pvc.setFont(FontFactory.getFont(FontFactory.TIMES_BOLD, 12, Font.BOLD));
 
         // Tổng cộng tiền
-        Paragraph tongCong = new Paragraph("Tong tien: " + (donHang.getTongTien() + donHang.getPhiVanChuyen()) + "d");
+        Paragraph tongCong = new Paragraph("Tong tien: " + (donHang.getTongTien() + (donHang.getPhiVanChuyen() == null ? 0 : donHang.getPhiVanChuyen())) + "d");
         tongCong.setAlignment(Element.ALIGN_RIGHT);
         tongCong.setFont(FontFactory.getFont(FontFactory.TIMES_BOLD, 12, Font.BOLD));
 
