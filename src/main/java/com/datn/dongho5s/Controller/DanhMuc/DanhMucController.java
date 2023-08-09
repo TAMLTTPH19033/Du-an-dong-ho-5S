@@ -89,7 +89,7 @@ public class DanhMucController {
     public String saveDanhMuc(DanhMuc danhMuc, RedirectAttributes redirectAttributes){
          service.save(danhMuc);
         redirectAttributes.addFlashAttribute("message","Thay Đổi Thành Công");
-        return "redirect:/categories";
+        return "redirect:/admin/categories";
     }
 
     @GetMapping("/admin/categories/edit/{id}")
@@ -103,7 +103,7 @@ public class DanhMucController {
             return "admin/danhmuc/categories_form";
         }catch (DanhMucNotFoundException ex){
             redirectAttributes.addFlashAttribute("message",ex.getMessage());
-            return "redirect:/categories";
+            return "redirect:/admin/categories";
         } catch (Exception ex) {
             redirectAttributes.addFlashAttribute("error", "Đã xảy ra lỗi trong quá trình xử lý. Vui lòng thử lại sau.");
             return "redirect:/error";
