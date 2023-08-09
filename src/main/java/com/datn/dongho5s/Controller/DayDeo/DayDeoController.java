@@ -60,7 +60,7 @@ public class DayDeoController {
         String status = enabled ? "online" : "offline";
         String message = " Dây Đeo có id " + id + " Thay đổi trạng thái thành " + status;
         redirectAttributes.addFlashAttribute("message",message);
-        return "redirect:/straps";
+        return "redirect:/admin/straps";
     }
 
     @GetMapping("/admin/straps/new")
@@ -74,7 +74,7 @@ public class DayDeoController {
     public String saveDayDeo(DayDeo dayDeo, RedirectAttributes redirectAttributes){
         service.save(dayDeo);
         redirectAttributes.addFlashAttribute("message","Thay Đổi Thành Công");
-        return "redirect:/straps";
+        return "redirect:/admin/straps";
     }
 
     @GetMapping("/admin/straps/edit/{id}")
@@ -88,7 +88,7 @@ public class DayDeoController {
             return "admin/dayDeo/straps_form";
         }catch (DayDeoNotFoundException ex) {
             redirectAttributes.addFlashAttribute("message", ex.getMessage());
-            return "redirect:/straps";
+            return "redirect:/admin/straps";
         } catch (Exception ex) {
             redirectAttributes.addFlashAttribute("error", "Đã xảy ra lỗi trong quá trình xử lý. Vui lòng thử lại sau.");
             return "redirect:/error";

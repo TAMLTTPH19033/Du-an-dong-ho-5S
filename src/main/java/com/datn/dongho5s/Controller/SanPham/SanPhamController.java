@@ -24,7 +24,7 @@ import java.io.IOException;
 import java.util.List;
 
 @Controller
-public class SanPhamController {
+public class   SanPhamController {
 
     @Autowired
     private SanPhamService sanPhamService;

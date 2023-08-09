@@ -82,7 +82,7 @@ public class ThuongHieuController {
     public String saveThuongHieu(ThuongHieu thuongHieu, RedirectAttributes redirectAttributes){
         service.save(thuongHieu);
         redirectAttributes.addFlashAttribute("message","Thay Đổi Thành Công");
-        return "redirect:/brands";
+        return "redirect:/admin/brands";
     }
 
     @GetMapping("/admin/brands/edit/{id}")
@@ -96,7 +96,7 @@ public class ThuongHieuController {
             return "admin/thuonghieu/brands_form";
         } catch (ThuongHieuNotFoundException ex) {
             redirectAttributes.addFlashAttribute("message", ex.getMessage());
-            return "redirect:/brands";
+            return "redirect:/admin/brands";
         } catch (Exception ex) {
             redirectAttributes.addFlashAttribute("error", "Đã xảy ra lỗi trong quá trình xử lý. Vui lòng thử lại sau.");
             return "redirect:/error";
