@@ -86,3 +86,81 @@ myApp.controller("ChangePassCtrl", function ($scope,$rootScope ,$http,$location,
 
 
 })
+myApp.controller("forgotCtrl", function ($scope,$rootScope ,$http,$location, $window){
+$scope.data = {
+    message :"",
+    token :"",
+    error :""
+};
+    $scope.errorMessages =""
+    $scope.forgotPass = function (){
+        $http.post(`/api/resetPassword?email=${$scope.username}`).then((resp) => {
+            $scope.data = resp.data;
+            Swal.fire({
+                icon: "Success",
+                title: "Thông báo!",
+                text: "Gửi thành công! Bạn hãy check mail để nhận được thông tin cập nhập nhé !",
+                showConfirmButton: true,
+                closeOnClickOutside: true,
+                timer: 10600,
+            });
+        }).catch(error => {
+                $scope.errorMessages = "Email không tồn tại";
+        });
+    }
+
+})
+myApp.controller("forgotUpdateCtrl", function ($scope,$rootScope,$routeParams,$http,$location, $window){
+$scope.data = {
+    message :"",
+    token :"",
+    error :""
+};
+$scope.init = function (){
+    $http.get(`/api/user/changePassword/${$routeParams.token}`).then((resp) => {
+        console.log(resp.data,"resssssssssssssssssssssssssssss")
+        if(resp.data.status == "OK"){
+            console.log("oke")
+        }
+    }).catch(error => {
+        Swal.fire({
+            icon: "warning",
+            title: "Thông báo!",
+            text: "Mã hết hạn!",
+            showConfirmButton: true,
+            closeOnClickOutside: true,
+            timer: 5600,
+        });
+        $window.location.href = '#login';
+    });
+}
+       $scope.init();
+
+
+    $scope.errorMessages="";
+    $scope.updateForgotPass = function (){
+            $scope.changeRequest= {
+                 newPass : $scope.newPass ,
+                confirmPass: $scope.confirmPass
+}
+        console.log($scope.changeRequest);
+        $http.post(`/api/updatePass/${$routeParams.token}`, $scope.changeRequest).then((resp) => {
+            if (resp.status == 200) {
+                Swal.fire({
+                    icon: "success",
+                    title: "Thành công!",
+                    text: "Bạn hãy đăng nhập lại để tiếp tục sử dụng dịch vụ nhé!",
+                    timer: 5600,
+                });
+                $window.location.href = '#login';
+            }
+        }).catch(error => {
+            if (error.status == 400) {
+            $scope.errorMessages = error.data.message;
+        }
+        });
+
+    }
+
+
+})
