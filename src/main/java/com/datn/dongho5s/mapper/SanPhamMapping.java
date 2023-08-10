@@ -15,6 +15,8 @@ public class SanPhamMapping {
                 .listChiTietSanPham(sp.getListChiTietSanPham())
                 .thuongHieu(sp.getThuongHieu())
                 .trangThai(sp.getTrangThai())
+                .tenSanPham(sp.getTenSanPham())
+                .maSanPham(sp.getMaSanPham())
                 .build();
         return sanPhamDetailResponse;
     }

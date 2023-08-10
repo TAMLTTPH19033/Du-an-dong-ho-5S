@@ -20,7 +20,7 @@ import java.util.Objects;
 @Repository
 public interface SanPhamRepository extends JpaRepository<SanPham, Integer> {
 
-    @Query(value = "SELECT  * FROM sanpham WHERE sanpham.trang_thai = 1 ORDER BY sanpham.id_san_pham DESC LIMIT 8", nativeQuery = true)
+    @Query(value = "SELECT  * FROM sanpham where sanpham.trang_thai = 1 ORDER BY sanpham.id_san_pham DESC LIMIT 8", nativeQuery = true)
     List<SanPham> getSPnew();
 
 
@@ -49,7 +49,9 @@ public interface SanPhamRepository extends JpaRepository<SanPham, Integer> {
 
 
     public SanPham findByTenSanPham(String tenSanPham);
+    public List<SanPham> findByThuongHieu(ThuongHieu tenSanPham);
 
 
-    List<SanPham> findByThuongHieu(ThuongHieu thuongHieu);
+
+
 }
