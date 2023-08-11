@@ -81,6 +81,9 @@ public class BanHangController {
         List<SanPhamAdminResponse> sanPhamList = chiTietSanPhamService.getAllSanPhamAminResponse(1);
 
         model.addAttribute("listSanPham",sanPhamList);
+        model.addAttribute("currentPage", pageNum);
+        model.addAttribute("totalPages", chiTietSanPhamService.getALlChiTietSanPhamPage(pageNum));
+
         return "admin/banhang/banhang";
     }
 
@@ -233,7 +236,6 @@ public class BanHangController {
         int soLuongCapNhat = soLuong;
         HoaDonChiTiet hoaDonChiTiet = hoaDonChiTietService.findHoaDonChiTietById(idHDCT);
 
-        System.out.println("SOLuong al " + soLuong + idHDCT);
         if (soLuongCapNhat<=0){
             // xoa hoa don chi tiet
             hoaDonChiTietService.xoaHDCT(hoaDonChiTiet);

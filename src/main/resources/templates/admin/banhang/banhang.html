@@ -474,7 +474,6 @@
     var a = document.getElementById("soLuongThemCapNhat").value;
     console.log(a,"so luong","ma",idHDCTSua);
     $.ajax({
-    // /hoa-don-chi-tiet/sua/{idHD}/so-luong/{soLuong}
       url: "/admin/ban-hang/hoa-don-chi-tiet/sua/"+ idHDCTSua+"/so-luong/" + a,
       method: "POST",
       success: function(response) {

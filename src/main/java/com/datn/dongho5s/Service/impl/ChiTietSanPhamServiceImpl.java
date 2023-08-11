@@ -67,8 +67,13 @@ public class ChiTietSanPhamServiceImpl implements ChiTietSanPhamService {
     }
 
     @Override
+    public Page<ChiTietSanPham> getALlChiTietSanPhamPage(int pageNum){
+        return chiTietSanPhamRepository.findAll(PageRequest.of(pageNum - 1, 5));
+    }
+
+    @Override
     public List<SanPhamAdminResponse> getAllSanPhamAminResponse(int pageNum) {
-        List<ChiTietSanPham> lstChiTietSanPhams = chiTietSanPhamRepository.findAll(PageRequest.of(pageNum - 1, 5)).getContent();
+        List<ChiTietSanPham> lstChiTietSanPhams = getALlChiTietSanPhamPage(pageNum).getContent();
         List<SanPhamAdminResponse> lst = lstChiTietSanPhams
                 .stream()
                 .map(lstSP -> SanPhamAdminResponse
