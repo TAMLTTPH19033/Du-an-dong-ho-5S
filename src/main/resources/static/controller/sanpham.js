@@ -11,7 +11,7 @@ myApp.controller("SanPhamController", function ($scope, $rootScope, $http,$filte
   $scope.kichCoIds = [];
   $scope.mauSacIds = [];
   $scope.tenSanPham;
-  $scope.pageSize = 1;
+  $scope.pageSize = 6;
   $scope.currentPage = 1;
   $scope.maxPagesToShow = 1;
   $scope.totalPages;
@@ -108,7 +108,6 @@ myApp.controller("SanPhamController", function ($scope, $rootScope, $http,$filte
     //   tenSanPham: null
     // };
   }else{
-    console.log($scope.searchServiceData);
     $scope.danhMucIds = $scope.searchServiceData.thuongHieuId;
     $scope.thuongHieuIds = $scope.searchServiceData.danhMucId;
     $scope.dayDeoIds = $scope.searchServiceData.dayDeoId;
@@ -127,7 +126,6 @@ myApp.controller("SanPhamController", function ($scope, $rootScope, $http,$filte
       dayDeoId: $scope.dayDeoIds,
       tenSanPham: $scope.tenSanPham,
     };
-    console.log($scope.conditionRequest)
     $http
       .post(searchAPI, $scope.conditionRequest)
       .then(function (response) {
@@ -236,7 +234,6 @@ myApp.controller("SanPhamController", function ($scope, $rootScope, $http,$filte
   };
 
   $scope.checkFirstLastPage = function (){
-    console.log($scope.currentPage);
     if($scope.currentPage<=1){
       $scope.isFirstPage= true;
     }else{
@@ -252,27 +249,21 @@ myApp.controller("SanPhamController", function ($scope, $rootScope, $http,$filte
   $scope.handleSortChange = function() {
     switch ($scope.selectedSortOption) {
       case '1':
-        // const sortInPrice = [...$scope.listSanPham].sort((a,b)=> {
-        //   // return $scope.itemWithGiaNN.get(a.sanPhamID) - $scope.itemWithGiaNN.get(b.sanPhamID);
-        // });
-          console.log($scope.listSanPham)
         const sortInPrice = [...$scope.listSanPham].sort((a,b)=> {
-
-              const minA = Math.min(...a.listChiTietSanPham.map(ctsp =>{
-                console.log(ctsp.idChiTietSanPham)
-                console.log($scope.itemWithGiaNN.get(ctsp.idChiTietSanPham))
-                Number($scope.itemWithGiaNN.get(ctsp.idChiTietSanPham))
-              }))
-              const minB = Math.min(...b.listChiTietSanPham.map(ctsp => $scope.itemWithGiaNN.get(ctsp.idChiTietSanPham)))
-          console.log(minA);
-          console.log(minB);
-          return minA - minB;
-            }
-        );
+          console.log(a.sanPhamID);
+          console.log($scope.itemWithGiaNN.get(a.sanPhamID));
+          console.log(b.sanPhamID);
+          console.log($scope.itemWithGiaNN.get(b.sanPhamID));
+          return $scope.itemWithGiaNN.get(a.sanPhamID) - $scope.itemWithGiaNN.get(b.sanPhamID);
+        });
         $scope.listSanPham = sortInPrice;
         break;
       case '2':
         const sortDePrice = [...$scope.listSanPham].sort((a,b)=> {
+          console.log(a.sanPhamID);
+          console.log($scope.itemWithGiaNN.get(a.sanPhamID));
+          console.log(b.sanPhamID);
+          console.log($scope.itemWithGiaNN.get(b.sanPhamID));
           return $scope.itemWithGiaNN.get(b.sanPhamID) - $scope.itemWithGiaNN.get(a.sanPhamID);
         });
         $scope.listSanPham = sortDePrice;

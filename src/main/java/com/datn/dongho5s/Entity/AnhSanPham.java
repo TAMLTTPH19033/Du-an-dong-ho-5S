@@ -42,4 +42,8 @@ public class AnhSanPham {
     @JoinColumn(name = "id_san_pham")
     private SanPham sanPham;
 
+    public AnhSanPham(String tenAnh, SanPham sanPham) {
+        this.tenAnh = tenAnh;
+        this.sanPham = sanPham;
+    }
 }

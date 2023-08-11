@@ -8,7 +8,7 @@ myApp.controller(
         $scope.loading = true;
 
            if (currentUser != null) {
-                $http.get(`/don-hang/findAll/${currentUser.idKhachHang}`)
+                $http.get(`/api/don-hang/findAll/${currentUser.idKhachHang}`)
                     .then((resp) => {
                         $scope.donHang = resp.data;
                         $scope.items.push($scope.donHang[0])
@@ -65,7 +65,7 @@ myApp.controller(
         $scope.items= [];
         $scope.loading = true;
             if (currentUser != null) {
-                $http.get(`/don-hang/findByStatus/${currentUser.idKhachHang}?status=0`)
+                $http.get(`/api/don-hang/findByStatus/${currentUser.idKhachHang}?status=0`)
                     .then((resp) => {
                         $scope.donHang = resp.data;
                         $scope.items.push($scope.donHang[0])
@@ -151,7 +151,7 @@ myApp.controller(
         $scope.items= [];
         $scope.loading = true;
         if (currentUser != null) {
-            $http.get(`/don-hang/findByStatus/${currentUser.idKhachHang}?status=1`)
+            $http.get(`/api/don-hang/findByStatus/${currentUser.idKhachHang}?status=1`)
                 .then((resp) => {
                     $scope.donHang = resp.data;
                     $scope.items.push($scope.donHang[0])
@@ -208,7 +208,7 @@ myApp.controller(
         $scope.items= [];
         $scope.loading = true;
         if (currentUser != null) {
-            $http.get(`/don-hang/findByStatus/${currentUser.idKhachHang}?status=2`)
+            $http.get(`/api/don-hang/findByStatus/${currentUser.idKhachHang}?status=2`)
                 .then((resp) => {
                     $scope.donHang = resp.data;
                     $scope.items.push($scope.donHang[0])
@@ -272,7 +272,7 @@ myApp.controller(
         $scope.isPhanHoi;
         $scope.checkPhanHoi = new Map();
         if (currentUser != null) {
-            $http.get(`/don-hang/findByStatus/${currentUser.idKhachHang}?status=3`)
+            $http.get(`/api/don-hang/findByStatus/${currentUser.idKhachHang}?status=3`)
                 .then((resp) => {
                     $scope.donHang = resp.data;
                     $scope.items.push($scope.donHang[0])
@@ -418,7 +418,7 @@ myApp.controller(
         $scope.items= [];
         $scope.loading = true;
         if (currentUser != null) {
-            $http.get(`/don-hang/findByStatus/${currentUser.idKhachHang}?status=4`)
+            $http.get(`/api/don-hang/findByStatus/${currentUser.idKhachHang}?status=4`)
                 .then((resp) => {
                     $scope.donHang = resp.data;
                     $scope.items.push($scope.donHang[0])
@@ -475,7 +475,7 @@ myApp.controller(
         $scope.items= [];
             $scope.loading = true;
         if (currentUser != null) {
-            $http.get(`/don-hang/findByStatus/${currentUser.idKhachHang}?status=5`)
+            $http.get(`/api/don-hang/findByStatus/${currentUser.idKhachHang}?status=5`)
                 .then((resp) => {
                     $scope.donHang = resp.data;
                     $scope.items.push($scope.donHang[0])

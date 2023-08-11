@@ -4,6 +4,7 @@ package com.datn.dongho5s.Repository;
 import com.datn.dongho5s.Entity.ChiTietSanPham;
 import com.datn.dongho5s.Entity.DanhMuc;
 import com.datn.dongho5s.Entity.HoaDonChiTiet;
+import com.datn.dongho5s.Entity.SanPham;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -28,6 +29,9 @@ public interface ChiTietSanPhamRepository extends JpaRepository<ChiTietSanPham,I
         FROM ChiTietSanPham ctsp
         WHERE UPPER(CONCAT(ctsp.maChiTietSanPham, ' ')) LIKE %?1% 
     """)
+    public Page<ChiTietSanPham> findAllHung(String keyword,Pageable pageable);
+           
+    @Query("SELECT ctsp FROM ChiTietSanPham  ctsp WHERE UPPER(CONCAT(ctsp.idChiTietSanPham,' ', ctsp.maChiTietSanPham, ' ',ctsp.dayDeo,' ', ctsp.khuyenMai,' ', ctsp.mauSac,' ',ctsp.sanPham)) LIKE %?1%")
     public Page<ChiTietSanPham> findAll(String keyword,Pageable pageable);
 
     @Query(value = """
@@ -46,4 +50,5 @@ public interface ChiTietSanPhamRepository extends JpaRepository<ChiTietSanPham,I
     public void updateSoLuongFromHDCT(int soLuong,int id);
 
     ChiTietSanPham findByMaChiTietSanPham(String ma);
+
 }

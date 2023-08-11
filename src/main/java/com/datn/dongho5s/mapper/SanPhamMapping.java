@@ -10,13 +10,13 @@ public class SanPhamMapping {
         SanPhamDetailResponse sanPhamDetailResponse =  SanPhamDetailResponse.builder()
                 .idSanPham(sp.getIdSanPham())
                 .listAnhSanPham(sp.getListAnhSanPham())
-                .giaSanPham(sp.getGiaSanPham())
                 .moTaSanPham(sp.getMoTaSanPham())
-                .tenSanPham(sp.getMoTaSanPham())
                 .danhMuc(sp.getDanhMuc())
                 .listChiTietSanPham(sp.getListChiTietSanPham())
                 .thuongHieu(sp.getThuongHieu())
                 .trangThai(sp.getTrangThai())
+                .tenSanPham(sp.getTenSanPham())
+                .maSanPham(sp.getMaSanPham())
                 .build();
         return sanPhamDetailResponse;
     }

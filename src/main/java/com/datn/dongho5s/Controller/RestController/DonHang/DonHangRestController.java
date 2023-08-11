@@ -44,6 +44,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -53,7 +54,7 @@ import java.util.Set;
 import java.util.TimeZone;
 
 @RestController
-@RequestMapping("/don-hang")
+@RequestMapping("/api/don-hang")
 public class DonHangRestController {
 
     @Autowired
@@ -83,7 +84,7 @@ public class DonHangRestController {
             KhachHang khachHang = khachHangService.findKhachHangById(themDonHangRequest.getKhachHangId());
             DonHang donHang = DonHang.builder()
                     .khachHang(khachHang)
-                    .ngayTao(new Timestamp(System.currentTimeMillis()))
+                    .ngayTao(new Date())
                     .trangThaiDonHang(0)
                     .idTinhThanh(themDonHangRequest.getIdTinhThanh())
                     .idQuanHuyen(themDonHangRequest.getIdQuanHuyen())
@@ -91,6 +92,8 @@ public class DonHangRestController {
                     .diaChi(themDonHangRequest.getDiaChi())
                     .phiVanChuyen(themDonHangRequest.getPhiVanChuyen())
                     .ghiChu(themDonHangRequest.getGhiChu())
+                    .ngayCapNhap(new Date())
+                    .tongTien(hdctService.getTongGia(themDonHangRequest.getListHoaDonChiTietRequest()))
                     .build();
             DonHang savedDonHang = donHangService.save(donHang);
             List<HoaDonChiTiet> listHoaDonChiTiet = hdctService.convertToListHoaDonChiTiet(themDonHangRequest.getListHoaDonChiTietRequest(), savedDonHang.getIdDonHang());
@@ -141,7 +144,7 @@ public class DonHangRestController {
         KhachHang khachHang = khachHangService.findKhachHangById(themDonHangRequest.getKhachHangId());
         DonHang donHang = DonHang.builder()
                 .khachHang(khachHang)
-                .ngayTao(new Timestamp(System.currentTimeMillis()))
+                .ngayTao(new Date())
                 .trangThaiDonHang(0)
                 .idTinhThanh(themDonHangRequest.getIdTinhThanh())
                 .idQuanHuyen(themDonHangRequest.getIdQuanHuyen())
@@ -149,12 +152,14 @@ public class DonHangRestController {
                 .diaChi(themDonHangRequest.getDiaChi())
                 .phiVanChuyen(themDonHangRequest.getPhiVanChuyen())
                 .ghiChu(themDonHangRequest.getGhiChu())
+                .ngayCapNhap(new Date())
+                .tongTien(hdctService.getTongGia(themDonHangRequest.getListHoaDonChiTietRequest()))
                 .build();
         DonHang savedDonHang = donHangService.save(donHang);
         List<HoaDonChiTiet> listHoaDonChiTiet = hdctService.convertToListHoaDonChiTiet(themDonHangRequest.getListHoaDonChiTietRequest(), savedDonHang.getIdDonHang());
         hdctService.saveAll(listHoaDonChiTiet);
 
-        Double amount = hdctService.getTongGia(themDonHangRequest.getListHoaDonChiTietRequest()) * 100;
+        Double amount = (hdctService.getTongGia(themDonHangRequest.getListHoaDonChiTietRequest())+ themDonHangRequest.getPhiVanChuyen()) * 100;
         String vnp_Version = VNPayConfig.version;
         String vnp_Command = VNPayConfig.command;
         String vnp_TmnCode = VNPayConfig.vnp_TmnCode;

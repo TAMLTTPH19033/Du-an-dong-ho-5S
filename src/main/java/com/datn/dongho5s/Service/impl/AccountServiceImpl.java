@@ -4,11 +4,16 @@ import com.datn.dongho5s.Cache.DiaChiCache;
 import com.datn.dongho5s.Entity.DiaChi;
 import com.datn.dongho5s.Entity.KhachHang;
 import com.datn.dongho5s.Entity.NhanVien;
+import com.datn.dongho5s.Entity.PasswordResetToken;
 import com.datn.dongho5s.Exception.CustomException.BadRequestException;
+import com.datn.dongho5s.Exception.ErrorResponse;
+import com.datn.dongho5s.Exception.GenericResponse;
 import com.datn.dongho5s.GiaoHangNhanhService.DiaChiAPI;
 import com.datn.dongho5s.Repository.DiaChiRepository;
 import com.datn.dongho5s.Repository.KhachHangRepository;
 import com.datn.dongho5s.Repository.NhanVienRepository;
+import com.datn.dongho5s.Repository.PasswordResetTokenRepository;
+import com.datn.dongho5s.Request.ChangePassForgetRequest;
 import com.datn.dongho5s.Request.ChangePassRequest;
 import com.datn.dongho5s.Request.RegisterRequest;
 import com.datn.dongho5s.Response.RegisterResponse;
@@ -22,6 +27,7 @@ import org.springframework.stereotype.Service;
 
 import java.security.Principal;
 import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Optional;
@@ -37,6 +43,9 @@ public class AccountServiceImpl implements AccountService {
     @Autowired
     NhanVienRepository nhanVienRepository;
 
+
+    @Autowired
+    PasswordResetTokenRepository passwordResetTokenRepository;
     @Autowired
     DiaChiRepository diaChiRepository;
     @Override
@@ -78,7 +87,7 @@ public class AccountServiceImpl implements AccountService {
                         .ghiChu("")
                         .maBuuChinh(123)
                         .khachHang(khachHang1)
-                        .trangThaiMacDinh(0)
+                        .trangThaiMacDinh(1)
                         .soDienThoai(registerRequest.getSoDienThoai())
                         .build();
                 DiaChi diaChi1 = diaChiRepository.save(diaChi);
@@ -124,6 +133,38 @@ public class AccountServiceImpl implements AccountService {
         }else {
             throw new BadRequestException("Mật khẩu không đúng");
         }
+    }
+
+    public Optional<KhachHang> getUserByPasswordResetToken(final String token) {
+        return Optional.ofNullable(passwordResetTokenRepository.findByToken(token) .getKhachHang());
+    }
+
+    @Override
+    public void changeforgotPass(KhachHang khachHang, String pass) {
+        khachHang.setPassword(passwordEncoder.encode(pass));
+        khachHangRepository.save(khachHang);
+    }
+
+    public void createPasswordResetTokenForUser(KhachHang user, String token) {
+        PasswordResetToken myToken = new PasswordResetToken(token, user);
+        passwordResetTokenRepository.save(myToken);
+    }
+
+    @Override
+    public String validatePasswordResetToken(String token) {
+        final PasswordResetToken passToken = passwordResetTokenRepository.findByToken(token);
+        return !isTokenFound(passToken) ? "invalidToken"
+                : isTokenExpired(passToken) ? "expired"
+                : null;
+    }
+
+    private boolean isTokenFound(PasswordResetToken passToken) {
+        return passToken != null;
+    }
+
+    private boolean isTokenExpired(PasswordResetToken passToken) {
+        final Calendar cal = Calendar.getInstance();
+        return passToken.getExpiryDate().before(cal.getTime());
     }
 
 }

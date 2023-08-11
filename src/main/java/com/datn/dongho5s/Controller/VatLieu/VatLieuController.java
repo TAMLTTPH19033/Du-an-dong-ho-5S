@@ -64,7 +64,7 @@ public class VatLieuController {
         String status = enabled ? "online" : "offline";
         String message = "Vật liệu có id " + id + " thay đổi trạng thái thành " + status;
         redirectAttributes.addFlashAttribute("message",message);
-        return "redirect:/materials";
+        return "redirect:/admin/materials";
     }
 
     @GetMapping("/admin/materials/new")

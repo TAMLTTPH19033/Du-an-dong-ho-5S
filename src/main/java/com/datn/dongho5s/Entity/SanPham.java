@@ -10,17 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.apache.commons.lang3.builder.EqualsExclude;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -30,6 +20,8 @@ import java.util.List;
 @Builder
 @Table(name = "sanpham")
 public class SanPham {
+    public static final int HOAT_DONG = 1;
+    public static final int KHONG_HOAT_DONG = 0;
     @Id
     @Column(name = "id_san_pham")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -52,9 +44,6 @@ public class SanPham {
     @Column(name = "mo_ta_san_pham")
     private String moTaSanPham;
 
-    @Column(name = "gia_san_pham")
-    private Double giaSanPham;
-
     @Column(name = "trang_thai")
     private Integer trangThai;
 
@@ -65,8 +54,26 @@ public class SanPham {
     private List<ChiTietSanPham> listChiTietSanPham ;
 
 
-    @OneToMany(mappedBy = "sanPham")
+    @OneToMany(mappedBy = "sanPham", cascade = CascadeType.ALL)
     private List<AnhSanPham> listAnhSanPham;
+
+
+    @Column(name = "main_image", nullable = false)
+    private String mainImage;
+
+
+    public void addExtraImage(String imageName){
+        this.listAnhSanPham.add(new AnhSanPham(imageName,this));
+    }
+
+    @Transient
+    public String getMainImagePath(){
+        if (idSanPham == null || mainImage == null) return "/assets/images/image-thumbnail.png";
+        return "/assets/images/"+ this.mainImage;
+    }
+
+    @Transient
+    private String currentMainImage; // Trường ẩn để lưu tên ảnh hiện tại
 
     public SanPham(String tenSanPham) {
         this.tenSanPham = tenSanPham;

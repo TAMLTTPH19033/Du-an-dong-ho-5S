@@ -64,7 +64,7 @@ public class KhuyenMaiController {
         System.out.println("controller");
         service.save(khuyenMai);
         redirectAttributes.addFlashAttribute("message","Thay Đổi Thành Công");
-        return "redirect:/discounts";
+        return "redirect:/admin/discounts";
     }
 
     @GetMapping("/admin/discounts/edit/{id}")
@@ -78,7 +78,7 @@ public class KhuyenMaiController {
             return "admin/khuyenmai/discounts_form";
         }catch (KhuyenMaiNotFoundException ex){
             redirectAttributes.addFlashAttribute("message",ex.getMessage());
-            return "redirect:/discounts";
+            return "redirect:/admin/discounts";
         }catch (Exception ex){
             redirectAttributes.addFlashAttribute("error","Đã xảy ra lỗi trong quá trình xử lý. Vui lòng thử lại sau.");
             return "redirect:/error";

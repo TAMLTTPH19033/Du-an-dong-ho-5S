@@ -1,0 +1,193 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/fragment/fragments:: page_head"></head>
+<body class="sb-nav-fixed">
+<div th:replace="admin/fragment/navigation:: navbar"></div>
+<div id="layoutSidenav">
+    <div th:replace="admin/fragment/navigation:: menu"></div>
+
+    <div id="layoutSidenav_content">
+        <main style="margin-left: 10px">
+            <div>
+                <h2>Update Chi Tiết Sản Phẩm</h2>
+            </div>
+
+            <form th:action="@{/admin/productDetails/update}" method="post" style="max-width: 500px;margin: 0 auto"
+                  th:object="${chiTietSanPham}" onsubmit="return checkCategoryNameUnique(this);">
+                <input type="hidden" th:field="*{idChiTietSanPham}"/>
+                <div class="border border-secondary rounded p-3">
+                    <div class="form-group-row">
+                        <label class="col-sm-2 col-form-label">Mã Chi Tiết Sản Phẩm:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" th:field="*{maChiTietSanPham}"  required minlength="3" maxlength="10"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group-row">
+                        <label class="col-sm-2 col-form-label">Sản Phẩm:</label>
+                        <div class="col-sm-10">
+                            <select th:field="*{sanPham}" class="form-control" required="">
+                                <th:block th:each="sp : ${listSanPham}">
+                                    <option th:value="${sp.idSanPham}">[[${sp.tenSanPham}]]</option>
+                                </th:block>
+
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group-row">
+                        <label class="col-sm-2 col-form-label">Dây Đeo:</label>
+                        <div class="col-sm-10">
+                            <select th:field="*{dayDeo}" class="form-control" required="">
+                                <th:block th:each="daydeo : ${listDayDeo}">
+                                    <option th:value="${daydeo.idDayDeo}">[[${daydeo.tenDayDeo}]]</option>
+                                </th:block>
+
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group-row">
+                        <label class="col-sm-2 col-form-label">Khuyến Mãi:</label>
+                        <div class="col-sm-10">
+                            <select th:field="*{khuyenMai}" class="form-control" required="">
+                                <th:block th:each="kmai : ${listKhuyenMai}">
+                                    <option th:value="${kmai.idKhuyenMai}">[[${kmai.tenKhuyenMai}]]</option>
+                                </th:block>
+
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group-row">
+                        <label class="col-sm-2 col-form-label">Màu Sắc:</label>
+                        <div class="col-sm-10">
+                            <select th:field="*{mauSac}" class="form-control" required="">
+                                <th:block th:each="msac : ${listMauSac}">
+                                    <option th:value="${msac.idMauSac}">[[${msac.tenMauSac}]]</option>
+                                </th:block>
+
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group-row">
+                        <label class="col-sm-2 col-form-label">Kích Cỡ:</label>
+                        <div class="col-sm-10">
+                            <select th:field="*{kichCo}" class="form-control" required="">
+                                <th:block th:each="kco : ${listKichCo}">
+                                    <option th:value="${kco.idKichCo}">[[${kco.tenKichCo}]]</option>
+                                </th:block>
+
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group-row">
+                        <label class="col-sm-2 col-form-label">Vật Liệu:</label>
+                        <div class="col-sm-10">
+                            <select th:field="*{vatLieu}" class="form-control" required="">
+                                <th:block th:each="vlieu : ${listVatLieu}">
+                                    <option th:value="${vlieu.idVatLieu}">[[${vlieu.tenVatLieu}]]</option>
+                                </th:block>
+
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">Chiều Dài Dây Đeo:</label>
+                        <div class="col-sm-12">
+                            <input type="number" class="form-control" th:field="*{chieuDaiDayDeo}"  required minlength="1" maxlength="5"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">Đường Kính Mặt Đồng Hồ:</label>
+                        <div class="col-sm-12">
+                            <input type="number" class="form-control" th:field="*{duongKinhMatDongHo}"  required minlength="1" maxlength="5"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">Độ Dày Mặt Đồng Hồ:</label>
+                        <div class="col-sm-12">
+                            <input type="number" class="form-control" th:field="*{doDayMatDongHo}"  required minlength="1" maxlength="5"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">Độ Chịu Nước:</label>
+                        <div class="col-sm-12">
+                            <input type="number" class="form-control" th:field="*{doChiuNuoc}"  required minlength="1" maxlength="5"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">Giá Bán:</label>
+                        <div class="col-sm-12">
+                            <input type="number" class="form-control" th:field="*{giaSanPham}"  required minlength="1" maxlength="5"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">Số Lượng:</label>
+                        <div class="col-sm-12">
+                            <input type="number" class="form-control" th:field="*{soLuong}"  required minlength="1" maxlength="5"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group-row">
+                        <label class="col-sm-4 col-form-label">Trạng Thái:</label>
+                        <div class="col-sm-12">
+                            <label class="radio-inline">
+                                <input type="radio" th:field="*{trangThai}" th:value="1"> Hoạt động
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" th:field="*{trangThai}" th:value="0"> Ngưng hoạt động
+                            </label>
+                        </div>
+                    </div>
+
+
+                    <div class="text-center">
+                        <input type="submit" value="Save" class="btn btn-primary m-3" id="submitButton"/>
+                        <input type="button" value="Cancel" class="btn btn-secondary" id="buttonCancel">
+                    </div>
+                </div>
+            </form>
+
+        </main>
+        <div th:replace="admin/fragment/fragments::footer"></div>
+    </div>
+</div>
+
+<div class="modal fade text-center" id="modalDialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="modalTitle">Warning</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <span id="modalBody"></span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    moduleURL= "[[@{/admin/productDetails}]]";
+
+    $("#buttonCancel").on("click", function () {
+        window.location = moduleURL;
+    });
+
+</script>
+<script th:src="@{/js/index_form.js}"></script>
+</body>
+</html>

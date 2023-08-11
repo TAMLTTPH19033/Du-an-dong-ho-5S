@@ -2,6 +2,9 @@ package com.datn.dongho5s.Service.impl;
 
 
 import com.datn.dongho5s.Entity.ChiTietSanPham;
+import com.datn.dongho5s.Entity.SanPham;
+import com.datn.dongho5s.Exception.ChiTietSanPhamNotFountException;
+import com.datn.dongho5s.Exception.SanPhamNotFountException;
 import com.datn.dongho5s.Repository.ChiTietSanPhamRepository;
 import com.datn.dongho5s.Response.SanPhamAdminResponse;
 import com.datn.dongho5s.Response.TimKiemSettingResponse;
@@ -15,9 +18,12 @@ import com.datn.dongho5s.Service.VatLieuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @Service
@@ -97,5 +103,36 @@ public class ChiTietSanPhamServiceImpl implements ChiTietSanPhamService {
 
     public ChiTietSanPham getChiTietSanPhamByMa(String ma) {
         return chiTietSanPhamRepository.findByMaChiTietSanPham(ma);
+    }
+
+    @Override
+    public List<ChiTietSanPham> listAll(){
+        return chiTietSanPhamRepository.findAll(Sort.by("maChiTietSanPham").ascending());
+    }
+
+    @Override
+    public Page<ChiTietSanPham> listByPage(int pageNumber,String sortField, String sortDir, String keyword){
+        Sort sort = Sort.by(sortField);
+        sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
+        Pageable pageable = PageRequest.of(pageNumber - 1 ,PRODUCT_DETAIL_PER_PAGE, sort);
+        if (keyword != null){
+            return chiTietSanPhamRepository.findAll(keyword,pageable);
+        }
+        return chiTietSanPhamRepository.findAll(pageable);
+
+    }
+
+    @Override
+    public ChiTietSanPham save(ChiTietSanPham chiTietSanPham) {
+        return chiTietSanPhamRepository.save(chiTietSanPham);
+    }
+
+    @Override
+    public ChiTietSanPham get(Integer id) throws ChiTietSanPhamNotFountException {
+        try{
+            return chiTietSanPhamRepository.findById(id).get();
+        }catch (NoSuchElementException ex){
+            throw new ChiTietSanPhamNotFountException("không tìm thấy sản phẩm có id" + id);
+        }
     }
 }

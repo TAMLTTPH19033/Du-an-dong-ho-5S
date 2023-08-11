@@ -20,6 +20,7 @@ public class SanPhamDetailResponse {
     private DanhMuc danhMuc;
     private List<AnhSanPham> listAnhSanPham;
     private String tenSanPham;
+    private String maSanPham;
     private String moTaSanPham;
     private Double giaSanPham;
     private Integer trangThai;

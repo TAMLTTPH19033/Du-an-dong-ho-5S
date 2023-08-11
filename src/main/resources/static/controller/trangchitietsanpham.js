@@ -13,7 +13,6 @@ myApp.controller(
     $location,
     $window
   ) {
-
     $scope.idSp = $routeParams.idSp;
     $scope.chiTietSanPham;
     $scope.sanPhamDetail;
@@ -32,7 +31,7 @@ myApp.controller(
     $scope.Items =[];
     $scope.spCungThuongHieu = [];
     $rootScope.currentDate = new Date().toISOString();
-
+    $scope.selectImage = "";
 
     var setDayDeo = new Set();
     var setVatLieu = new Set();
@@ -61,7 +60,7 @@ myApp.controller(
           getSettingAttributeSp($scope.sanPhamDetail.listChiTietSanPham);
           $scope.PhanHoiAPI();
           $rootScope.currentDate = new Date().toISOString();
-
+          $scope.selectImage = $scope.sanPhamDetail.listAnhSanPham[0].link;
           getAvailabelAttribute(
             $scope.selectedDD,
             $scope.selectedMS,
@@ -74,7 +73,9 @@ myApp.controller(
         });
     };
 
-
+    $scope.changeImage =function (item){
+      $scope.selectImage = item.link;
+    }
     $scope.tang = function () {
       $scope.soLuong = $scope.soLuong + 1;
     };
@@ -90,6 +91,7 @@ myApp.controller(
       $http
           .get(getSanPhamCungThuongHieuAPI + idThuongHieu)
           .then(function (response) {
+            console.log(response.data);
             $scope.spCungThuongHieu = response.data;
           })
           .catch(function (error) {
@@ -110,6 +112,7 @@ myApp.controller(
       $scope.listMauSac = Array.from(setMauSac);
       $scope.listKichCo = Array.from(setKichCo);
     };
+    $scope.getCungThuongHieu($scope.idSp);
     $scope.$watchGroup(
       ["selectedDD", "selectedVL", "selectedMS", "selectedKC"],
       function (newValues, oldValues) {
@@ -248,7 +251,6 @@ myApp.controller(
       }
     }
 
-
     $scope.changeTab = function (tab){
 
           $scope.moreInfo="";
@@ -295,8 +297,24 @@ myApp.controller(
         };
 
         if ($scope.chiTietSanPham) {
-          //api add gio hang
-          console.log(item);
+          if($scope.chiTietSanPham.soLuong == 0){
+            Swal.fire({
+              icon: "warning",
+              title: "Thông báo !",
+              text: "Sản phẩm đã bán hết!",
+              timer: 1600,
+            });
+            return;
+          }
+          if($scope.chiTietSanPham.soLuong == 0){
+            Swal.fire({
+              icon: "warning",
+              title: "Thông báo !",
+              text: "Sản phẩm đã bán hết!",
+              timer: 1600,
+            });
+            return;
+          }
           $http
               .post(`/api/giohang/addToCart`, item)
               .then((resp) => {
@@ -315,6 +333,7 @@ myApp.controller(
                     text: "Đã thêm vào giỏ hàng!",
                     timer: 1600,
                   });
+                  $window.location.reload();
                 }
               })
               .catch((error) => {
@@ -439,26 +458,6 @@ myApp.controller(
       }
     }
 
-    // $scope.checkPhanHoiAPI = function () {
-    //
-    //   var idChiTietSanPham = $scope.chiTietSanPham.idChiTietSanPham;
-    //   if(currentUser) {
-    //     $http
-    //         .get(
-    //             `phan-hoi/checkPhanHoi?idKhachHang=${currentUser.idKhachHang}&idSanPham=${idChiTietSanPham}`
-    //         )
-    //         .then(function (response) {
-    //           $scope.check = response.data;
-    //           console.log(response.data);
-    //         })
-    //         .catch(function (error) {
-    //           console.log(error);
-    //         });
-    //   }else{
-    //     $scope.check = true;
-    //   }
-    // };
-    //binhluan
     $scope.rating = 0;
     $scope.ratings = {
       current: -1,
