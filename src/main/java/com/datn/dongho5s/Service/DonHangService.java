@@ -42,4 +42,8 @@ public interface DonHangService {
     Page<DonHang> getAllForBanHang(int pageNum);
 
     public DonHang findByMaDonHang(String maDonHang);
+
+    String thanhToanAdmin(DonHang donHang);
+
+    String xoaDonHangAdmin(DonHang donHang);
 }

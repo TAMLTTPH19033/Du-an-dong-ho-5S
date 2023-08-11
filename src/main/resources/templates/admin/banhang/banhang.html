@@ -82,7 +82,7 @@
       </div>
       <div style="max-width: 90%;margin: auto;">
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-md-8">
             <!--  Ban hang-->
             <h3 style="font-weight: bold">Chi tiết hoá đơn</h3>
             <div class="row gio-hang bg-body-tertiary p-3 rounded border border-light">
@@ -191,81 +191,49 @@
             </div>
           </div>
           <!--  Thanh toan-->
-          <div class="col-md-6">
-            <!--  Thong tin hoa don-->
-            <div class="row thong-tin-hoa-don bg-body-tertiary p-3 rounded border border-light">
-              <form class="row g-3" th:object="${hoaDonAdminRequest}">
-                <div class="col-md-3">
-                  <label for="maHoaDon" class="form-label">Mã hóa đơn</label>
-                  <input type="text" class="form-control" id="maHoaDon" th:field="*{maHoaDon}" disabled style="background-color: white">
-                </div>
-                <div class="col-md-4">
-                  <label for="sdt" class="form-label">SĐT</label>
-                  <input type="text" class="form-control" th:field="*{sdt}" id="sdt">
-                </div>
-                <div class="col-5">
-                  <label for="ten" class="form-label">Tên khách hàng</label>
-                  <input type="text" class="form-control" id="ten" th:field="*{tenKhachHang}">
-                </div>
-                <div class="col-12">
-                  <label for="ngayTao" class="form-label">Ngày tạo</label>
-                  <input type="date" class="form-control" id="ngayTao" th:field="*{ngayTao}">
-                </div>
-                <div class="col-md-6">
-                  <label for="tongTien" class="form-label">Tổng tiền sản phẩm</label>
-                  <input type="text" class="form-control" id="tongTien" th:field="*{tongTien}">
-                </div>
-                <div class="col-md-6">
-                  <label for="giamGia" class="form-label">Giảm giá</label>
-                  <input type="text" class="form-control" id="giamGia" th:field="*{giamGia}">
-                </div>
-                <div class="col-md-12">
-                  <label for="thanhTien" class="form-label">Thành tiền</label>
-                  <input type="text" class="form-control" id="thanhTien" th:field="*{tongTienDonHang}">
-                </div>
-                <div class="col-12">
-                  <button class="btn btn-outline-primary"id="taoMoiDonHang"
-                          data-bs-toggle="modal"
-                          data-bs-target="#taoMoiHoaDon"
-                  >Tạo mới</button>
-<!--                  <button type="submit" class="btn btn-dark">Thanh toán</button>-->
-                </div>
-              </form>
-            </div>
-            <!--  San pham-->
-            <div class="row gio-hang bg-body-tertiary p-3 rounded border border-light">
-              <h3 style="font-weight: bold">Hóa đơn</h3>
-              <div class="container hoa-don bg-body-tertiary p-3 rounded border border-light">
-                <table class="table">
-                  <thead>
-                  <tr>
-                    <th scope="col">Mã hóa đơn</th>
-                    <th scope="col">Ngày tạo</th>
-                    <th scope="col">Tổng tiền</th>
-                    <th scope="col">Trạng thái</th>
-                    <th scope="col">Chức năng</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  <tr th:each="hd : ${lstHoaDon}">
-                    <td th:text="${hd.maDonHang}"></td>
-                    <td th:text="${hd.ngayTao}"></td>
-                    <td th:text="${hd.tongTien}"></td>
-                    <td th:text="${
-                      hd.trangThaiDonHang == 0 ?  'Chờ xác nhận' :
-                      (hd.trangThaiDonHang == 1 ? 'Đang chuẩn bị' :
-                      (hd.trangThaiDonHang == 2 ? 'Đang giao' :
-                      (hd.trangThaiDonHang == 3 ? 'Hoàn thành' :
-                      (hd.trangThaiDonHang == 4 ? 'Đã hủy' :
-                      (hd.trangThaiDonHang == 5 ? 'Trả hàng / Hoàn tiền' : 'Đã hoàn trả')))))
-                    }">
-                    <td>
-                      <a class="btn btn-outline-danger" th:href="@{'/admin/ban-hang/hoa-don/' + ${hd.maDonHang}}">Chọn</a>
-                    </td>
-                  </tr>
-                  </tbody>
-                </table>
-              </div>
+          <div class="col-md-4">
+            <!--  Thong tin hoa don th:action="@{/admin/ban-hang/hoa-don/tao-moi}" method="post"-->
+
+            <form th:object="${hoaDonAdminRequest}" th:action="@{/admin/ban-hang/hoa-don/tao-moi}" method="post">
+              <div class="row thong-tin-hoa-don bg-body-tertiary p-3 rounded border border-light">
+                  <div class="col-md-3">
+                    <label for="maHoaDon" class="form-label">Mã hóa đơn</label>
+                    <input type="text" class="form-control" id="maHoaDon" name="maHoaDon" th:field="*{maHoaDon}" disabled style="background-color: white">
+                  </div>
+                  <div class="col-md-4">
+                    <label for="sdt" class="form-label">SĐT</label>
+                    <input type="text" class="form-control" id="sdt" name="sdt" th:field="*{sdt}">
+                  </div>
+                  <div class="col-5">
+                    <label for="ten" class="form-label">Tên khách hàng</label>
+                    <input type="text" class="form-control" id="ten" name="tenKhachHang" th:field="*{tenKhachHang}">
+                  </div>
+                  <div class="col-12">
+                    <label for="ngayTao" class="form-label">Ngày tạo</label>
+                    <input type="date" class="form-control" id="ngayTao" name="ngayTao" disabled th:field="*{ngayTao}" style="background-color: white">
+                  </div>
+                  <div class="col-md-12">
+                    <label for="thanhTien" class="form-label">Thành tiền</label>
+                    <input type="text" class="form-control" id="thanhTien" name="tongTienDonHang" th:field="*{tongTienDonHang}" disabled style="background-color: white">
+                  </div>
+                  <div class="col-12">
+                    <button class="btn btn-outline-primary"
+                            type="submit"
+                    >Tạo mới</button>
+
+                    <button class="btn btn-outline-primary"id="thanhToan"
+                       data-bs-toggle="modal"
+                      type="button"
+                       data-bs-target="#thanhToanHoaDon"
+                    >Thanh toán</button>
+                    <button class="btn btn-outline-primary"id="huyDon"
+                            data-bs-toggle="modal"
+                            type="button"
+                            data-bs-target="#huyHoaDon"
+                    >Hủy</button>
+
+                  </div>
+            </form>
             </div>
           </div>
         </div>
@@ -350,23 +318,53 @@
 </div>
 <!--   add san pham end     -->
 
-<!--  tao moi hoa don-->
-<div class="modal fade" id="taoMoiHoaDon" tabindex="-1" aria-labelledby="taoMoiHoaDonLabel" aria-hidden="true">
+<!--  thanhToan hoa don-->
+<div class="modal fade" id="thanhToanHoaDon" tabindex="-1" aria-labelledby="thanhToanHoaDonLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h3 class="modal-title" id="taoMoiHoaDonLabel">Bạn có muốn xóa lựa chọn?</h3>
+        <h3 class="modal-title" id="thanhToanHoaDonLabel">Thanh toán</h3>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Hủy</button>
-        <button type="button" id="taoMoi" class="btn btn-outline-danger" data-bs-dismiss="modal">Xác nhận</button>
+        <button type="button" id="xacNhanThanhToan" class="btn btn-outline-danger" data-bs-dismiss="modal">Xác nhận</button>
+        <button type="button" id="xuatHoaDon" class="btn btn-outline-danger" data-bs-dismiss="modal">Xuất hóa đơn</button>
       </div>
     </div>
   </div>
 </div>
-<!--  xoa san pham tu hoa don chi tiet end -->
+
+
+<div class="modal fade" id="huyHoaDon" tabindex="-1" aria-labelledby="huyHoaDonLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="huyHoaDonLabel">Hủy</h3>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Hủy</button>
+        <button type="button" id="huyDonHangHienTai" class="btn btn-outline-danger" data-bs-dismiss="modal">Xác nhận</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
+  // var today = new Date();
+  // var dd = today.getDate();
+  // var mm = today.getMonth()+1; // Tháng bắt đầu từ 0
+  // var yyyy = today.getFullYear();
+  // if(dd<10){
+  //   dd='0'+dd;
+  // }
+  // if(mm<10){
+  //   mm='0'+mm;
+  // }
+  // var todayFormatted = yyyy+'-'+mm+'-'+dd; // Chuỗi ngày tháng được định dạng theo định dạng của input type="date"
+  // document.getElementById("ngayTao").value = todayFormatted; // Set giá trị mặc định cho input
+
   var maCTSP;
   var soLuongTon;
 
@@ -406,10 +404,10 @@
       }
     });
   });
-  // error
-  $('#taoMoi').click(function() {
+  // erro
+  $('#xacNhanThanhToan').click(function() {
     $.ajax({
-      url: "/admin/ban-hang/hoa-don/tao-moi",
+      url: "/admin/ban-hang/hoa-don/thanh-toan",
       method: "POST",
       success: function(response) {
         $('#content').html(response);
@@ -419,6 +417,33 @@
       }
     });
   });
+
+  $('#xuatHoaDon').click(function() {
+    $.ajax({
+      url: "/admin/ban-hang/hoa-don/xuat-hoa-don",
+      method: "POST",
+      success: function(response) {
+        $('#content').html(response);
+      },
+      error: function(xhr, status, error) {
+        console.log("Lỗi: " + error);
+      }
+    });
+  });
+
+  $('#huyDonHangHienTai').click(function() {
+    $.ajax({
+      url: "/admin/ban-hang/hoa-don/huy",
+      method: "POST",
+      success: function(response) {
+        $('#content').html(response);
+      },
+      error: function(xhr, status, error) {
+        console.log("Lỗi: " + error);
+      }
+    });
+  });
+
   // chuc nang xoa san pham tu hoa don chi tiet
   var idHDCTXoa;
   $('.hoa-don-chi-tiet-xoa').click(function() {

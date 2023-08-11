@@ -3,27 +3,22 @@ package com.datn.dongho5s.Service.impl;
 
 import com.datn.dongho5s.Entity.DonHang;
 import com.datn.dongho5s.Entity.HoaDonChiTiet;
-import com.datn.dongho5s.Entity.SanPham;
 import com.datn.dongho5s.Repository.DonHangRepository;
+import com.datn.dongho5s.Repository.HoaDonChiTietRepository;
 import com.datn.dongho5s.Request.DonHangRequest;
 import com.datn.dongho5s.Response.DonHangResponse;
 import com.datn.dongho5s.Response.HoaDonChiTietResponse;
-import com.datn.dongho5s.Response.SanPhamDetailResponse;
 import com.datn.dongho5s.Service.DonHangService;
 import com.datn.dongho5s.mapper.DonHangMapping;
 import com.datn.dongho5s.mapper.HoaDonChiTietMapping;
-import com.datn.dongho5s.mapper.SanPhamMapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.TimeZone;
 import java.util.stream.Collectors;
 
 @Service
@@ -33,6 +28,9 @@ public class DonHangServiceImpl implements DonHangService {
 
     @Autowired
     DonHangRepository donHangRepository;
+
+    @Autowired
+    HoaDonChiTietRepository hoaDonChiTietRepository;
 
     @Override
     public DonHang save(DonHang donHang) {
@@ -141,5 +139,18 @@ public class DonHangServiceImpl implements DonHangService {
     @Override
     public DonHang findByMaDonHang(String maDonHang) {
         return donHangRepository.findByMaDonHang(maDonHang);
+    }
+
+    @Override
+    public String thanhToanAdmin(DonHang donHang){
+        donHangRepository.updateTrangThaiDonHang(donHang);
+        return "Thanh toan thanh cong don hang " + donHang.getMaDonHang();
+    }
+
+    @Override
+    public String xoaDonHangAdmin(DonHang donHang){
+        hoaDonChiTietRepository.deleteByDonHang(donHang);
+        donHangRepository.deleteByMaDonHang(donHang.getMaDonHang());
+        return "Delete succcessful! Code is" + donHang.getMaDonHang();
     }
 }
