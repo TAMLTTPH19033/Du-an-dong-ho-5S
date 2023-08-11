@@ -9,6 +9,7 @@ import com.datn.dongho5s.Service.*;
 import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -68,20 +69,25 @@ public class BanHangController {
                         .tenKhachHang(donHangByMa.getKhachHang() == null ? "" : donHangByMa.getKhachHang().getTenKhachHang())
                     .build());
         }
-        this.getListSanPham(model,1);
+        this.getListSanPham(model,1,"");
         this.getListHDCT(model,1);
         return "admin/banhang/banhang";
     }
 
     @GetMapping("/sanpham/page/{pageNum}")
     public String getListSanPham(
-            Model model,
-            @PathVariable("pageNum") int pageNum
+        Model model,
+        @PathVariable("pageNum") int pageNum,
+        @Param("keywork") String keywork
     ){
         // set list san pham
-        List<SanPhamAdminResponse> sanPhamList = chiTietSanPhamService.getAllSanPhamAminResponse(1);
+        List<SanPhamAdminResponse> sanPhamList = chiTietSanPhamService.getAllSanPhamAminResponse(1,keywork);
 
-        model.addAttribute("listSanPham",sanPhamList);
+        model.addAttribute("listSanPham", sanPhamList);
+
+        model.addAttribute("currentPage", pageNum);
+        model.addAttribute("totalPages", chiTietSanPhamService.getALlChiTietSanPhamPage(pageNum,keywork));
+
         return "admin/banhang/banhang";
     }
 
@@ -174,7 +180,7 @@ public class BanHangController {
         model.addAttribute("hoaDonAdminRequest",hoaDonAdminRequest);
 
         // set list san pham
-        List<SanPhamAdminResponse> sanPhamList = chiTietSanPhamService.getAllSanPhamAminResponse(1);
+        List<SanPhamAdminResponse> sanPhamList = chiTietSanPhamService.getAllSanPhamAminResponse(1,"");
 
         model.addAttribute("listSanPham",sanPhamList);
 
@@ -188,7 +194,7 @@ public class BanHangController {
 
         //set list ctsp
 
-        model.addAttribute("lstCTSP",chiTietSanPhamService.getAllSanPhamAminResponse(1));
+        model.addAttribute("lstCTSP",chiTietSanPhamService.getAllSanPhamAminResponse(1,""));
 
         return "admin/banhang/banhang";
     }
@@ -224,14 +230,14 @@ public class BanHangController {
         return "redirect:/admin/ban-hang/hoa-don/" + donHangByMa.getMaDonHang();
     }
 
-    @PostMapping("/hoa-don-chi-tiet/sua/{idHDCT}")
+    @PostMapping("/hoa-don-chi-tiet/sua/{idHD}/so-luong/{soLuong}")
     public String updateHDCT(
             @PathVariable("idHD") int idHDCT,
-            HttpServletRequest httpServletRequest,
+            @PathVariable("soLuong") int soLuong,
             HttpSession httpSession,
             Model model
     ){
-        int soLuongCapNhat = Integer.parseInt(httpServletRequest.getParameter("soLuongCapNhat"));
+        int soLuongCapNhat = soLuong;
         HoaDonChiTiet hoaDonChiTiet = hoaDonChiTietService.findHoaDonChiTietById(idHDCT);
 
         if (soLuongCapNhat<=0){
@@ -243,24 +249,6 @@ public class BanHangController {
         }
 
         DonHang donHangByMa = (DonHang) httpSession.getAttribute("donHangHienTai");
-
-        // set list san pham
-        List<SanPhamAdminResponse> sanPhamList = chiTietSanPhamService.getAllSanPhamAminResponse(1);
-
-        model.addAttribute("listSanPham",sanPhamList);
-
-        //set list hdct
-
-        Page<HoaDonChiTiet> lstHDCTPage = hoaDonChiTietService.getHDCTByMaDonHang(donHangByMa.getMaDonHang(),1);
-
-        List<HoaDonChiTiet> lstHDCT = lstHDCTPage.getContent();
-
-        model.addAttribute("lstHDCT",lstHDCT);
-
-        //set list ctsp
-
-        model.addAttribute("lstCTSP",chiTietSanPhamService.getAllSanPhamAminResponse(1));
-
         return "redirect:/admin/ban-hang/hoa-don/" + donHangByMa.getMaDonHang();
     }
 
