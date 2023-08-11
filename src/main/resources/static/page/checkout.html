@@ -155,15 +155,138 @@
 				<!-- ADDRESS AREA START -->
 					<div class="form-group primary-form-group p-info-group deli-address-group">
 						<h2>Thông tin khách hàng</h2>
-						<p>Tên khách hàng: {{thongtincanhan.tenKhachHang}}</p>
-						<p>Số điện thoại: {{thongtincanhan.soDienThoai}}</p>
-						<label>Chọn địa chỉ nhận hàng:</label>
-						<div class="birth-day delivery-address">
-							<select id="deli-address" name="deliveryaddress" ng-model="diaChiGiaoHang">
-								<option ng-value="item"
-										ng-repeat="item in diaChiGiaoHangs">{{item.diaChi}}</option>
-							</select>
+						<p>Tên khách hàng: {{diaChiGiaoHang.khachHang.tenKhachHang}}</p>
+						<div>
+						<p>Số điện thoại: {{diaChiGiaoHang.soDienThoai}}</p>
+						<label>Địa chỉ nhận hàng:</label>
+						<p>
+							{{diaChiGiaoHang.diaChi}} , {{diaChiGiaoHang.phuongXa}} - {{diaChiGiaoHang.quanHuyen}} - {{diaChiGiaoHang.thanhPho}}
+						</p>
+							<a type="button"  data-toggle="modal" data-target="#myModal6"
+							   style="position: absolute; left: 300px;top: 5px;color: red; cursor: pointer"  >
+								Đổi địa chỉ
+							</a>
+						<a type="button"  class="btn btn-success" data-toggle="modal" data-target="#myModal5"
+						   style="position: absolute; left: 350px;top: 5px;color: white; cursor: pointer"  >
+							Thêm địa chỉ mới
+						</a>
 						</div>
+						<!-- Modal -->
+						<div class="modal fade" id="myModal5" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+						 >
+							<div class="modal-dialog" role="document">
+								<div class="modal-content" style="top: 100px">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+												aria-hidden="true">&times;</span></button>
+										<h4 class="modal-title" id="myModalLab">Cập nhập địa chỉ</h4>
+									</div>
+									<!--    modal body-->
+									<div class="modal-body" style=" padding: 20px 45px;">
+
+										<div class=" form-group primary-form-group p-info-group" style="display: flex">
+											<div class="col-4" style="width: 40%">
+												<label>Phường xã <sup>*</sup></label>
+												<select id="input" class="form-select" name="phuongXa" ng-model="phuongXa"  style="width: 97%">
+													<option ng-repeat ="(key,value) in pxMap" ng-value="key">
+														{{value}}
+													</option>
+												</select>
+											</div>
+											<div class="col-4" style="width: 40%">
+												<label >Quận huyện <sup>*</sup></label>
+												<select id="inptQH" class="form-select"  name="quanHuyen"   ng-model="quanHuyen"  style="width: 97%">
+													<option ng-repeat ="(key,value) in qhMap" ng-value="key" >
+														{{value}}
+													</option>
+												</select>
+											</div>
+											<div class="col-3" style="width: 30%">
+												<label>Thành Phố <sup> *</sup></label>
+												<select id="inpuTP" class="form-select" name="thanhPho" ng-model="thanhPho" style="width: 100%">
+													<option ng-repeat ="(key,value) in tpMap" ng-value="key">
+														{{value}}
+													</option>
+												</select>
+											</div>
+
+										</div>
+										<div class="form-group primary-form-group p-info-group">
+											<label > Địa chỉ cụ thể  <sup> *</sup></label>
+											<input type="text"
+												   name="diaChi"
+												   ng-model="diachi.diachiChiTiet"
+												   required id="diahi" class="form-control">
+
+										</div>
+										<div class="form-group primary-form-group p-info-group">
+											<label > Số điện thoại<sup> *</sup></label>
+											<input type="text"
+												   name="sdt"
+												   ng-model="diachi.sdt"
+												   required id="soDieThoai" class="form-control">
+
+										</div>
+										<div class="form-group primary-form-group p-info-group">
+											<label > Ghi chú  <sup> *</sup></label>
+											<input type="text"
+												   name="ghiChu"
+												   ng-model="diachi.ghichu"
+												   required  class="form-control">
+
+										</div>
+										<span class="text-danger" ng-bind="error"></span>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-default" data-dismiss="modal">Close
+										</button>
+										<button type="button" class="btn btn-primary" ng-click="themDiaChi()"
+												style="background: red">Xác nhận
+										</button>
+									</div>
+									<!-- modal body-->
+								</div>
+							</div>
+						</div>
+						<!--     modal-->
+						<!-- Modal -->
+						<div class="modal fade" id="myModal6" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+						>
+							<div class="modal-dialog" role="document">
+								<div class="modal-content" style="top: 100px">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+												aria-hidden="true">&times;</span></button>
+										<h4 class="modal-title" id="myMdalLab">Thay đổi địa chỉ</h4>
+									</div>
+									<!--    modal body-->
+									<div class="modal-body" style=" padding: 20px 45px;">
+										<div class="shipping-cart"  style=" overflow-x:auto;">
+											<br>
+											<div class="shipping-item" ng-repeat="dc in diaChiGiaoHangs" style="line-height: 22px; padding: 10px; position: relative;color: black; font-size: 13px">
+												<div class="shipping-item-text"  style="width: 100%; float: right">
+													<div>Số điện thoại :{{dc.soDienThoai}}</div>
+													<div> Đia chỉ :{{dc.phuongXa}} , {{dc.quanHuyen}}, {{dc.thanhPho}}  </div>
+													<div> Địa chỉ cụ thể :{{dc.diaChi}}</div>
+													<div ng-show="dc.ghiChu != null">Ghi chú : {{dc.ghiChu}}</div>
+												</div>
+												<a data-toggle="modal" data-target="#myModal3"
+												   style="position: absolute; right: 32px;top: 10px;color: #3ab19c; cursor: pointer"  ng-click="changeDC(dc)" >
+													Chọn
+												</a>
+											</div>
+										</div>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-default" data-dismiss="modal">Close
+										</button>
+
+									</div>
+									<!-- modal body-->
+								</div>
+							</div>
+						</div>
+						<!--     modal-->
 					</div>
 				<br>
 				<!-- CART TABLE_BLOCK START -->

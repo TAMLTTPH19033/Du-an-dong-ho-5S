@@ -41,7 +41,6 @@ myApp.config(function ($routeProvider, $locationProvider,$httpProvider) {
         })
         .when("/address", {
         templateUrl: "page/address.html",
-
     })
         .when("/shipping", {
         templateUrl: "page/checkout-shipping.html",

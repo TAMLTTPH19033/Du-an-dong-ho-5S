@@ -2,9 +2,11 @@ package com.datn.dongho5s.Controller.RestController.KhachHang;
 
 import com.datn.dongho5s.Entity.DiaChi;
 import com.datn.dongho5s.Entity.KhachHang;
+import com.datn.dongho5s.Request.DiaChiRequest;
 import com.datn.dongho5s.Response.ThongTinCaNhanResponse;
 import com.datn.dongho5s.Response.ThongTinToCheckoutResponse;
 import com.datn.dongho5s.Response.TimKiemSettingResponse;
+import com.datn.dongho5s.Service.DiaChiService;
 import com.datn.dongho5s.Service.impl.KhachHangServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +20,9 @@ public class KhachHangRestController {
 
     @Autowired
     KhachHangServiceImpl khachHangServiceImpl;
+
+    @Autowired
+    DiaChiService diaChiService;
 
     @GetMapping("/thong-tin-ca-nhan/{id}")
     public ResponseEntity<ThongTinCaNhanResponse> getThongTinCaNhanById (
@@ -46,5 +51,16 @@ public class KhachHangRestController {
             return new ResponseEntity<ThongTinToCheckoutResponse>(HttpStatus.NOT_FOUND);
         }
     }
-	
+
+    @GetMapping("/getDiaChi")
+    public ResponseEntity<?> getDiaCHi (
+            @RequestBody DiaChiRequest diaChiRequest
+            ){
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body( diaChiService.getDiaChiCuThe(diaChiRequest));
+        } catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
 }
