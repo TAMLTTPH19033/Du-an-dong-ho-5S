@@ -306,8 +306,15 @@ myApp.controller(
             });
             return;
           }
-          //api add gio hang
-          console.log(item);
+          if($scope.chiTietSanPham.soLuong == 0){
+            Swal.fire({
+              icon: "warning",
+              title: "Thông báo !",
+              text: "Sản phẩm đã bán hết!",
+              timer: 1600,
+            });
+            return;
+          }
           $http
               .post(`/api/giohang/addToCart`, item)
               .then((resp) => {

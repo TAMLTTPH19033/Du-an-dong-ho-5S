@@ -38,13 +38,12 @@ myApp.config(function ($routeProvider, $locationProvider,$httpProvider) {
         .when("/login", {
             templateUrl: "page/signin.html",
             controller:"loginCtrl"
-
-        }).when("/address", {
+        })
+        .when("/address", {
         templateUrl: "page/address.html",
-
-    }).when("/shipping", {
+    })
+        .when("/shipping", {
         templateUrl: "page/checkout-shipping.html",
-
     })
 
         .when("/checkout", {
@@ -107,6 +106,14 @@ myApp.config(function ($routeProvider, $locationProvider,$httpProvider) {
         })
         .when("/chinhSach", {
             templateUrl: "page/chinhSach.html",
+        })
+        .when("/forgotPassword", {
+            templateUrl: "page/forgotPass.html",
+            controller : "forgotCtrl"
+        })
+        .when("/changePassword/:token", {
+            templateUrl: "page/forgotpassUpdate.html",
+            controller : "forgotUpdateCtrl"
         })
         .otherwise({
             redirectTo: "/",

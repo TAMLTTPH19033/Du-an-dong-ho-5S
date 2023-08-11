@@ -71,10 +71,15 @@ public class ChiTietSanPhamServiceImpl implements ChiTietSanPhamService {
     public Page<ChiTietSanPham> findByMaSP(String maSanPham, int pageNum) {
         return chiTietSanPhamRepository.findByMaSP(maSanPham,PageRequest.of(pageNum - 1, 5));
     }
+    @Override
+    public Page<ChiTietSanPham> getALlChiTietSanPhamPage(int pageNum, String keyword){
+        return chiTietSanPhamRepository.findAll(keyword,PageRequest.of(pageNum - 1, 5));
+    }
 
     @Override
-    public List<SanPhamAdminResponse> getAllSanPhamAminResponse(int pageNum) {
-        List<ChiTietSanPham> lstChiTietSanPhams = chiTietSanPhamRepository.findAll(PageRequest.of(pageNum - 1, 5)).getContent();
+    public List<SanPhamAdminResponse> getAllSanPhamAminResponse(int pageNum,String keyword) {
+        List<ChiTietSanPham> lstChiTietSanPhams = getALlChiTietSanPhamPage(pageNum,keyword).getContent();
+
         List<SanPhamAdminResponse> lst = lstChiTietSanPhams
                 .stream()
                 .map(lstSP -> SanPhamAdminResponse

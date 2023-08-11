@@ -12,12 +12,12 @@ import java.util.Date;
 @Builder
 @AllArgsConstructor
 public class HoaDonAdminRequest {
-    int idHoaDon;
     String maHoaDon;
     String sdt;
     String tenKhachHang;
-    Date ngayTao;
-    Double tongTien;
-    Double giamGia;
+    String ngayTao;
+//    Double tongTien;
+//    Double giamGia;
+//    int idHoaDon;
     Double tongTienDonHang;
 }

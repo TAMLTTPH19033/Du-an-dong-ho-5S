@@ -26,10 +26,10 @@ public class DiaChiServiceImpl implements DiaChiService {
 
 
     @Override
-    public DiaChi createDiaChi(Integer idKhachHang,DiaChiRequest diaChiRequest) {
+    public DiaChiResponse createDiaChi(Integer idKhachHang,DiaChiRequest diaChiRequest) throws Exception {
         KhachHang khachHang = khachHangRepository.findById(idKhachHang).get();
         if(khachHang==null) return null ;
-        DiaChi diaChi = DiaChi.builder()
+        DiaChi d = DiaChi.builder()
                 .idTinhThanh(diaChiRequest.getIdTinhThanh())
                 .idQuanHuyen(diaChiRequest.getIdQuanHuyen())
                 .idPhuongXa(diaChiRequest.getIdPhuongXa())
@@ -40,7 +40,22 @@ public class DiaChiServiceImpl implements DiaChiService {
                 .trangThaiMacDinh(0)
                 .khachHang(khachHang)
                 .build();
-        return diaChiRepository.save(diaChi);
+        DiaChiResponse diaChiResponse =DiaChiResponse.builder()
+                .idDiaChi(d.getIdDiaChi())
+                .idTinhThanh(d.getIdTinhThanh())
+                .idQuanHuyen(d.getIdQuanHuyen())
+                .idPhuongXa(d.getIdPhuongXa())
+                .thanhPho(getTinh(d.getIdTinhThanh()))
+                .quanHuyen(getQuan(d.getIdTinhThanh(),d.getIdQuanHuyen()))
+                .phuongXa(getXa(d.getIdQuanHuyen(),d.getIdPhuongXa()))
+                .diaChi(d.getDiaChi())
+                .ghiChu(d.getGhiChu())
+                .soDienThoai(d.getSoDienThoai())
+                .trangThaiMacDinh(d.getTrangThaiMacDinh())
+                .khachHang(d.getKhachHang())
+                .build();
+         diaChiRepository.save(d);
+         return diaChiResponse;
     }
 
     @Override
@@ -137,6 +152,13 @@ public class DiaChiServiceImpl implements DiaChiService {
     @Override
     public void delete(Integer idDiachi) {
         diaChiRepository.deleteDC(idDiachi);
+    }
+
+    @Override
+    public String getDiaChiCuThe(DiaChiRequest diaChiRequest) throws Exception {
+    String diaChiCuThe = getXa(diaChiRequest.getIdQuanHuyen(), diaChiRequest.getIdPhuongXa()) + " " + getQuan(diaChiRequest.getIdTinhThanh(), diaChiRequest.getIdQuanHuyen())
+            + " " + getTinh(diaChiRequest.getIdTinhThanh());
+        return diaChiCuThe;
     }
 
     public String  getTinh(Integer idTP) throws Exception {

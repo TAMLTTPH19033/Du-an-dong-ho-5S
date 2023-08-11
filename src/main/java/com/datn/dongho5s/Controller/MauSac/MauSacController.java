@@ -12,21 +12,23 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
 @Controller
+@RequestMapping("/admin/colors")
 public class MauSacController {
 
     @Autowired
     MauSacService mauSacService;
-    @GetMapping("/colors")
+    @GetMapping
     public String listFirstPage(Model model){
         return listByPage(1,model,"tenMauSac","asc",null);
     }
 
-    @GetMapping("/colors/page/{pageNum}")
+    @GetMapping("/page/{pageNum}")
     public String listByPage(@PathVariable(name = "pageNum") int pageNum, Model model,
                              @Param("sortField")String sortField , @Param("sortDir")String sortDir,
                              @Param("keyword")String keyword
@@ -56,7 +58,7 @@ public class MauSacController {
         return "admin/mausac/colors";
     }
 
-    @GetMapping("/colors/{id}/enabled/{status}")
+    @GetMapping("/{id}/enabled/{status}")
     public String updateMauSacEnabledStatus(@PathVariable("id") Integer id,
                                              @PathVariable("status") boolean enabled,
                                              RedirectAttributes redirectAttributes){
@@ -67,21 +69,21 @@ public class MauSacController {
         return "redirect:/colors";
     }
 
-    @GetMapping("/colors/new")
+    @GetMapping("/new")
     public String newDanhMuc(Model model){
         model.addAttribute("mauSac", new MauSac());
         model.addAttribute("pageTitle","Tạo Mới Màu Sắc");
         return "admin/mausac/colors_form";
     }
 
-    @PostMapping("/colors/save")
+    @PostMapping("/save")
     public String saveDanhMuc(MauSac mauSac, RedirectAttributes redirectAttributes){
         mauSacService.save(mauSac);
         redirectAttributes.addFlashAttribute("message","Thay Đổi Thành Công");
-        return "redirect:/colors";
+        return "redirect:/admin/colors";
     }
 
-    @GetMapping("/colors/edit/{id}")
+    @GetMapping("/edit/{id}")
     public String editUser(@PathVariable(name = "id") Integer id,
                            Model model,
                            RedirectAttributes redirectAttributes){
@@ -92,10 +94,10 @@ public class MauSacController {
             return "admin/mausac/colors_form";
         } catch (MauSacNotFoundException ex){
             redirectAttributes.addFlashAttribute("message",ex.getMessage());
-            return "redirect:/colors";
+            return "redirect:/admin/colors";
         } catch (Exception ex) {
             redirectAttributes.addFlashAttribute("error", "Đã xảy ra lỗi trong quá trình xử lý. Vui lòng thử lại sau.");
-            return "redirect:/error";
+            return "redirect:/admin/error";
         }
     }
 }

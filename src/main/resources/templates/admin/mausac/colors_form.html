@@ -33,14 +33,14 @@
         <h2>Quản lý màu sắc | [[${pageTitle}]]</h2>
     </div>
 
-    <form th:action="@{/colors/save}" method="post" style="max-width: 500px;margin: 0 auto"
+    <form th:action="@{/admin/colors/save}" method="post" style="max-width: 500px;margin: 0 auto"
           th:object="${mauSac}" onsubmit="return checkCategoryNameUnique(this);">
         <input type="hidden" th:field="*{idMauSac}"/>
         <div class="border border-secondary rounded p-3">
             <div class="form-group-row">
                 <label class="col-sm-4 col-form-label">Màu sắc:</label>
                 <div class="col-sm-12">
-                    <input type="color" class="form-control" th:field="*{tenMauSac}" id="tenMauSacInput" required minlength="3" maxlength="128"/>
+                    <input type="text" class="form-control" th:field="*{tenMauSac}" id="tenMauSacInput" required minlength="3" maxlength="128"/>
                 </div>
             </div>
 
@@ -82,10 +82,10 @@
 </div>
 
 <script type="text/javascript">
-    moduleURL= "[[@{/colors}]]";
+    moduleURL= "[[@{/admin/colors}]]";
 
     function checkCategoryNameUnique(form) {
-        var url = "[[@{/colors/check_name}]]";
+        var url = "[[@{/admin/colors/check_name}]]";
         var danhMucName = form.ten.value;
         var danhMucId = form.id.value;
         var csrfValue = $("input[name='_csrf']").val();
