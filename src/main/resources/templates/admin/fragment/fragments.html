@@ -100,6 +100,14 @@
               th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>
     </th>
 
+    <th th:fragment="khachhang_link(fieldKhachHang, columnLabel)">
+        <a style="text-decoration: none; color: black"
+           th:href="@{'/admin/customers/page/' + ${currentPage} + '?sortField=' + ${fieldKhachHang} + '&sortDir=' + ${sortField != fieldKhachHang ? sortDir : reverseSortDir} + ${keyword !=null ? '&keyword=' + keyword:''}}">
+            [[${columnLabel}]]
+        </a>
+        <span th:if="${sortField == fieldKhachHang}" style="text-decoration: none; color: black"
+              th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>
+    </th>
 <!--    <th th:fragment="seri_link(fieldSeri, columnLabel)">-->
 <!--        <a style="text-decoration: none; color: black"-->
 <!--           th:href="@{'/admin/series/page/' + ${currentPage} + '?sortField=' + ${fieldSeri} + '&sortDir=' + ${sortField != fieldSeri ? sortDir : reverseSortDir} + ${keyword !=null ? '&keyword=' + keyword:''}}">-->
@@ -156,5 +164,9 @@
     <a th:fragment="page_donhang_link(pageNum, label)"
        class="page-link"
        th:href="@{'/admin/don-hang/page/' + ${pageNum}}"> [[${label}]]</a>
+
+    <a th:fragment="pagecustomer_link(pageNum, label)"
+       class="page-link"
+       th:href="@{'/admin/customers/page/' + ${pageNum} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword' + keyword : ''}}"> [[${label}]]</a>
 </body>
 </html>
