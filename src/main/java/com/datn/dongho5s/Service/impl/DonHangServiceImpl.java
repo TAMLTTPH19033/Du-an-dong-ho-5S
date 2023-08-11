@@ -3,6 +3,7 @@ package com.datn.dongho5s.Service.impl;
 
 import com.datn.dongho5s.Entity.DonHang;
 import com.datn.dongho5s.Entity.HoaDonChiTiet;
+import com.datn.dongho5s.Repository.ChiTietSanPhamRepository;
 import com.datn.dongho5s.Repository.DonHangRepository;
 import com.datn.dongho5s.Repository.HoaDonChiTietRepository;
 import com.datn.dongho5s.Request.DonHangRequest;
@@ -31,6 +32,9 @@ public class DonHangServiceImpl implements DonHangService {
 
     @Autowired
     HoaDonChiTietRepository hoaDonChiTietRepository;
+
+    @Autowired
+    ChiTietSanPhamRepository chiTietSanPhamRepository;
 
     @Override
     public DonHang save(DonHang donHang) {
@@ -149,7 +153,14 @@ public class DonHangServiceImpl implements DonHangService {
 
     @Override
     public String xoaDonHangAdmin(DonHang donHang){
+        // cap nhat lai so luong cua san pham chi tiet
+
+        for (HoaDonChiTiet h : donHang.getListHoaDonChiTiet()){
+            chiTietSanPhamRepository.updateSoLuongFromHDCT(h.getSoLuong(),h.getChiTietSanPham().getIdChiTietSanPham());
+        }
+        // xoa chi tiet hoa don
         hoaDonChiTietRepository.deleteByDonHang(donHang);
+        // xoa hoa don
         donHangRepository.deleteByMaDonHang(donHang.getMaDonHang());
         return "Delete succcessful! Code is" + donHang.getMaDonHang();
     }

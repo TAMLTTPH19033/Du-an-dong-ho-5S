@@ -223,16 +223,17 @@ public class BanHangController {
         return "redirect:/admin/ban-hang/hoa-don/" + donHangByMa.getMaDonHang();
     }
 
-    @PostMapping("/hoa-don-chi-tiet/sua/{idHDCT}")
+    @PostMapping("/hoa-don-chi-tiet/sua/{idHD}/so-luong/{soLuong}")
     public String updateHDCT(
             @PathVariable("idHD") int idHDCT,
-            HttpServletRequest httpServletRequest,
+            @PathVariable("soLuong") int soLuong,
             HttpSession httpSession,
             Model model
     ){
-        int soLuongCapNhat = Integer.parseInt(httpServletRequest.getParameter("soLuongCapNhat"));
+        int soLuongCapNhat = soLuong;
         HoaDonChiTiet hoaDonChiTiet = hoaDonChiTietService.findHoaDonChiTietById(idHDCT);
 
+        System.out.println("SOLuong al " + soLuong + idHDCT);
         if (soLuongCapNhat<=0){
             // xoa hoa don chi tiet
             hoaDonChiTietService.xoaHDCT(hoaDonChiTiet);
@@ -242,24 +243,6 @@ public class BanHangController {
         }
 
         DonHang donHangByMa = (DonHang) httpSession.getAttribute("donHangHienTai");
-
-        // set list san pham
-        List<SanPhamAdminResponse> sanPhamList = chiTietSanPhamService.getAllSanPhamAminResponse(1);
-
-        model.addAttribute("listSanPham",sanPhamList);
-
-        //set list hdct
-
-        Page<HoaDonChiTiet> lstHDCTPage = hoaDonChiTietService.getHDCTByMaDonHang(donHangByMa.getMaDonHang(),1);
-
-        List<HoaDonChiTiet> lstHDCT = lstHDCTPage.getContent();
-
-        model.addAttribute("lstHDCT",lstHDCT);
-
-        //set list ctsp
-
-        model.addAttribute("lstCTSP",chiTietSanPhamService.getAllSanPhamAminResponse(1));
-
         return "redirect:/admin/ban-hang/hoa-don/" + donHangByMa.getMaDonHang();
     }
 

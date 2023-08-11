@@ -113,8 +113,7 @@
                     <a class="btn btn-outline-dark hoa-don-chi-tiet-sua"
                        data-bs-toggle="modal"
                        data-bs-target="#suaSanPham"
-                       th:data-id-hdct="${hdct.idHoaDonChiTiet}"
-                       th:data-soLuongHienTai="${hdct.chiTietSanPham.soLuong}"
+                       th:data-id-hdct-sua="${hdct.idHoaDonChiTiet}"
                     >Sửa</a>
                   </td>
                 </tr>
@@ -465,14 +464,18 @@
   // chuc nang xoa san pham tu hoa don chi tiet end
 
   // chuc nang cap nhat san pham tu hoa don chi tiet
+
   var idHDCTSua;
   $('.hoa-don-chi-tiet-sua').click(function() {
-    idHDCTXoa = $(this).data('id-hdct');
+    idHDCTSua = $(this).data('id-hdct-sua');
   });
 
-  $('#suaSanPham').click(function() {
+  $('#capNhatSoLuong').click(function() {
+    var a = document.getElementById("soLuongThemCapNhat").value;
+    console.log(a,"so luong","ma",idHDCTSua);
     $.ajax({
-      url: "/admin/ban-hang/hoa-don-chi-tiet/"+ idHDCTXoa,
+    // /hoa-don-chi-tiet/sua/{idHD}/so-luong/{soLuong}
+      url: "/admin/ban-hang/hoa-don-chi-tiet/sua/"+ idHDCTSua+"/so-luong/" + a,
       method: "POST",
       success: function(response) {
         $('#content').html(response);
