@@ -14,9 +14,10 @@ public interface ChiTietSanPhamService {
     ChiTietSanPham update(ChiTietSanPham chiTietSanPham);
     Page<ChiTietSanPham> findByMaSP(String maSanPham, int pageNum);
 
-    Page<ChiTietSanPham> getALlChiTietSanPhamPage(int pageNum);
+    Page<ChiTietSanPham> getALlChiTietSanPhamPage(int pageNum, String keyword);
 
-    List<SanPhamAdminResponse> getAllSanPhamAminResponse(int pageNum);
+    List<SanPhamAdminResponse> getAllSanPhamAminResponse(int pageNum, String keyword);
+
     ChiTietSanPham findByMaChiTietSanPham(String maChimaTietSanPham);
     ChiTietSanPham getChiTietSanPhamByMa (String ma);
 }

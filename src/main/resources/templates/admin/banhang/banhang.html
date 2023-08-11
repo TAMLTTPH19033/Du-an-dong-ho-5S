@@ -240,7 +240,32 @@
   </div>
   </section>
   <!-- MAIN-CONTENT-SECTION END -->
+
 </div>
+</div>
+<div th:if="${totalPages > 1}">
+  <nav>
+    <ul class="pagination justify-content-center">
+      <li th:class="${currentPage > 1 ?'page-item' : 'page-item disabled'}">
+        <a th:replace="admin/fragment/fragments::page_spct_link(1, 'Trang Đầu')" ></a>
+      </li>
+      <li th:class="${currentPage > 1 ?'page-item' : 'page-item disabled'}">
+        <a th:replace="admin/fragment/fragments::page_spct_link(${currentPage - 1}, Trước)"></a>
+      </li>
+
+      <li th:class="${currentPage != i ? 'page-item': 'page-item disabled' }"
+          th:each="i : ${#numbers.sequence(currentPage == 1 ? currentPage : (currentPage - 1), (currentPage + 1) < totalPages ? (currentPage + 1) : totalPages )}">
+        <a th:replace="admin/fragment/fragments::page_spct_link(${i}, ${i})"></a>
+      </li>
+
+      <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
+        <a th:replace="admin/fragment/fragments::page_spct_link(${currentPage + 1}, Sau)"></a>
+      </li>
+      <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
+        <a th:replace="admin/fragment/fragments::page_spct_link(${totalPages}, 'Trang Cuối')"></a>
+      </li>
+    </ul>
+  </nav>
 </div>
 <!-- END article -->
 <!--  Footer      -->

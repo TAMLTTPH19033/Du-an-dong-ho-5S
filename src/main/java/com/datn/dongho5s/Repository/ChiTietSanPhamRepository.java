@@ -2,6 +2,7 @@ package com.datn.dongho5s.Repository;
 
 
 import com.datn.dongho5s.Entity.ChiTietSanPham;
+import com.datn.dongho5s.Entity.DanhMuc;
 import com.datn.dongho5s.Entity.HoaDonChiTiet;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,7 +23,12 @@ public interface ChiTietSanPhamRepository extends JpaRepository<ChiTietSanPham,I
     """)
     public Page<ChiTietSanPham> findByMaSP(String maSanPham, Pageable pageable);
 
-    public Page<ChiTietSanPham> findAll(Pageable pageable);
+    @Query("""
+        SELECT ctsp
+        FROM ChiTietSanPham ctsp
+        WHERE UPPER(CONCAT(ctsp.maChiTietSanPham, ' ')) LIKE %?1% 
+    """)
+    public Page<ChiTietSanPham> findAll(String keyword,Pageable pageable);
 
     @Query(value = """
         UPDATE ChiTietSanPham c
