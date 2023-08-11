@@ -8,7 +8,7 @@ import com.datn.dongho5s.Response.DiaChiResponse;
 import java.util.List;
 
 public interface DiaChiService {
-    public DiaChi createDiaChi(Integer idKhachHang,DiaChiRequest diaChiRequest);
+    public DiaChiResponse createDiaChi(Integer idKhachHang,DiaChiRequest diaChiRequest) throws Exception;
     public List<DiaChi> getAllDiaChi();
     List<DiaChi> getAllDiaChiByKhachHang(KhachHang khachHang);
 
@@ -16,4 +16,6 @@ public interface DiaChiService {
     DiaChiResponse updateDC(Integer idDiachi, DiaChiRequest diaChiRequest) throws Exception;
     DiaChiResponse updateDCDefault(Integer idKhachHang,Integer idDiachi) throws Exception;
     void delete(Integer idDiachi) ;
+
+    String getDiaChiCuThe(DiaChiRequest diaChiRequest) throws Exception;
 }

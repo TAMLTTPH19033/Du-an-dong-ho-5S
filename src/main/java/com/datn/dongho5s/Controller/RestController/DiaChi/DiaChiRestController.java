@@ -32,9 +32,9 @@ public class DiaChiRestController {
     }
 
     @PostMapping("/them-dia-chi/{idKhachHang}")
-    public ResponseEntity<DiaChi> createDiaChi (@PathVariable("idKhachHang") Integer idKhachHang,@RequestBody DiaChiRequest diaChiRequest) {
+    public ResponseEntity<DiaChiResponse> createDiaChi (@PathVariable("idKhachHang") Integer idKhachHang,@RequestBody DiaChiRequest diaChiRequest) throws Exception {
 
-        DiaChi result = diaChiServiceImpl.createDiaChi(idKhachHang,diaChiRequest);
+        DiaChiResponse result = diaChiServiceImpl.createDiaChi(idKhachHang,diaChiRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 
