@@ -10,7 +10,13 @@ import com.datn.dongho5s.Response.ThongTinToCheckoutResponse;
 import com.datn.dongho5s.Service.KhachHangService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -77,5 +83,28 @@ public class KhachHangServiceImpl implements KhachHangService {
     @Override
     public void saveKhachHang(KhachHang khachHang) {
         khachHangRepo.save(khachHang);
+    }
+
+    @Override
+    public List<KhachHang> getAllKhachHang() {
+        return khachHangRepo.findAll();
+    }
+
+    @Override
+    public List<KhachHang> getAllPaginationVatLieu() {
+        return khachHangRepo.findAll(Sort.by("tenKhachHang").ascending());
+    }
+
+
+    @Override
+    public Page<KhachHang> listByPage(int pageNumber, String sortField, String sortDir, String keyword) {
+        Sort sort = Sort.by(sortField);
+        sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
+        Pageable pageable = PageRequest.of(pageNumber - 1 , CUSTOMERS_PER_PAGE, sort);
+        if (keyword != null){
+            return khachHangRepo.findAll(keyword,pageable);
+        }
+        return khachHangRepo.findAll(pageable);
+
     }
 }
