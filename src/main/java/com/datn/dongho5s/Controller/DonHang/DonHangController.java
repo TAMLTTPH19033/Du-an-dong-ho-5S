@@ -2,6 +2,7 @@ package com.datn.dongho5s.Controller.DonHang;
 
 import com.datn.dongho5s.Cache.DiaChiCache;
 import com.datn.dongho5s.Configure.VNPayConfig;
+import com.datn.dongho5s.Entity.ChiTietSanPham;
 import com.datn.dongho5s.Entity.DonHang;
 import com.datn.dongho5s.Entity.HoaDonChiTiet;
 import com.datn.dongho5s.Entity.KhachHang;
@@ -12,9 +13,11 @@ import com.datn.dongho5s.GiaoHangNhanhService.Request.ChiTietItemRequestGHN;
 import com.datn.dongho5s.GiaoHangNhanhService.Request.TaoDonHangRequestGHN;
 import com.datn.dongho5s.Request.ThemDonHangRequest;
 import com.datn.dongho5s.Response.VNPayUrlResponse;
+import com.datn.dongho5s.Service.ChiTietSanPhamService;
 import com.datn.dongho5s.Service.DonHangService;
 import com.datn.dongho5s.Service.HoaDonChiTietService;
 import com.datn.dongho5s.Service.KhachHangService;
+import com.datn.dongho5s.Utils.TrangThaiDonHang;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -56,6 +59,8 @@ public class DonHangController {
     private DonHangService donHangService;
     @Autowired
     HttpServletRequest request;
+    @Autowired
+    ChiTietSanPhamService ctspService;
 
     private List<ChiTietItemRequestGHN> toListChiTietItem(List<HoaDonChiTiet> listHDCT) {
         List<ChiTietItemRequestGHN> result = new ArrayList<>();
@@ -174,7 +179,7 @@ public class DonHangController {
     }
 
     @GetMapping("/search/date")
-    public void searchByDateStartanDateEnd(
+    public String searchByDateStartanDateEnd(
         HttpSession httpSession,
         Model model,
         HttpServletRequest httpServletRequest
@@ -196,10 +201,10 @@ public class DonHangController {
         List<DonHang> lst = donHangService.findByNgayTao(dateStartParse,dateEndParse);
 
         model.addAttribute("list",lst);
-//        return "admin/donhang/donhang";
+        return "admin/donhang/donhang";
     }
 
-    @PostMapping("/update/{id}/trang-thai/{trangThai}")
+    @GetMapping("/update/{id}/trang-thai/{trangThai}")
     public String updateStatusDonHang(
             HttpSession session,
             @PathVariable("trangThai") int trangThai,
@@ -208,7 +213,15 @@ public class DonHangController {
     ) {
         DonHang donHang = donHangService.findById(id);
         donHang.setTrangThaiDonHang(trangThai);
-
+        donHang.setNgayCapNhap(new Date());
+        if(trangThai == TrangThaiDonHang.DANG_GIAO){
+            List<HoaDonChiTiet> listHDCT = donHang.getListHoaDonChiTiet();
+            listHDCT.forEach(item->{
+                ChiTietSanPham ctsp = item.getChiTietSanPham();
+                ctsp.setSoLuong(item.getChiTietSanPham().getSoLuong()-item.getSoLuong());
+                ctspService.update(ctsp);
+            });
+        }
         donHangService.updateTrangThaiDonHang(donHang);
 
         Page<DonHang> donHangs = donHangService.getAll(1);
@@ -217,14 +230,5 @@ public class DonHangController {
         return "redirect:/admin/don-hang";
     }
 
-    @GetMapping("/findByTrangThai/{trangThai}")
-    public String findByTrangThaiDonHang(
-            @PathVariable("trangThai") int trangThai,
-            Model model
-    ){
-        List<DonHang> donHangs = donHangService.findByTrangThaiDonHang(trangThai);
 
-        model.addAttribute("list", donHangs);
-        return "admin/donhang/search-by-trangthai";
-    }
 }
