@@ -216,7 +216,7 @@
                                     <div>{{h.soLuong}} <span class="pro-quan-x">x</span></div>
                                     <span class="pro-quality"><a href="#sanpham">Phân loại : {{h.chiTietSanPham.kichCo.tenKichCo}},{{h.chiTietSanPham.mauSac.tenMauSac}}</a></span>
                                     <ul class="price text-right" style="    position: absolute; right: 20px;top: 19px; " >
-                                        <li class="price special-price"> {{h.giaBan * h.soLuong | number}} </li>
+                                        <li class="price special-price"> {{h.giaBan * h.soLuong | number}} đ</li>
                                         <span ng-if="h.giaBan == h.chiTietSanPham.giaSanPham"></span>
                                         <span ng-if="h.giaBan != h.chiTietSanPham.giaSanPham">
 										<li class="price-percent-reduction small">&nbsp;{{h.chiTietSanPham.khuyenMai.chietKhau }}%&nbsp;</li>
@@ -229,12 +229,12 @@
                             <div style="width: 30%;margin-left: 650px  ">
                                 <div class="shipping-total-bill" >
                                     <div class="cart-prices" style="border: none">
-                                        <span class="shipping-cost">{{item.phiVanChuyen}}</span>
+                                        <span class="shipping-cost">{{item.phiVanChuyen | number}} đ</span>
                                         <span>Vận chuyển</span>
                                     </div>
                                     <div class="total-shipping-prices" >
-                                        <span class="shipping-total">{{item.tongTien + item.phiVanChuyen}}</span>
-                                        <span>Tổng tiền</span>
+                                        <span class="shipping-total">{{item.tongTien + item.phiVanChuyen | number}} đ</span>
+                                        <span>Tổng </span>
                                     </div>
                                 </div>
                                 <div class="shipping-checkout-btn" style="    padding: 0 10px 20px; background: none">

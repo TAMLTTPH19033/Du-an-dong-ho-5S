@@ -221,20 +221,21 @@
 									</div>
 									<div ng-if="chiTietSanPham.giaSanPham == getGia()">
 										<div class="single-product-condition">
-											<p>Reference: <span>{{chiTietSanPham.sanPham.maSanPham}}</span></p>
+											<p>Mã: <span>{{chiTietSanPham.maChiTietSanPham}}</span></p>
 										</div>
 										<div class="single-product-price" >
-											<h2 ng-bind="getGia()"> đ</h2>
+											<h2 ng-bind="getGia() | number"> đ</h2>
 										</div>
 									</div>
 									<div ng-if="chiTietSanPham.giaSanPham != getGia()">
 										<div class="single-product-condition">
-											<p>Reference: <span>{{chiTietSanPham.sanPham.maSanPham}}</span></p>
+											<p>Mã: <span>{{chiTietSanPham.maChiTietSanPham}}</span></p>
 											<!--Todo chiet khau-->
-											<p>Sale: <span>{{chiTietSanPham.khuyenMai.tenKhuyenMai}}</span></p>
+											<p>Khuyến mại: <span>{{chiTietSanPham.khuyenMai.tenKhuyenMai}}</span></p>
 										</div>
 									<div class="single-product-price">
-										<h2 ng-bind="getGia() | number "><span>đ</span> </h2> <span class="old-price">{{chiTietSanPham.giaSanPham | number }} đ</span>
+										<h2 ng-bind="getGia() | number "></h2> <h2>đ</h2>
+										<span class="old-price">{{chiTietSanPham.giaSanPham | number }} đ</span>
 									</div>
 									</div>
 <!--									<div class="single-product-desc">-->

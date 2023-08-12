@@ -195,12 +195,13 @@
 							<td class="cart-description">
 								<p class="product-name"><a href="#/chitietsanpham/{{item.chiTietSanPham.sanPham.idSanPham}}">{{item.chiTietSanPham.sanPham.tenSanPham}} </a></p>
 								<small>Mã :{{chitietsanpham.maChiTietSanPham}}</small>
-								<small><a href="#">Size :{{item.chiTietSanPham.kichCo.tenKichCo}} , Color : {{item.chiTietSanPham.mauSac.tenMauSac}} </a></small>
+								<small><a href="#">Kích thước :{{item.chiTietSanPham.kichCo.tenKichCo}}
+									, Màu : {{item.chiTietSanPham.mauSac.tenMauSac}} </a></small>
 							</td>
 							<td class="cart-avail"><span class="label label-success">In stock</span></td>
 							<td class="cart-unit">
 								<ul class="price text-right">
-									<li class="price special-price"> {{item.giaBan | number}} </li>
+									<li class="price special-price"> {{item.giaBan | number}} đ</li>
 									<span ng-if="item.giaBan == item.chiTietSanPham.giaSanPham"></span>
 									<span ng-if="item.giaBan != item.chiTietSanPham.giaSanPham">
 										<li class="price-percent-reduction small">&nbsp;{{item.chiTietSanPham.khuyenMai.chietKhau}}%&nbsp;</li>

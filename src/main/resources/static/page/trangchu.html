@@ -204,7 +204,7 @@
                     <!-- LEFT SIDEBAR-BEST-SELLER START -->
                     <div class="single-left-sidebar sidebar-best-seller">
                         <div class="left-title-area">
-                            <h2 class="left-title">Sản phẩm bán chạy</h2>
+                            <h2 class="left-title">TOP sản phẩm bán nhiều</h2>
                         </div>
                         <div class="row">
                             <!-- SIDEBAR-BEST-SELLER-CAROUSEL START -->
@@ -232,23 +232,24 @@
                                             <div class="price-box">
                                                                   <span ng-if="item.listChiTietSanPham.length == 1">
                                                                       <span ng-if=" itemWithGiaNN.get(item.idSanPham) == getGiaNNOld(item.listChiTietSanPham)">
-                                                                          <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ </span>
+                                                                          <span class="price" style="font-size: 11px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ </span>
                                                                       </span>
                                                                       <span ng-if=" itemWithGiaNN.get(item.idSanPham) != getGiaNNOld(item.listChiTietSanPham)">
-                                                                          <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ </span>
-                                                                          <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ
+                                                                          <span class="price" style="font-size: 11px"> {{ itemWithGiaNN.get(item.idSanPham) | number }} đ </span>
+                                                                          <span class="old-price" style="font-size: 11px" ng-bind="getGiaNNOld(item.listChiTietSanPham) | number"></span>đ
                                                                       </span>
                                                                   </span>
                                                 <span ng-if="item.listChiTietSanPham.length > 1">
                                                                         <span ng-if=" itemWithGiaNN.get(item.idSanPham) == getGiaNNOld(item.listChiTietSanPham) && itemWithGiaLN.get(item.idSanPham) == getGiaLNOld(item.listChiTietSanPham)">
-                                                                            <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ</span>~
-                                                                            <span class="price"> {{ itemWithGiaLN.get(item.idSanPham)}} đ</span>
+                                                                            <span class="price" style="font-size: 11px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ</span>~
+                                                                            <span class="price" style="font-size: 11px"> {{ itemWithGiaLN.get(item.idSanPham) | number}} đ</span>
                                                                          </span>
+                                                    <br>
                                                                         <span ng-if=" itemWithGiaNN.get(item.idSanPham) != getGiaNNOld(item.listChiTietSanPham) || itemWithGiaLN.get(item.idSanPham) != getGiaLNOld(item.listChiTietSanPham)">
-                                                                            <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ</span>~
-                                                                            <span class="price"> {{ itemWithGiaLN.get(item.idSanPham)}} đ</span>
-                                                                            <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ ~
-                                                                            <span class="old-price" ng-bind="getGiaLNOld(item.listChiTietSanPham)"></span>đ
+                                                                            <span class="price" style="font-size: 11px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ</span>~
+                                                                            <span class="price" style="font-size: 11px"> {{ itemWithGiaLN.get(item.idSanPham) | number}} đ</span>
+                                                                            <span class="old-price" style="font-size: 11px" ng-bind="getGiaNNOld(item.listChiTietSanPham) | number"></span>đ~
+                                                                            <span class="old-price" style="font-size: 11px" ng-bind="getGiaLNOld(item.listChiTietSanPham) | number"></span>đ
                                                                          </span>
                                                                   </span>
                                             </div>
@@ -281,23 +282,24 @@
                                             <div class="price-box">
                                                                   <span ng-if="item.listChiTietSanPham.length == 1">
                                                                       <span ng-if=" itemWithGiaNN.get(item.idSanPham) == getGiaNNOld(item.listChiTietSanPham)">
-                                                                          <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ </span>
+                                                                          <span class="price" style="font-size: 11px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ </span>
                                                                       </span>
                                                                       <span ng-if=" itemWithGiaNN.get(item.idSanPham) != getGiaNNOld(item.listChiTietSanPham)">
-                                                                          <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ </span>
-                                                                          <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ
+                                                                          <span class="price" style="font-size: 11px"> {{ itemWithGiaNN.get(item.idSanPham) | number }} đ </span>
+                                                                          <span class="old-price" style="font-size: 11px" ng-bind="getGiaNNOld(item.listChiTietSanPham) | number"></span>đ
                                                                       </span>
                                                                   </span>
                                                 <span ng-if="item.listChiTietSanPham.length > 1">
                                                                         <span ng-if=" itemWithGiaNN.get(item.idSanPham) == getGiaNNOld(item.listChiTietSanPham) && itemWithGiaLN.get(item.idSanPham) == getGiaLNOld(item.listChiTietSanPham)">
-                                                                            <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ</span>~
-                                                                            <span class="price"> {{ itemWithGiaLN.get(item.idSanPham)}} đ</span>
+                                                                            <span class="price" style="font-size: 11px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ</span>~
+                                                                            <span class="price" style="font-size: 11px"> {{ itemWithGiaLN.get(item.idSanPham) | number}} đ</span>
                                                                          </span>
+                                                    <br>
                                                                         <span ng-if=" itemWithGiaNN.get(item.idSanPham) != getGiaNNOld(item.listChiTietSanPham) || itemWithGiaLN.get(item.idSanPham) != getGiaLNOld(item.listChiTietSanPham)">
-                                                                            <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ</span>~
-                                                                            <span class="price"> {{ itemWithGiaLN.get(item.idSanPham)}} đ</span>
-                                                                            <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ ~
-                                                                            <span class="old-price" ng-bind="getGiaLNOld(item.listChiTietSanPham)"></span>đ
+                                                                            <span class="price" style="font-size: 11px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ</span>~
+                                                                            <span class="price" style="font-size: 11px"> {{ itemWithGiaLN.get(item.idSanPham) | number}} đ</span>
+                                                                            <span class="old-price" style="font-size: 11px" ng-bind="getGiaNNOld(item.listChiTietSanPham) | number"></span>đ~
+                                                                            <span class="old-price" style="font-size: 11px" ng-bind="getGiaLNOld(item.listChiTietSanPham) | number"></span>đ
                                                                          </span>
                                                                   </span>
                                             </div>
@@ -366,23 +368,24 @@
                                                                 <div class="price-box">
                                                                   <span ng-if="item.listChiTietSanPham.length == 1">
                                                                       <span ng-if=" itemWithGiaNN.get(item.idSanPham) == getGiaNNOld(item.listChiTietSanPham)">
-                                                                          <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ </span>
+                                                                          <span class="price" style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ </span>
                                                                       </span>
                                                                       <span ng-if=" itemWithGiaNN.get(item.idSanPham) != getGiaNNOld(item.listChiTietSanPham)">
-                                                                          <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ </span>
-                                                                          <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ
+                                                                          <span class="price"  style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ </span>
+                                                                          <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham) | number"></span>đ
                                                                       </span>
                                                                   </span>
                                                                     <span ng-if="item.listChiTietSanPham.length > 1">
                                                                         <span ng-if=" itemWithGiaNN.get(item.idSanPham) == getGiaNNOld(item.listChiTietSanPham) && itemWithGiaLN.get(item.idSanPham) == getGiaLNOld(item.listChiTietSanPham)">
-                                                                            <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ</span>~
-                                                                            <span class="price"> {{ itemWithGiaLN.get(item.idSanPham)}} đ</span>
+                                                                            <span class="price"  style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ</span>~
+                                                                            <span class="price"  style="font-size: 13px"> {{ itemWithGiaLN.get(item.idSanPham) | number}} đ</span>
                                                                          </span>
+                                                                        <br>
                                                                         <span ng-if=" itemWithGiaNN.get(item.idSanPham) != getGiaNNOld(item.listChiTietSanPham) || itemWithGiaLN.get(item.idSanPham) != getGiaLNOld(item.listChiTietSanPham)">
-                                                                            <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ</span>~
-                                                                            <span class="price"> {{ itemWithGiaLN.get(item.idSanPham)}} đ</span>
-                                                                            <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ ~
-                                                                            <span class="old-price" ng-bind="getGiaLNOld(item.listChiTietSanPham)"></span>đ
+                                                                            <span class="price"  style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ</span>~
+                                                                            <span class="price"  style="font-size: 13px"> {{ itemWithGiaLN.get(item.idSanPham) | number}} đ</span>
+                                                                            <span class="old-price"   ng-bind="getGiaNNOld(item.listChiTietSanPham) | number"></span>đ ~
+                                                                            <span class="old-price"  ng-bind="getGiaLNOld(item.listChiTietSanPham) | number"></span>đ
                                                                          </span>
                                                                   </span>
                                                                 </div>
@@ -431,23 +434,24 @@
                                                                 <div class="price-box">
                                                                   <span ng-if="item.listChiTietSanPham.length == 1">
                                                                       <span ng-if=" itemWithGiaNN.get(item.idSanPham) == getGiaNNOld(item.listChiTietSanPham)">
-                                                                          <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ </span>
+                                                                          <span class="price" style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ </span>
                                                                       </span>
                                                                       <span ng-if=" itemWithGiaNN.get(item.idSanPham) != getGiaNNOld(item.listChiTietSanPham)">
-                                                                          <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ </span>
-                                                                          <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ
+                                                                          <span class="price"  style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ </span>
+                                                                          <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham) | number"></span>đ
                                                                       </span>
                                                                   </span>
                                                                     <span ng-if="item.listChiTietSanPham.length > 1">
                                                                         <span ng-if=" itemWithGiaNN.get(item.idSanPham) == getGiaNNOld(item.listChiTietSanPham) && itemWithGiaLN.get(item.idSanPham) == getGiaLNOld(item.listChiTietSanPham)">
-                                                                            <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ</span>~
-                                                                            <span class="price"> {{ itemWithGiaLN.get(item.idSanPham)}} đ</span>
+                                                                            <span class="price"  style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ</span>~
+                                                                            <span class="price"  style="font-size: 13px"> {{ itemWithGiaLN.get(item.idSanPham) | number}} đ</span>
                                                                          </span>
+                                                                        <br>
                                                                         <span ng-if=" itemWithGiaNN.get(item.idSanPham) != getGiaNNOld(item.listChiTietSanPham) || itemWithGiaLN.get(item.idSanPham) != getGiaLNOld(item.listChiTietSanPham)">
-                                                                            <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ</span>~
-                                                                            <span class="price"> {{ itemWithGiaLN.get(item.idSanPham)}} đ</span>
-                                                                            <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ ~
-                                                                            <span class="old-price" ng-bind="getGiaLNOld(item.listChiTietSanPham)"></span>đ
+                                                                            <span class="price"  style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ</span>~
+                                                                            <span class="price"  style="font-size: 13px"> {{ itemWithGiaLN.get(item.idSanPham) | number}} đ</span>
+                                                                            <span class="old-price"   ng-bind="getGiaNNOld(item.listChiTietSanPham) | number"></span>đ ~
+                                                                            <span class="old-price"  ng-bind="getGiaLNOld(item.listChiTietSanPham) | number"></span>đ
                                                                          </span>
                                                                   </span>
                                                                 </div>
@@ -497,23 +501,24 @@
                                                                 <div class="price-box">
                                                                   <span ng-if="item.listChiTietSanPham.length == 1">
                                                                       <span ng-if=" itemWithGiaNN.get(item.idSanPham) == getGiaNNOld(item.listChiTietSanPham)">
-                                                                          <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ </span>
+                                                                          <span class="price" style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ </span>
                                                                       </span>
                                                                       <span ng-if=" itemWithGiaNN.get(item.idSanPham) != getGiaNNOld(item.listChiTietSanPham)">
-                                                                          <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ </span>
-                                                                          <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ
+                                                                          <span class="price"  style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ </span>
+                                                                          <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham) | number"></span>đ
                                                                       </span>
                                                                   </span>
                                                                     <span ng-if="item.listChiTietSanPham.length > 1">
                                                                         <span ng-if=" itemWithGiaNN.get(item.idSanPham) == getGiaNNOld(item.listChiTietSanPham) && itemWithGiaLN.get(item.idSanPham) == getGiaLNOld(item.listChiTietSanPham)">
-                                                                            <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ</span>~
-                                                                            <span class="price"> {{ itemWithGiaLN.get(item.idSanPham)}} đ</span>
+                                                                            <span class="price"  style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ</span>~
+                                                                            <span class="price"  style="font-size: 13px"> {{ itemWithGiaLN.get(item.idSanPham) | number}} đ</span>
                                                                          </span>
+                                                                        <br>
                                                                         <span ng-if=" itemWithGiaNN.get(item.idSanPham) != getGiaNNOld(item.listChiTietSanPham) || itemWithGiaLN.get(item.idSanPham) != getGiaLNOld(item.listChiTietSanPham)">
-                                                                            <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ</span>~
-                                                                            <span class="price"> {{ itemWithGiaLN.get(item.idSanPham)}} đ</span>
-                                                                            <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ ~
-                                                                            <span class="old-price" ng-bind="getGiaLNOld(item.listChiTietSanPham)"></span>đ
+                                                                            <span class="price"  style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ</span>~
+                                                                            <span class="price"  style="font-size: 13px"> {{ itemWithGiaLN.get(item.idSanPham) | number}} đ</span>
+                                                                            <span class="old-price"   ng-bind="getGiaNNOld(item.listChiTietSanPham) | number"></span>đ ~
+                                                                            <span class="old-price"  ng-bind="getGiaLNOld(item.listChiTietSanPham) | number"></span>đ
                                                                          </span>
                                                                   </span>
                                                                 </div>
@@ -563,23 +568,24 @@
                                                                 <div class="price-box">
                                                                   <span ng-if="item.listChiTietSanPham.length == 1">
                                                                       <span ng-if=" itemWithGiaNN.get(item.idSanPham) == getGiaNNOld(item.listChiTietSanPham)">
-                                                                          <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ </span>
+                                                                          <span class="price" style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ </span>
                                                                       </span>
                                                                       <span ng-if=" itemWithGiaNN.get(item.idSanPham) != getGiaNNOld(item.listChiTietSanPham)">
-                                                                          <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ </span>
-                                                                          <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ
+                                                                          <span class="price"  style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ </span>
+                                                                          <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham) | number"></span>đ
                                                                       </span>
                                                                   </span>
                                                                     <span ng-if="item.listChiTietSanPham.length > 1">
                                                                         <span ng-if=" itemWithGiaNN.get(item.idSanPham) == getGiaNNOld(item.listChiTietSanPham) && itemWithGiaLN.get(item.idSanPham) == getGiaLNOld(item.listChiTietSanPham)">
-                                                                            <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ</span>~
-                                                                            <span class="price"> {{ itemWithGiaLN.get(item.idSanPham)}} đ</span>
+                                                                            <span class="price"  style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ</span>~
+                                                                            <span class="price"  style="font-size: 13px"> {{ itemWithGiaLN.get(item.idSanPham) | number}} đ</span>
                                                                          </span>
+                                                                        <br>
                                                                         <span ng-if=" itemWithGiaNN.get(item.idSanPham) != getGiaNNOld(item.listChiTietSanPham) || itemWithGiaLN.get(item.idSanPham) != getGiaLNOld(item.listChiTietSanPham)">
-                                                                            <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ</span>~
-                                                                            <span class="price"> {{ itemWithGiaLN.get(item.idSanPham)}} đ</span>
-                                                                            <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ ~
-                                                                            <span class="old-price" ng-bind="getGiaLNOld(item.listChiTietSanPham)"></span>đ
+                                                                            <span class="price"  style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ</span>~
+                                                                            <span class="price"  style="font-size: 13px"> {{ itemWithGiaLN.get(item.idSanPham) | number}} đ</span>
+                                                                            <span class="old-price"   ng-bind="getGiaNNOld(item.listChiTietSanPham) | number"></span>đ ~
+                                                                            <span class="old-price"  ng-bind="getGiaLNOld(item.listChiTietSanPham) | number"></span>đ
                                                                          </span>
                                                                   </span>
                                                                 </div>
@@ -629,23 +635,24 @@
                                                                 <div class="price-box">
                                                                   <span ng-if="item.listChiTietSanPham.length == 1">
                                                                       <span ng-if=" itemWithGiaNN.get(item.idSanPham) == getGiaNNOld(item.listChiTietSanPham)">
-                                                                          <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ </span>
+                                                                          <span class="price" style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ </span>
                                                                       </span>
                                                                       <span ng-if=" itemWithGiaNN.get(item.idSanPham) != getGiaNNOld(item.listChiTietSanPham)">
-                                                                          <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ </span>
-                                                                          <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ
+                                                                          <span class="price"  style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ </span>
+                                                                          <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham) | number"></span>đ
                                                                       </span>
                                                                   </span>
                                                                     <span ng-if="item.listChiTietSanPham.length > 1">
                                                                         <span ng-if=" itemWithGiaNN.get(item.idSanPham) == getGiaNNOld(item.listChiTietSanPham) && itemWithGiaLN.get(item.idSanPham) == getGiaLNOld(item.listChiTietSanPham)">
-                                                                            <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ</span>~
-                                                                            <span class="price"> {{ itemWithGiaLN.get(item.idSanPham)}} đ</span>
+                                                                            <span class="price"  style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ</span>~
+                                                                            <span class="price"  style="font-size: 13px"> {{ itemWithGiaLN.get(item.idSanPham) | number}} đ</span>
                                                                          </span>
+                                                                        <br>
                                                                         <span ng-if=" itemWithGiaNN.get(item.idSanPham) != getGiaNNOld(item.listChiTietSanPham) || itemWithGiaLN.get(item.idSanPham) != getGiaLNOld(item.listChiTietSanPham)">
-                                                                            <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ</span>~
-                                                                            <span class="price"> {{ itemWithGiaLN.get(item.idSanPham)}} đ</span>
-                                                                            <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ ~
-                                                                            <span class="old-price" ng-bind="getGiaLNOld(item.listChiTietSanPham)"></span>đ
+                                                                            <span class="price"  style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ</span>~
+                                                                            <span class="price"  style="font-size: 13px"> {{ itemWithGiaLN.get(item.idSanPham) | number}} đ</span>
+                                                                            <span class="old-price"   ng-bind="getGiaNNOld(item.listChiTietSanPham) | number"></span>đ ~
+                                                                            <span class="old-price"  ng-bind="getGiaLNOld(item.listChiTietSanPham) | number"></span>đ
                                                                          </span>
                                                                   </span>
                                                                 </div>
@@ -693,23 +700,24 @@
                                                                 <div class="price-box">
                                                                   <span ng-if="item.listChiTietSanPham.length == 1">
                                                                       <span ng-if=" itemWithGiaNN.get(item.idSanPham) == getGiaNNOld(item.listChiTietSanPham)">
-                                                                          <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ </span>
+                                                                          <span class="price" style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ </span>
                                                                       </span>
                                                                       <span ng-if=" itemWithGiaNN.get(item.idSanPham) != getGiaNNOld(item.listChiTietSanPham)">
-                                                                          <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ </span>
-                                                                          <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ
+                                                                          <span class="price"  style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ </span>
+                                                                          <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham) | number"></span>đ
                                                                       </span>
                                                                   </span>
                                                                     <span ng-if="item.listChiTietSanPham.length > 1">
                                                                         <span ng-if=" itemWithGiaNN.get(item.idSanPham) == getGiaNNOld(item.listChiTietSanPham) && itemWithGiaLN.get(item.idSanPham) == getGiaLNOld(item.listChiTietSanPham)">
-                                                                            <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ</span>~
-                                                                            <span class="price"> {{ itemWithGiaLN.get(item.idSanPham)}} đ</span>
+                                                                            <span class="price"  style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ</span>~
+                                                                            <span class="price"  style="font-size: 13px"> {{ itemWithGiaLN.get(item.idSanPham) | number}} đ</span>
                                                                          </span>
+                                                                        <br>
                                                                         <span ng-if=" itemWithGiaNN.get(item.idSanPham) != getGiaNNOld(item.listChiTietSanPham) || itemWithGiaLN.get(item.idSanPham) != getGiaLNOld(item.listChiTietSanPham)">
-                                                                            <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ</span>~
-                                                                            <span class="price"> {{ itemWithGiaLN.get(item.idSanPham)}} đ</span>
-                                                                            <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ ~
-                                                                            <span class="old-price" ng-bind="getGiaLNOld(item.listChiTietSanPham)"></span>đ
+                                                                            <span class="price"  style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ</span>~
+                                                                            <span class="price"  style="font-size: 13px"> {{ itemWithGiaLN.get(item.idSanPham) | number}} đ</span>
+                                                                            <span class="old-price"   ng-bind="getGiaNNOld(item.listChiTietSanPham) | number"></span>đ ~
+                                                                            <span class="old-price"  ng-bind="getGiaLNOld(item.listChiTietSanPham) | number"></span>đ
                                                                          </span>
                                                                   </span>
                                                                 </div>
@@ -757,23 +765,24 @@
                                                                 <div class="price-box">
                                                                   <span ng-if="item.listChiTietSanPham.length == 1">
                                                                       <span ng-if=" itemWithGiaNN.get(item.idSanPham) == getGiaNNOld(item.listChiTietSanPham)">
-                                                                          <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ </span>
+                                                                          <span class="price" style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ </span>
                                                                       </span>
                                                                       <span ng-if=" itemWithGiaNN.get(item.idSanPham) != getGiaNNOld(item.listChiTietSanPham)">
-                                                                          <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ </span>
-                                                                          <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ
+                                                                          <span class="price"  style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ </span>
+                                                                          <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham) | number"></span>đ
                                                                       </span>
                                                                   </span>
                                                                     <span ng-if="item.listChiTietSanPham.length > 1">
                                                                         <span ng-if=" itemWithGiaNN.get(item.idSanPham) == getGiaNNOld(item.listChiTietSanPham) && itemWithGiaLN.get(item.idSanPham) == getGiaLNOld(item.listChiTietSanPham)">
-                                                                            <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ</span>~
-                                                                            <span class="price"> {{ itemWithGiaLN.get(item.idSanPham)}} đ</span>
+                                                                            <span class="price"  style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ</span>~
+                                                                            <span class="price"  style="font-size: 13px"> {{ itemWithGiaLN.get(item.idSanPham) | number}} đ</span>
                                                                          </span>
+                                                                        <br>
                                                                         <span ng-if=" itemWithGiaNN.get(item.idSanPham) != getGiaNNOld(item.listChiTietSanPham) || itemWithGiaLN.get(item.idSanPham) != getGiaLNOld(item.listChiTietSanPham)">
-                                                                            <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ</span>~
-                                                                            <span class="price"> {{ itemWithGiaLN.get(item.idSanPham)}} đ</span>
-                                                                            <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ ~
-                                                                            <span class="old-price" ng-bind="getGiaLNOld(item.listChiTietSanPham)"></span>đ
+                                                                            <span class="price"  style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ</span>~
+                                                                            <span class="price"  style="font-size: 13px"> {{ itemWithGiaLN.get(item.idSanPham) | number}} đ</span>
+                                                                            <span class="old-price"   ng-bind="getGiaNNOld(item.listChiTietSanPham) | number"></span>đ ~
+                                                                            <span class="old-price"  ng-bind="getGiaLNOld(item.listChiTietSanPham) | number"></span>đ
                                                                          </span>
                                                                   </span>
                                                                 </div>
@@ -782,197 +791,7 @@
                                                     </div>
                                                 </div>
                                                 <!-- NEW-PRODUCT SINGLE ITEM END -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                            </div>
+             </div>
                                             <!-- HOME2-NEW-PRO-CAROUSEL END -->
                                         </div>
                                     </div>
@@ -1042,23 +861,23 @@
                                                         <div class="price-box">
                                                                   <span ng-if="item.listChiTietSanPham.length == 1">
                                                                       <span ng-if=" itemWithGiaNN.get(item.idSanPham) == getGiaNNOld(item.listChiTietSanPham)">
-                                                                          <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ </span>
+                                                                          <span class="price" style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ </span>
                                                                       </span>
                                                                       <span ng-if=" itemWithGiaNN.get(item.idSanPham) != getGiaNNOld(item.listChiTietSanPham)">
-                                                                          <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ </span>
-                                                                          <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ
+                                                                          <span class="price" style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ </span>
+                                                                          <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham) | number"></span>đ
                                                                       </span>
                                                                   </span>
                                                             <span ng-if="item.listChiTietSanPham.length > 1">
                                                                         <span ng-if=" itemWithGiaNN.get(item.idSanPham) == getGiaNNOld(item.listChiTietSanPham) && itemWithGiaLN.get(item.idSanPham) == getGiaLNOld(item.listChiTietSanPham)">
-                                                                            <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ</span>~
-                                                                            <span class="price"> {{ itemWithGiaLN.get(item.idSanPham)}} đ</span>
+                                                                            <span class="price" style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ</span>~
+                                                                            <span class="price" style="font-size: 13px"> {{ itemWithGiaLN.get(item.idSanPham) | number}} đ</span>
                                                                          </span>
                                                                         <span ng-if=" itemWithGiaNN.get(item.idSanPham) != getGiaNNOld(item.listChiTietSanPham) || itemWithGiaLN.get(item.idSanPham) != getGiaLNOld(item.listChiTietSanPham)">
-                                                                            <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ</span>~
-                                                                            <span class="price"> {{ itemWithGiaLN.get(item.idSanPham)}} đ</span>
-                                                                            <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ ~
-                                                                            <span class="old-price" ng-bind="getGiaLNOld(item.listChiTietSanPham)"></span>đ
+                                                                            <span class="price" style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ</span>~
+                                                                            <span class="price" style="font-size: 13px"> {{ itemWithGiaLN.get(item.idSanPham) | number}} đ</span>
+                                                                            <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham) | number"></span>đ ~
+                                                                            <span class="old-price" ng-bind="getGiaLNOld(item.listChiTietSanPham) | number"></span>đ
                                                                          </span>
                                                                   </span>
                                                         </div>
@@ -1107,23 +926,23 @@
                                                         <div class="price-box">
                                                                   <span ng-if="item.listChiTietSanPham.length == 1">
                                                                       <span ng-if=" itemWithGiaNN.get(item.idSanPham) == getGiaNNOld(item.listChiTietSanPham)">
-                                                                          <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ </span>
+                                                                          <span class="price" style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ </span>
                                                                       </span>
                                                                       <span ng-if=" itemWithGiaNN.get(item.idSanPham) != getGiaNNOld(item.listChiTietSanPham)">
-                                                                          <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ </span>
-                                                                          <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ
+                                                                          <span class="price" style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ </span>
+                                                                          <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham) | number"></span>đ
                                                                       </span>
                                                                   </span>
                                                             <span ng-if="item.listChiTietSanPham.length > 1">
                                                                         <span ng-if=" itemWithGiaNN.get(item.idSanPham) == getGiaNNOld(item.listChiTietSanPham) && itemWithGiaLN.get(item.idSanPham) == getGiaLNOld(item.listChiTietSanPham)">
-                                                                            <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ</span>~
-                                                                            <span class="price"> {{ itemWithGiaLN.get(item.idSanPham)}} đ</span>
+                                                                            <span class="price" style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ</span>~
+                                                                            <span class="price" style="font-size: 13px"> {{ itemWithGiaLN.get(item.idSanPham) | number}} đ</span>
                                                                          </span>
                                                                         <span ng-if=" itemWithGiaNN.get(item.idSanPham) != getGiaNNOld(item.listChiTietSanPham) || itemWithGiaLN.get(item.idSanPham) != getGiaLNOld(item.listChiTietSanPham)">
-                                                                            <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ</span>~
-                                                                            <span class="price"> {{ itemWithGiaLN.get(item.idSanPham)}} đ</span>
-                                                                            <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ ~
-                                                                            <span class="old-price" ng-bind="getGiaLNOld(item.listChiTietSanPham)"></span>đ
+                                                                            <span class="price" style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ</span>~
+                                                                            <span class="price" style="font-size: 13px"> {{ itemWithGiaLN.get(item.idSanPham) | number}} đ</span>
+                                                                            <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham) | number"></span>đ ~
+                                                                            <span class="old-price" ng-bind="getGiaLNOld(item.listChiTietSanPham) | number"></span>đ
                                                                          </span>
                                                                   </span>
                                                         </div>
@@ -1172,23 +991,23 @@
                                                         <div class="price-box">
                                                                   <span ng-if="item.listChiTietSanPham.length == 1">
                                                                       <span ng-if=" itemWithGiaNN.get(item.idSanPham) == getGiaNNOld(item.listChiTietSanPham)">
-                                                                          <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ </span>
+                                                                          <span class="price" style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ </span>
                                                                       </span>
                                                                       <span ng-if=" itemWithGiaNN.get(item.idSanPham) != getGiaNNOld(item.listChiTietSanPham)">
-                                                                          <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ </span>
-                                                                          <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ
+                                                                          <span class="price" style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ </span>
+                                                                          <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham) | number"></span>đ
                                                                       </span>
                                                                   </span>
                                                             <span ng-if="item.listChiTietSanPham.length > 1">
                                                                         <span ng-if=" itemWithGiaNN.get(item.idSanPham) == getGiaNNOld(item.listChiTietSanPham) && itemWithGiaLN.get(item.idSanPham) == getGiaLNOld(item.listChiTietSanPham)">
-                                                                            <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ</span>~
-                                                                            <span class="price"> {{ itemWithGiaLN.get(item.idSanPham)}} đ</span>
+                                                                            <span class="price" style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ</span>~
+                                                                            <span class="price" style="font-size: 13px"> {{ itemWithGiaLN.get(item.idSanPham) | number}} đ</span>
                                                                          </span>
                                                                         <span ng-if=" itemWithGiaNN.get(item.idSanPham) != getGiaNNOld(item.listChiTietSanPham) || itemWithGiaLN.get(item.idSanPham) != getGiaLNOld(item.listChiTietSanPham)">
-                                                                            <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ</span>~
-                                                                            <span class="price"> {{ itemWithGiaLN.get(item.idSanPham)}} đ</span>
-                                                                            <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ ~
-                                                                            <span class="old-price" ng-bind="getGiaLNOld(item.listChiTietSanPham)"></span>đ
+                                                                            <span class="price" style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ</span>~
+                                                                            <span class="price" style="font-size: 13px"> {{ itemWithGiaLN.get(item.idSanPham) | number}} đ</span>
+                                                                            <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham) | number"></span>đ ~
+                                                                            <span class="old-price" ng-bind="getGiaLNOld(item.listChiTietSanPham) | number"></span>đ
                                                                          </span>
                                                                   </span>
                                                         </div>
@@ -1237,23 +1056,23 @@
                                                         <div class="price-box">
                                                                   <span ng-if="item.listChiTietSanPham.length == 1">
                                                                       <span ng-if=" itemWithGiaNN.get(item.idSanPham) == getGiaNNOld(item.listChiTietSanPham)">
-                                                                          <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ </span>
+                                                                          <span class="price" style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ </span>
                                                                       </span>
                                                                       <span ng-if=" itemWithGiaNN.get(item.idSanPham) != getGiaNNOld(item.listChiTietSanPham)">
-                                                                          <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ </span>
-                                                                          <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ
+                                                                          <span class="price" style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ </span>
+                                                                          <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham) | number"></span>đ
                                                                       </span>
                                                                   </span>
                                                             <span ng-if="item.listChiTietSanPham.length > 1">
                                                                         <span ng-if=" itemWithGiaNN.get(item.idSanPham) == getGiaNNOld(item.listChiTietSanPham) && itemWithGiaLN.get(item.idSanPham) == getGiaLNOld(item.listChiTietSanPham)">
-                                                                            <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ</span>~
-                                                                            <span class="price"> {{ itemWithGiaLN.get(item.idSanPham)}} đ</span>
+                                                                            <span class="price" style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ</span>~
+                                                                            <span class="price" style="font-size: 13px"> {{ itemWithGiaLN.get(item.idSanPham) | number}} đ</span>
                                                                          </span>
                                                                         <span ng-if=" itemWithGiaNN.get(item.idSanPham) != getGiaNNOld(item.listChiTietSanPham) || itemWithGiaLN.get(item.idSanPham) != getGiaLNOld(item.listChiTietSanPham)">
-                                                                            <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ</span>~
-                                                                            <span class="price"> {{ itemWithGiaLN.get(item.idSanPham)}} đ</span>
-                                                                            <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ ~
-                                                                            <span class="old-price" ng-bind="getGiaLNOld(item.listChiTietSanPham)"></span>đ
+                                                                            <span class="price" style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ</span>~
+                                                                            <span class="price" style="font-size: 13px"> {{ itemWithGiaLN.get(item.idSanPham) | number}} đ</span>
+                                                                            <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham) | number"></span>đ ~
+                                                                            <span class="old-price" ng-bind="getGiaLNOld(item.listChiTietSanPham) | number"></span>đ
                                                                          </span>
                                                                   </span>
                                                         </div>
@@ -1302,23 +1121,23 @@
                                                         <div class="price-box">
                                                                   <span ng-if="item.listChiTietSanPham.length == 1">
                                                                       <span ng-if=" itemWithGiaNN.get(item.idSanPham) == getGiaNNOld(item.listChiTietSanPham)">
-                                                                          <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ </span>
+                                                                          <span class="price" style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ </span>
                                                                       </span>
                                                                       <span ng-if=" itemWithGiaNN.get(item.idSanPham) != getGiaNNOld(item.listChiTietSanPham)">
-                                                                          <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ </span>
-                                                                          <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ
+                                                                          <span class="price" style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ </span>
+                                                                          <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham) | number"></span>đ
                                                                       </span>
                                                                   </span>
-                                                                  <span ng-if="item.listChiTietSanPham.length > 1">
+                                                            <span ng-if="item.listChiTietSanPham.length > 1">
                                                                         <span ng-if=" itemWithGiaNN.get(item.idSanPham) == getGiaNNOld(item.listChiTietSanPham) && itemWithGiaLN.get(item.idSanPham) == getGiaLNOld(item.listChiTietSanPham)">
-                                                                            <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ</span>~
-                                                                            <span class="price"> {{ itemWithGiaLN.get(item.idSanPham)}} đ</span>
+                                                                            <span class="price" style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ</span>~
+                                                                            <span class="price" style="font-size: 13px"> {{ itemWithGiaLN.get(item.idSanPham) | number}} đ</span>
                                                                          </span>
                                                                         <span ng-if=" itemWithGiaNN.get(item.idSanPham) != getGiaNNOld(item.listChiTietSanPham) || itemWithGiaLN.get(item.idSanPham) != getGiaLNOld(item.listChiTietSanPham)">
-                                                                            <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ</span>~
-                                                                            <span class="price"> {{ itemWithGiaLN.get(item.idSanPham)}} đ</span>
-                                                                            <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ ~
-                                                                            <span class="old-price" ng-bind="getGiaLNOld(item.listChiTietSanPham)"></span>đ
+                                                                            <span class="price" style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ</span>~
+                                                                            <span class="price" style="font-size: 13px"> {{ itemWithGiaLN.get(item.idSanPham) | number}} đ</span>
+                                                                            <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham) | number"></span>đ ~
+                                                                            <span class="old-price" ng-bind="getGiaLNOld(item.listChiTietSanPham) | number"></span>đ
                                                                          </span>
                                                                   </span>
                                                         </div>
@@ -1430,23 +1249,23 @@
                                             <div class="price-box">
                                                                   <span ng-if="item.listChiTietSanPham.length == 1">
                                                                       <span ng-if=" itemWithGiaNN.get(item.idSanPham) == getGiaNNOld(item.listChiTietSanPham)">
-                                                                          <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ </span>
+                                                                          <span class="price" style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ </span>
                                                                       </span>
                                                                       <span ng-if=" itemWithGiaNN.get(item.idSanPham) != getGiaNNOld(item.listChiTietSanPham)">
-                                                                          <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ </span>
-                                                                          <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ
+                                                                          <span class="price"  style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ </span>
+                                                                          <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham) | number"></span>đ
                                                                       </span>
                                                                   </span>
                                                 <span ng-if="item.listChiTietSanPham.length > 1">
                                                                         <span ng-if=" itemWithGiaNN.get(item.idSanPham) == getGiaNNOld(item.listChiTietSanPham) && itemWithGiaLN.get(item.idSanPham) == getGiaLNOld(item.listChiTietSanPham)">
-                                                                            <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ</span>~
-                                                                            <span class="price"> {{ itemWithGiaLN.get(item.idSanPham)}} đ</span>
+                                                                            <span class="price"  style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ</span>~
+                                                                            <span class="price"  style="font-size: 13px"> {{ itemWithGiaLN.get(item.idSanPham) | number}} đ</span>
                                                                          </span>
                                                                         <span ng-if=" itemWithGiaNN.get(item.idSanPham) != getGiaNNOld(item.listChiTietSanPham) || itemWithGiaLN.get(item.idSanPham) != getGiaLNOld(item.listChiTietSanPham)">
-                                                                            <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ</span>~
-                                                                            <span class="price"> {{ itemWithGiaLN.get(item.idSanPham)}} đ</span>
-                                                                            <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ ~
-                                                                            <span class="old-price" ng-bind="getGiaLNOld(item.listChiTietSanPham)"></span>đ
+                                                                            <span class="price"  style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ</span>~
+                                                                            <span class="price"  style="font-size: 13px"> {{ itemWithGiaLN.get(item.idSanPham) | number}} đ</span>
+                                                                            <span class="old-price"   ng-bind="getGiaNNOld(item.listChiTietSanPham) | number"></span>đ ~
+                                                                            <span class="old-price"  ng-bind="getGiaLNOld(item.listChiTietSanPham) | number"></span>đ
                                                                          </span>
                                                                   </span>
                                             </div>
@@ -1514,23 +1333,23 @@
                                             <div class="price-box">
                                                                   <span ng-if="item.listChiTietSanPham.length == 1">
                                                                       <span ng-if=" itemWithGiaNN.get(item.idSanPham) == getGiaNNOld(item.listChiTietSanPham)">
-                                                                          <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ </span>
+                                                                          <span class="price" style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ </span>
                                                                       </span>
                                                                       <span ng-if=" itemWithGiaNN.get(item.idSanPham) != getGiaNNOld(item.listChiTietSanPham)">
-                                                                          <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ </span>
-                                                                          <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ
+                                                                          <span class="price"  style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ </span>
+                                                                          <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham) | number"></span>đ
                                                                       </span>
                                                                   </span>
                                                 <span ng-if="item.listChiTietSanPham.length > 1">
                                                                         <span ng-if=" itemWithGiaNN.get(item.idSanPham) == getGiaNNOld(item.listChiTietSanPham) && itemWithGiaLN.get(item.idSanPham) == getGiaLNOld(item.listChiTietSanPham)">
-                                                                            <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ</span>~
-                                                                            <span class="price"> {{ itemWithGiaLN.get(item.idSanPham)}} đ</span>
+                                                                            <span class="price"  style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ</span>~
+                                                                            <span class="price"  style="font-size: 13px"> {{ itemWithGiaLN.get(item.idSanPham) | number}} đ</span>
                                                                          </span>
                                                                         <span ng-if=" itemWithGiaNN.get(item.idSanPham) != getGiaNNOld(item.listChiTietSanPham) || itemWithGiaLN.get(item.idSanPham) != getGiaLNOld(item.listChiTietSanPham)">
-                                                                            <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ</span>~
-                                                                            <span class="price"> {{ itemWithGiaLN.get(item.idSanPham)}} đ</span>
-                                                                            <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ ~
-                                                                            <span class="old-price" ng-bind="getGiaLNOld(item.listChiTietSanPham)"></span>đ
+                                                                            <span class="price"  style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ</span>~
+                                                                            <span class="price"  style="font-size: 13px"> {{ itemWithGiaLN.get(item.idSanPham) | number}} đ</span>
+                                                                            <span class="old-price"   ng-bind="getGiaNNOld(item.listChiTietSanPham) | number"></span>đ ~
+                                                                            <span class="old-price"  ng-bind="getGiaLNOld(item.listChiTietSanPham) | number"></span>đ
                                                                          </span>
                                                                   </span>
                                             </div>
@@ -1597,23 +1416,23 @@
                                             <div class="price-box">
                                                                   <span ng-if="item.listChiTietSanPham.length == 1">
                                                                       <span ng-if=" itemWithGiaNN.get(item.idSanPham) == getGiaNNOld(item.listChiTietSanPham)">
-                                                                          <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ </span>
+                                                                          <span class="price" style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ </span>
                                                                       </span>
                                                                       <span ng-if=" itemWithGiaNN.get(item.idSanPham) != getGiaNNOld(item.listChiTietSanPham)">
-                                                                          <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ </span>
-                                                                          <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ
+                                                                          <span class="price"  style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ </span>
+                                                                          <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham) | number"></span>đ
                                                                       </span>
                                                                   </span>
                                                 <span ng-if="item.listChiTietSanPham.length > 1">
                                                                         <span ng-if=" itemWithGiaNN.get(item.idSanPham) == getGiaNNOld(item.listChiTietSanPham) && itemWithGiaLN.get(item.idSanPham) == getGiaLNOld(item.listChiTietSanPham)">
-                                                                            <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ</span>~
-                                                                            <span class="price"> {{ itemWithGiaLN.get(item.idSanPham)}} đ</span>
+                                                                            <span class="price"  style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ</span>~
+                                                                            <span class="price"  style="font-size: 13px"> {{ itemWithGiaLN.get(item.idSanPham) | number}} đ</span>
                                                                          </span>
                                                                         <span ng-if=" itemWithGiaNN.get(item.idSanPham) != getGiaNNOld(item.listChiTietSanPham) || itemWithGiaLN.get(item.idSanPham) != getGiaLNOld(item.listChiTietSanPham)">
-                                                                            <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ</span>~
-                                                                            <span class="price"> {{ itemWithGiaLN.get(item.idSanPham)}} đ</span>
-                                                                            <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ ~
-                                                                            <span class="old-price" ng-bind="getGiaLNOld(item.listChiTietSanPham)"></span>đ
+                                                                            <span class="price"  style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ</span>~
+                                                                            <span class="price"  style="font-size: 13px"> {{ itemWithGiaLN.get(item.idSanPham) | number}} đ</span>
+                                                                            <span class="old-price"   ng-bind="getGiaNNOld(item.listChiTietSanPham) | number"></span>đ ~
+                                                                            <span class="old-price"  ng-bind="getGiaLNOld(item.listChiTietSanPham) | number"></span>đ
                                                                          </span>
                                                                   </span>
                                             </div>
@@ -1681,23 +1500,23 @@
                                             <div class="price-box">
                                                                   <span ng-if="item.listChiTietSanPham.length == 1">
                                                                       <span ng-if=" itemWithGiaNN.get(item.idSanPham) == getGiaNNOld(item.listChiTietSanPham)">
-                                                                          <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ </span>
+                                                                          <span class="price" style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ </span>
                                                                       </span>
                                                                       <span ng-if=" itemWithGiaNN.get(item.idSanPham) != getGiaNNOld(item.listChiTietSanPham)">
-                                                                          <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ </span>
-                                                                          <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ
+                                                                          <span class="price"  style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ </span>
+                                                                          <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham) | number"></span>đ
                                                                       </span>
                                                                   </span>
                                                 <span ng-if="item.listChiTietSanPham.length > 1">
                                                                         <span ng-if=" itemWithGiaNN.get(item.idSanPham) == getGiaNNOld(item.listChiTietSanPham) && itemWithGiaLN.get(item.idSanPham) == getGiaLNOld(item.listChiTietSanPham)">
-                                                                            <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ</span>~
-                                                                            <span class="price"> {{ itemWithGiaLN.get(item.idSanPham)}} đ</span>
+                                                                            <span class="price"  style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ</span>~
+                                                                            <span class="price"  style="font-size: 13px"> {{ itemWithGiaLN.get(item.idSanPham) | number}} đ</span>
                                                                          </span>
                                                                         <span ng-if=" itemWithGiaNN.get(item.idSanPham) != getGiaNNOld(item.listChiTietSanPham) || itemWithGiaLN.get(item.idSanPham) != getGiaLNOld(item.listChiTietSanPham)">
-                                                                            <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ</span>~
-                                                                            <span class="price"> {{ itemWithGiaLN.get(item.idSanPham)}} đ</span>
-                                                                            <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ ~
-                                                                            <span class="old-price" ng-bind="getGiaLNOld(item.listChiTietSanPham)"></span>đ
+                                                                            <span class="price"  style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ</span>~
+                                                                            <span class="price"  style="font-size: 13px"> {{ itemWithGiaLN.get(item.idSanPham) | number}} đ</span>
+                                                                            <span class="old-price"   ng-bind="getGiaNNOld(item.listChiTietSanPham) | number"></span>đ ~
+                                                                            <span class="old-price"  ng-bind="getGiaLNOld(item.listChiTietSanPham) | number"></span>đ
                                                                          </span>
                                                                   </span>
                                             </div>
@@ -1765,23 +1584,23 @@
                                             <div class="price-box">
                                                                   <span ng-if="item.listChiTietSanPham.length == 1">
                                                                       <span ng-if=" itemWithGiaNN.get(item.idSanPham) == getGiaNNOld(item.listChiTietSanPham)">
-                                                                          <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ </span>
+                                                                          <span class="price" style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ </span>
                                                                       </span>
                                                                       <span ng-if=" itemWithGiaNN.get(item.idSanPham) != getGiaNNOld(item.listChiTietSanPham)">
-                                                                          <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ </span>
-                                                                          <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ
+                                                                          <span class="price"  style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ </span>
+                                                                          <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham) | number"></span>đ
                                                                       </span>
                                                                   </span>
                                                 <span ng-if="item.listChiTietSanPham.length > 1">
                                                                         <span ng-if=" itemWithGiaNN.get(item.idSanPham) == getGiaNNOld(item.listChiTietSanPham) && itemWithGiaLN.get(item.idSanPham) == getGiaLNOld(item.listChiTietSanPham)">
-                                                                            <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ</span>~
-                                                                            <span class="price"> {{ itemWithGiaLN.get(item.idSanPham)}} đ</span>
+                                                                            <span class="price"  style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ</span>~
+                                                                            <span class="price"  style="font-size: 13px"> {{ itemWithGiaLN.get(item.idSanPham) | number}} đ</span>
                                                                          </span>
                                                                         <span ng-if=" itemWithGiaNN.get(item.idSanPham) != getGiaNNOld(item.listChiTietSanPham) || itemWithGiaLN.get(item.idSanPham) != getGiaLNOld(item.listChiTietSanPham)">
-                                                                            <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ</span>~
-                                                                            <span class="price"> {{ itemWithGiaLN.get(item.idSanPham)}} đ</span>
-                                                                            <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ ~
-                                                                            <span class="old-price" ng-bind="getGiaLNOld(item.listChiTietSanPham)"></span>đ
+                                                                            <span class="price"  style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ</span>~
+                                                                            <span class="price"  style="font-size: 13px"> {{ itemWithGiaLN.get(item.idSanPham) | number}} đ</span>
+                                                                            <span class="old-price"   ng-bind="getGiaNNOld(item.listChiTietSanPham) | number"></span>đ ~
+                                                                            <span class="old-price"  ng-bind="getGiaLNOld(item.listChiTietSanPham) | number"></span>đ
                                                                          </span>
                                                                   </span>
                                             </div>
@@ -1849,23 +1668,23 @@
                                             <div class="price-box">
                                                                   <span ng-if="item.listChiTietSanPham.length == 1">
                                                                       <span ng-if=" itemWithGiaNN.get(item.idSanPham) == getGiaNNOld(item.listChiTietSanPham)">
-                                                                          <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ </span>
+                                                                          <span class="price" style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ </span>
                                                                       </span>
                                                                       <span ng-if=" itemWithGiaNN.get(item.idSanPham) != getGiaNNOld(item.listChiTietSanPham)">
-                                                                          <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ </span>
-                                                                          <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ
+                                                                          <span class="price"  style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ </span>
+                                                                          <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham) | number"></span>đ
                                                                       </span>
                                                                   </span>
                                                 <span ng-if="item.listChiTietSanPham.length > 1">
                                                                         <span ng-if=" itemWithGiaNN.get(item.idSanPham) == getGiaNNOld(item.listChiTietSanPham) && itemWithGiaLN.get(item.idSanPham) == getGiaLNOld(item.listChiTietSanPham)">
-                                                                            <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ</span>~
-                                                                            <span class="price"> {{ itemWithGiaLN.get(item.idSanPham)}} đ</span>
+                                                                            <span class="price"  style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ</span>~
+                                                                            <span class="price"  style="font-size: 13px"> {{ itemWithGiaLN.get(item.idSanPham) | number}} đ</span>
                                                                          </span>
                                                                         <span ng-if=" itemWithGiaNN.get(item.idSanPham) != getGiaNNOld(item.listChiTietSanPham) || itemWithGiaLN.get(item.idSanPham) != getGiaLNOld(item.listChiTietSanPham)">
-                                                                            <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ</span>~
-                                                                            <span class="price"> {{ itemWithGiaLN.get(item.idSanPham)}} đ</span>
-                                                                            <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ ~
-                                                                            <span class="old-price" ng-bind="getGiaLNOld(item.listChiTietSanPham)"></span>đ
+                                                                            <span class="price"  style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ</span>~
+                                                                            <span class="price"  style="font-size: 13px"> {{ itemWithGiaLN.get(item.idSanPham) | number}} đ</span>
+                                                                            <span class="old-price"   ng-bind="getGiaNNOld(item.listChiTietSanPham) | number"></span>đ ~
+                                                                            <span class="old-price"  ng-bind="getGiaLNOld(item.listChiTietSanPham) | number"></span>đ
                                                                          </span>
                                                                   </span>
                                             </div>
@@ -1933,23 +1752,23 @@
                                             <div class="price-box">
                                                                   <span ng-if="item.listChiTietSanPham.length == 1">
                                                                       <span ng-if=" itemWithGiaNN.get(item.idSanPham) == getGiaNNOld(item.listChiTietSanPham)">
-                                                                          <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ </span>
+                                                                          <span class="price" style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ </span>
                                                                       </span>
                                                                       <span ng-if=" itemWithGiaNN.get(item.idSanPham) != getGiaNNOld(item.listChiTietSanPham)">
-                                                                          <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ </span>
-                                                                          <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ
+                                                                          <span class="price"  style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ </span>
+                                                                          <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham) | number"></span>đ
                                                                       </span>
                                                                   </span>
                                                 <span ng-if="item.listChiTietSanPham.length > 1">
                                                                         <span ng-if=" itemWithGiaNN.get(item.idSanPham) == getGiaNNOld(item.listChiTietSanPham) && itemWithGiaLN.get(item.idSanPham) == getGiaLNOld(item.listChiTietSanPham)">
-                                                                            <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ</span>~
-                                                                            <span class="price"> {{ itemWithGiaLN.get(item.idSanPham)}} đ</span>
+                                                                            <span class="price"  style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ</span>~
+                                                                            <span class="price"  style="font-size: 13px"> {{ itemWithGiaLN.get(item.idSanPham) | number}} đ</span>
                                                                          </span>
                                                                         <span ng-if=" itemWithGiaNN.get(item.idSanPham) != getGiaNNOld(item.listChiTietSanPham) || itemWithGiaLN.get(item.idSanPham) != getGiaLNOld(item.listChiTietSanPham)">
-                                                                            <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ</span>~
-                                                                            <span class="price"> {{ itemWithGiaLN.get(item.idSanPham)}} đ</span>
-                                                                            <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ ~
-                                                                            <span class="old-price" ng-bind="getGiaLNOld(item.listChiTietSanPham)"></span>đ
+                                                                            <span class="price"  style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ</span>~
+                                                                            <span class="price"  style="font-size: 13px"> {{ itemWithGiaLN.get(item.idSanPham) | number}} đ</span>
+                                                                            <span class="old-price"   ng-bind="getGiaNNOld(item.listChiTietSanPham) | number"></span>đ ~
+                                                                            <span class="old-price"  ng-bind="getGiaLNOld(item.listChiTietSanPham) | number"></span>đ
                                                                          </span>
                                                                   </span>
                                             </div>
@@ -2017,23 +1836,23 @@
                                             <div class="price-box">
                                                                   <span ng-if="item.listChiTietSanPham.length == 1">
                                                                       <span ng-if=" itemWithGiaNN.get(item.idSanPham) == getGiaNNOld(item.listChiTietSanPham)">
-                                                                          <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ </span>
+                                                                          <span class="price" style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ </span>
                                                                       </span>
                                                                       <span ng-if=" itemWithGiaNN.get(item.idSanPham) != getGiaNNOld(item.listChiTietSanPham)">
-                                                                          <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ </span>
-                                                                          <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ
+                                                                          <span class="price"  style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ </span>
+                                                                          <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham) | number"></span>đ
                                                                       </span>
                                                                   </span>
                                                 <span ng-if="item.listChiTietSanPham.length > 1">
                                                                         <span ng-if=" itemWithGiaNN.get(item.idSanPham) == getGiaNNOld(item.listChiTietSanPham) && itemWithGiaLN.get(item.idSanPham) == getGiaLNOld(item.listChiTietSanPham)">
-                                                                            <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ</span>~
-                                                                            <span class="price"> {{ itemWithGiaLN.get(item.idSanPham)}} đ</span>
+                                                                            <span class="price"  style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ</span>~
+                                                                            <span class="price"  style="font-size: 13px"> {{ itemWithGiaLN.get(item.idSanPham) | number}} đ</span>
                                                                          </span>
                                                                         <span ng-if=" itemWithGiaNN.get(item.idSanPham) != getGiaNNOld(item.listChiTietSanPham) || itemWithGiaLN.get(item.idSanPham) != getGiaLNOld(item.listChiTietSanPham)">
-                                                                            <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ</span>~
-                                                                            <span class="price"> {{ itemWithGiaLN.get(item.idSanPham)}} đ</span>
-                                                                            <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ ~
-                                                                            <span class="old-price" ng-bind="getGiaLNOld(item.listChiTietSanPham)"></span>đ
+                                                                            <span class="price"  style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ</span>~
+                                                                            <span class="price"  style="font-size: 13px"> {{ itemWithGiaLN.get(item.idSanPham) | number}} đ</span>
+                                                                            <span class="old-price"   ng-bind="getGiaNNOld(item.listChiTietSanPham) | number"></span>đ ~
+                                                                            <span class="old-price"  ng-bind="getGiaLNOld(item.listChiTietSanPham) | number"></span>đ
                                                                          </span>
                                                                   </span>
                                             </div>
@@ -2100,23 +1919,23 @@
                                             <div class="price-box">
                                                                   <span ng-if="item.listChiTietSanPham.length == 1">
                                                                       <span ng-if=" itemWithGiaNN.get(item.idSanPham) == getGiaNNOld(item.listChiTietSanPham)">
-                                                                          <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ </span>
+                                                                          <span class="price" style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ </span>
                                                                       </span>
                                                                       <span ng-if=" itemWithGiaNN.get(item.idSanPham) != getGiaNNOld(item.listChiTietSanPham)">
-                                                                          <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ </span>
-                                                                          <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ
+                                                                          <span class="price"  style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ </span>
+                                                                          <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham) | number"></span>đ
                                                                       </span>
                                                                   </span>
                                                 <span ng-if="item.listChiTietSanPham.length > 1">
                                                                         <span ng-if=" itemWithGiaNN.get(item.idSanPham) == getGiaNNOld(item.listChiTietSanPham) && itemWithGiaLN.get(item.idSanPham) == getGiaLNOld(item.listChiTietSanPham)">
-                                                                            <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ</span>~
-                                                                            <span class="price"> {{ itemWithGiaLN.get(item.idSanPham)}} đ</span>
+                                                                            <span class="price"  style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ</span>~
+                                                                            <span class="price"  style="font-size: 13px"> {{ itemWithGiaLN.get(item.idSanPham) | number}} đ</span>
                                                                          </span>
                                                                         <span ng-if=" itemWithGiaNN.get(item.idSanPham) != getGiaNNOld(item.listChiTietSanPham) || itemWithGiaLN.get(item.idSanPham) != getGiaLNOld(item.listChiTietSanPham)">
-                                                                            <span class="price"> {{ itemWithGiaNN.get(item.idSanPham)}} đ</span>~
-                                                                            <span class="price"> {{ itemWithGiaLN.get(item.idSanPham)}} đ</span>
-                                                                            <span class="old-price" ng-bind="getGiaNNOld(item.listChiTietSanPham)"></span>đ ~
-                                                                            <span class="old-price" ng-bind="getGiaLNOld(item.listChiTietSanPham)"></span>đ
+                                                                            <span class="price"  style="font-size: 13px"> {{ itemWithGiaNN.get(item.idSanPham) | number}} đ</span>~
+                                                                            <span class="price"  style="font-size: 13px"> {{ itemWithGiaLN.get(item.idSanPham) | number}} đ</span>
+                                                                            <span class="old-price"   ng-bind="getGiaNNOld(item.listChiTietSanPham) | number"></span>đ ~
+                                                                            <span class="old-price"  ng-bind="getGiaLNOld(item.listChiTietSanPham) | number"></span>đ
                                                                          </span>
                                                                   </span>
                                             </div>
