@@ -219,7 +219,7 @@
                                         <li class="price special-price"> {{h.giaBan * h.soLuong | number}} </li>
                                         <span ng-if="h.giaBan == h.chiTietSanPham.giaSanPham"></span>
                                         <span ng-if="h.giaBan != h.chiTietSanPham.giaSanPham">
-										<li class="price-percent-reduction small">&nbsp;{{h.chiTietSanPham.khuyenMai.chietKhau *  h.soLuong}}%&nbsp;</li>
+										<li class="price-percent-reduction small">&nbsp;{{h.chiTietSanPham.khuyenMai.chietKhau }}%&nbsp;</li>
 									     <li class="old-price">{{h.chiTietSanPham.giaSanPham | number}} đ</li>
                                      </span>
                                     </ul>
@@ -230,11 +230,11 @@
                                 <div class="shipping-total-bill" >
                                     <div class="cart-prices" style="border: none">
                                         <span class="shipping-cost">{{item.phiVanChuyen}}</span>
-                                        <span>Shipping</span>
+                                        <span>Vận chuyển</span>
                                     </div>
                                     <div class="total-shipping-prices" >
-                                        <span class="shipping-total">{{item.tongTien}}</span>
-                                        <span>Total</span>
+                                        <span class="shipping-total">{{item.tongTien + item.phiVanChuyen}}</span>
+                                        <span>Tổng tiền</span>
                                     </div>
                                 </div>
                                 <div class="shipping-checkout-btn" style="    padding: 0 10px 20px; background: none">

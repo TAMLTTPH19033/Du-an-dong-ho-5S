@@ -18,7 +18,7 @@ public class ThemDonHangRequest {
     private List<HoaDonChiTietRequest> listHoaDonChiTietRequest;
     private Integer idTinhThanh;
     private Integer idQuanHuyen;
-    private Integer idPhuongXa;
+    private String idPhuongXa;
     private String diaChi;
     private String ghiChu;
     private Integer soLuongSanPham;

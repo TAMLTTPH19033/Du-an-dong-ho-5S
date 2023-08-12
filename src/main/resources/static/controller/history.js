@@ -105,7 +105,7 @@ myApp.controller(
                        trangThaiDonHang: 4
                    }
                    console.log(donHangRequest)
-                   $http.put(`/don-hang/update`,donHangRequest)
+                   $http.put(`/api/don-hang/update`,donHangRequest)
                        .then((resp) => {
                            $scope.donHang = resp.data;
 
@@ -318,7 +318,7 @@ myApp.controller(
                         trangThaiDonHang: 5
                     }
                     console.log(donHangRequest)
-                    $http.put(`/don-hang/update`,donHangRequest)
+                    $http.put(`/api/don-hang/update`,donHangRequest)
                         .then((resp) => {
                             $scope.donHang = resp.data;
                             $('#myModal').modal('hide');

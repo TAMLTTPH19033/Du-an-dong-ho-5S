@@ -19,7 +19,7 @@ public class TaoDonHangRequestGHN {
     private String toPhone;
     private String toAddress;
     private Integer idQuanHuyen;
-    private Integer idPhuongXa;
+    private String idPhuongXa;
     private Integer weight;
     private List<ChiTietItemRequestGHN> listItems;
     private Double trungBinhTheTich;

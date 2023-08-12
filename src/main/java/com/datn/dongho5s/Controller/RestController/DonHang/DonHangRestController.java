@@ -93,6 +93,7 @@ public class DonHangRestController {
                     .phiVanChuyen(themDonHangRequest.getPhiVanChuyen())
                     .ghiChu(themDonHangRequest.getGhiChu())
                     .ngayCapNhap(new Date())
+                    .maDonHang("DH"+System.currentTimeMillis())
                     .tongTien(hdctService.getTongGia(themDonHangRequest.getListHoaDonChiTietRequest()))
                     .build();
             DonHang savedDonHang = donHangService.save(donHang);
@@ -153,6 +154,7 @@ public class DonHangRestController {
                 .phiVanChuyen(themDonHangRequest.getPhiVanChuyen())
                 .ghiChu(themDonHangRequest.getGhiChu())
                 .ngayCapNhap(new Date())
+                .maDonHang("DH"+System.currentTimeMillis())
                 .tongTien(hdctService.getTongGia(themDonHangRequest.getListHoaDonChiTietRequest()))
                 .build();
         DonHang savedDonHang = donHangService.save(donHang);

@@ -73,7 +73,7 @@ public class ChiTietSanPhamServiceImpl implements ChiTietSanPhamService {
     }
     @Override
     public Page<ChiTietSanPham> getALlChiTietSanPhamPage(int pageNum, String keyword){
-        return chiTietSanPhamRepository.findAll(keyword,PageRequest.of(pageNum - 1, 5));
+        return chiTietSanPhamRepository.findAllHung(keyword,PageRequest.of(pageNum - 1, 5));
     }
 
     @Override

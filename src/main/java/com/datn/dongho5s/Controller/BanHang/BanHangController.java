@@ -162,10 +162,14 @@ public class BanHangController {
         httpSession.setAttribute("donHangHienTai",donHangByMa);
         Double tongTien = 0d;
         for (HoaDonChiTiet h: donHangByMa.getListHoaDonChiTiet()) {
-            if (h.getChiTietSanPham().getKhuyenMai().isEnabled() == true){
-                tongTien += h.getGiaBan() * h.getSoLuong() * h.getChiTietSanPham().getKhuyenMai().getChietKhau() / 100;
-            } else{
-                tongTien +=  h.getGiaBan() * h.getSoLuong();
+            if(h.getChiTietSanPham().getKhuyenMai() == null){
+                tongTien += h.getGiaBan() * h.getSoLuong();
+            }else {
+                if (h.getChiTietSanPham().getKhuyenMai().isEnabled() == true) {
+                    tongTien += h.getGiaBan() * h.getSoLuong() * h.getChiTietSanPham().getKhuyenMai().getChietKhau() / 100;
+                } else {
+                    tongTien += h.getGiaBan() * h.getSoLuong();
+                }
             }
         }
 

@@ -60,7 +60,6 @@ public class DonHangAdminRestController {
         DonHangAdminResponse result = DonHangAdminResponse.builder()
                 .idDonHang(donHang.getIdDonHang())
                 .maDonHang(donHang.getMaDonHang())
-                .idNhanVien(donHang.getNhanVien().getId())
                 .idKhachHang(donHang.getKhachHang().getIdKhachHang())
                 .ngayTao(formatter.format(donHang.getNgayTao()))
                 .ngayCapNhap(formatter.format(donHang.getNgayCapNhap()))
@@ -71,6 +70,9 @@ public class DonHangAdminRestController {
                 .ghiChu(donHang.getGhiChu())
                 .lyDo(donHang.getLyDo())
                 .build();
+        if(donHang.getNhanVien()!= null){
+            result.setIdNhanVien(donHang.getNhanVien().getId());
+        }
         return result;
     }
 }

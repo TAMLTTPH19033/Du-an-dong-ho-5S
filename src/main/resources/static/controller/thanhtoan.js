@@ -100,6 +100,7 @@ myApp.controller(
         khachHangId: currentUser.idKhachHang,
         listHoaDonChiTietRequest:
           $scope.listHoaDonChiTietRequest,
+          idTinhThanh : $scope.diaChiGiaoHang.idTinhThanh,
         idQuanHuyen: $scope.diaChiGiaoHang.idQuanHuyen,
         idPhuongXa: $scope.diaChiGiaoHang.idPhuongXa,
         diaChi: $scope.diaChiGiaoHang.diaChi,
@@ -107,6 +108,7 @@ myApp.controller(
         soLuongSanPham: $scope.soLuongSanPham,
         phiVanChuyen: $scope.fee,
       };
+        console.log($scope.checkOutRequest,"aaaaaaaaaaaaaaaaaaaaaaa")
       if (isVNPAY==true) {
         $http
           .post(thanhToanVNPayAPI, $scope.checkOutRequest)
@@ -122,6 +124,7 @@ myApp.controller(
           .post(themDonHangApi, $scope.checkOutRequest)
           .then((response) => {
             if(response.status == 200){
+
                 $location.path("/success");
             }else{
                 $location.path("/fail");
@@ -136,6 +139,7 @@ myApp.controller(
     $scope.listHoaDonChiTietRequest.forEach((item) => {
       $scope.tongTien = +Number(item.giaBan) * Number(item.soLuong);
     });
+
 
     $scope.$watch("diaChiGiaoHang", (newValue, oldValue) => {
       $scope.getFeeRequest = {

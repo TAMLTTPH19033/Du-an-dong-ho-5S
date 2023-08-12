@@ -37,7 +37,7 @@ public class DonHangResponse {
 
     private Integer idQuanHuyen;
 
-    private Integer idPhuongXa;
+    private String idPhuongXa;
 
     private String diaChi;
 

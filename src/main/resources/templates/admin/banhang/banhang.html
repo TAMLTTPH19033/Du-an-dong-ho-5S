@@ -82,7 +82,7 @@
       </div>
       <div style="max-width: 90%;margin: auto;">
         <div class="row">
-          <div class="col-md-8">
+          <div class="col-sm-8">
             <!--  Ban hang-->
             <h3 style="font-weight: bold">Chi tiết hoá đơn</h3>
             <div class="row gio-hang bg-body-tertiary p-3 rounded border border-light">
@@ -103,7 +103,7 @@
                   <td th:text="${hdct.chiTietSanPham.sanPham.tenSanPham}"></td>
                   <td th:text="${hdct.chiTietSanPham.giaSanPham}"></td>
                   <td th:text="${hdct.soLuong}"></td>
-                  <td th:text="${hdct.chiTietSanPham.khuyenMai.chietKhau}"></td>
+                  <td th:text="${hdct.chiTietSanPham.khuyenMai == null ? '' : hdct.chiTietSanPham.khuyenMai.chietKhau }"></td>
                   <td>
                     <a class="btn btn-outline-dark hoa-don-chi-tiet-xoa"
                         data-bs-toggle="modal"
@@ -175,7 +175,7 @@
                   <td th:text="${sp.soLuong}"></td>
                   <td th:text="${sp.mauSac.tenMauSac}"></td>
                   <td th:text="${sp.vatLieu.tenVatLieu}"></td>
-                  <td th:text="${sp.khuyenMai.chietKhau}"></td>
+                  <td th:text="${sp.khuyenMai == null ? '' : sp.khuyenMai.chietKhau}"></td>
                   <td>
                     <a class="btn btn-outline-danger them-san-pham"
                        data-bs-toggle="modal"
@@ -190,7 +190,7 @@
             </div>
           </div>
           <!--  Thanh toan-->
-          <div class="col-md-4">
+          <div class="col-sm-4">
             <!--  Thong tin hoa don th:action="@{/admin/ban-hang/hoa-don/tao-moi}" method="post"-->
 
             <form th:object="${hoaDonAdminRequest}" th:action="@{/admin/ban-hang/hoa-don/tao-moi}" method="post">
@@ -232,16 +232,16 @@
                     >Hủy</button>
 
                   </div>
-            </form>
+
             </div>
+            </form>
           </div>
         </div>
       </div>
-  </div>
   </section>
   <!-- MAIN-CONTENT-SECTION END -->
 
-</div>
+    </div>
 </div>
 <div th:if="${totalPages > 1}">
   <nav>
@@ -268,6 +268,10 @@
   </nav>
 </div>
 <!-- END article -->
+
+
+
+
 <!--  Footer      -->
 <div th:replace="admin/fragment/fragments::footer"></div>
 
