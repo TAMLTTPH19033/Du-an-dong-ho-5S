@@ -196,6 +196,12 @@
           <!--  Thanh toan-->
           <div class="col-sm-3">
             <h3 style="font-weight: bold">Thông tin</h3>
+            <form th:action="@{/admin/ban-hang/khach-hang/tim-kiem}" class="form-inline m-3" method="GET">
+              <div class="d-flex align-items-center">
+                <input style="width: 250px; margin-right: 10px" type="search" placeholder="Tìm kiếm" class="form-control" required name="phoneNumber" />
+                <input style="margin-right: 10px" type="submit" value="Tìm kiếm" class="btn btn-outline-info ml-2" />
+              </div>
+            </form>
             <form th:object="${hoaDonAdminRequest}" th:action="@{/admin/ban-hang/hoa-don/tao-moi}" method="post">
               <div class="row thong-tin-hoa-don bg-body-tertiary p-3 rounded border border-light">
                   <div class="col-md-4">

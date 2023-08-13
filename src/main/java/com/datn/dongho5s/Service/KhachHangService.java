@@ -22,4 +22,6 @@ public interface KhachHangService {
     List<KhachHang> getAllPaginationVatLieu();
 
     Page<KhachHang> listByPage(int pageNumber, String sortField, String sortDir, String keyword);
+
+    KhachHang findByPhoneNumber(String phoneNumber);
 }
