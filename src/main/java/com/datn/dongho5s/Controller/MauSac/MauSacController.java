@@ -51,7 +51,7 @@ public class MauSacController {
         model.addAttribute("endCount",endCount);
         model.addAttribute("totalItem",page.getTotalElements());
         model.addAttribute("listMauSac",listMauSac);
-        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortField", "ten_mau_sac");
         model.addAttribute("sortDir", sortDir);
         model.addAttribute("reverseSortDir",reverseSortDir);
         model.addAttribute("keyword", keyword);
