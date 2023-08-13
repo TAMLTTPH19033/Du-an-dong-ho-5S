@@ -97,7 +97,7 @@
                                     <label class="sr-only">Tìm Kiếm</label>
                                     <input style="width: 250px; margin-right: 10px" type="search" name="keyword" th:value="${keyword}" placeholder="Tìm kiếm" class="form-control" required />
                                     <input style="margin-right: 10px" type="submit" value="Tìm kiếm" class="btn btn-outline-info ml-2" />
-                                    <a style="text-decoration: none" class="btn btn-outline-primary" th:href="@{/admin/colors}">Tất cả</a>
+                                    <a style="text-decoration: none; margin-right: 5px" class="btn btn-outline-secondary" th:href="@{/admin/colors}">Tất cả</a>
                                     <a style="text-decoration: none" class="btn btn-outline-primary" th:href="@{/admin/colors/new}">Tạo mới</a>
                                 </div>
                             </form>
@@ -106,8 +106,8 @@
                         <table class="table table-bordered table-striped table-hover table-responsive-xl">
                             <thead class="thead-dark">
                             <tr>
-                                <th th:replace="admin/fragment/fragments::mausac_link('tenMauSac', 'Tên')"></th>
-                                <th th:replace="admin/fragment/fragments::mausac_link('enabled', 'Trạng thái')"></th>
+                                <th>Tên</th>
+                                <th>Trạng thái</th>
                                 <Th>Chức năng</Th>
                             </tr>
                             </thead>
@@ -122,6 +122,29 @@
                             </tr>
                             </tbody>
                         </table>
+                        <div th:if="${totalPages > 1}">
+                            <nav>
+                                <ul class="pagination justify-content-center">
+                                    <li th:class="${currentPage > 1 ?'page-item' : 'page-item disabled'}">
+                                        <a th:replace="admin/fragment/fragments::mausac_link(1, 'Trang Đầu')" ></a>
+                                    </li>
+                                    <li th:class="${currentPage > 1 ?'page-item' : 'page-item disabled'}">
+                                        <a th:replace="admin/fragment/fragments::mausac_link(${currentPage - 1}, Trước)"></a>
+                                    </li>
+                                    <li th:class="${currentPage != i ? 'page-item': 'page-item active'}"
+                                        th:each="i : ${#numbers.sequence(1,totalPages)}">
+                                        <a th:replace="admin/fragment/fragments::mausac_link(${i}, ${i})"></a>
+                                    </li>
+
+                                    <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
+                                        <a th:replace="admin/fragment/fragments::mausac_link(${currentPage + 1}, Sau)"></a>
+                                    </li>
+                                    <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
+                                        <a th:replace="admin/fragment/fragments::mausac_link(${totalPages}, 'Trang Cuối')"></a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
                     </div>
                 </div>
             </div>

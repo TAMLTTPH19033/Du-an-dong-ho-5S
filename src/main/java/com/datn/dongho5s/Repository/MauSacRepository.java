@@ -15,11 +15,10 @@ import java.util.Optional;
 @Repository
 public interface MauSacRepository extends JpaRepository<MauSac, Integer> {
 
-    @Query(nativeQuery = true, value = "SELECT ms.* FROM mausac ms WHERE UPPER(CONCAT(ms.id_mau_sac, ' ', ms.ten_mau_sac)) LIKE %?1%")
+    @Query(value = "SELECT ms FROM MauSac ms WHERE UPPER(CONCAT(ms.idMauSac, ' ', ms.tenMauSac)) LIKE %?1%")
     public Page<MauSac> findAll(String keyword, Pageable pageable);
 
     @Query(nativeQuery = true, value = "UPDATE mausac ms SET ms.enabled = ?2 WHERE ms.id_mau_sac = ?1")
     @Modifying
     public void updateEnabledStatus(Integer id, boolean enabled);
-
 }
