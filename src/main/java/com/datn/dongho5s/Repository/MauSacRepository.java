@@ -14,9 +14,6 @@ import java.util.Optional;
 
 @Repository
 public interface MauSacRepository extends JpaRepository<MauSac, Integer> {
-    public MauSac findMauSacByTenMauSac(String tenMauSac);
-
-    public Optional<MauSac> findByIdMauSac(int id);
 
     @Query(nativeQuery = true, value = "SELECT ms.* FROM mausac ms WHERE UPPER(CONCAT(ms.id_mau_sac, ' ', ms.ten_mau_sac)) LIKE %?1%")
     public Page<MauSac> findAll(String keyword, Pageable pageable);

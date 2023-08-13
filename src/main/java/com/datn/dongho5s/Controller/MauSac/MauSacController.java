@@ -72,7 +72,7 @@ public class MauSacController {
     @GetMapping("/new")
     public String newDanhMuc(Model model){
         model.addAttribute("mauSac", new MauSac());
-        model.addAttribute("pageTitle","Tạo Mới Màu Sắc");
+        model.addAttribute("pageTitle","Tạo mới");
         return "admin/mausac/colors_form";
     }
 
@@ -90,7 +90,7 @@ public class MauSacController {
         try{
             MauSac mauSac = mauSacService.get(id);
             model.addAttribute("mauSac", mauSac);
-            model.addAttribute("pageTitle","Update Màu Sắc (ID : " + id + ")");
+            model.addAttribute("pageTitle","Cập nhật");
             return "admin/mausac/colors_form";
         } catch (MauSacNotFoundException ex){
             redirectAttributes.addFlashAttribute("message",ex.getMessage());

@@ -1,85 +1,143 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
 
+
 <head th:replace="admin/fragment/fragments:: page_head"></head>
 
-<body class="sb-nav-fixed">
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
 
-<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-    <!-- Navbar Brand-->
-    <a class="navbar-brand ps-3" href="/">Đồng Hồ 5S</a>
-    <!-- Sidebar Toggle-->
-    <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
-    <!-- Navbar Search-->
+    .thong-tin-hoa-don>div{
+        padding-bottom: 5px;
+    }
 
-    <!-- Navbar-->
-    <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="#!">Settings</a></li>
-                <li><a class="dropdown-item" href="#!">Activity Log</a></li>
-                <li><hr class="dropdown-divider" /></li>
-                <li><a class="dropdown-item" href="#!">Logout</a></li>
-            </ul>
-        </li>
-    </ul>
-</nav>
+    .nav-item:hover .nav-link {
+        font-weight: bold;
+    }
+    .tracking nav ul li a {
+        color: #050505;
+        display: block;
+        font-size: 14px;
+        line-height: 55px;
+        transition: all 300ms ease 0s;
+        text-align: center;
+        text-decoration: none;
+    }
+
+    .tracking nav ul li {
+        /*border-bottom: 2px solid orange;*/
+        display: inline-block;
+        width: 16%;
+
+    }
+    .tracking nav ul li a:hover {
+        color: #FF4F4F;
+    }
+    .tracking nav ul li a:active {
+        color: #FF4F4F;
+        border-bottom: 2px solid #FF4F4F;
+    }
+    .tracking nav ul .active{
+        border-bottom: 2px solid #FF4F4F;
+    }
+    .tracking nav ul .active a{
+        color: #FF4F4F;
+    }
+
+    .breadcrumb {
+        background-color: #f2f2f2;
+        padding: 10px;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        padding: 5px 20px;
+    }
+
+    .breadcrumb a {
+        color: #666;
+        text-decoration: none;
+        font-weight: bold;
+        margin-right: 10px;
+        margin-left: 10px;
+        font-size: 20px;
+    }
+</style>
+
+<body class="sb-nav-fixed" id="content">
+<div th:replace="admin/fragment/navigation:: navbar"></div>
+<!-- Article NAV -->
 <div id="layoutSidenav">
     <div th:replace="admin/fragment/navigation:: menu"></div>
 
+    <!-- aside -->
     <div id="layoutSidenav_content">
-    <div>
-        <h2>Quản lý màu sắc | [[${pageTitle}]]</h2>
-    </div>
-
-    <form th:action="@{/admin/colors/save}" method="post" style="max-width: 500px;margin: 0 auto"
-          th:object="${mauSac}" onsubmit="return checkCategoryNameUnique(this);">
-        <input type="hidden" th:field="*{idMauSac}"/>
-        <div class="border border-secondary rounded p-3">
-            <div class="form-group-row">
-                <label class="col-sm-4 col-form-label">Màu sắc:</label>
-                <div class="col-sm-12">
-                    <input type="text" class="form-control" th:field="*{tenMauSac}" id="tenMauSacInput" required minlength="3" maxlength="128"/>
+        <!-- MAIN-CONTENT-SECTION START -->
+        <section class="main-content-section">
+            <div class="row">
+                <div class="breadcrumb">
+                    <a th:href="@{'/admin/colors'}">Màu sắc</a> >
+                    <a href="#">[[${pageTitle}]]</a>
                 </div>
             </div>
+            <div style="max-width: 90%;margin: auto;">
+                <div class="row">
+                    <form th:action="@{/admin/colors/save}" method="post" style="max-width: 500px;margin: 0 auto"
+                          th:object="${mauSac}" onsubmit="return checkCategoryNameUnique(this);">
+                        <input type="hidden" th:field="*{idMauSac}"/>
+                        <div class="border border-secondary rounded p-3">
+                            <div class="form-group-row">
+                                <label class="col-sm-4 col-form-label">Màu sắc:</label>
+                                <div class="col-sm-12">
+                                    <input type="text" class="form-control" th:field="*{tenMauSac}" id="tenMauSacInput" required minlength="3" maxlength="128"/>
+                                </div>
+                            </div>
 
-            <div class="form-group-row">
-                <label class="col-sm-4 col-form-label">Trạng Thái:</label>
-                <div class="col-sm-12">
-                    <input type="checkbox" th:field="*{enabled}">
+                            <div class="form-group-row">
+                                <label class="col-sm-4 col-form-label">Trạng Thái:</label>
+                                <div class="col-sm-12">
+                                    <input type="checkbox" th:field="*{enabled}">
+                                </div>
+                            </div>
+
+                            <div class="text-center">
+                                <input type="submit" value="Save" class="btn btn-primary m-3" id="submitButton"/>
+                                <input type="button" value="Cancel" class="btn btn-secondary" id="buttonCancel">
+                            </div>
+                        </div>
+                    </form>
+
+                    <div class="modal fade text-center" id="modalDialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="modalTitle" >Warning</h4>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+                                <div class="modal-body">
+                                    <span id="modalBody"></span>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+        </section>
+        <!-- MAIN-CONTENT-SECTION END -->
 
-            <div class="text-center">
-                <input type="submit" value="Save" class="btn btn-primary m-3" id="submitButton"/>
-                <input type="button" value="Cancel" class="btn btn-secondary" id="buttonCancel">
-            </div>
-        </div>
-    </form>
-
-    <div class="modal fade text-center" id="modalDialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="modalTitle" >Warning</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <span id="modalBody"></span>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <div th:replace="fragment/fragments::footer"></div>
     </div>
 </div>
-</div>
+
+<!-- END article -->
+
+<!--  Footer      -->
+<div th:replace="admin/fragment/fragments::footer"></div>
 
 <script type="text/javascript">
     moduleURL= "[[@{/admin/colors}]]";
@@ -116,6 +174,5 @@
 
 </script>
 <script th:src="@{/js/index_form.js}"></script>
-
 </body>
 </html>
