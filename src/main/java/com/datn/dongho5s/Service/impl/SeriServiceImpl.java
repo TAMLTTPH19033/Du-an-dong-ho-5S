@@ -42,4 +42,9 @@ public class SeriServiceImpl implements SeriService {
         });
         return repo.findByIdImeiLike(keyword,pageable);
     }
+
+    @Override
+    public Long countSeri(Integer idChiTietSanPham) {
+        return repo.countSeri(idChiTietSanPham);
+    }
 }

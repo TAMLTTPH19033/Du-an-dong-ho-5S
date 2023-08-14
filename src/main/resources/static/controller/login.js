@@ -27,7 +27,7 @@ myApp.controller("loginCtrl", function ($scope,$rootScope ,$http,$location, $win
                     icon: "success",
                     title:  resp.data.message,
                     text: "Quay lại trang chủ!",
-                    timer: 1600,
+                    timer: 5600,
                 });
 
                 $window.location.href = '#index';

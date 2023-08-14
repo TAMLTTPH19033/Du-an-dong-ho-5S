@@ -55,11 +55,30 @@
                             <li><a href="#signup">Sign up</a></li>
                         </ul>
                         <ul class="list-inline" ng-if="currentUser.username != null">
-                            <li><a style="cursor: pointer" ng-click="logouts()">Logout</a></li>
+                            <li><a style="cursor: pointer"  data-toggle="modal" data-target="#myModal10" >Logout</a></li>
                             <li><a href="#cart">Giỏ hàng</a></li>
                             <li><a href="#account">Tài khoản</a></li>
                                 <li><a href="#wishlist">Yêu thích</a></li>
                                 <li>Hi {{currentUser.username}} </li>
+                                <!-- Modal -->
+                                <div class="modal fade" id="myModal10" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"c ng-controller="historyChoCtrl" >
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content" style="margin-top: 40%;width: 69%;margin-left: 14%;">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                <h2 class="modal-title" id="myModalLabel">Thông báo</h2>
+                                            </div>
+                                            <div class="modal-body">
+                                                <h3 class="modal-title">Bạn vẫn muốn đăng xuất chứ</h3>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                        <button type="button" class="btn btn-primary" ng-click="logouts()" style="background: red">Xác nhận</button>
+                                                    </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--     modal-->
                         </ul>
                     </nav>
                 </div>
