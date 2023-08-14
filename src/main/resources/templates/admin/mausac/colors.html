@@ -131,8 +131,9 @@
                                     <li th:class="${currentPage > 1 ?'page-item' : 'page-item disabled'}">
                                         <a th:replace="admin/fragment/fragments::mausac_link(${currentPage - 1}, Trước)"></a>
                                     </li>
-                                    <li th:class="${currentPage != i ? 'page-item': 'page-item active'}"
-                                        th:each="i : ${#numbers.sequence(1,totalPages)}">
+
+                                    <li th:class="${currentPage != i ? 'page-item': 'page-item disabled' }"
+                                        th:each="i : ${#numbers.sequence(currentPage == 1 ? currentPage : (currentPage - 1), (currentPage + 1) < totalPages ? (currentPage + 1) : totalPages )}">
                                         <a th:replace="admin/fragment/fragments::mausac_link(${i}, ${i})"></a>
                                     </li>
 

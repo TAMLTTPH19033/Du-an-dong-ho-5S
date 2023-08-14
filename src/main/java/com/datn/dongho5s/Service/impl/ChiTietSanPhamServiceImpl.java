@@ -6,6 +6,7 @@ import com.datn.dongho5s.Entity.SanPham;
 import com.datn.dongho5s.Exception.ChiTietSanPhamNotFountException;
 import com.datn.dongho5s.Exception.SanPhamNotFountException;
 import com.datn.dongho5s.Repository.ChiTietSanPhamRepository;
+import com.datn.dongho5s.Repository.SeriRepository;
 import com.datn.dongho5s.Response.SanPhamAdminResponse;
 import com.datn.dongho5s.Response.TimKiemSettingResponse;
 import com.datn.dongho5s.Service.ChiTietSanPhamService;
@@ -43,6 +44,8 @@ public class ChiTietSanPhamServiceImpl implements ChiTietSanPhamService {
     VatLieuService vatLieuService;
     @Autowired
     ChiTietSanPhamRepository chiTietSanPhamRepository;
+    @Autowired
+    SeriRepository seriRepository;
 
     @Override
     public TimKiemSettingResponse getTimKiemSetting() {
@@ -91,7 +94,8 @@ public class ChiTietSanPhamServiceImpl implements ChiTietSanPhamService {
                         .vatLieu(lstSP.getVatLieu())
                         .mauSac(lstSP.getMauSac())
                         .khuyenMai(lstSP.getKhuyenMai())
-                        .soLuong(lstSP.getSoLuong())
+//                        .soLuong(lstSP.getSoLuong())
+                        .soLuong(seriRepository.countByIdCTSPEnabled(lstSP.getIdChiTietSanPham()))  // find All Imei status is enabled
                         .build()).collect(Collectors.toList());
         return lst;
     }
