@@ -23,4 +23,5 @@ public interface KhachHangRepository extends JpaRepository<KhachHang,Integer> {
 
     public KhachHang findByTenKhachHang(String ten);
 
+    public KhachHang findBySoDienThoai(String phoneNumber);
 }

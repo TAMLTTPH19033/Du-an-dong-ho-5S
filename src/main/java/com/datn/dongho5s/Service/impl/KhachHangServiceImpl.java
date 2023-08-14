@@ -105,6 +105,11 @@ public class KhachHangServiceImpl implements KhachHangService {
             return khachHangRepo.findAll(keyword,pageable);
         }
         return khachHangRepo.findAll(pageable);
-
     }
+
+    @Override
+    public KhachHang findByPhoneNumber(String phoneNumber){
+        return khachHangRepo.findBySoDienThoai(phoneNumber);
+    }
+
 }
