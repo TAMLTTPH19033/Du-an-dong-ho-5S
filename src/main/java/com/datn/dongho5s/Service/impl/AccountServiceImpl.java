@@ -52,6 +52,7 @@ public class AccountServiceImpl implements AccountService {
     public ResponseEntity<?> register(RegisterRequest registerRequest) throws Exception {
 //        try {
             KhachHang findKHbyEmail = khachHangRepository.getKhachHangByEmail(registerRequest.getEmail());
+            KhachHang khachHangBySdt = khachHangRepository.getKhachHangBySdt(registerRequest.getSoDienThoai());
             if(registerRequest.getIdTinhThanh() ==null || registerRequest.getIdQuanHuyen()== null || registerRequest.getIdPhuongXa() == null){
                 throw new BadRequestException("Mời bạn nhập địa chỉ ");
             }
@@ -61,9 +62,35 @@ public class AccountServiceImpl implements AccountService {
         if(registerRequest.getPassword().isEmpty()){
             throw new BadRequestException("Password không được trống ");
         }
-            if (findKHbyEmail != null) {
+        if (findKHbyEmail != null) {
                 throw new BadRequestException("Email đã tồn tại ");
-            } else {
+            }
+        if (khachHangBySdt != null && khachHangBySdt.getPassword() == null) {
+            khachHangBySdt.setEmail(registerRequest.getEmail());
+            khachHangBySdt.setEnabled(true);
+            khachHangBySdt.setGioiTinh(registerRequest.getGioiTinh());
+            khachHangBySdt.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
+            khachHangBySdt.setTenKhachHang(registerRequest.getTenKhachHang());
+            khachHangBySdt.setNgaySinh(registerRequest.getNgaySinh());
+            khachHangBySdt.setNgaySua(new Date());
+            khachHangBySdt.setThoiGianTaoTaiKhoan(new Timestamp(new Date().getTime()));
+            KhachHang khachHang0 = khachHangRepository.save(khachHangBySdt);
+            DiaChi diaChi = DiaChi.builder()
+                    .diaChi(registerRequest.getDiaChi())
+                    .idTinhThanh(registerRequest.getIdTinhThanh())
+                    .idQuanHuyen(registerRequest.getIdQuanHuyen())
+                    .idPhuongXa(registerRequest.getIdPhuongXa())
+                    .ghiChu("")
+                    .maBuuChinh(123)
+                    .khachHang(khachHang0)
+                    .trangThaiMacDinh(1)
+                    .soDienThoai(registerRequest.getSoDienThoai())
+                    .build();
+            DiaChi diaChi1 = diaChiRepository.save(diaChi);
+            return new ResponseEntity<>(khachHang0, HttpStatus.OK);
+        } else if (khachHangBySdt != null) {
+            throw new BadRequestException("Số điện thoại đã được đăng ký");
+        } else {
                 KhachHang khachHang = KhachHang.builder()
                         .idKhachHang(null)
                         .email(registerRequest.getEmail())
@@ -75,7 +102,6 @@ public class AccountServiceImpl implements AccountService {
                         .ngaySua(new Date())
                         .soDienThoai(registerRequest.getSoDienThoai())
                         .thoiGianTaoTaiKhoan(new Timestamp(new Date().getTime()))
-
                         .build();
                 KhachHang khachHang1 = khachHangRepository.save(khachHang);
 
@@ -93,9 +119,6 @@ public class AccountServiceImpl implements AccountService {
                 DiaChi diaChi1 = diaChiRepository.save(diaChi);
                 return new ResponseEntity<>(khachHang1, HttpStatus.OK);
             }
-//        }catch (Exception e){
-//            throw new Exception("Đăng nhập thất bại");
-//        }
     }
 
     @Override
