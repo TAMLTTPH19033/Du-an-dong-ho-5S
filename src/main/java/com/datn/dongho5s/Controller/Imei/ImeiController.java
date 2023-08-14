@@ -1,19 +1,16 @@
 package com.datn.dongho5s.Controller.Imei;
 
+import com.datn.dongho5s.Entity.ChiTietSanPham;
 import com.datn.dongho5s.Entity.KhuyenMai;
 import com.datn.dongho5s.Entity.Seri;
 import com.datn.dongho5s.Exception.KhuyenMaiNotFoundException;
 import com.datn.dongho5s.Service.ChiTietSanPhamService;
 import com.datn.dongho5s.Service.SeriService;
 import com.datn.dongho5s.Service.impl.KhuyenMaiServiceImpl;
+import com.datn.dongho5s.Utils.TrangThaiImei;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellType;
-import org.apache.poi.ss.usermodel.FormulaEvaluator;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -46,7 +43,7 @@ import java.util.List;
 public class ImeiController {
 
     private final String UPLOAD_DIR = "./uploads/";
-    private final Integer ITEM_PER_PAGE =10;
+    private final Integer ITEM_PER_PAGE = 10;
 
     @Autowired
     SeriService seriService;
@@ -60,20 +57,20 @@ public class ImeiController {
 
     @GetMapping("/page/{pageNum}")
     public String listByPage(@PathVariable(name = "pageNum") int pageNum, Model model,
-                             @Param("keyword")String keyword) {
-        Page<Seri> page = seriService.searchSeri(pageNum,ITEM_PER_PAGE,keyword);
+                             @Param("keyword") String keyword) {
+        Page<Seri> page = seriService.searchSeri(pageNum, ITEM_PER_PAGE, keyword);
         List<Seri> listSeri = page.getContent();
-        long startCount = pageNum * ITEM_PER_PAGE +1;
-        long endCount = startCount + ITEM_PER_PAGE-1;
-        if(endCount > page.getTotalElements()){
+        long startCount = pageNum * ITEM_PER_PAGE + 1;
+        long endCount = startCount + ITEM_PER_PAGE - 1;
+        if (endCount > page.getTotalElements()) {
             endCount = page.getTotalElements();
         }
-        model.addAttribute("currentPage",pageNum);
-        model.addAttribute("totalPages",page.getTotalPages());
-        model.addAttribute("startCount",startCount);
-        model.addAttribute("endCount",endCount);
-        model.addAttribute("totalItem",page.getTotalElements());
-        model.addAttribute("listSeri",listSeri);
+        model.addAttribute("currentPage", pageNum);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("startCount", startCount);
+        model.addAttribute("endCount", endCount);
+        model.addAttribute("totalItem", page.getTotalElements());
+        model.addAttribute("listSeri", listSeri);
         model.addAttribute("keyword", keyword);
         System.out.println(listSeri.size());
         return "admin/imei/imei";
@@ -81,48 +78,52 @@ public class ImeiController {
     }
 
     @GetMapping("/new")
-    public String newSeri(Model model){
+    public String newSeri(Model model) {
         model.addAttribute("seri", new Seri());
         model.addAttribute("pageTitle", "Tạo Mới Seri");
         return "admin/imei/imei_form";
     }
+
     @GetMapping("/edit/{id}")
     public String editSeri(@PathVariable(name = "id") Integer id,
-                                Model model,
-                                RedirectAttributes redirectAttributes){
-        try{
-            model.addAttribute("edit",true);
+                           Model model,
+                           RedirectAttributes redirectAttributes) {
+        try {
+            model.addAttribute("edit", true);
             Seri seri = seriService.get(id);
-            if(seri == null){
+            if (seri == null) {
                 redirectAttributes.addFlashAttribute("message", "Không tìm thấy Imei");
                 return "redirect:/admin/seri";
             }
-            model.addAttribute("seri",seri);
-            model.addAttribute("pageTitle","Update Imei (ID : " + id + ")");
+            model.addAttribute("seri", seri);
+            model.addAttribute("pageTitle", "Update Imei (ID : " + id + ")");
             return "admin/imei/imei_form";
-        }catch (Exception ex){
-            redirectAttributes.addFlashAttribute("error","Đã xảy ra lỗi trong quá trình xử lý. Vui lòng thử lại sau.");
+        } catch (Exception ex) {
+            redirectAttributes.addFlashAttribute("error", "Đã xảy ra lỗi trong quá trình xử lý. Vui lòng thử lại sau.");
             return "redirect:/error";
         }
     }
+
     @PostMapping("/save")
     public String upTrangThaiImei(Seri seri, RedirectAttributes redirectAttributes) {
-        System.out.println(seri.toString());
-//        seriService.update(seri);
-        redirectAttributes.addAttribute("message", "Thay Đổi Thành Công");
+        Seri updateSeri = seriService.get(seri.getIdSeri());
+        System.out.println(updateSeri.toString());
+        updateSeri.setTrangThai(seri.getTrangThai());
+        updateSeri.setIdImei(seri.getIdImei());
+        seriService.save(updateSeri);
+        redirectAttributes.addFlashAttribute("message", "Thay Đổi Thành Công");
         return "redirect:/admin/seri";
     }
 
     @PostMapping("/importExcept")
     public String uploadFile(@RequestParam("file") MultipartFile file,
-                             @RequestParam("maSCTP") String maCTSP,
-                             @RequestParam("idImei") String idImei
+                             Seri seri
             , RedirectAttributes redirectAttributes) {
-        if (maCTSP == null) {
-            redirectAttributes.addFlashAttribute("message", "Vui lòng chọn chi tiết cần them Imei");
+        if (seri.getChiTietSanPham() == null || ctspService.getChiTietSanPhamByMa(seri.getChiTietSanPham().getMaChiTietSanPham())==null) {
+            redirectAttributes.addFlashAttribute("message", "Vui lòng chọn đúng chi tiết cần thêm Imei");
             return "redirect:/admin/seri";
         }
-        if (file.isEmpty() && idImei.isBlank()) {
+        if (file.isEmpty() && seri.getIdImei().isBlank()) {
             redirectAttributes.addFlashAttribute("message", "Vui lòng chọn 1 trong 2 cách thức nhập seri");
             return "redirect:/admin/seri";
         } else if (!file.isEmpty()) {
@@ -138,13 +139,26 @@ public class ImeiController {
                 for (Row row : sheet) {
                     for (Cell cell : row) {
                         Seri result = Seri.builder()
-                                .idImei(cell.getStringCellValue())
-                                .chiTietSanPham(ctspService.getChiTietSanPhamByMa(maCTSP))
+                                .chiTietSanPham(ctspService.getChiTietSanPhamByMa(seri.getChiTietSanPham().getMaChiTietSanPham()))
                                 .ngayNhap(new Timestamp(System.currentTimeMillis()))
                                 .ngayBan(null)
-                                .trangThai(1)
+                                .trangThai(TrangThaiImei.CHUA_BAN)
                                 .build();
-                        listSave.add(result);
+                        if (cell.getCellType() == CellType.STRING) {
+                            String value = cell.getStringCellValue();
+                            result.setIdImei(value);
+                        } else if (cell.getCellType() == CellType.NUMERIC) {
+                            if (DateUtil.isCellDateFormatted(cell)) {
+                                Date dateValue = cell.getDateCellValue();
+                                result.setIdImei(dateValue.toString());
+                            } else {
+                                double numericValue = cell.getNumericCellValue();
+                                result.setIdImei(String.valueOf(numericValue));
+                            }
+                        }
+                        if (result.getIdImei() != null) {
+                            listSave.add(result);
+                        }
                     }
                 }
                 seriService.saveMany(listSave);
@@ -156,13 +170,13 @@ public class ImeiController {
             } catch (InvalidFormatException e) {
                 throw new RuntimeException(e);
             }
-        }else {
+        } else {
             Seri result = Seri.builder()
-                    .idImei(idImei)
-                    .chiTietSanPham(ctspService.getChiTietSanPhamByMa(maCTSP))
+                    .idImei(seri.getIdImei())
+                    .chiTietSanPham(ctspService.getChiTietSanPhamByMa(seri.getChiTietSanPham().getMaChiTietSanPham()))
                     .ngayNhap(new Timestamp(System.currentTimeMillis()))
                     .ngayBan(null)
-                    .trangThai(1)
+                    .trangThai(TrangThaiImei.CHUA_BAN)
                     .build();
             seriService.save(result);
             redirectAttributes.addFlashAttribute("message", "Thêm Imei thành công");

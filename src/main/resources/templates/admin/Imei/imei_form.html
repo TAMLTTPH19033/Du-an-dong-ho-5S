@@ -14,14 +14,14 @@
 
             <form th:action="@{/admin/seri/importExcept}" method="POST" enctype="multipart/form-data"
                   style="max-width: 500px;margin: 0 auto"
-                  th:object="${seri}" onsubmit="return checkDiscountNameUnique(this)">
+                  th:object="${seri}" onsubmit="return checkDiscountNameUnique(this)" th:if="${edit==null}">
                 <input type="hidden" th:field="*{idSeri}"/>
                 <div class="border border-secondary rounded p-3">
 
                     <div class="form-group row">
                         <label class="col-sm-4 col-form-label">Mã chi tiết sản phẩm:</label>
                         <div class="col-sm-12">
-                            <input type="text" class="form-control" th:field="*{chiTietSanPham.maChiTietSanPham}" name="maSCTP"/>
+                            <input type="text" class="form-control" th:field="*{chiTietSanPham.maChiTietSanPham}"/>
                         </div>
                     </div>
                     <br>
@@ -32,13 +32,7 @@
                     <div class="form-group row">
                         <label class="col-sm-4 col-form-label">Mã imei:</label>
                         <div class="col-sm-12">
-                            <input class="form-control" name="idImei" th:field="*{idImei}" maxlength="256"/>
-                        </div>
-                    </div>
-                    <div class="form-group row" th:if="${edit}">
-                        <label class="col-sm-4 col-form-label">Trạng thái:</label>
-                        <div class="col-sm-12">
-                            <input class="form-control" name="trangThai" th:field="*{trangThai}" maxlength="256"/>
+                            <input class="form-control"  th:field="*{idImei}" maxlength="256"/>
                         </div>
                     </div>
                     <div th:if="${message != null}" class="alert alert-success text-center">
@@ -47,6 +41,50 @@
                     <div class="text-center">
                         <input type="submit" value="Save" class="btn btn-primary m-3" id="submitButton"/>
                         <input type="button" value="Cancel" class="btn btn-secondary" id="buttonCancel">
+                    </div>
+                </div>
+            </form>
+            <form th:action="@{/admin/seri/save}" method="POST" enctype="multipart/form-data"
+                  style="max-width: 500px;margin: 0 auto"
+                  th:object="${seri}" onsubmit="return checkDiscountNameUnique(this)" th:if="${edit}">
+                <h1>đây là edit</h1>
+                <input type="hidden" th:field="*{idSeri}"/>
+                <div class="border border-secondary rounded p-3">
+
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">Mã chi tiết sản phẩm:</label>
+                        <div class="col-sm-12">
+                            <input type="text" class="form-control" th:field="*{chiTietSanPham.maChiTietSanPham}" disabled/>
+                        </div>
+                    </div>
+                    <br>
+                    <div style="display: flex; align-items: center;" th:field="*{idSeri}"  th:if="*{idSeri == null}">
+                        <input type="file" name="file"/>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">Mã imei:</label>
+                        <div class="col-sm-12">
+                            <input class="form-control"  th:field="*{idImei}" maxlength="256"/>
+                        </div>
+                    </div>
+                    <div class="form-group row" th:if="${edit}">
+                        <label class="col-sm-4 col-form-label">Trạng thái:</label>
+                        <div class="col-sm-12">
+                            <select class="form-control" th:field="*{trangThai}">
+                                <option value="0">Lỗi</option>
+                                <option value="1">Chưa bán</option>
+                                <option value="2">Đang giao</option>
+                                <option value="3">Đã bán</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div th:if="${message != null}" class="alert alert-success text-center">
+                        [[${message}]]
+                    </div>
+                    <div class="text-center">
+                        <input type="submit" value="Save" class="btn btn-primary m-3" />
+                        <input type="button" value="Cancel" class="btn btn-secondary" >
                     </div>
                 </div>
             </form>
