@@ -31,4 +31,23 @@ public interface ChiTietSanPhamService {
     public ChiTietSanPham save(ChiTietSanPham chiTietSanPham);
 
     public ChiTietSanPham get(Integer id) throws ChiTietSanPhamNotFountException;
+
+
+    public boolean isUniqueChiTietSanPham(
+            String maChiTietSanPham,
+            String tenSanPham,
+            String tenDayDeo,
+            String tenMauSac,
+            String tenKichCo,
+            String tenVatLieu
+    );
+
+    public boolean isUniqueChiTietSanPhamUpdate(
+            Integer idChiTietSanPham,
+            String maChiTietSanPham,
+            String tenSanPham,
+            String tenDayDeo,
+            String tenMauSac,
+            String tenKichCo,
+            String tenVatLieu);
 }

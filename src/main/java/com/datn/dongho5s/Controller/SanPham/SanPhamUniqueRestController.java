@@ -12,8 +12,14 @@ public class SanPhamUniqueRestController {
     @Autowired
     private SanPhamService service;
 
-    @PostMapping("/admin/products/check_name")
-    public String checkDuplicateTen(@Param("ten") String ten) {
-        return service.checkUnique(ten) ? "OK" : "Duplicated";
+    @PostMapping("/admin/products/check_name_and_code")
+    public String checkDuplicateTenAndMa(@Param("ten") String ten, @Param("ma") String ma) {
+        return service.checkUniqueTenAndMa(ten, ma) ? "OK" : "Duplicated";
     }
+
+    @PostMapping("/admin/products/check_name_code_id")
+    public String checkDuplicateTenMaId(@Param("ten") String ten, @Param("ma") String ma, @Param("id") Integer id) {
+        return service.checkUniqueTenMaId(ten, ma, id) ? "OK" : "Duplicated";
+    }
+
 }

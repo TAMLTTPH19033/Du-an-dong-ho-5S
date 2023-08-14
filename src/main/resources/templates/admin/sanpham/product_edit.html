@@ -145,34 +145,36 @@
         window.location = moduleURL;
     });
 
-    // function checkUniqueEdit(form) {
-    //     var url = "[[@{/admin/products/check_name}]]";
-    //     var sanPhamId = form.idSanPham.value;
-    //     var sanPhamName = form.tenSanPham.value;
-    //     var csrfValue = $("input[name='_csrf']").val();
-    //     var params = {
-    //         id: sanPhamId,
-    //         ten: sanPhamName,
-    //         _csrf: csrfValue
-    //     };
-    //
-    //     $.post(url, params)
-    //         .done(function(response) {
-    //             if (response == "OK") {
-    //                 form.submit();
-    //             } else if (response == "Duplicated") {
-    //                 showWarningModal("Tên đã tồn tại hoặc là Tên này thuộc về id khác");
-    //             } else {
-    //                 showErrorModal("Lỗi phản hồi từ server");
-    //             }
-    //         })
-    //         .fail(function() {
-    //             showWarningModal("Tên đã tồn tại hoặc là Tên này thuộc về id khác");
-    //         });
-    //
-    //     return false;
-    //
-    // }
+    function checkUniqueEdit(form) {
+        var url = "[[@{/admin/products/check_name_code_id}]]";
+        var sanPhamId = form.idSanPham.value;
+        var sanPhamMa = form.maSanPham.value;
+        var sanPhamName = form.tenSanPham.value;
+        var csrfValue = $("input[name='_csrf']").val();
+        var params = {
+            ten: sanPhamName,
+            ma: sanPhamMa,
+            id: sanPhamId,
+            _csrf: csrfValue
+        };
+
+        $.post(url, params)
+            .done(function(response) {
+                if (response == "OK") {
+                    form.submit();
+                } else if (response == "Duplicated") {
+                    showWarningModal("Mã Hoặc Tên Đã Tồn Tại, Vui Lòng Kiểm Tra");
+                } else {
+                    showErrorModal("Lỗi phản hồi từ server");
+                }
+            })
+            .fail(function() {
+                showWarningModal("Tên đã tồn tại hoặc là Tên này thuộc về id khác");
+            });
+
+        return false;
+
+    }
 
 
 

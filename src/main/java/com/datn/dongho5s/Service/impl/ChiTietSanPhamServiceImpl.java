@@ -139,4 +139,40 @@ public class ChiTietSanPhamServiceImpl implements ChiTietSanPhamService {
             throw new ChiTietSanPhamNotFountException("không tìm thấy sản phẩm có id" + id);
         }
     }
+
+    @Override
+    public boolean isUniqueChiTietSanPham(
+            String maChiTietSanPham,
+            String tenSanPham,
+            String tenDayDeo,
+            String tenMauSac,
+            String tenKichCo,
+            String tenVatLieu
+    ) {
+        ChiTietSanPham existingByMa = chiTietSanPhamRepository.findByMaChiTietSanPham(maChiTietSanPham);
+        ChiTietSanPham existingByNames = chiTietSanPhamRepository.findBySanPham_TenSanPhamAndDayDeo_TenDayDeoAndMauSac_TenMauSacAndKichCo_TenKichCoAndVatLieu_TenVatLieu(
+                tenSanPham, tenDayDeo, tenMauSac, tenKichCo, tenVatLieu);
+
+        return (existingByMa == null && existingByNames == null);
+    }
+
+
+    @Override
+    public boolean isUniqueChiTietSanPhamUpdate(
+            Integer idChiTietSanPham,
+            String maChiTietSanPham,
+            String tenSanPham,
+            String tenDayDeo,
+            String tenMauSac,
+            String tenKichCo,
+            String tenVatLieu
+    ) {
+        ChiTietSanPham existingById = chiTietSanPhamRepository.findByIdChiTietSanPham(idChiTietSanPham);
+        ChiTietSanPham existingByMa = chiTietSanPhamRepository.findByMaChiTietSanPham(maChiTietSanPham);
+        ChiTietSanPham existingByNames = chiTietSanPhamRepository.findBySanPham_TenSanPhamAndDayDeo_TenDayDeoAndMauSac_TenMauSacAndKichCo_TenKichCoAndVatLieu_TenVatLieu(
+                tenSanPham, tenDayDeo, tenMauSac, tenKichCo, tenVatLieu);
+
+        return (existingByMa == null && existingByNames == null && existingById == null);
+    }
 }
+

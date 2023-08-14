@@ -32,7 +32,7 @@ myApp.controller(
     $scope.spCungThuongHieu = [];
     $rootScope.currentDate = new Date().toISOString();
     $scope.selectImage = "";
-
+    $scope.SeriBySP = new Map();
     var setDayDeo = new Set();
     var setVatLieu = new Set();
     var setMauSac = new Set();
@@ -59,6 +59,7 @@ myApp.controller(
           $scope.selectedKC = $scope.chiTietSanPham.kichCo.tenKichCo;
           getSettingAttributeSp($scope.sanPhamDetail.listChiTietSanPham);
           $scope.PhanHoiAPI();
+          $scope.countSeri();
           $rootScope.currentDate = new Date().toISOString();
           $scope.selectImage = $scope.sanPhamDetail.listAnhSanPham[0].link;
           getAvailabelAttribute(
@@ -279,7 +280,6 @@ myApp.controller(
       for (var i = startPage; i <= endPage; i++) {
         $scope.pages.push(i);
       }
-
       var startIndex = ($scope.currentPage - 1) * $scope.pageSize;
       var endIndex = startIndex + $scope.pageSize;
       console.log($scope.pages);
@@ -302,16 +302,7 @@ myApp.controller(
               icon: "warning",
               title: "Thông báo !",
               text: "Sản phẩm đã bán hết!",
-              timer: 1600,
-            });
-            return;
-          }
-          if($scope.chiTietSanPham.soLuong == 0){
-            Swal.fire({
-              icon: "warning",
-              title: "Thông báo !",
-              text: "Sản phẩm đã bán hết!",
-              timer: 1600,
+              timer: 3600,
             });
             return;
           }
@@ -323,17 +314,18 @@ myApp.controller(
                     icon: "warning",
                     title: "Thông báo !",
                     text: "Quá số lượng sản phẩm!",
-                    timer: 1600,
+                    timer: 5600,
                   });
                 } else {
-                  console.log(resp);
                   Swal.fire({
                     icon: "success",
                     title: "Thành công",
                     text: "Đã thêm vào giỏ hàng!",
-                    timer: 1600,
+                    timer: 5600,
                   });
-                  $window.location.reload();
+                  setTimeout(function (){
+                    $window.location.reload();
+                  },4600)
                 }
               })
               .catch((error) => {
@@ -348,7 +340,7 @@ myApp.controller(
           icon: "warning",
           title: "Chưa đăng nhập",
           text: "Bạn hãy đăng nhập !",
-          timer: 1600,
+          timer: 5600,
         });
         $window.location.href = '#login';
       }
@@ -368,7 +360,6 @@ myApp.controller(
 
     $scope.PhanHoiAPI = function () {
       var idChiTietSanPham = $scope.chiTietSanPham.idChiTietSanPham;
-      console.log(idChiTietSanPham,"id")
 
       // const idSP = $scope.idSP;
       $http
@@ -378,7 +369,6 @@ myApp.controller(
           $scope.totalPages = Math.ceil(
             $scope.phanHoi.length / $scope.pageSize
           );
-          console.log( $scope.totalPages);
         })
 
         .catch(function (error) {
@@ -399,7 +389,6 @@ myApp.controller(
       for (var i = startPage; i <= endPage; i++) {
         $scope.pages.push(i);
       }
-      console.log($scope.pages);
       $scope.Items = $scope.phanHoi.slice(startIndex, endIndex);
       $scope.checkFirstLastPage();
     };
@@ -418,7 +407,6 @@ myApp.controller(
         for (var i = startPage; i <= endPage; i++) {
           $scope.pages.push(i);
         }
-        console.log($scope.pages);
         $scope.Items = $scope.phanHoi.slice(startIndex, endIndex);
         $scope.checkFirstLastPage();
       }
@@ -438,7 +426,6 @@ myApp.controller(
         for (var i = startPage; i <= endPage; i++) {
           $scope.pages.push(i);
         }
-        console.log($scope.pages);
         $scope.Items = $scope.phanHoi.slice(startIndex, endIndex);
         $scope.checkFirstLastPage();
       }
@@ -457,6 +444,23 @@ myApp.controller(
         $scope.isLastPage=false;
       }
     }
+
+  $scope.countSeri = function (){
+    var idChiTietSanPham = $scope.chiTietSanPham.idChiTietSanPham;
+    $http
+        .get(`/chi-tiet-san-pham/countSeri/${idChiTietSanPham}`)
+        .then(function (response) {
+          $scope.SeriBySP.set(idChiTietSanPham, response.data);
+        })
+
+        .catch(function (error) {
+          console.log(error);
+        });
+  }
+
+
+
+
 
     $scope.rating = 0;
     $scope.ratings = {
@@ -498,7 +502,9 @@ myApp.controller(
       }
     };
   }
+
 );
+
 
 myApp.directive("starRating", function () {
   return {

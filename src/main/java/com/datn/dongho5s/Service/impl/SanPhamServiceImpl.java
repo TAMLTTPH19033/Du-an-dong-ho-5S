@@ -212,12 +212,42 @@ public class SanPhamServiceImpl implements SanPhamService {
     }
 
     @Override
-    public boolean checkUnique(String ten){
+    public boolean checkUniqueTenAndMa(String ten, String ma) {
         SanPham sanPhamTheoTen = sanPhamRepository.findByTenSanPham(ten);
-        if (sanPhamTheoTen == null) return true;
-        if(sanPhamTheoTen != null) return false;
-        return true;
+        SanPham sanPhamTheoMa = sanPhamRepository.findByMaSanPham(ma);
+
+        if (sanPhamTheoTen == null && sanPhamTheoMa == null) {
+            return true; // Tên và mã đều không bị trùng
+        }
+
+        return false; // Tên hoặc mã đã bị trùng
     }
+
+    @Override
+    public boolean checkUniqueTenMaId(String ten, String ma, Integer id) {
+        SanPham sanPhamTheoTen = sanPhamRepository.findByTenSanPham(ten);
+        SanPham sanPhamTheoMa = sanPhamRepository.findByMaSanPham(ma);
+
+        if (sanPhamTheoTen == null && sanPhamTheoMa == null) {
+            return true; // Tên và mã đều không bị trùng
+        }
+
+        if (id != null) {
+            SanPham existingSanPham = sanPhamRepository.findById(id).orElse(null);
+            if (existingSanPham != null) {
+                if (sanPhamTheoTen != null && !sanPhamTheoTen.getIdSanPham().equals(id)) {
+                    return false; // Tên trùng nhưng không phải sản phẩm hiện tại
+                }
+                if (sanPhamTheoMa != null && !sanPhamTheoMa.getIdSanPham().equals(id)) {
+                    return false; // Mã trùng nhưng không phải sản phẩm hiện tại
+                }
+            }
+        }
+
+        return true; // Trường hợp còn lại
+    }
+
+
 
     @Override
     public SanPham get(Integer id) throws SanPhamNotFountException {

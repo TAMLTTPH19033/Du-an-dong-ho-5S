@@ -182,9 +182,12 @@ myApp.controller("indexCtrl", function ($rootScope,$scope, $http,$window, $locat
             showConfirmButton: true,
             closeOnClickOutside: false,
             allowOutsideClick: false,
-            timer: 5600,
+            timer: 1600,
         });
-        $location.path("/login")
-        // $window.location.reload();
+        setTimeout(function (){
+            $location.path("/login")
+            $window.location.reload();
+        },2000)
+
     }
 })

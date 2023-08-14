@@ -22,4 +22,7 @@ public interface SeriRepository extends JpaRepository<Seri,Integer> {
                 AND sr.trangThai = 1
     """)
     int countByIdCTSPEnabled (int idCTSP);
+
+    @Query(value = "select s from Seri s where s.trangThai = 3 and s.chiTietSanPham.idChiTietSanPham = ?1")
+    Long countSeri (Integer chiTietSanPham);
 }
