@@ -49,9 +49,12 @@ public interface SanPhamRepository extends JpaRepository<SanPham, Integer> {
 
 
     public SanPham findByTenSanPham(String tenSanPham);
+
+    public  SanPham findByMaSanPham(String ma);
     public List<SanPham> findByThuongHieu(ThuongHieu tenSanPham);
 
 
+    public SanPham findByIdSanPham(Integer idSanPham);
 
 
 }
