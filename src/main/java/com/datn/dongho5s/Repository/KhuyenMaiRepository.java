@@ -11,6 +11,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
+import java.util.List;
+
 @Repository
 public interface KhuyenMaiRepository extends JpaRepository<KhuyenMai,Integer> {
 
@@ -20,4 +23,5 @@ public interface KhuyenMaiRepository extends JpaRepository<KhuyenMai,Integer> {
     public KhuyenMai findByTenKhuyenMai(String ten);
 
     KhuyenMai findByMaKhuyenMai(String ma);
+    List<KhuyenMai> findByNgayKetThucLessThanAndEnabled(Date today, boolean b);
 }

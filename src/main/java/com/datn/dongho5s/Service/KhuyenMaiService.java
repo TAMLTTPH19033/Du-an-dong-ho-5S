@@ -24,6 +24,6 @@ public interface KhuyenMaiService {
     public boolean checkUnique(Integer id, String ten, String ma);
 
 //    boolean checkUniqueMa(Integer id, String ma);
-
+    public List<KhuyenMai> getExpiredKhuyenMai ();
 
 }
