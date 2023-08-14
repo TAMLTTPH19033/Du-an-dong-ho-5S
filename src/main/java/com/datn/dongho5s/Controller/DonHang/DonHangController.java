@@ -178,32 +178,6 @@ public class DonHangController {
         return "admin/donhang/donhang";
     }
 
-    @GetMapping("/search/date")
-    public String searchByDateStartanDateEnd(
-        HttpSession httpSession,
-        Model model,
-        HttpServletRequest httpServletRequest
-    ) {
-        String dateStart = httpServletRequest.getParameter("dateStart");
-        String dateEnd = httpServletRequest.getParameter("dateEnd");
-
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        Date dateStartParse = null;
-        Date dateEndParse = null;
-
-        try {
-            dateStartParse = format.parse(dateStart);
-            dateEndParse = format.parse(dateEnd);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        List<DonHang> lst = donHangService.findByNgayTao(dateStartParse,dateEndParse);
-
-        model.addAttribute("list",lst);
-        return "admin/donhang/donhang";
-    }
-
     @GetMapping("/update/{id}/trang-thai/{trangThai}")
     public String updateStatusDonHang(
             HttpSession session,
