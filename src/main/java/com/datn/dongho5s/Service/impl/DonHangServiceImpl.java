@@ -61,9 +61,10 @@ public class DonHangServiceImpl implements DonHangService {
     @Override
     public List<DonHang> findByNgayTao(
             Date dateStart,
-            Date dateEnd
+            Date dateEnd,
+            Integer status
     ) {
-        List<DonHang> allDonHang = donHangRepository.findByNgayTao(dateStart, dateEnd);
+        List<DonHang> allDonHang = donHangRepository.findByNgayTao(dateStart, dateEnd,status);
         return allDonHang;
     }
 
