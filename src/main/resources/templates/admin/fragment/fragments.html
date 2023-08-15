@@ -126,6 +126,11 @@
 <!--              th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>-->
 <!--    </th>-->
     <!-- fragment cho phân trang-->
+
+    <a th:fragment="page_spct_link(pageNum, label)"
+       class="page-link"
+       th:href="@{'/admin/ban-hang/sanpham/page/' + ${pageNum}+ ${keyword != null ? '&keyword' + keyword : ''}}"> [[${label}]]</a>
+
     <a th:fragment="mausac_link(pageNum, label)"
        class="page-link"
        th:href="@{'/admin/colors/page/' + ${pageNum} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword' + keyword : ''}}"> [[${label}]]</a>

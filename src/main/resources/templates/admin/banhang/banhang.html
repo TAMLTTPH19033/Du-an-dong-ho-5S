@@ -170,8 +170,6 @@
                 </tr>
                 </thead>
                 <tbody>
-<!--                <span th:if="${session.donHangHienTai != null}" th:text="${session.donHangHienTai}"></span>-->
-<!--                <span th:if="${session.donHangHienTai == null}" th:text="'Giá trị không tồn tại'"></span>-->
                 <tr th:each="sp : ${listSanPham}">
                   <td th:text="${sp.maChiTietSanPham}"></td>
                   <td th:text="${sp.sanPham.tenSanPham}"></td>
@@ -191,6 +189,30 @@
                 </tr>
                 </tbody>
               </table>
+              <div th:if="${totalPages > 1}">
+                <nav>
+                  <ul class="pagination justify-content-center">
+                    <li th:class="${currentPage > 1 ?'page-item' : 'page-item disabled'}">
+                      <a th:replace="admin/fragment/fragments::page_spct_link(1, 'Trang Đầu')" ></a>
+                    </li>
+                    <li th:class="${currentPage > 1 ?'page-item' : 'page-item disabled'}">
+                      <a th:replace="admin/fragment/fragments::page_spct_link(${currentPage - 1}, Trước)"></a>
+                    </li>
+
+                    <li th:class="${currentPage != i ? 'page-item': 'page-item disabled' }"
+                        th:each="i : ${#numbers.sequence(currentPage == 1 ? currentPage : (currentPage - 1), (currentPage + 1) < totalPages ? (currentPage + 1) : totalPages )}">
+                      <a th:replace="admin/fragment/fragments::page_spct_link(${i}, ${i})"></a>
+                    </li>
+
+                    <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
+                      <a th:replace="admin/fragment/fragments::page_spct_link(${currentPage + 1}, Sau)"></a>
+                    </li>
+                    <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
+                      <a th:replace="admin/fragment/fragments::page_spct_link(${totalPages}, 'Trang Cuối')"></a>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
             </div>
           </div>
           <!--  Thanh toan-->
@@ -227,9 +249,10 @@
                   <div class="col-12">
                     <button class="btn btn-outline-primary"
                             type="submit"
+                            id="tao-moi-don-hang"
                     >Tạo mới</button>
 
-                    <button class="btn btn-outline-danger"id="thanhToan"
+                    <button class="btn btn-outline-danger" id="thanhToan"
                        data-bs-toggle="modal"
                       type="button"
                        data-bs-target="#thanhToanHoaDon"
@@ -249,31 +272,6 @@
   <!-- MAIN-CONTENT-SECTION END -->
 
     </div>
-</div>
-
-<div th:if="${totalPages > 1}">
-  <nav>
-    <ul class="pagination justify-content-center">
-      <li th:class="${currentPage > 1 ?'page-item' : 'page-item disabled'}">
-        <a th:replace="admin/fragment/fragments::page_spct_link(1, 'Trang Đầu')" ></a>
-      </li>
-      <li th:class="${currentPage > 1 ?'page-item' : 'page-item disabled'}">
-        <a th:replace="admin/fragment/fragments::page_spct_link(${currentPage - 1}, Trước)"></a>
-      </li>
-
-      <li th:class="${currentPage != i ? 'page-item': 'page-item disabled' }"
-          th:each="i : ${#numbers.sequence(currentPage == 1 ? currentPage : (currentPage - 1), (currentPage + 1) < totalPages ? (currentPage + 1) : totalPages )}">
-        <a th:replace="admin/fragment/fragments::page_spct_link(${i}, ${i})"></a>
-      </li>
-
-      <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
-        <a th:replace="admin/fragment/fragments::page_spct_link(${currentPage + 1}, Sau)"></a>
-      </li>
-      <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
-        <a th:replace="admin/fragment/fragments::page_spct_link(${totalPages}, 'Trang Cuối')"></a>
-      </li>
-    </ul>
-  </nav>
 </div>
 <!-- END article -->
 
@@ -397,6 +395,26 @@
   // }
   // var todayFormatted = yyyy+'-'+mm+'-'+dd; // Chuỗi ngày tháng được định dạng theo định dạng của input type="date"
   // document.getElementById("ngayTao").value = todayFormatted; // Set giá trị mặc định cho input
+
+
+  const inputField = document.getElementById('sdt');
+  const submitButton = document.getElementById('tao-moi-don-hang');
+
+  inputField.addEventListener('input', function() {
+    fetch(`/admin/ban-hang/khach-hang/api/` + inputField.value.trim())
+            .then(response => response.text())
+            .then(data => {
+              // Kiểm tra kết quả từ server và xử lý tương ứng
+              if (data === inputField.value.trim()) {
+                submitButton.disabled = true;
+              } else {
+                submitButton.disabled = false;
+              }
+            })
+            .catch(error => {
+              console.error('Lỗi:', error);
+            });
+  });
 
   var maCTSP;
   var soLuongTon;

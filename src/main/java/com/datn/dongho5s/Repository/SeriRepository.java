@@ -15,6 +15,14 @@ public interface SeriRepository extends JpaRepository<Seri,Integer> {
     @Query("SELECT s FROM Seri s WHERE s.idImei LIKE %:keyword%")
     Page<Seri> findByIdImeiLike(@Param("keyword") String keyword, Pageable pageable);
 
+    @Query("""
+        SELECT COUNT(sr.chiTietSanPham)
+        FROM Seri sr
+        WHERE   sr.chiTietSanPham.idChiTietSanPham = ?1
+                AND sr.trangThai = 1
+    """)
+    int countByIdCTSPEnabled (int idCTSP);
+
     @Query(value = "select s from Seri s where s.trangThai = 3 and s.chiTietSanPham.idChiTietSanPham = ?1")
     Long countSeri (Integer chiTietSanPham);
 }
