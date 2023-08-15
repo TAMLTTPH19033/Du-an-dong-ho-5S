@@ -22,7 +22,7 @@ public class ChiTietSanPhamMapping {
                 .doChiuNuoc(sp.getDoChiuNuoc())
                 .trangThai(sp.getTrangThai())
                 .giaSanPham(sp.getGiaSanPham())
-                .soLuong(sp.getSoLuong())
+//                .soLuong(sp.getSoLuong())
                 .listPhanHoi(sp.getListPhanHoi())
                 .build();
         return chiTietSanPhamResponse;
@@ -43,7 +43,7 @@ public class ChiTietSanPhamMapping {
                 .doChiuNuoc(sp.getDoChiuNuoc())
                 .trangThai(sp.getTrangThai())
                 .giaSanPham(sp.getGiaSanPham())
-                .soLuong(sp.getSoLuong())
+//                .soLuong(sp.getSoLuong())
                 .build();
         return chiTietSanPham;
     }

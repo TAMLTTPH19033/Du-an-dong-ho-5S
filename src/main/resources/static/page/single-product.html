@@ -224,7 +224,7 @@
 											<p>Mã: <span>{{chiTietSanPham.maChiTietSanPham}}</span></p>
 										</div>
 										<div class="single-product-price" >
-											<h2 ng-bind="getGia() | number"> đ</h2>
+											<h2><span ng-bind="getGia() | number"></span>đ</h2>
 										</div>
 									</div>
 									<div ng-if="chiTietSanPham.giaSanPham != getGia()">
@@ -234,14 +234,17 @@
 											<p>Khuyến mại: <span>{{chiTietSanPham.khuyenMai.tenKhuyenMai}}</span></p>
 										</div>
 									<div class="single-product-price">
-										<h2 ng-bind="getGia() | number "></h2> <h2>đ</h2>
+										<h2><span ng-bind="getGia() | number "></span> đ</h2>
 										<span class="old-price">{{chiTietSanPham.giaSanPham | number }} đ</span>
 									</div>
 									</div>
 									<div class="single-product-desc">
-										<p>Faded short sleeves t-shirt with high neckline. Soft and stretchy material for a comfortable fit. Accessorize with a straw hat and you're ready for summer!</p>
+<!--										<p>Faded short sleeves t-shirt with high neckline. Soft and stretchy material for a comfortable fit. Accessorize with a straw hat and you're ready for summer!</p>-->
 										<div class="product-in-stock">
-											<p>{{ SeriBySP.get(chiTietSanPham.idChiTietSanPham) }}<span>In stock</span></p>
+											<p style="color: red"> Còn {{ SeriBySP.get(chiTietSanPham.idChiTietSanPham) }} sản phẩm
+												<span ng-show="SeriBySP.get(chiTietSanPham.idChiTietSanPham) > 0">Còn hàng</span>
+												<span style="background: red" ng-show="SeriBySP.get(chiTietSanPham.idChiTietSanPham) == 0">Hết hàng</span>
+											</p>
 										</div>
 									</div>
 									<div class="single-product-info">
@@ -250,7 +253,7 @@
 										<a href="#"><i class="fa fa-heart"></i></a>
 									</div>
 									<div class="single-product-quantity">
-										<p class="small-title" style=" margin-right: 16px">Quantity</p>
+										<p class="small-title" style=" margin-right: 16px">Số lượng</p>
 										<div class="cart-quantity">
 											<div class="cart-plus-minus-button single-qty-btn">
 												<div class="dec qtybutton" ng-click="giam(item)" style="">-</div>
@@ -289,8 +292,9 @@
 									</div>
 									<br>
 									<div class="single-product-add-cart">
-										<button class="add-cart-text" title="Thêm vào giỏ hàng" ng-click="addToCart()">Thêm vào giỏ hàng</button>
-										<button class="add-cart-text" title="Mua ngay" ng-click="buyNow()">Mua ngay</button>
+											<button class="add-cart-text" title="Thêm vào giỏ hàng" ng-click="addToCart()" ng-disabled="SeriBySP.get(chiTietSanPham.idChiTietSanPham) == 0" >Thêm vào giỏ hàng</button>
+<!--											<button class="add-cart-text" title="Thêm vào giỏ hàng" ng-click="addToCart()">Thêm vào giỏ hàng</button>-->
+										<button class="add-cart-text" title="Mua ngay" ng-click="buyNow()"  ng-disabled="SeriBySP.get(chiTietSanPham.idChiTietSanPham) == 0" >Mua ngay</button>
 									</div>
 								</div>
 							</div>
@@ -439,14 +443,16 @@
 						<!-- SINGLE SIDE BAR START -->
 						<div class="single-product-right-sidebar">
 							<h2 class="left-title">Các sản phẩm cùng thương hiệu</h2>
-							<ul style=" width:50% ">
-								<li ng-repeat="sp in spCungThuongHieu">
-									<div class="sidebar-product-image" style=" width:90% ">
+							<ul style=" width:100% ">
+								<li ng-repeat="sp in spCungThuongHieu" >
+									<div style="display: flex">
+									<div class="sidebar-product-image" style=" width:64% ">
 										<a href="#/chitietsanpham/{{sp.idSanPham}}"><img
 												src="/assets/images/{{sp.listAnhSanPham[0].link}}"
-												alt="product-image"/></a>
+												alt="product-image" width="100%"/></a>
 									</div>
-									<p>{{sp.tenSanPham}}</p>
+									<a href="#/chitietsanpham/{{sp.idSanPham}}"><p>{{sp.tenSanPham}}</p></a>
+									</div>
 								</li>
 							</ul>
 						</div>	

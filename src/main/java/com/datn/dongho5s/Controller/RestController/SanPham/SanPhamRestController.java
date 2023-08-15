@@ -58,9 +58,8 @@ public class SanPhamRestController {
     }
 
     @GetMapping("/cung-thuong-hieu={idTH}")
-    public ResponseEntity<?> GetSanPhamCungTH(@PathVariable("idTH") ThuongHieu idTH){
-        System.out.println(idTH.toString());
-        List<SanPham> result = sanPhamService.getSPCungTH(idTH);
+    public ResponseEntity<?> GetSanPhamCungTH(@PathVariable("idTH") SanPham sanPham){
+        List<SanPham> result = sanPhamService.getSPCungTH(sanPham.getThuongHieu());
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
