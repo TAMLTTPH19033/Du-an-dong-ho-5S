@@ -212,21 +212,21 @@
                                     <a href="#/chitietsanpham/{{h.chiTietSanPham.sanPham.idSanPham}}"><img src="/assets/images/{{h.chiTietSanPham.sanPham.listAnhSanPham[0].link}}" width="100%" alt="shopping image" /></a>
                                 </div>
                                 <div class="shipping-item-text"  style="width: 87%; float: right">
-                                    <a href="#" class="pro-cat">{{h.chiTietSanPham.sanPham.tenSanPham}} </a>
+                                    <a href="#/chitietsanpham/{{h.chiTietSanPham.sanPham.idSanPham}}" class="pro-cat" style="font-size: 17px">{{h.chiTietSanPham.sanPham.tenSanPham}} </a>
                                     <div>{{h.soLuong}} <span class="pro-quan-x">x</span></div>
-                                    <span class="pro-quality"><a href="#sanpham">Phân loại : {{h.chiTietSanPham.kichCo.tenKichCo}},{{h.chiTietSanPham.mauSac.tenMauSac}}</a></span>
-                                    <ul class="price text-right" style="    position: absolute; right: 20px;top: 19px; " >
+                                    <span class="pro-quality"><a href="#sanpham">Phân loại : {{h.chiTietSanPham.kichCo.tenKichCo}},{{h.chiTietSanPham.mauSac.tenMauSac}},{{h.chiTietSanPham.dayDeo.tenDayDeo}},{{h.chiTietSanPham.vatLieu.tenVatLieu}}</a></span>
+                                    <ul class="price text-right" style="    position: absolute; right: 20px;top: 7px; " >
                                         <li class="price special-price"> {{h.giaBan * h.soLuong | number}} đ </li>
-                                        <span ng-if="h.giaBan == h.chiTietSanPham.giaSanPham"></span>
-                                        <span ng-if="h.giaBan != h.chiTietSanPham.giaSanPham">
-										<li class="price-percent-reduction small">&nbsp;{{h.chiTietSanPham.khuyenMai.chietKhau }}%&nbsp;</li>
-									     <li class="old-price">{{h.chiTietSanPham.giaSanPham | number}} đ</li>
+                                        <span ng-if="h.chietKhau == null"></span>
+                                        <span ng-if="h.chietKhau != null">
+										<li class="price-percent-reduction small">&nbsp;{{h.chietKhau}} %</li>
+									     <li class="old-price">{{h.giaBan * 100 /(100- h.chietKhau) | number}} đ</li>
                                      </span>
                                     </ul>
                                 </div>
                                 <div ng-if="checkPhanHoi.get(h.chiTietSanPham.idChiTietSanPham) == true"></div>
                                 <div ng-if="checkPhanHoi.get(h.chiTietSanPham.idChiTietSanPham) == false">
-                                <a type="button" class="btn btn-primary btn-lg"  data-toggle="modal" data-target="#myModal1" style="width: 143px; padding: 10px;background: #eb2929;" >
+                                <a type="button" class="btn btn-primary btn-lg"  data-toggle="modal" data-target="#myModal1" style="width: 95px; padding: 6px; font-size :14px ;margin: 8px; border: none;background: #eb2929;" >
                                     Đánh giá
                                 </a>
                                 </div>
@@ -246,7 +246,7 @@
 														<form ng-submit="sendRate(h)">
 															<div star-ratings  rating-value="ratings.current" max="5"></div>
 															<input type="text" id="noiDungPhanHoi" name="noiDungPhanHoi" ng-model="noiDungPhanHoi"/>
-															<a class="btn" class="write-review-btn" ng-click="sendRate(h)">Send your review!</a>
+															<a class="btn" class="write-review-btn" ng-click="sendRate(h)">Gửi đánh giá của bạn!</a>
 														</form>
 													</span>
 

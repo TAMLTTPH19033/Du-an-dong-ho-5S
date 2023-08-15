@@ -43,6 +43,9 @@ public class HoaDonChiTiet {
     @Column(name = "gia_ban")
     private Double giaBan;
 
+    @Column(name = "chiet_khau")
+    private Integer chietKhau;
+
     public HoaDonChiTiet(String tenDanhMuc, Integer soLuong, Double giaBan, Double phiVanChuyen) {
         this.chiTietSanPham = new ChiTietSanPham();
         this.chiTietSanPham.setSanPham(new SanPham());
