@@ -18,4 +18,11 @@ public interface SeriRepository extends JpaRepository<Seri,Integer> {
     @Query(value = "select count(s) from Seri s where s.trangThai = 1 and s.chiTietSanPham.idChiTietSanPham = ?1")
     Integer countSeri (Integer chiTietSanPham);
 
+    @Query("""
+        SELECT COUNT(sr.chiTietSanPham)
+        FROM Seri sr
+        WHERE   sr.chiTietSanPham.idChiTietSanPham = ?1
+                AND sr.trangThai = 1
+    """)
+    int countByIdCTSPEnabled (int idCTSP);
 }
