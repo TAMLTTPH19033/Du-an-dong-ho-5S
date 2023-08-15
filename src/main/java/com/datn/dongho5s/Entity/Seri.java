@@ -45,4 +45,7 @@ public class Seri {
     @Column(name = "trang_thai")
     private Integer trangThai;
 
+    @ManyToOne
+    @JoinColumn(name = "id_hoa_don_chi_tiet")
+    private HoaDonChiTiet hoaDonChiTiet;
 }
