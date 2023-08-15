@@ -67,7 +67,7 @@ public class DonHangAdminRestController {
         DonHangAdminResponse result = DonHangAdminResponse.builder()
                 .idDonHang(donHang.getIdDonHang())
                 .maDonHang(donHang.getMaDonHang())
-                .idKhachHang(donHang.getKhachHang().getIdKhachHang())
+                .khachHang(donHang.getKhachHang())
                 .ngayTao(formatter.format(donHang.getNgayTao()))
                 .ngayCapNhap(formatter.format(donHang.getNgayCapNhap()))
                 .trangThaiDonHang(donHang.getTrangThaiDonHang())

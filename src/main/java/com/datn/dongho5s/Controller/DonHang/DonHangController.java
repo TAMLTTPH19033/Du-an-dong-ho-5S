@@ -49,7 +49,7 @@ import java.util.Map;
 import java.util.TimeZone;
 
 
-@RequestMapping("/admin/don-hang")
+@RequestMapping("")
 @Controller
 @Slf4j
 public class DonHangController {
@@ -79,7 +79,7 @@ public class DonHangController {
         return result;
     }
 
-    @GetMapping("/thong-tin-thanh-toan")
+    @GetMapping("/don-hang/thong-tin-thanh-toan")
     public RedirectView thongTinThanhToan() {
         try {
 
@@ -113,6 +113,8 @@ public class DonHangController {
                     donHangService.save(donhang);
                     return new RedirectView("http://localhost:8080/index#/success");
                 } else {
+                    hdctService.xoaHDCTByIdDonHang(donhang);
+                    donHangService.xoaDonHang(donhang);
                     System.out.println("Không thành công");
                     return new RedirectView("http://localhost:8080/index#/fail");
                 }
@@ -151,13 +153,13 @@ public class DonHangController {
         }
     }
 
-    @GetMapping
+    @GetMapping("/admin/don-hang")
     public String getForm(Model model,
                           HttpSession httpSession) {
         return findAll(1, model,httpSession);
     }
 
-    @GetMapping("/page/{pageNum}")
+    @GetMapping("/admin/don-hang/page/{pageNum}")
     public String findAll(
             @PathVariable("pageNum") int pageNum,
             Model model,
@@ -177,7 +179,7 @@ public class DonHangController {
         return "admin/donhang/donhang";
     }
 
-    @GetMapping("/update/{id}/trang-thai/{trangThai}")
+    @GetMapping("/admin/don-hang/update/{id}/trang-thai/{trangThai}")
     public String updateStatusDonHang(
             HttpSession session,
             @PathVariable("trangThai") int trangThai,
@@ -209,6 +211,9 @@ public class DonHangController {
                 ctsp.setSoLuong(item.getChiTietSanPham().getSoLuong()-item.getSoLuong());
                 ctspService.update(ctsp);
             });
+        }else{
+            donHang.setTrangThaiDonHang(trangThai);
+            donHang.setNgayCapNhap(new Date());
         }
 
 

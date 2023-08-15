@@ -165,4 +165,9 @@ public class DonHangServiceImpl implements DonHangService {
         donHangRepository.deleteByMaDonHang(donHang.getMaDonHang());
         return "Delete succcessful! Code is" + donHang.getMaDonHang();
     }
+
+    @Override
+    public void xoaDonHang(DonHang donhang) {
+        donHangRepository.delete(donhang);
+    }
 }

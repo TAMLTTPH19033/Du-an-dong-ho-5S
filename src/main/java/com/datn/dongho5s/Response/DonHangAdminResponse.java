@@ -18,7 +18,7 @@ public class DonHangAdminResponse {
     private Integer idDonHang;
     private String maDonHang;
     private Integer idNhanVien;
-    private Integer idKhachHang;
+    private KhachHang khachHang;
     private String ngayTao;
     private String ngayCapNhap;
     private Integer trangThaiDonHang;

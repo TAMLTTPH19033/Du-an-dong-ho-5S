@@ -45,4 +45,6 @@ public interface HoaDonChiTietService {
             HoaDonChiTiet hoaDonChiTiet,
             int soLuongThayDoi
     );
+
+    void xoaHDCTByIdDonHang(DonHang donHang);
 }

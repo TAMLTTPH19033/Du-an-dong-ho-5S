@@ -137,4 +137,10 @@ public class HoaDonChiTietServiceImpl implements HoaDonChiTietService {
         int slHienTai = hoaDonChiTiet.getSoLuong();
         chiTietSanPhamRepository.updateSoLuongFromHDCT(slHienTai - soLuongThayDoi,hoaDonChiTiet.getChiTietSanPham().getIdChiTietSanPham());
     }
+
+    @Override
+    public void xoaHDCTByIdDonHang(DonHang donHang) {
+        List<HoaDonChiTiet> listHDCT = hoaDonChiTietRepository.findByDonHang(donHang);
+        hoaDonChiTietRepository.deleteAll(listHDCT);
+    }
 }

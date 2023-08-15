@@ -581,12 +581,12 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        var cancelButtonList = document.querySelectorAll(".cancelDH");
-        cancelButtonList.forEach(function(cancelButton) {
-            cancelButton.addEventListener("click", function () {
-                console.log("vô rồi nè");
-            });
-        });
+        var tabLink = $("#myTabs a[data-api='7']");
+        tabLink.tab("show");
+        var tabContentId = tabLink.attr("href");
+        var table = $(tabContentId).find("table");
+        var api = tabLink.data("api");
+        loadTabContent(api, table);
     });
 
 
@@ -641,8 +641,8 @@
 
                         break;
                     case 3:
-                        document.getElementById("start1").value = todayFormatted; // Set giá trị mặc định cho input
-                        document.getElementById("end1").value = todayFormatted;
+                        document.getElementById("start3").value = todayFormatted; // Set giá trị mặc định cho input
+                        document.getElementById("end3").value = todayFormatted;
                         var searchForm = document.getElementById("formSearch3");
                         searchAPI(api,searchForm,table)
 
@@ -668,11 +668,13 @@
                     default:
                         document.getElementById("start7").value = todayFormatted; // Set giá trị mặc định cho input
                         document.getElementById("end7").value = todayFormatted;
-                        var searchForm = document.getElementById("formSearch0");
+                        var searchForm = document.getElementById("formSearch7");
                         searchAPI(api,searchForm,table)
                         break;
                 }
             });
+
+
 
         });
 
@@ -744,6 +746,7 @@
                 fetch("/admin/don-hang/findByTrangThai/" + api) // Thay thế đường dẫn bằng URL của API thực tế
                     .then(response => response.json())
                     .then(data => {
+                        console.log(data);
                         var tbody = table.find('tbody');
                         tbody.empty();
                         if(data.length==0){
@@ -792,7 +795,7 @@
         function generateTableAllRow(item) {
             var row = '<tr>';
             row += '<td>' + (item.maDonHang) + '</td>';
-            row += '<td style="max-width: 220px">' + item.idKhachHang +  '</td>';
+            row += '<td style="max-width: 220px">' + item.khachHang.idKhachHang +  '</td>';
             row += '<td>' + item.ngayTao + '</td>';
             row += '<td>' + item.ngayCapNhap + '</td>';
             row += '<td>' + item.diaChi + 'đ</td>';
@@ -812,7 +815,7 @@
         function generateTableChoXacNhacRow(item) {
             var row = '<tr>';
             row += '<td>' + (item.maDonHang) + '</td>';
-            row += '<td style="max-width: 220px">' + item.idKhachHang +  '</td>';
+            row += '<td style="max-width: 220px">' + item.khachHang.idKhachHang +  '</td>';
             row += '<td>' + item.ngayTao + '</td>';
             row += '<td>' + item.diaChi + 'đ</td>';
             row += '<td>' + setTrangThaiText(item.trangThaiDonHang) + '</td>';
@@ -833,7 +836,7 @@
         function generateTableChuanBiRow(item) {
             var row = '<tr>';
             row += '<td>' + (item.maDonHang) + '</td>';
-            row += '<td style="max-width: 220px">' + item.idKhachHang +  '</td>';
+            row += '<td style="max-width: 220px">' + item.khachHang.idKhachHang +  '</td>';
             row += '<td>' + item.ngayTao + '</td>';
             row += '<td>' + item.ngayCapNhap + '</td>';
             row += '<td>' + item.diaChi + 'đ</td>';
@@ -855,7 +858,7 @@
         function generateTableDangGiaoRow(item) {
             var row = '<tr>';
             row += '<td>' + (item.maDonHang) + '</td>';
-            row += '<td style="max-width: 220px">' + item.idKhachHang +  '</td>';
+            row += '<td style="max-width: 220px">' + item.khachHang.idKhachHang +  '</td>';
             row += '<td>' + item.ngayTao + '</td>';
             row += '<td>' + item.ngayCapNhap + '</td>';
             row += '<td>' + item.diaChi + 'đ</td>';
@@ -876,7 +879,7 @@
         function generateTableHoanThanhRow(item) {
             var row = '<tr>';
             row += '<td>' + (item.maDonHang) + '</td>';
-            row += '<td>' + item.idKhachHang +  '</td>';
+            row += '<td>' + item.khachHang.idKhachHang +  '</td>';
             row += '<td>' + item.idNhanVien +  '</td>';
             row += '<td>' + item.ngayTao + '</td>';
             row += '<td>' + item.ngayCapNhap + '</td>';
@@ -898,7 +901,7 @@
         function generateTableDaHuyRow(item) {
             var row = '<tr>';
             row += '<td>' + (item.maDonHang) + '</td>';
-            row += '<td style="max-width: 220px">' + item.idKhachHang +  '</td>';
+            row += '<td style="max-width: 220px">' + item.khachHang.idKhachHang +  '</td>';
             row += '<td>' + item.ngayTao + '</td>';
             row += '<td>' + item.ngayCapNhap + '</td>';
             row += '<td>' + item.diaChi + 'đ</td>';
@@ -918,7 +921,7 @@
         function generateTableYCTraHangRow(item) {
             var row = '<tr>';
             row += '<td>' + (item.maDonHang) + '</td>';
-            row += '<td style="max-width: 220px">' + item.idKhachHang +  '</td>';
+            row += '<td style="max-width: 220px">' + item.khachHang.idKhachHang +  '</td>';
             row += '<td>' + item.ngayTao + '</td>';
             row += '<td>' + item.ngayCapNhap + '</td>';
             row += '<td>' + item.diaChi + 'đ</td>';
@@ -939,7 +942,7 @@
         function generateTableDaTraRow(item) {
             var row = '<tr>';
             row += '<td>' + (item.maDonHang) + '</td>';
-            row += '<td style="max-width: 220px">' + item.idKhachHang +  '</td>';
+            row += '<td style="max-width: 220px">' + item.khachHang.idKhachHang +  '</td>';
             row += '<td>' + item.ngayTao + '</td>';
             row += '<td>' + item.ngayCapNhap + '</td>';
             row += '<td>' + item.diaChi + 'đ</td>';

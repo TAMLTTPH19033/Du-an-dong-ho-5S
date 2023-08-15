@@ -50,6 +50,7 @@ public class DonHangAPI {
                 BaseResponse<PhiVanChuyenResponse> responseObject = objectMapper.readValue(responseBody, new TypeReference<>() {
                 });
                 PhiVanChuyenResponse thongTinPhi = responseObject.getData();
+                System.out.println(thongTinPhi.toString());
                 return thongTinPhi.getTotal();
             } catch (Exception e) {
                 System.out.println(e);

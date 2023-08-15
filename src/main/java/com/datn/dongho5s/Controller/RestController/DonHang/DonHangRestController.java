@@ -145,6 +145,7 @@ public class DonHangRestController {
                 .ngayCapNhap(new Date())
                 .maDonHang("DH"+System.currentTimeMillis())
                 .tongTien(hdctService.getTongGia(themDonHangRequest.getListHoaDonChiTietRequest()))
+                .phuongThuc(PhuongThucThanhToan.VNPAY)
                 .build();
         DonHang savedDonHang = donHangService.save(donHang);
         List<HoaDonChiTiet> listHoaDonChiTiet = hdctService.convertToListHoaDonChiTiet(themDonHangRequest.getListHoaDonChiTietRequest(), savedDonHang.getIdDonHang());
