@@ -214,14 +214,14 @@ public class DonHangController {
         DonHang donHang = donHangService.findById(id);
         donHang.setTrangThaiDonHang(trangThai);
         donHang.setNgayCapNhap(new Date());
-        if(trangThai == TrangThaiDonHang.DANG_GIAO){
-            List<HoaDonChiTiet> listHDCT = donHang.getListHoaDonChiTiet();
-            listHDCT.forEach(item->{
-                ChiTietSanPham ctsp = item.getChiTietSanPham();
-                ctsp.setSoLuong(item.getChiTietSanPham().getSoLuong()-item.getSoLuong());
-                ctspService.update(ctsp);
-            });
-        }
+//        if(trangThai == TrangThaiDonHang.DANG_GIAO){
+//            List<HoaDonChiTiet> listHDCT = donHang.getListHoaDonChiTiet();
+//            listHDCT.forEach(item->{
+//                ChiTietSanPham ctsp = item.getChiTietSanPham();
+////                ctsp.setSoLuong(item.getChiTietSanPham().getSoLuong()-item.getSoLuong());
+//                ctspService.update(ctsp);
+//            });
+//        }
         donHangService.updateTrangThaiDonHang(donHang);
 
         Page<DonHang> donHangs = donHangService.getAll(1);

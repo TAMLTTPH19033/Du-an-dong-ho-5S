@@ -12,5 +12,5 @@ public interface SeriService {
     Seri get(Integer id);
     Page<Seri> searchSeri(int pageNumber,int pageSize, String keyword);
 
-    Long countSeri (Integer idChiTietSanPham);
+    Integer countSeri (Integer idChiTietSanPham);
 }

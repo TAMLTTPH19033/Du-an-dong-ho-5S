@@ -5,7 +5,7 @@
     $scope.totalnavBar = 0;
     $scope.totalSpnavBar  = 0;
     $scope.selection=[];
-
+    $scope.SeriBySP = new Map();
     $scope.errorSelectedSP;
     let currentUser = JSON.parse(localStorage.getItem("currentUser"));
     //load cart
@@ -104,24 +104,39 @@
             $scope.totalSp-- ;
         }
     };
+    $scope.countSeri = function (idChiTietSanPham){
+            $http
+                .get(`/chi-tiet-san-pham/countSeri/${idChiTietSanPham}`)
+                .then(function (response) {
+                    // $scope.SeriBySP.set(idChiTietSanPham, response.data);
+                    // console.log(response.data,"daaaaaaaaaaaa")
+                    $scope.count = response.data;
+                })
+
+                .catch(function (error) {
+                    console.log(error);
+                });
+        }
     $scope.tang = function (item,soLuong) {
+        $scope.countSeri(item.chiTietSanPham.idChiTietSanPham);
         if (item) {
-            if(item.soLuongSanPham >= item.chiTietSanPham.soLuong){
+            if(item.soLuongSanPham >= $scope.count){
                 Swal.fire({
                             icon: "warning",
                             title: "Thông báo!",
-                            text: "Số lượng quá",
-                            timer: 1600,
+                            text: "Số lượng có giới hạn ",
+                            timer: 2600,
                         });
                 return;
-            }
-            item.soLuongSanPham = Number(item.soLuongSanPham) + 1;
-            soLuong = item.soLuongSanPham;
-            $scope.update(item,soLuong);
-            var sp = $scope.selection.find((e) => e === item)
-            if(sp){
-                $scope.total += item.giaBan ;
-                $scope.totalSp++ ;
+            }else {
+                item.soLuongSanPham = Number(item.soLuongSanPham) + 1;
+                soLuong = item.soLuongSanPham;
+                $scope.update(item, soLuong);
+                var sp = $scope.selection.find((e) => e === item)
+                if (sp) {
+                    $scope.total += item.giaBan;
+                    $scope.totalSp++;
+                }
             }
 
         }
@@ -133,7 +148,9 @@
             .then(resp =>{
                 const index = $scope.cart.findIndex(p => p.idChiTietGioHang ==  item.idChiTietGioHang);
                 $scope.cart.splice(index,1);
-                // alert("xoa thanh cong");
+                setTimeout(function (){
+                    $window.location.reload();
+                },1600)
             })
             .catch(error =>{
                 alert("Loi roi");
@@ -147,6 +164,9 @@
             .then(resp =>{
                 $scope.cart= [];
                 // alert("xoa thanh cong");
+                setTimeout(function (){
+                    $window.location.reload();
+                },1600)
             })
             .catch(error =>{
                 alert("Loi roi");

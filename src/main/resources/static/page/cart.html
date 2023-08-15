@@ -9,7 +9,7 @@
 					<div class="shopping-cart">
 						<a class="shop-link" href="#cart" title="View my shopping cart">
 							<i class="fa fa-shopping-cart cart-icon" ></i>
-							<b>Gỏ hàng</b>
+							<b>Giỏ hàng</b>
 							<span class="ajax-cart-quantity">{{totalSpnavBar }}</span>
 						</a>
 						<div class="shipping-cart-overly" style="overflow: scroll">
@@ -146,7 +146,7 @@
 		<div class="row">
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 				<!-- SHOPPING-CART SUMMARY START -->
-				<h2 class="page-title">Shopping-cart summary <span class="shop-pro-item">Số sản phẩm trong giỏ hàng của bạn : {{totalSpnavBar}}</span></h2>
+				<h2 class="page-title">Giỏ hàng<span class="shop-pro-item">Số sản phẩm trong giỏ hàng của bạn : {{totalSpnavBar}}</span></h2>
 				<!-- SHOPPING-CART SUMMARY END -->
 			</div>
 
@@ -174,7 +174,7 @@
 							<th class="cart-product">Sản phẩm</th>
 							<th class="cart-description">Mô tả</th>
 							<th class="cart-avail text-center">Tình trạng</th>
-							<th class="cart-unit text-right">Giá bán</th>
+							<th class="cart-unit text-right" style="width: 10%">Giá bán</th>
 							<th class="cart_quantity text-center">Số lượng</th>
 							<th class="cart-delete">&nbsp;</th>
 							<th class="cart-total text-right">Tổng tiền </th>
@@ -187,16 +187,18 @@
 						<!-- SINGLE CART_ITEM START -->
 						<tr ng-repeat="item in cart">
 							<td>
-								<input type="checkbox"  ng-checked="selection.indexOf(item) > -1" ng-click="toggleSelection(item)" />
+								<input type="checkbox"  ng-checked="selection.indexOf(item) > -1" ng-click="toggleSelection(item)" style="text-align: center"/>
 							</td>
 							<td class="cart-product">
-								<a href="#/chitietsanpham/{{item.chiTietSanPham.sanPham.idSanPham}}"><img alt="Blouse" src="/assets/images/{{item.chiTietSanPham.sanPham.listAnhSanPham[0].link}}" width="37%"></a>
+								<a href="#/chitietsanpham/{{item.chiTietSanPham.sanPham.idSanPham}}"><img alt="Blouse" src="/assets/images/{{item.chiTietSanPham.sanPham.listAnhSanPham[0].link}}" width="80%"></a>
 							</td>
 							<td class="cart-description">
 								<p class="product-name"><a href="#/chitietsanpham/{{item.chiTietSanPham.sanPham.idSanPham}}">{{item.chiTietSanPham.sanPham.tenSanPham}} </a></p>
-								<small>Mã :{{chitietsanpham.maChiTietSanPham}}</small>
+								<small>Mã :{{item.chiTietSanPham.maChiTietSanPham}}</small>
 								<small><a href="#">Kích thước :{{item.chiTietSanPham.kichCo.tenKichCo}}
 									, Màu : {{item.chiTietSanPham.mauSac.tenMauSac}} </a></small>
+								<small><a href="#">Dây đeo :{{item.chiTietSanPham.dayDeo.tenDayDeo}}
+									, Vật liệu : {{item.chiTietSanPham.vatLieu.tenVatLieu}} </a></small>
 							</td>
 							<td class="cart-avail"><span class="label label-success">In stock</span></td>
 							<td class="cart-unit">
@@ -209,13 +211,13 @@
                                      </span>
 								</ul>
 							</td>
-							<td class="cart_quantity text-center">
-								<div class="cart-plus-minus-button">
+							<td class="cart_quantity text-center" style="width: 10%">
+<!--								<div class="cart-plus-minus-button">-->
 									<input class="cart-plus-minus" type="text"  name="soLuongSanPham"
-										   value="{{item.soLuongSanPham}}" ng-disabled="true" >
+										   value="{{item.soLuongSanPham}}" ng-disabled="true" style=" width:46%;height: 26px;  margin-top: 3px; text-align: center">
 									<div class="dec qtybutton" ng-click="giam(item)">-</div>
 									<div class="inc qtybutton"  ng-click="tang(item)">+</div>
-								</div>
+<!--								</div>-->
 							</td>
 							<td class="cart-delete text-center">
 											<span>
@@ -223,7 +225,7 @@
 											</span>
 							</td>
 							<td class="cart-total">
-								<span class="price">{{item.soLuongSanPham * item.giaBan}}</span>
+								<span class="price">{{item.soLuongSanPham * item.giaBan | number}}</span>
 							</td>
 						</tr >
 						<!-- SINGLE CART_ITEM END -->
@@ -235,7 +237,7 @@
 						<tr class="cart-total-price">
 							<td class="cart_voucher" colspan="4" rowspan="4"></td>
 							<td class="text-right" colspan="4">Tổng tiền(tax excl.)</td>
-							<td id="total_product" class="price" colspan="1">{{total}} đ</td>
+							<td id="total_product" class="price" colspan="1">{{total | number}} đ</td>
 						</tr>
 						<tr>
 							<td class="text-right" colspan="4">Phí vận chuyển (Tạm tính)</td>
@@ -250,7 +252,7 @@
 								<span>Tổng</span>
 							</td>
 							<td id="total-price-container" class="price" colspan="1">
-								<span id="total-price">{{total}} đ</span>
+								<span id="total-price">{{total | number}} đ</span>
 							</td>
 						</tr>
 						</tfoot>

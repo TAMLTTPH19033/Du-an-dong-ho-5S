@@ -107,7 +107,6 @@ public class ImeiController {
     @PostMapping("/save")
     public String upTrangThaiImei(Seri seri, RedirectAttributes redirectAttributes) {
         Seri updateSeri = seriService.get(seri.getIdSeri());
-        System.out.println(updateSeri.toString());
         updateSeri.setTrangThai(seri.getTrangThai());
         updateSeri.setIdImei(seri.getIdImei());
         seriService.save(updateSeri);
