@@ -16,11 +16,16 @@ public class ReportItem {
     private Double netSales;
     private int ordersCount;
     private int productsCount;
+    private int status;
 
     public ReportItem(String identifier, Double grossSales, Double netSales) {
         this.identifier = identifier;
         this.grossSales = grossSales;
         this.netSales = netSales;
+    }
+
+    public ReportItem(Integer status) {
+        this.status = status;
     }
 
     public ReportItem(Double grossSales) {
@@ -45,6 +50,14 @@ public class ReportItem {
 
     public String getIdentifier() {
         return identifier;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public void setIdentifier(String identifier) {
@@ -97,6 +110,14 @@ public class ReportItem {
             this.grossSales = 0.0; // Initialize grossSales to 0 if it's null
         }
         this.grossSales += amount;
+    }
+
+    public void addStatus(int amount) {
+        if (this.status == 0) {
+            this.status = amount;
+        } else {
+            this.status += amount;
+        }
     }
 
     public void addNetSales(Double amount) {

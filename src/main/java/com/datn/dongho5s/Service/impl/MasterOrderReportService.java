@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -17,11 +18,13 @@ public class MasterOrderReportService extends AbstractReportService {
     @Autowired private DonHangRepository repo;
 
     protected List<ReportItem> getReportDataByDateRangeInternal(Date startTime, Date endTime, ReportType reportType) {
-        List<DonHang> listOrders = repo.findByOrderBetween(startTime, endTime);
+        List<DonHang> listOrders = repo.findByOrderByStatusBetween(startTime, endTime, 3);
         printRawData(listOrders);
-        List<ReportItem> listReportItems = createReportData(startTime, endTime, reportType);
+        System.out.println("Trạng thái: ");
+        printRawDataStatus(listOrders);
+        List<ReportItem> listReportItems = createReportData(startTime, endTime, reportType, 3);
 
-        System.out.println();
+
 
         calculateSalesForReportData(listOrders, listReportItems);
 
@@ -58,6 +61,7 @@ public class MasterOrderReportService extends AbstractReportService {
                 reportItem.addGrossSales(order.getTongTien());
                 reportItem.addNetSales(order.getTongTien() - order.getPhiVanChuyen());
                 reportItem.increaseOrderCount();
+                reportItem.addStatus(order.getTrangThaiDonHang());
             }
 
         }
@@ -69,25 +73,37 @@ public class MasterOrderReportService extends AbstractReportService {
         });
     }
 
-    private List<ReportItem> createReportData(Date startTime, Date endTime, ReportType reportType) {
+    private List<ReportItem> createReportData(Date startTime, Date endTime, ReportType reportType,
+                                              Integer statusList) {
         List<ReportItem> listReportItems = new ArrayList<>();
         Calendar startDate = Calendar.getInstance();
         startDate.setTime(startTime);
         Calendar endDate = Calendar.getInstance();
         endDate.setTime(endTime);
 
-        Date currentDate = startDate.getTime();
-        String dateString = dateFormatter.format(currentDate);
+        List<DonHang> listOrders = repo.findByOrderByStatusBetween(startTime, endTime, 3);
 
         do {
+            String dateString = dateFormatter.format(startDate.getTime());
+
+            // Check if any DonHang status is in the statusList
+            boolean hasMatchingStatus = false;
+            for (DonHang order : listOrders) {
+                if (statusList == 3) {
+                    hasMatchingStatus = true;
+                    break;
+                }
+            }
+
+            // Add a ReportItem only if there's a DonHang with matching status
+            if (hasMatchingStatus) {
+                listReportItems.add(new ReportItem(dateString));
+            }
             if (reportType.equals(ReportType.DAY)) {
                 startDate.add(Calendar.DAY_OF_MONTH, 1);
             } else if (reportType.equals(ReportType.MONTH)) {
                 startDate.add(Calendar.MONTH, 1);
             }
-            currentDate = startDate.getTime();
-            dateString = dateFormatter.format(currentDate);
-            listReportItems.add(new ReportItem(dateString));
         } while (startDate.before(endDate));
         return listReportItems;
     }
@@ -102,6 +118,16 @@ public class MasterOrderReportService extends AbstractReportService {
         });
     }
 
+    private void printRawDataStatus(List<DonHang> listOrders){
+        listOrders.forEach(order ->{
+            System.out.printf("%-3d | %s | %.3f | %.3f | %-3d\n",
+                    order.getIdDonHang(),
+                    order.getNgayTao(),
+                    order.getTongTien(),
+                    order.getPhiVanChuyen(),
+                    order.getTrangThaiDonHang());
+        });
+    }
 
 //    public List<ReportItem> getReportDataLastXYears(int years){
 //        Date endTime = new Date();

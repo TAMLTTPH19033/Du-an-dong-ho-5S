@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -23,11 +24,13 @@ public class HoaDonChiTietReportServiceImpl extends AbstractReportService {
 	protected List<ReportItem> getReportDataByDateRangeInternal(
 			Date startDate, Date endDate, ReportType reportType) {
 		List<HoaDonChiTiet> listHoaDonChiTiets = null;
-		
+
 		if (reportType.equals(ReportType.CATEGORY)) {
 			listHoaDonChiTiets = repo.findWithCategoryAndTimeBetween(startDate, endDate);
 		} else if (reportType.equals(ReportType.PRODUCT)) {
 			listHoaDonChiTiets = repo.findWithProductAndTimeBetween(startDate, endDate);
+		} else if (reportType.equals(ReportType.ORDERDETAIL)) {
+			listHoaDonChiTiets = repo.findWithOrderDetailAndTimeBetween(startDate, endDate);
 		}
 
 		//printRawData(listHoaDonChiTiets);
@@ -41,6 +44,8 @@ public class HoaDonChiTietReportServiceImpl extends AbstractReportService {
 				identifier = detail.getChiTietSanPham().getSanPham().getDanhMuc().getTen();
 			} else if (reportType.equals(ReportType.PRODUCT)) {
 				identifier = detail.getChiTietSanPham().getSanPham().getTenSanPham();
+			} else if (reportType.equals(ReportType.ORDERDETAIL)) {
+				identifier = String.valueOf(detail.getIdHoaDonChiTiet());
 			}
 
 			if (!identifiers.contains(identifier)) {
@@ -58,6 +63,8 @@ public class HoaDonChiTietReportServiceImpl extends AbstractReportService {
 				identifier = detail.getChiTietSanPham().getSanPham().getDanhMuc().getTen();
 			} else if (reportType.equals(ReportType.PRODUCT)) {
 				identifier = detail.getChiTietSanPham().getSanPham().getTenSanPham();
+			} else if (reportType.equals(ReportType.ORDERDETAIL)) {
+				identifier = String.valueOf(detail.getIdHoaDonChiTiet());
 			}
 
 			ReportItem reportItem = new ReportItem(identifier);

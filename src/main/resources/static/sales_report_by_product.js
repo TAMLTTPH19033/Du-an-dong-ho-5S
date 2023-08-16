@@ -22,7 +22,7 @@ function loadSalesReportByDateForProduct(period) {
 		customizeChartForSalesReportByProduct();
 		formatChartData(data, 2, 3);
 		drawChartForSalesReportByProduct(period);
-		setSalesAmount(period, '_product', "Total Products");
+		setSalesAmount(period, '_product', "Tổng sản phẩm");
 	});
 }
 
