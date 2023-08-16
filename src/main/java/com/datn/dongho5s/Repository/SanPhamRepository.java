@@ -27,7 +27,7 @@ public interface SanPhamRepository extends JpaRepository<SanPham, Integer> {
     @Query(value = "SELECT h.chiTietSanPham.sanPham  FROM HoaDonChiTiet h where h.donHang.trangThaiDonHang = 3 group by h.chiTietSanPham.sanPham   ORDER BY  SUM(h.soLuong) DESC")
     List<SanPham> getSPchay();
 
-    @Query(value = "SELECT s.listChiTietSanPham  FROM SanPham s where s.idSanPham = ?1")
+    @Query(value = "SELECT s.listChiTietSanPham  FROM SanPham s where s.idSanPham = ?1 and s.trangThai = 1 ")
     List<ChiTietSanPham> getCTSP(Integer idSanPham);
 
     /**
@@ -49,9 +49,12 @@ public interface SanPhamRepository extends JpaRepository<SanPham, Integer> {
 
 
     public SanPham findByTenSanPham(String tenSanPham);
+
+    public  SanPham findByMaSanPham(String ma);
     public List<SanPham> findByThuongHieu(ThuongHieu tenSanPham);
 
 
+    public SanPham findByIdSanPham(Integer idSanPham);
 
 
 }

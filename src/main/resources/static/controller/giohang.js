@@ -5,7 +5,7 @@
     $scope.totalnavBar = 0;
     $scope.totalSpnavBar  = 0;
     $scope.selection=[];
-
+    $scope.SeriBySP = new Map();
     $scope.errorSelectedSP;
     let currentUser = JSON.parse(localStorage.getItem("currentUser"));
     //load cart
@@ -15,7 +15,9 @@
         if(currentUser != null) {
             $http.get(`/api/giohang/${currentUser.idKhachHang}`).then((resp) => {
                 $scope.cart = resp.data;
-                // console.log($scope.cart);
+                $scope.cart.forEach(item => {
+                    $scope.countSeri(item.chiTietSanPham.idChiTietSanPham)
+                })
             }).catch(error => {
                 if(error.status == 403) {
                     Swal.fire({
@@ -42,6 +44,7 @@
         }
     };
     $rootScope.index();
+
 
     // toorng sp vaf toorng tieefn
     $scope.setTotalnavBar  = function (item) {
@@ -90,38 +93,77 @@
 
 // giam so luong
     $scope.giam = function (item, soLuong) {
-        if (item) {
                 if (item.soLuongSanPham <= 1) {
-                    $scope.removeSP(item);
-                    return;
+                    Swal.fire({
+                        title: 'Bạn muốn xóa ?',
+                        text: "Xóa sản phẩm này khỏi giỏ hàng",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Xác nhận'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            Swal.fire({
+                                title:'Loading',
+                                onOpen: ()=>{
+                                    Swal.showLoading();
+                                },
+                                timer : 2000
+                            })
+
+                            setTimeout(function (){
+                                $scope.removeSP(item);
+                                return;
+                            },2600)
+
+                        }else {
+                            item.soLuongSanPham = Number(item.soLuongSanPham) + 1;
+                        }
+                    })
+                }else {
+                    item.soLuongSanPham = Number(item.soLuongSanPham) - 1;
+                    soLuong = item.soLuongSanPham;
+                    var sp = $scope.selection.find((e) => e === item)
+                    if (sp) {
+                        $scope.total -= item.giaBan;
+                        $scope.totalSp--;
+                    }
                 }
-            }
-            item.soLuongSanPham = Number(item.soLuongSanPham) - 1;
-            soLuong = item.soLuongSanPham;
-        var sp = $scope.selection.find((e) => e === item)
-        if(sp){
-            $scope.total -= item.giaBan ;
-            $scope.totalSp-- ;
-        }
     };
+    $scope.countSeri = function (idChiTietSanPham){
+            $http
+                .get(`/chi-tiet-san-pham/countSeri/${idChiTietSanPham}`)
+                .then(function (response) {
+                    $scope.SeriBySP.set(idChiTietSanPham, response.data);
+                    // console.log(response.data,"daaaaaaaaaaaa")
+                    // $scope.count = response.data;
+                })
+
+                .catch(function (error) {
+                    console.log(error);
+                });
+        }
     $scope.tang = function (item,soLuong) {
+
         if (item) {
-            if(item.soLuongSanPham >= item.chiTietSanPham.soLuong){
+            if(item.soLuongSanPham >= $scope.SeriBySP.get(item.chiTietSanPham.idChiTietSanPham)){
                 Swal.fire({
                             icon: "warning",
                             title: "Thông báo!",
-                            text: "Số lượng quá",
-                            timer: 1600,
+                            text: "Số lượng có giới hạn ",
+                            timer: 2600,
                         });
                 return;
-            }
-            item.soLuongSanPham = Number(item.soLuongSanPham) + 1;
-            soLuong = item.soLuongSanPham;
-            $scope.update(item,soLuong);
-            var sp = $scope.selection.find((e) => e === item)
-            if(sp){
-                $scope.total += item.giaBan ;
-                $scope.totalSp++ ;
+            }else {
+                item.soLuongSanPham = Number(item.soLuongSanPham) + 1;
+                soLuong = item.soLuongSanPham;
+                $scope.update(item, soLuong);
+                var sp = $scope.selection.find((e) => e === item)
+                if (sp) {
+                    $scope.total += item.giaBan;
+                    $scope.totalSp++;
+                }
             }
 
         }
@@ -133,7 +175,7 @@
             .then(resp =>{
                 const index = $scope.cart.findIndex(p => p.idChiTietGioHang ==  item.idChiTietGioHang);
                 $scope.cart.splice(index,1);
-                // alert("xoa thanh cong");
+
             })
             .catch(error =>{
                 alert("Loi roi");
@@ -147,6 +189,9 @@
             .then(resp =>{
                 $scope.cart= [];
                 // alert("xoa thanh cong");
+                setTimeout(function (){
+                    $window.location.reload();
+                },1600)
             })
             .catch(error =>{
                 alert("Loi roi");
@@ -157,12 +202,36 @@
     //xóa sanpham trong giỏ hàng
     $scope.removeSP= function (item) {
         if (item) {
-            $scope.delete(item);
-        var sp = $scope.selection.find((e) => e === item)
-        if(sp){
-            $scope.total -= item.giaBan * item.soLuongSanPham ;
-            $scope.totalSp -= item.soLuongSanPham ;
-        }
+            Swal.fire({
+                title: 'Bạn muốn xóa ?',
+                text: "Xóa sản phẩm này khỏi giỏ hàng",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Xác nhận'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title:'Loading',
+                        onOpen: ()=>{
+                            Swal.showLoading();
+                        },
+                        timer : 2000
+                    })
+
+                    setTimeout(function (){
+                        $scope.delete(item);
+                        var sp = $scope.selection.find((e) => e === item)
+                        if(sp){
+                            $scope.total -= item.giaBan * item.soLuongSanPham ;
+                            $scope.totalSp -= item.soLuongSanPham ;
+                        }
+                            $window.location.reload();
+                    },1900)
+                }
+            })
+
         }
     };
 

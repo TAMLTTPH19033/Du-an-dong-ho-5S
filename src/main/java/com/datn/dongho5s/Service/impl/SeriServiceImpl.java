@@ -38,8 +38,12 @@ public class SeriServiceImpl implements SeriService {
     public Page<Seri> searchSeri(int pageNumber,int pageSize, String keyword) {
         Pageable pageable = PageRequest.of(pageNumber,pageSize);
         repo.findByIdImeiLike(keyword,pageable).getContent().forEach(item->{
-            System.out.println(item.toString());
         });
         return repo.findByIdImeiLike(keyword,pageable);
+    }
+
+    @Override
+    public Integer countSeri(Integer idChiTietSanPham) {
+        return repo.countSeri(idChiTietSanPham);
     }
 }

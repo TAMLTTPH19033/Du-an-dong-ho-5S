@@ -20,6 +20,7 @@ import com.datn.dongho5s.Response.VNPayUrlResponse;
 import com.datn.dongho5s.Service.DonHangService;
 import com.datn.dongho5s.Service.HoaDonChiTietService;
 import com.datn.dongho5s.Service.KhachHangService;
+import com.datn.dongho5s.Utils.PhuongThucThanhToan;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,7 +81,6 @@ public class DonHangRestController {
     @PostMapping("/them-don-hang")
     public ResponseEntity<?> taoDonHang(@RequestBody ThemDonHangRequest themDonHangRequest) {
         try {
-            System.out.println(themDonHangRequest.toString());
             KhachHang khachHang = khachHangService.findKhachHangById(themDonHangRequest.getKhachHangId());
             DonHang donHang = DonHang.builder()
                     .khachHang(khachHang)
@@ -94,24 +94,13 @@ public class DonHangRestController {
                     .ghiChu(themDonHangRequest.getGhiChu())
                     .ngayCapNhap(new Date())
                     .maDonHang("DH"+System.currentTimeMillis())
+                    .phuongThuc(PhuongThucThanhToan.TRA_SAU)
                     .tongTien(hdctService.getTongGia(themDonHangRequest.getListHoaDonChiTietRequest()))
                     .build();
             DonHang savedDonHang = donHangService.save(donHang);
             List<HoaDonChiTiet> listHoaDonChiTiet = hdctService.convertToListHoaDonChiTiet(themDonHangRequest.getListHoaDonChiTietRequest(), savedDonHang.getIdDonHang());
             hdctService.saveAll(listHoaDonChiTiet);
-            TaoDonHangRequestGHN requestGHN = TaoDonHangRequestGHN.builder()
-                    .note(themDonHangRequest.getGhiChu())
-                    .toName(khachHang.getTenKhachHang())
-                    .toPhone(khachHang.getSoDienThoai())
-                    .toAddress(themDonHangRequest.getDiaChi())
-                    .idQuanHuyen(themDonHangRequest.getIdQuanHuyen())
-                    .idPhuongXa(themDonHangRequest.getIdPhuongXa())
-                    .soLuongSanPham(themDonHangRequest.getSoLuongSanPham())
-                    .listItems(toListChiTietItem(listHoaDonChiTiet))
-                    .build();
-            ThemDonHangResponseGHN responseGHN = DonHangAPI.createOrder(requestGHN);
-            System.out.println(responseGHN.toString());
-            return ResponseEntity.status(HttpStatus.OK).body(responseGHN);
+            return ResponseEntity.status(HttpStatus.OK).body(savedDonHang);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e);
         }
@@ -156,6 +145,7 @@ public class DonHangRestController {
                 .ngayCapNhap(new Date())
                 .maDonHang("DH"+System.currentTimeMillis())
                 .tongTien(hdctService.getTongGia(themDonHangRequest.getListHoaDonChiTietRequest()))
+                .phuongThuc(PhuongThucThanhToan.VNPAY)
                 .build();
         DonHang savedDonHang = donHangService.save(donHang);
         List<HoaDonChiTiet> listHoaDonChiTiet = hdctService.convertToListHoaDonChiTiet(themDonHangRequest.getListHoaDonChiTietRequest(), savedDonHang.getIdDonHang());
@@ -221,32 +211,7 @@ public class DonHangRestController {
         String vnp_SecureHash = VNPayConfig.hmacSHA512(VNPayConfig.vnp_HashSecret, hashData.toString());
         queryUrl += "&vnp_SecureHash=" + vnp_SecureHash;
         String paymentUrl = VNPayConfig.vnp_PayUrl + "?" + queryUrl;
-        System.out.println(paymentUrl);
         return ResponseEntity.status(HttpStatus.OK).body(new VNPayUrlResponse(paymentUrl));
-    }
-
-
-    private TaoDonHangRequestGHN createGHNRequest(DonHang donhang) {
-        try {
-            List<HoaDonChiTiet> listHDCT = hdctService.getByHoaDonId(donhang);
-            Integer soLuong = 0;
-            for (HoaDonChiTiet item : listHDCT) {
-                soLuong += item.getSoLuong();
-            }
-            TaoDonHangRequestGHN requestGHN = TaoDonHangRequestGHN.builder()
-                    .note(donhang.getGhiChu())
-                    .toName(donhang.getKhachHang().getTenKhachHang())
-                    .toPhone(donhang.getKhachHang().getSoDienThoai())
-                    .toAddress(donhang.getDiaChi())
-                    .idQuanHuyen(donhang.getIdQuanHuyen())
-                    .idPhuongXa(donhang.getIdPhuongXa())
-                    .soLuongSanPham(soLuong)
-                    .listItems(toListChiTietItem(listHDCT))
-                    .build();
-            return requestGHN;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
     }
 
 

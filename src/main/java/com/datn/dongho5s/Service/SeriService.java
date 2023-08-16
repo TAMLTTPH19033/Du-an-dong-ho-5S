@@ -11,4 +11,6 @@ public interface SeriService {
     List<Seri> saveMany(List<Seri> seri);
     Seri get(Integer id);
     Page<Seri> searchSeri(int pageNumber,int pageSize, String keyword);
+
+    Integer countSeri (Integer idChiTietSanPham);
 }

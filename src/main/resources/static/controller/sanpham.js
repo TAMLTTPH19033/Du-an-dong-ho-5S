@@ -11,7 +11,7 @@ myApp.controller("SanPhamController", function ($scope, $rootScope, $http,$filte
   $scope.kichCoIds = [];
   $scope.mauSacIds = [];
   $scope.tenSanPham;
-  $scope.pageSize = 6;
+  $scope.pageSize = 8;
   $scope.currentPage = 1;
   $scope.maxPagesToShow = 1;
   $scope.totalPages;

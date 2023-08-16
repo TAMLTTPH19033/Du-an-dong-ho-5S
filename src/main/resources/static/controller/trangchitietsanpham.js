@@ -32,7 +32,7 @@ myApp.controller(
     $scope.spCungThuongHieu = [];
     $rootScope.currentDate = new Date().toISOString();
     $scope.selectImage = "";
-
+    $scope.SeriBySP = new Map();
     var setDayDeo = new Set();
     var setVatLieu = new Set();
     var setMauSac = new Set();
@@ -59,6 +59,7 @@ myApp.controller(
           $scope.selectedKC = $scope.chiTietSanPham.kichCo.tenKichCo;
           getSettingAttributeSp($scope.sanPhamDetail.listChiTietSanPham);
           $scope.PhanHoiAPI();
+          $scope.countSeri();
           $rootScope.currentDate = new Date().toISOString();
           $scope.selectImage = $scope.sanPhamDetail.listAnhSanPham[0].link;
           getAvailabelAttribute(
@@ -87,9 +88,9 @@ myApp.controller(
       $scope.soLuong = $scope.soLuong - 1;
     };
 
-    $scope.getCungThuongHieu = function (idThuongHieu){
+    $scope.getCungThuongHieu = function (idSanPham){
       $http
-          .get(getSanPhamCungThuongHieuAPI + idThuongHieu)
+          .get(getSanPhamCungThuongHieuAPI + idSanPham)
           .then(function (response) {
             console.log(response.data);
             $scope.spCungThuongHieu = response.data;
@@ -127,7 +128,6 @@ myApp.controller(
         // $scope.selectedKC = newValues[3];
         //DayDeo
         if (newValues[0] !== oldValues[0]) {
-          console.log("Thay day deo");
           $scope.chiTietSanPham =
             $scope.sanPhamDetail.listChiTietSanPham.filter(function (item) {
               return item.dayDeo.tenDayDeo == $scope.selectedDD;
@@ -136,7 +136,6 @@ myApp.controller(
         }
         //VatLieu
         if (newValues[1] !== oldValues[1]) {
-          console.log("Thay vl");
           $scope.chiTietSanPham =
             $scope.sanPhamDetail.listChiTietSanPham.filter(function (item) {
               return (
@@ -148,7 +147,6 @@ myApp.controller(
         }
         //MauSac
         if (newValues[2] !== oldValues[2]) {
-          console.log("Thay mms");
           $scope.chiTietSanPham =
             $scope.sanPhamDetail.listChiTietSanPham.filter(function (item) {
               return (
@@ -161,7 +159,6 @@ myApp.controller(
         }
         //KichCo
         if (newValues[3] !== oldValues[3]) {
-          console.log("Thay kc");
           $scope.chiTietSanPham =
             $scope.sanPhamDetail.listChiTietSanPham.filter(function (item) {
               return (
@@ -177,6 +174,7 @@ myApp.controller(
         getAvailabelAttribute();
         $rootScope.currentDate = new Date().toISOString();
         $scope.PhanHoiAPI();
+        $scope.countSeri();
 
 
 
@@ -279,10 +277,8 @@ myApp.controller(
       for (var i = startPage; i <= endPage; i++) {
         $scope.pages.push(i);
       }
-
       var startIndex = ($scope.currentPage - 1) * $scope.pageSize;
       var endIndex = startIndex + $scope.pageSize;
-      console.log($scope.pages);
       $scope.Items = $scope.phanHoi.slice(startIndex, endIndex);
 
 
@@ -297,43 +293,28 @@ myApp.controller(
         };
 
         if ($scope.chiTietSanPham) {
-          if($scope.chiTietSanPham.soLuong == 0){
-            Swal.fire({
-              icon: "warning",
-              title: "Thông báo !",
-              text: "Sản phẩm đã bán hết!",
-              timer: 1600,
-            });
-            return;
-          }
-          if($scope.chiTietSanPham.soLuong == 0){
-            Swal.fire({
-              icon: "warning",
-              title: "Thông báo !",
-              text: "Sản phẩm đã bán hết!",
-              timer: 1600,
-            });
-            return;
-          }
           $http
               .post(`/api/giohang/addToCart`, item)
               .then((resp) => {
-                if (resp == null) {
+                // console.log(resp,"resssssssssssssssss")
+                if (resp.data == '') {
                   Swal.fire({
                     icon: "warning",
                     title: "Thông báo !",
                     text: "Quá số lượng sản phẩm!",
-                    timer: 1600,
+                    timer: 5600,
                   });
+                  return;
                 } else {
-                  console.log(resp);
                   Swal.fire({
                     icon: "success",
                     title: "Thành công",
                     text: "Đã thêm vào giỏ hàng!",
-                    timer: 1600,
+                    timer: 3600,
                   });
-                  $window.location.reload();
+                  setTimeout(function (){
+                    $window.location.reload();
+                  },3600)
                 }
               })
               .catch((error) => {
@@ -348,7 +329,7 @@ myApp.controller(
           icon: "warning",
           title: "Chưa đăng nhập",
           text: "Bạn hãy đăng nhập !",
-          timer: 1600,
+          timer: 5600,
         });
         $window.location.href = '#login';
       }
@@ -368,7 +349,6 @@ myApp.controller(
 
     $scope.PhanHoiAPI = function () {
       var idChiTietSanPham = $scope.chiTietSanPham.idChiTietSanPham;
-      console.log(idChiTietSanPham,"id")
 
       // const idSP = $scope.idSP;
       $http
@@ -378,7 +358,6 @@ myApp.controller(
           $scope.totalPages = Math.ceil(
             $scope.phanHoi.length / $scope.pageSize
           );
-          console.log( $scope.totalPages);
         })
 
         .catch(function (error) {
@@ -399,7 +378,6 @@ myApp.controller(
       for (var i = startPage; i <= endPage; i++) {
         $scope.pages.push(i);
       }
-      console.log($scope.pages);
       $scope.Items = $scope.phanHoi.slice(startIndex, endIndex);
       $scope.checkFirstLastPage();
     };
@@ -418,7 +396,6 @@ myApp.controller(
         for (var i = startPage; i <= endPage; i++) {
           $scope.pages.push(i);
         }
-        console.log($scope.pages);
         $scope.Items = $scope.phanHoi.slice(startIndex, endIndex);
         $scope.checkFirstLastPage();
       }
@@ -438,7 +415,6 @@ myApp.controller(
         for (var i = startPage; i <= endPage; i++) {
           $scope.pages.push(i);
         }
-        console.log($scope.pages);
         $scope.Items = $scope.phanHoi.slice(startIndex, endIndex);
         $scope.checkFirstLastPage();
       }
@@ -457,6 +433,24 @@ myApp.controller(
         $scope.isLastPage=false;
       }
     }
+
+  $scope.countSeri = function (){
+    var idChiTietSanPham = $scope.chiTietSanPham.idChiTietSanPham;
+    $http
+        .get(`/chi-tiet-san-pham/countSeri/${idChiTietSanPham}`)
+        .then(function (response) {
+          console.log(response.data,"daaaaaaaaaaaaa")
+          $scope.SeriBySP.set(idChiTietSanPham, response.data);
+        })
+
+        .catch(function (error) {
+          console.log(error);
+        });
+  }
+
+
+
+
 
     $scope.rating = 0;
     $scope.ratings = {
@@ -498,7 +492,9 @@ myApp.controller(
       }
     };
   }
+
 );
+
 
 myApp.directive("starRating", function () {
   return {

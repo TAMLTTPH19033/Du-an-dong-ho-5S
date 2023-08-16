@@ -210,15 +210,15 @@
                                     <a href="#/chitietsanpham/{{h.chiTietSanPham.sanPham.idSanPham}}"><img src="/assets/images/{{h.chiTietSanPham.sanPham.listAnhSanPham[0].link}}" width="100%" alt="shopping image" /></a>
                                 </div>
                                 <div class="shipping-item-text"  style="width: 87%; float: right">
-                                    <a href="#" class="pro-cat">{{h.chiTietSanPham.sanPham.tenSanPham}} </a>
+                                    <a href="#/chitietsanpham/{{h.chiTietSanPham.sanPham.idSanPham}}" class="pro-cat" style="font-size: 17px">{{h.chiTietSanPham.sanPham.tenSanPham}} </a>
                                     <div>{{h.soLuong}} <span class="pro-quan-x">x</span></div>
-                                    <span class="pro-quality"><a href="#sanpham">Phân loại : {{h.chiTietSanPham.kichCo.tenKichCo}},{{h.chiTietSanPham.mauSac.tenMauSac}}</a></span>
-                                    <ul class="price text-right" style="    position: absolute; right: 20px;top: 19px; " >
-                                        <li class="price special-price"> {{h.giaBan * h.soLuong | number}} </li>
-                                        <span ng-if="h.giaBan == h.chiTietSanPham.giaSanPham"></span>
-                                        <span ng-if="h.giaBan != h.chiTietSanPham.giaSanPham">
-										<li class="price-percent-reduction small">&nbsp;{{h.chiTietSanPham.khuyenMai.chietKhau}}%&nbsp;</li>
-									     <li class="old-price">{{h.chiTietSanPham.giaSanPham | number}} đ</li>
+                                    <span class="pro-quality"><a href="#sanpham">Phân loại : {{h.chiTietSanPham.kichCo.tenKichCo}},{{h.chiTietSanPham.mauSac.tenMauSac}},{{h.chiTietSanPham.dayDeo.tenDayDeo}},{{h.chiTietSanPham.vatLieu.tenVatLieu}}</a></span>
+                                    <ul class="price text-right" style="    position: absolute; right: 20px;top: 7px; " >
+                                        <li class="price special-price"> {{h.giaBan * h.soLuong | number}} đ </li>
+                                        <span ng-if="h.chietKhau == null"></span>
+                                        <span ng-if="h.chietKhau != null">
+										<li class="price-percent-reduction small">&nbsp;{{h.chietKhau}} %</li>
+									     <li class="old-price">{{h.giaBan * 100 /(100- h.chietKhau) | number}} đ</li>
                                      </span>
                                     </ul>
                                 </div>
@@ -227,12 +227,12 @@
                             <div style="width: 30%;margin-left: 650px  ">
                                 <div class="shipping-total-bill" >
                                     <div class="cart-prices" style="border: none">
-                                        <span class="shipping-cost">{{item.phiVanChuyen}}</span>
-                                        <span>Shipping</span>
+                                        <span class="shipping-cost">{{item.phiVanChuyen | number}} đ</span>
+                                        <span>Vận chuyển</span>
                                     </div>
                                     <div class="total-shipping-prices" >
-                                        <span class="shipping-total">{{item.tongTien + item.phiVanChuyen}}</span>
-                                        <span>Total</span>
+                                        <span class="shipping-total">{{item.tongTien + item.phiVanChuyen | number}} đ</span>
+                                        <span>Tổng</span>
                                     </div>
                                 </div>
 

@@ -21,7 +21,7 @@ public interface DonHangService {
 
     public Page<DonHang> getAll(int pageNumber);
 
-    List<DonHang> findByNgayTao(Date dateStart, Date dateEnd);
+    List<DonHang> findByNgayTao(Date dateStart, Date dateEnd,Integer status);
 
     public Double tongTien(int id);
 
@@ -46,4 +46,6 @@ public interface DonHangService {
     String thanhToanAdmin(DonHang donHang);
 
     String xoaDonHangAdmin(DonHang donHang);
+
+    void xoaDonHang(DonHang donhang);
 }

@@ -14,6 +14,7 @@ import com.datn.dongho5s.Request.ChiTietGioHangRequest;
 import com.datn.dongho5s.Request.ChiTietSanPhamRequest;
 import com.datn.dongho5s.Response.ChiTietGioHangResponse;
 import com.datn.dongho5s.Service.ChiTietGioHangService;
+import com.datn.dongho5s.Service.SeriService;
 import com.datn.dongho5s.mapper.ChiTietGioHangMapping;
 import com.datn.dongho5s.mapper.ChiTietSanPhamMapping;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,9 @@ public class ChiTietGioHangServiceImpl implements ChiTietGioHangService {
     ChiTietGioHangRepository chiTietGioHangRepository;
 
     @Autowired
+    SeriService seriService;
+
+    @Autowired
     ChiTietSanPhamRepository chiTietSanPhamRepository;
     @Autowired
     GioHangRepository gioHangRepository;
@@ -42,8 +46,9 @@ public class ChiTietGioHangServiceImpl implements ChiTietGioHangService {
     public List<ChiTietGioHangResponse> getChiTietGioHang( Integer idKhachHang) {
         List<ChiTietGioHang> chiTietGioHangList = chiTietGioHangRepository.giohangChiTiet(idKhachHang);
         for (ChiTietGioHang chiTietGioHang: chiTietGioHangList  ) {
-            if(chiTietGioHang.getSoLuongSanPham() > chiTietGioHang.getChiTietSanPham().getSoLuong()){
-                chiTietGioHang.setSoLuongSanPham(chiTietGioHang.getChiTietSanPham().getSoLuong());
+            Integer countSeri = seriService.countSeri(chiTietGioHang.getChiTietSanPham().getIdChiTietSanPham());
+            if(chiTietGioHang.getSoLuongSanPham() > countSeri){
+                chiTietGioHang.setSoLuongSanPham(countSeri);
             }
         }
         List<ChiTietGioHangResponse> responseList = chiTietGioHangList.stream().map(ChiTietGioHangMapping::mapEntitytoResponse).collect(Collectors.toList());
@@ -80,7 +85,7 @@ public class ChiTietGioHangServiceImpl implements ChiTietGioHangService {
                 .build();
         gioHangRepository.save(gioHang);
         ChiTietSanPham chiTietSanPham = chiTietSanPhamRepository.findById(cartRequest.getIdChiTietSanPham()).get();
-        if(chiTietSanPham.getSoLuong() < cartRequest.getSoLuong()){
+        if(seriService.countSeri(cartRequest.getIdChiTietSanPham())< cartRequest.getSoLuong()){
             return null ;
         }
         ChiTietGioHang chiTietGioHang = ChiTietGioHang.builder()
@@ -116,14 +121,14 @@ public class ChiTietGioHangServiceImpl implements ChiTietGioHangService {
                             .ngayTao(new Date())
                             .soLuongSanPham(cartRequest.getSoLuong())
                             .build();
-                    if(chiTietSanPham.getSoLuong() < cartRequest.getSoLuong()){
-                       chiTietGioHang1.setSoLuongSanPham(chiTietSanPham.getSoLuong());
+                    if(seriService.countSeri(cartRequest.getIdChiTietSanPham()) < cartRequest.getSoLuong()){
+                     return null ;
                     }
                     ChiTietGioHangResponse chiTietGioHangResponse = ChiTietGioHangMapping.mapEntitytoResponse(chiTietGioHangRepository.save(chiTietGioHang1));
                     return chiTietGioHangResponse;
                 } else {
-                    if(chiTietSanPham.getSoLuong() < chiTietGioHang.getSoLuongSanPham()+ cartRequest.getSoLuong()){
-                        chiTietGioHang.setSoLuongSanPham(chiTietSanPham.getSoLuong());
+                    if(seriService.countSeri(cartRequest.getIdChiTietSanPham()) < chiTietGioHang.getSoLuongSanPham()+ cartRequest.getSoLuong()){
+                        return  null ;
                     }else{
                         chiTietGioHang.setSoLuongSanPham(chiTietGioHang.getSoLuongSanPham()+ cartRequest.getSoLuong());
                     }
@@ -152,4 +157,6 @@ public class ChiTietGioHangServiceImpl implements ChiTietGioHangService {
     public void deleteAll() {
         chiTietGioHangRepository.deleteAll();
     }
+
+
 }

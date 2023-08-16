@@ -61,9 +61,10 @@ public class DonHangServiceImpl implements DonHangService {
     @Override
     public List<DonHang> findByNgayTao(
             Date dateStart,
-            Date dateEnd
+            Date dateEnd,
+            Integer status
     ) {
-        List<DonHang> allDonHang = donHangRepository.findByNgayTao(dateStart, dateEnd);
+        List<DonHang> allDonHang = donHangRepository.findByNgayTao(dateStart, dateEnd,status);
         return allDonHang;
     }
 
@@ -163,5 +164,10 @@ public class DonHangServiceImpl implements DonHangService {
         // xoa hoa don
         donHangRepository.deleteByMaDonHang(donHang.getMaDonHang());
         return "Delete succcessful! Code is" + donHang.getMaDonHang();
+    }
+
+    @Override
+    public void xoaDonHang(DonHang donhang) {
+        donHangRepository.delete(donhang);
     }
 }

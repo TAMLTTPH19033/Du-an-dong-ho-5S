@@ -12,6 +12,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import java.util.Calendar;
+import java.util.Date;
 import java.util.UUID;
 
 import javax.transaction.Transactional;
@@ -84,6 +87,23 @@ public class KhuyenMaiServiceImpl implements KhuyenMaiService {
         }
 
         return true;
+    }
+
+    @Override
+    public List<KhuyenMai> getExpiredKhuyenMai() {
+        Date today = getStartOfDate(new Date());
+        return repo.findByNgayKetThucLessThanAndEnabled(today,true);
+    }
+
+    public Date getStartOfDate(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.set(Calendar.MILLISECOND, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+
+        return calendar.getTime();
     }
 
 }

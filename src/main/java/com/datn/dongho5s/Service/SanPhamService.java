@@ -35,7 +35,7 @@ public interface SanPhamService {
 
     public SanPham save(SanPham sanPham);
 
-    public boolean checkUnique(String ten);
+//    public boolean checkUnique(String ten);
 
     public SanPham get(Integer id) throws SanPhamNotFountException;
 
@@ -43,4 +43,8 @@ public interface SanPhamService {
 
 
     List<SanPham> getSPCungTH(ThuongHieu thuongHieu);
+
+    public boolean checkUniqueTenAndMa(String ten, String ma);
+
+    public boolean checkUniqueTenMaId(String ten, String ma, Integer id);
 }

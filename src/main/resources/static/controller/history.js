@@ -371,8 +371,17 @@ myApp.controller(
                     .then((resp) => {
                         console.log(resp);
                         $scope.isPhanHoi = true;
-                        alert("Them thanh cong");
-                        $window.location.reload();
+                        Swal.fire({
+                            icon: "success",
+                            title: "Thành công!",
+                            text: "Đánh giá thành công!",
+                            showConfirmButton: true,
+                            closeOnClickOutside: true,
+                            timer: 3600,
+                        });
+                        setTimeout(function (){
+                            $window.location.reload();
+                        },2600)
 
                     })
                     .catch((error) => {

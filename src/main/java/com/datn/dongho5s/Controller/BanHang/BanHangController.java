@@ -10,6 +10,8 @@ import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,9 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Controller
 @RequestMapping("/admin/ban-hang")
@@ -47,7 +47,8 @@ public class BanHangController {
         Model model,
         HttpSession httpSession
     ){
-        model.addAttribute("hoaDonAdminRequest", new HoaDonAdminRequest());
+        HoaDonAdminRequest hoaDonAdminRequest = new HoaDonAdminRequest();
+        model.addAttribute("hoaDonAdminRequest", hoaDonAdminRequest);
 
         DonHang donHangByMa = (DonHang) httpSession.getAttribute("donHangHienTai");
 
@@ -69,7 +70,7 @@ public class BanHangController {
                         .tenKhachHang(donHangByMa.getKhachHang() == null ? "" : donHangByMa.getKhachHang().getTenKhachHang())
                     .build());
         }
-        this.getListSanPham(model,1,"");
+        this.getListSanPham(model,1,"",httpSession,hoaDonAdminRequest);
         this.getListHDCT(model,1);
         return "admin/banhang/banhang";
     }
@@ -78,7 +79,9 @@ public class BanHangController {
     public String getListSanPham(
         Model model,
         @PathVariable("pageNum") int pageNum,
-        @Param("keywork") String keywork
+        @RequestParam("keywork") String keywork,
+        HttpSession httpSession,
+        @ModelAttribute("hoaDonAdminRequest") HoaDonAdminRequest hoaDonAdminRequest
     ){
         // set list san pham
         List<SanPhamAdminResponse> sanPhamList = chiTietSanPhamService.getAllSanPhamAminResponse(1,keywork);
@@ -86,7 +89,7 @@ public class BanHangController {
         model.addAttribute("listSanPham", sanPhamList);
 
         model.addAttribute("currentPage", pageNum);
-        model.addAttribute("totalPages", chiTietSanPhamService.getALlChiTietSanPhamPage(pageNum,keywork));
+        model.addAttribute("totalPages", chiTietSanPhamService.getALlChiTietSanPhamPage(pageNum,keywork).getTotalPages());
 
         return "admin/banhang/banhang";
     }
@@ -112,22 +115,25 @@ public class BanHangController {
             @ModelAttribute("hoaDonAdminRequest") HoaDonAdminRequest hoaDonAdminRequest
     ){
         String maDonHangCD = this.generateMaHD();
+        KhachHang khachHang = (KhachHang) httpSession.getAttribute("khachHangExist");
 
-        KhachHang khachHang = KhachHang
-                .builder()
-                .tenKhachHang(hoaDonAdminRequest.getTenKhachHang())
-                .soDienThoai(hoaDonAdminRequest.getSdt())
-                .enabled(true)
-                .listDiaChi(null)
-                .email(null)
-                .gioiTinh(null)
-                .password(null)
-                .ngaySinh(null)
-                .ngaySua(new Date())
-                .thoiGianTaoTaiKhoan(null)
-                .build();
+        if (khachHang == null){
+            khachHang = KhachHang
+                    .builder()
+                    .tenKhachHang(hoaDonAdminRequest.getTenKhachHang())
+                    .soDienThoai(hoaDonAdminRequest.getSdt())
+                    .enabled(true)
+                    .listDiaChi(null)
+                    .email(null)
+                    .gioiTinh(null)
+                    .password(null)
+                    .ngaySinh(null)
+                    .ngaySua(new Date())
+                    .thoiGianTaoTaiKhoan(null)
+                    .build();
 
-        khachHangService.saveKhachHang(khachHang);
+            khachHangService.saveKhachHang(khachHang);
+        }
 
         DonHang donHang = DonHang
                 .builder()
@@ -148,6 +154,47 @@ public class BanHangController {
         httpSession.setAttribute("donHangHienTai",donHangByMa);
 
         return "redirect:/admin/ban-hang/hoa-don/" + maDonHangCD;
+    }
+
+    @GetMapping("/khach-hang/tim-kiem")
+    public String findKHByPfindhoneNumber(
+            Model model,
+            @RequestParam("phoneNumber") String phoneNumber,
+            @ModelAttribute("hoaDonAdminRequest") HoaDonAdminRequest hoaDonAdminRequest,
+            HttpSession httpSession
+    ){
+        KhachHang khachHang = khachHangService.findByPhoneNumber(phoneNumber);
+
+        if (khachHang!= null){
+            hoaDonAdminRequest = HoaDonAdminRequest
+                    .builder()
+                    .maHoaDon("")
+                    .sdt(khachHang.getSoDienThoai())
+                    .tongTienDonHang(0d)
+                    .ngayTao(dateParseToString(new Date(),"yyyy-MM-dd"))
+                    .tenKhachHang(khachHang.getTenKhachHang())
+                    .build();
+            model.addAttribute("hoaDonAdminRequest",hoaDonAdminRequest);
+
+            httpSession.setAttribute("khachHangExist",khachHang);
+        }
+
+        // set list san pham
+        List<SanPhamAdminResponse> sanPhamList = chiTietSanPhamService.getAllSanPhamAminResponse(1,"");
+
+        model.addAttribute("listSanPham",sanPhamList);
+
+        return "admin/banhang/banhang";
+    }
+
+    @GetMapping("/khach-hang/api/{phoneNumber}")
+    @ResponseBody
+    public ResponseEntity<String> findKHByPfindhoneNumber(
+        @PathVariable("phoneNumber") String phoneNumber
+    ){
+        KhachHang khachHang = khachHangService.findByPhoneNumber(phoneNumber);
+        if (khachHang!= null) return ResponseEntity.status(HttpStatus.OK).body(khachHang.getSoDienThoai());
+        return null;
     }
 
     @GetMapping("/hoa-don/{maHoaDon}")

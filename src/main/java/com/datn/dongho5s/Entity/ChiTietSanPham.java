@@ -1,5 +1,8 @@
 package com.datn.dongho5s.Entity;
 
+import com.datn.dongho5s.Repository.SeriRepository;
+import com.datn.dongho5s.Service.SeriService;
+import com.datn.dongho5s.Service.impl.SeriServiceImpl;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -81,7 +84,7 @@ public class ChiTietSanPham {
     private Double giaSanPham;
 
     @Column(name = "so_luong")
-    private Integer soLuong;
+    private Integer soLuong ;
 
     @OneToMany(mappedBy = "chiTietSanPham", cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)

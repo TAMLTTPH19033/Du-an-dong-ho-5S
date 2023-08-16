@@ -17,7 +17,7 @@ import java.util.List;
 
 @Service
 public class MauSacServiceImpl implements MauSacService {
-    public static final int COLORS_PER_PAGE = 4;
+    public static final int COLORS_PER_PAGE = 10;
 
     @Autowired
     MauSacRepository mauSacRepository;

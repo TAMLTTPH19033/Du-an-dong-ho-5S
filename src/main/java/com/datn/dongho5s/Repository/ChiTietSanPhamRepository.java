@@ -1,10 +1,7 @@
 package com.datn.dongho5s.Repository;
 
 
-import com.datn.dongho5s.Entity.ChiTietSanPham;
-import com.datn.dongho5s.Entity.DanhMuc;
-import com.datn.dongho5s.Entity.HoaDonChiTiet;
-import com.datn.dongho5s.Entity.SanPham;
+import com.datn.dongho5s.Entity.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -51,4 +48,9 @@ public interface ChiTietSanPhamRepository extends JpaRepository<ChiTietSanPham,I
 
     ChiTietSanPham findByMaChiTietSanPham(String ma);
 
+
+    ChiTietSanPham findBySanPham_TenSanPhamAndDayDeo_TenDayDeoAndMauSac_TenMauSacAndKichCo_TenKichCoAndVatLieu_TenVatLieu(
+            String tenSanPham, String tenDayDeo, String tenMauSac, String tenKichCo, String tenVatLieu);
+
+    ChiTietSanPham findByIdChiTietSanPham(Integer idChiTietSanPham);
 }

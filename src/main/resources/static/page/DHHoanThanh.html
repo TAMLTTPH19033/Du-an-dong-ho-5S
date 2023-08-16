@@ -195,7 +195,8 @@
                         <div style="text-align: center; margin: 10px 0">Chưa có đơn hàng </div>
                     </div>
                 <div ng-if="donHang.length > 0">
-                    <div class="shipping-cart"  when-scrolled="more()" style=" height:550px; color: red; overflow-x:auto;">
+                    <div class="shipping-cart"  when-scrolled="more()" style=" height:550px; color: red; overflow-y:auto; width: 977px;
+    margin-left: -16px; ">
                         <div ng-repeat="item in donHang " style="padding: 10px 0; margin: 20px 0; box-shadow: black 1px 1px 4px;">
                             <br>
                             <div style="font-size: medium; padding: 0 10px;position: relative">
@@ -212,31 +213,31 @@
                                     <a href="#/chitietsanpham/{{h.chiTietSanPham.sanPham.idSanPham}}"><img src="/assets/images/{{h.chiTietSanPham.sanPham.listAnhSanPham[0].link}}" width="100%" alt="shopping image" /></a>
                                 </div>
                                 <div class="shipping-item-text"  style="width: 87%; float: right">
-                                    <a href="#" class="pro-cat">{{h.chiTietSanPham.sanPham.tenSanPham}} </a>
+                                    <a href="#/chitietsanpham/{{h.chiTietSanPham.sanPham.idSanPham}}" class="pro-cat" style="font-size: 17px">{{h.chiTietSanPham.sanPham.tenSanPham}} </a>
                                     <div>{{h.soLuong}} <span class="pro-quan-x">x</span></div>
-                                    <span class="pro-quality"><a href="#sanpham">Phân loại : {{h.chiTietSanPham.kichCo.tenKichCo}},{{h.chiTietSanPham.mauSac.tenMauSac}}</a></span>
-                                    <ul class="price text-right" style="    position: absolute; right: 20px;top: 19px; " >
-                                        <li class="price special-price"> {{h.giaBan * h.soLuong | number}} </li>
-                                        <span ng-if="h.giaBan == h.chiTietSanPham.giaSanPham"></span>
-                                        <span ng-if="h.giaBan != h.chiTietSanPham.giaSanPham">
-										<li class="price-percent-reduction small">&nbsp;{{h.chiTietSanPham.khuyenMai.chietKhau }}%&nbsp;</li>
-									     <li class="old-price">{{h.chiTietSanPham.giaSanPham | number}} đ</li>
+                                    <span class="pro-quality"><a href="#sanpham">Phân loại : {{h.chiTietSanPham.kichCo.tenKichCo}},{{h.chiTietSanPham.mauSac.tenMauSac}},{{h.chiTietSanPham.dayDeo.tenDayDeo}},{{h.chiTietSanPham.vatLieu.tenVatLieu}}</a></span>
+                                    <ul class="price text-right" style="    position: absolute; right: 20px;top: 7px; " >
+                                        <li class="price special-price"> {{h.giaBan * h.soLuong | number}} đ </li>
+                                        <span ng-if="h.chietKhau == null"></span>
+                                        <span ng-if="h.chietKhau != null">
+										<li class="price-percent-reduction small">&nbsp;{{h.chietKhau}} %</li>
+									     <li class="old-price">{{h.giaBan * 100 /(100- h.chietKhau) | number}} đ</li>
                                      </span>
                                     </ul>
                                 </div>
                                 <div ng-if="checkPhanHoi.get(h.chiTietSanPham.idChiTietSanPham) == true"></div>
                                 <div ng-if="checkPhanHoi.get(h.chiTietSanPham.idChiTietSanPham) == false">
-                                <a type="button" class="btn btn-primary btn-lg"  data-toggle="modal" data-target="#myModal1" style="width: 143px; padding: 10px;background: #eb2929;" >
+                                <a type="button" class="btn btn-primary btn-lg"  data-toggle="modal" data-target="#myModal1" style="width: 95px; padding: 6px; font-size :14px ;margin: 8px; border: none;background: #eb2929;" >
                                     Đánh giá
                                 </a>
                                 </div>
                                 <!-- Modal -->
                                 <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"c ng-controller="historyDoneCtrl" >
                                     <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
+                                        <div class="modal-content" style="margin-top: 200px;  width: 350px;  margin-left: 19%;">
                                             <div class="modal-header">
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                <h4 class="modal-title" id="myModalLabel1">Đánh giá sản phẩm</h4>
+                                                <h2 style="color: red" class="modal-title" id="myModalLabel1">Đánh giá sản phẩm</h2>
                                             </div>
                                             <!--    modal body-->
                                             <div class="modal-body">
@@ -245,8 +246,9 @@
                                                 <span class="rating-selection">
 														<form ng-submit="sendRate(h)">
 															<div star-ratings  rating-value="ratings.current" max="5"></div>
-															<input type="text" id="noiDungPhanHoi" name="noiDungPhanHoi" ng-model="noiDungPhanHoi"/>
-															<a class="btn" class="write-review-btn" ng-click="sendRate(h)">Send your review!</a>
+															<input type="text" id="noiDungPhanHoi" name="noiDungPhanHoi" ng-model="noiDungPhanHoi" style="    width: 99%;
+    height: 94px; "/>
+															<a class="btn" style="text-align: end" class="write-review-btn" ng-click="sendRate(h)">Gửi đánh giá của bạn!</a>
 														</form>
 													</span>
 
@@ -261,12 +263,12 @@
                             <div style="width: 40%;margin-left: 560px  ">
                                 <div class="shipping-total-bill" >
                                     <div class="cart-prices" style="border: none">
-                                        <span class="shipping-cost">{{item.phiVanChuyen}}</span>
-                                        <span>Shipping</span>
+                                        <span class="shipping-cost">{{item.phiVanChuyen | number}} đ</span>
+                                        <span>Vận chuyển</span>
                                     </div>
                                     <div class="total-shipping-prices" >
-                                        <span class="shipping-total">{{item.tongTien + item.phiVanChuyen}}</span>
-                                        <span>Total</span>
+                                        <span class="shipping-total">{{item.tongTien + item.phiVanChuyen | number}} đ</span>
+                                        <span>Tổng</span>
                                     </div>
                                 </div>
                                 <div ng-if="expirationDate > item.ngayCapNhap.toString() ">

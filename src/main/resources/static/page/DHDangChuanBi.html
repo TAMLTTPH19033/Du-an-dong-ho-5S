@@ -212,15 +212,15 @@
                                     <a href="#/chitietsanpham/{{h.chiTietSanPham.sanPham.idSanPham}}"><img src="/assets/images/{{h.chiTietSanPham.sanPham.listAnhSanPham[0].link}}" width="100%" alt="shopping image" /></a>
                                 </div>
                                 <div class="shipping-item-text"  style="width: 87%; float: right">
-                                    <a href="#" class="pro-cat">{{h.chiTietSanPham.sanPham.tenSanPham}} </a>
+                                    <a href="#/chitietsanpham/{{h.chiTietSanPham.sanPham.idSanPham}}" class="pro-cat" style="font-size: 17px">{{h.chiTietSanPham.sanPham.tenSanPham}} </a>
                                     <div>{{h.soLuong}} <span class="pro-quan-x">x</span></div>
-                                    <span class="pro-quality"><a href="#sanpham">Phân loại : {{h.chiTietSanPham.kichCo.tenKichCo}},{{h.chiTietSanPham.mauSac.tenMauSac}}</a></span>
-                                    <ul class="price text-right" style="    position: absolute; right: 20px;top: 19px; " >
-                                        <li class="price special-price"> {{h.giaBan * h.soLuong | number}} </li>
-                                        <span ng-if="h.giaBan == h.chiTietSanPham.giaSanPham"></span>
-                                        <span ng-if="h.giaBan != h.chiTietSanPham.giaSanPham">
-										<li class="price-percent-reduction small">&nbsp;{{h.chiTietSanPham.khuyenMai.chietKhau }}%&nbsp;</li>
-									     <li class="old-price">{{h.chiTietSanPham.giaSanPham | number}} đ</li>
+                                    <span class="pro-quality"><a href="#sanpham">Phân loại : {{h.chiTietSanPham.kichCo.tenKichCo}},{{h.chiTietSanPham.mauSac.tenMauSac}},{{h.chiTietSanPham.dayDeo.tenDayDeo}},{{h.chiTietSanPham.vatLieu.tenVatLieu}}</a></span>
+                                    <ul class="price text-right" style="    position: absolute; right: 20px;top: 7px; " >
+                                        <li class="price special-price"> {{h.giaBan * h.soLuong | number}} đ </li>
+                                        <span ng-if="h.chietKhau == null"></span>
+                                        <span ng-if="h.chietKhau != null">
+										<li class="price-percent-reduction small">&nbsp;{{h.chietKhau}} %</li>
+									     <li class="old-price">{{h.giaBan * 100 /(100- h.chietKhau) | number}} đ</li>
                                      </span>
                                     </ul>
                                 </div>
@@ -229,62 +229,62 @@
                             <div style="width: 30%;margin-left: 650px  ">
                                 <div class="shipping-total-bill" >
                                     <div class="cart-prices" style="border: none">
-                                        <span class="shipping-cost">{{item.phiVanChuyen}}</span>
+                                        <span class="shipping-cost">{{item.phiVanChuyen | number}} đ</span>
                                         <span>Vận chuyển</span>
                                     </div>
                                     <div class="total-shipping-prices" >
-                                        <span class="shipping-total">{{item.tongTien + item.phiVanChuyen}}</span>
-                                        <span>Tổng tiền</span>
+                                        <span class="shipping-total">{{item.tongTien + item.phiVanChuyen | number}} đ</span>
+                                        <span>Tổng </span>
                                     </div>
                                 </div>
-                                <div class="shipping-checkout-btn" style="    padding: 0 10px 20px; background: none">
-                                    <a type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" >
-                                        Hủy
-                                    </a>
+<!--                                <div class="shipping-checkout-btn" style="    padding: 0 10px 20px; background: none">-->
+<!--                                    <a type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" >-->
+<!--                                        Hủy-->
+<!--                                    </a>-->
 
-                                    <!-- Modal -->
-                                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"c ng-controller="historyChoCtrl" >
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                    <h4 class="modal-title" id="myModalLabel">Lý do bạn muốn hủy ?</h4>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form>
-                                                        <div class="radio">
-                                                            <label>
-                                                                <input type="radio" ng-model="lyDo" name="txtLydo" id="optionsRadios1" value=" Muốn thay đổi màu sắc, kích cỡ, số lượng,chất liệu ,..." >
-                                                                Muốn thay đổi màu sắc, kích cỡ, số lượng,chất liệu ,...
-                                                            </label>
-                                                        </div>
-                                                        <div class="radio">
-                                                            <label>
-                                                                <input type="radio" ng-model="lyDo" name="txtLydo" id="optionsRadios2" value="Muốn thay đổi địa chỉ">
-                                                                Muốn thay đổi địa chỉ
-                                                            </label>
-                                                        </div>
-                                                        <div class="radio disabled">
-                                                            <label>
-                                                                <input type="radio" ng-model="lyDo" name="txtLydo" id="optionsRadios3" value="K muốn mua nữa" >
-                                                                K muốn mua nữa
-                                                            </label>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="exampleInputEmail1">Lý do khác :</label>
-                                                            <input type="text" class="form-control" id="exampleInputEmail1" ng-model="lyDoKhac" placeholder="Lý do khác">
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                            <button type="button" class="btn btn-primary" ng-click="huy(item)"  style="background: red">Xác nhận</button>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!--     modal-->
-                                </div>
+<!--                                    &lt;!&ndash; Modal &ndash;&gt;-->
+<!--                                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"c ng-controller="historyChoCtrl" >-->
+<!--                                        <div class="modal-dialog" role="document">-->
+<!--                                            <div class="modal-content">-->
+<!--                                                <div class="modal-header">-->
+<!--                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
+<!--                                                    <h4 class="modal-title" id="myModalLabel">Lý do bạn muốn hủy ?</h4>-->
+<!--                                                </div>-->
+<!--                                                <div class="modal-body">-->
+<!--                                                    <form>-->
+<!--                                                        <div class="radio">-->
+<!--                                                            <label>-->
+<!--                                                                <input type="radio" ng-model="lyDo" name="txtLydo" id="optionsRadios1" value=" Muốn thay đổi màu sắc, kích cỡ, số lượng,chất liệu ,..." >-->
+<!--                                                                Muốn thay đổi màu sắc, kích cỡ, số lượng,chất liệu ,...-->
+<!--                                                            </label>-->
+<!--                                                        </div>-->
+<!--                                                        <div class="radio">-->
+<!--                                                            <label>-->
+<!--                                                                <input type="radio" ng-model="lyDo" name="txtLydo" id="optionsRadios2" value="Muốn thay đổi địa chỉ">-->
+<!--                                                                Muốn thay đổi địa chỉ-->
+<!--                                                            </label>-->
+<!--                                                        </div>-->
+<!--                                                        <div class="radio disabled">-->
+<!--                                                            <label>-->
+<!--                                                                <input type="radio" ng-model="lyDo" name="txtLydo" id="optionsRadios3" value="K muốn mua nữa" >-->
+<!--                                                                K muốn mua nữa-->
+<!--                                                            </label>-->
+<!--                                                        </div>-->
+<!--                                                        <div class="form-group">-->
+<!--                                                            <label for="exampleInputEmail1">Lý do khác :</label>-->
+<!--                                                            <input type="text" class="form-control" id="exampleInputEmail1" ng-model="lyDoKhac" placeholder="Lý do khác">-->
+<!--                                                        </div>-->
+<!--                                                        <div class="modal-footer">-->
+<!--                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
+<!--                                                            <button type="button" class="btn btn-primary" ng-click="huy(item)"  style="background: red">Xác nhận</button>-->
+<!--                                                        </div>-->
+<!--                                                    </form>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                    &lt;!&ndash;     modal&ndash;&gt;-->
+<!--                                </div>-->
                             </div>
                         </div>
                     </div>

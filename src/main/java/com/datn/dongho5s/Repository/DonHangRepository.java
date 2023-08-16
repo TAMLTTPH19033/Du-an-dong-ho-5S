@@ -42,11 +42,13 @@ public interface DonHangRepository extends JpaRepository<DonHang, Integer> {
     @Query(value = """
                 SELECT d
                 FROM DonHang d
-                WHERE d.ngayTao  BETWEEN :dateStart AND :dateEnd
+                WHERE ( d.ngayTao  BETWEEN :dateStart AND :dateEnd )
+                AND ( :status is null or d.trangThaiDonHang = :status )
             """)
     List<DonHang> findByNgayTao(
             @Param("dateStart") Date dateStart,
-            @Param("dateEnd") Date dateEnd
+            @Param("dateEnd") Date dateEnd,
+            @Param("status") Integer status
     );
 
     @Query(value = """

@@ -225,22 +225,33 @@ myApp.controller("AddressCtrl",
                     ghiChu: $scope.diachi.ghichu == null ? diachi.ghichu : $scope.diachi.ghichu,
                     soDienThoai: $scope.diachi.sdt
                 }
-
-                $http
-                    .put(putDiaChiAPI + diachi.idDiaChi, $scope.diachiRequest)
-                    .then((request) => {
-                        Swal.fire({
-                            icon: "sucess",
-                            title: "Cập nhập thành công!",
-                            showConfirmButton: true,
-                            closeOnClickOutside: true,
-                            timer: 5600,
+                Swal.fire({
+                    title: 'Loading',
+                    onOpen: () => {
+                        Swal.showLoading();
+                    },
+                    timer: 2000
+                })
+                setTimeout(function () {
+                    $http
+                        .put(putDiaChiAPI + diachi.idDiaChi, $scope.diachiRequest)
+                        .then((request) => {
+                            Swal.fire({
+                                icon: "sucess",
+                                title: "Cập nhập thành công!",
+                                showConfirmButton: true,
+                                closeOnClickOutside: true,
+                                timer: 2000,
+                            });
+                            setTimeout(function (){
+                                $window.location.reload();
+                            },1800)
+                        })
+                        .catch((error) => {
+                            console.log(error);
                         });
-                        $window.location.reload();
-                    })
-                    .catch((error) => {
-                        console.log(error);
-                    });
+                },2000)
+
             }else{
                 Swal.fire({
                     icon: "warning",
@@ -256,21 +267,44 @@ myApp.controller("AddressCtrl",
 
         $scope.updateMacDinh = function (diachi){
             if(currentUser != null) {
-                $http
-                    .put(putDiaChiDefaultAPI + diachi.khachHang.idKhachHang + "/" + diachi.idDiaChi)
-                    .then((request) => {
+                Swal.fire({
+                    title: 'Bạn cập nhật địa chỉ mặc định ?',
+                    text: "Cập nhạp địa chỉ hiện tại ",
+                    icon: 'info',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Xác nhận'
+                }).then((result) => {
+                    if (result.isConfirmed) {
                         Swal.fire({
-                            icon: "success",
-                            title: "Cập nhập thành công!",
-                            showConfirmButton: true,
-                            closeOnClickOutside: true,
-                            timer: 5600,
-                        });
-                        $window.location.reload();
-                    })
-                    .catch((error) => {
-                        console.log(error);
-                    });
+                            title: 'Loading',
+                            onOpen: () => {
+                                Swal.showLoading();
+                            },
+                            timer: 2000
+                        })
+                        setTimeout(function () {
+                            $http
+                                .put(putDiaChiDefaultAPI + diachi.khachHang.idKhachHang + "/" + diachi.idDiaChi)
+                                .then((request) => {
+                                    Swal.fire({
+                                        icon: "success",
+                                        title: "Cập nhập thành công!",
+                                        showConfirmButton: true,
+                                        closeOnClickOutside: true,
+                                        timer: 2000,
+                                    });
+                                    setTimeout(function (){
+                                        $window.location.reload();
+                                    },1800)
+                                })
+                                .catch((error) => {
+                                    console.log(error);
+                                });
+                        },2000)
+                    }
+                })
             }else{
                 Swal.fire({
                     icon: "warning",
@@ -286,34 +320,56 @@ myApp.controller("AddressCtrl",
 
         $scope.xoa = function (dc){
             if(currentUser != null) {
-                $http
-                    .delete(deleteDiaChiAPI + dc.idDiaChi)
-                    .then((request) => {
+                Swal.fire({
+                    title: 'Bạn muốn xóa địa chỉ?',
+                    text: "Xóa địa chỉ này khỏi thông tin của bạn",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Xác nhận'
+                }).then((result) => {
+                    if (result.isConfirmed) {
                         Swal.fire({
-                            icon: "success",
-                            title: "thông báo!",
-                            text: "Xóa thành công!",
+                            title: 'Loading',
+                            onOpen: () => {
+                                Swal.showLoading();
+                            },
+                            timer: 2000
+                        })
+                        setTimeout(function () {
+                            $http
+                                .delete(deleteDiaChiAPI + dc.idDiaChi)
+                                .then((request) => {
+                                    Swal.fire({
+                                        icon: "success",
+                                        title: "thông báo!",
+                                        text: "Xóa thành công!",
+                                        showConfirmButton: true,
+                                        closeOnClickOutside: true,
+                                        timer: 2000,
+                                    });
+                                    setTimeout(function () {
+                                        $window.location.reload();
+                                    }, 1800)
+                                }).catch((error) => {
+                                console.log(error);
+                            })
+                        },2000)
+                    }
+                })
+                } else {
+                        Swal.fire({
+                            icon: "warning",
+                            title: "Bạn chưa đăng nhập !",
+                            text: "Hãy đăng nhập để tiếp tục shopping!",
                             showConfirmButton: true,
                             closeOnClickOutside: true,
                             timer: 5600,
                         });
-                        $window.location.reload();
-                    })
-                    .catch((error) => {
-                        console.log(error);
-                    });
-            }else{
-                Swal.fire({
-                    icon: "warning",
-                    title: "Bạn chưa đăng nhập !",
-                    text: "Hãy đăng nhập để tiếp tục shopping!",
-                    showConfirmButton: true,
-                    closeOnClickOutside: true,
-                    timer: 5600,
-                });
-                $window.location.href = '#login';
-            }
-        }
+                        $window.location.href = '#login';
+                    }
+                }
 
         $scope.resetData = function (){
             $scope.diachi = {
@@ -367,21 +423,34 @@ myApp.controller("AddressCtrl",
                     ghiChu: $scope.diachi.ghichu,
                     soDienThoai: $scope.diachi.sdt
                 }
-                $http
-                    .post(addDiaChiAPI + currentUser.idKhachHang , $scope.diachiRequest)
-                    .then((request) => {
+
                         Swal.fire({
-                            icon: "success",
-                            title: "Thêm thành công!",
-                            showConfirmButton: true,
-                            closeOnClickOutside: true,
-                            timer: 8600,
-                        });
-                        $window.location.reload();
-                    })
-                    .catch((error) => {
-                        console.log(error);
-                    });
+                            title: 'Loading',
+                            onOpen: () => {
+                                Swal.showLoading();
+                            },
+                            timer: 2000
+                        })
+                        setTimeout(function () {
+                            $http
+                                .post(addDiaChiAPI + currentUser.idKhachHang , $scope.diachiRequest)
+                                .then((request) => {
+                                    Swal.fire({
+                                        icon: "success",
+                                        title: "Thêm thành công!",
+                                        showConfirmButton: true,
+                                        closeOnClickOutside: true,
+                                        timer: 2000,
+                                    });
+                                    setTimeout(function (){
+                                        $window.location.reload();
+                                    },1800)
+                                })
+                                .catch((error) => {
+                                    console.log(error);
+                                });
+                        },2000)
+
             }else{
                 Swal.fire({
                     icon: "warning",

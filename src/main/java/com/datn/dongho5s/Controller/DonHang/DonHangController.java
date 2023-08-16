@@ -18,6 +18,7 @@ import com.datn.dongho5s.Service.DonHangService;
 import com.datn.dongho5s.Service.HoaDonChiTietService;
 import com.datn.dongho5s.Service.KhachHangService;
 import com.datn.dongho5s.Utils.TrangThaiDonHang;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -25,6 +26,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletRequest;
@@ -47,8 +49,9 @@ import java.util.Map;
 import java.util.TimeZone;
 
 
-@RequestMapping("/admin/don-hang")
+@RequestMapping("")
 @Controller
+@Slf4j
 public class DonHangController {
 
     @Autowired
@@ -76,7 +79,7 @@ public class DonHangController {
         return result;
     }
 
-    @GetMapping("/thong-tin-thanh-toan")
+    @GetMapping("/don-hang/thong-tin-thanh-toan")
     public RedirectView thongTinThanhToan() {
         try {
 
@@ -98,8 +101,6 @@ public class DonHangController {
                     fields.put(fieldName, fieldValue);
                 }
             }
-            System.out.println(request.getParameter("vnp_ReturnUrl"));
-            fields.forEach((key, value) -> System.out.printf("%s: %s%n", key, value));
             String vnp_SecureHash = request.getParameter("vnp_SecureHash");
             if (fields.containsKey("vnp_SecureHash")) {
                 fields.remove("vnp_SecureHash");
@@ -107,15 +108,13 @@ public class DonHangController {
             DonHang donhang = donHangService.getById(Integer.valueOf(request.getParameter("vnp_TxnRef")));
             if (donhang != null) {
                 if ("00".equals(request.getParameter("vnp_ResponseCode"))) {
-                    System.out.println("Thanh toán thành công nè");
-                    donhang.setTrangThaiDonHang(1);
+                    System.out.println("Thanh toán thành công ");
+                    donhang.setTrangThaiDonHang(TrangThaiDonHang.CHO_XAC_NHAN);
                     donHangService.save(donhang);
-                    TaoDonHangRequestGHN donHangRequestGHN = createGHNRequest(donhang);
-                    ThemDonHangResponseGHN responseGHN = DonHangAPI.createOrder(donHangRequestGHN);
-                    System.out.println(responseGHN);
-//                                //TODO xử lý trừ số luojwgn sản phẩm
                     return new RedirectView("http://localhost:8080/index#/success");
                 } else {
+                    hdctService.xoaHDCTByIdDonHang(donhang);
+                    donHangService.xoaDonHang(donhang);
                     System.out.println("Không thành công");
                     return new RedirectView("http://localhost:8080/index#/fail");
                 }
@@ -145,6 +144,8 @@ public class DonHangController {
                     .idPhuongXa(donhang.getIdPhuongXa())
                     .soLuongSanPham(soLuong)
                     .listItems(toListChiTietItem(listHDCT))
+                    .phuongThuc(donhang.getPhuongThuc())
+                    .thanhTien(donhang.getTongTien())
                     .build();
             return requestGHN;
         } catch (Exception e) {
@@ -152,13 +153,13 @@ public class DonHangController {
         }
     }
 
-    @GetMapping
+    @GetMapping("/admin/don-hang")
     public String getForm(Model model,
                           HttpSession httpSession) {
         return findAll(1, model,httpSession);
     }
 
-    @GetMapping("/page/{pageNum}")
+    @GetMapping("/admin/don-hang/page/{pageNum}")
     public String findAll(
             @PathVariable("pageNum") int pageNum,
             Model model,
@@ -178,50 +179,47 @@ public class DonHangController {
         return "admin/donhang/donhang";
     }
 
-    @GetMapping("/search/date")
-    public String searchByDateStartanDateEnd(
-        HttpSession httpSession,
-        Model model,
-        HttpServletRequest httpServletRequest
-    ) {
-        String dateStart = httpServletRequest.getParameter("dateStart");
-        String dateEnd = httpServletRequest.getParameter("dateEnd");
-
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        Date dateStartParse = null;
-        Date dateEndParse = null;
-
-        try {
-            dateStartParse = format.parse(dateStart);
-            dateEndParse = format.parse(dateEnd);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        List<DonHang> lst = donHangService.findByNgayTao(dateStartParse,dateEndParse);
-
-        model.addAttribute("list",lst);
-        return "admin/donhang/donhang";
-    }
-
-    @GetMapping("/update/{id}/trang-thai/{trangThai}")
+    @GetMapping("/admin/don-hang/update/{id}/trang-thai/{trangThai}")
     public String updateStatusDonHang(
             HttpSession session,
             @PathVariable("trangThai") int trangThai,
             @PathVariable("id") int id,
-            Model model
+            Model model,
+            RedirectAttributes redirectAttributes
     ) {
         DonHang donHang = donHangService.findById(id);
-        donHang.setTrangThaiDonHang(trangThai);
-        donHang.setNgayCapNhap(new Date());
-        if(trangThai == TrangThaiDonHang.DANG_GIAO){
+        if(trangThai == TrangThaiDonHang.DANG_CHUAN_BI){
+            try {
+                TaoDonHangRequestGHN donHangRequestGHN = createGHNRequest(donHang);
+                Integer code = DonHangAPI.createOrder(donHangRequestGHN);
+                if(code != 200){
+                    log.error("Lỗi gửi Giao Hàng nhanh code {}", code);
+                    redirectAttributes.addFlashAttribute("error","Lỗi hệ thống giao hàng nhanh");
+                    return "redirect:/admin/don-hang";
+                }
+            } catch (Exception e) {
+                log.error("Lỗi gửi Giao Hàng nhanh {}", e);
+                redirectAttributes.addFlashAttribute("error","Lỗi request giao hàng nhanh");
+                return "redirect:/admin/don-hang";
+            }
+        }else if(trangThai == TrangThaiDonHang.DANG_GIAO){
+            donHang.setTrangThaiDonHang(trangThai);
+            donHang.setNgayCapNhap(new Date());
             List<HoaDonChiTiet> listHDCT = donHang.getListHoaDonChiTiet();
             listHDCT.forEach(item->{
                 ChiTietSanPham ctsp = item.getChiTietSanPham();
                 ctsp.setSoLuong(item.getChiTietSanPham().getSoLuong()-item.getSoLuong());
                 ctspService.update(ctsp);
             });
+        }else{
+            donHang.setTrangThaiDonHang(trangThai);
+            donHang.setNgayCapNhap(new Date());
         }
+
+
+//        TaoDonHangRequestGHN donHangRequestGHN = createGHNRequest(donhang);
+//        ThemDonHangResponseGHN responseGHN = DonHangAPI.createOrder(donHangRequestGHN);
+//        System.out.println(responseGHN);
         donHangService.updateTrangThaiDonHang(donHang);
 
         Page<DonHang> donHangs = donHangService.getAll(1);

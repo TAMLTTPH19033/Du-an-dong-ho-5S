@@ -30,4 +30,7 @@ public interface KhachHangService {
     boolean checkUnique(Integer id, String email, String soDT);
 
     void updateKhachHangEnabledStatus(Integer id, boolean enabled);
+  
+    KhachHang findByPhoneNumber(String phoneNumber);
+
 }

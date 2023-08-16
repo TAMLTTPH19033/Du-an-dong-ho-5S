@@ -5,11 +5,12 @@ import com.datn.dongho5s.GiaoHangNhanhService.DiaChiAPI;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 @EnableJpaRepositories
+@EnableScheduling
 public class ProjectDatnApplication {
-    // Secret Key = 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
     public static void main(String[] args) throws Exception {
         DiaChiAPI.callGetTinhThanhAPI();
 //		Integer idTP = 207;
