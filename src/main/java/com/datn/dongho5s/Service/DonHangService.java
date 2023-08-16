@@ -46,4 +46,6 @@ public interface DonHangService {
     String thanhToanAdmin(DonHang donHang);
 
     String xoaDonHangAdmin(DonHang donHang);
+
+    void xoaDonHang(DonHang donhang);
 }

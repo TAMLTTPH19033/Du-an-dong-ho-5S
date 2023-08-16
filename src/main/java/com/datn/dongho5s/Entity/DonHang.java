@@ -86,6 +86,9 @@ public class DonHang {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date ngayCapNhap;
 
+    @Column(name ="phuong_thuc")
+    private Integer phuongThuc;
+
 
     @OneToMany(mappedBy = "donHang", cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)

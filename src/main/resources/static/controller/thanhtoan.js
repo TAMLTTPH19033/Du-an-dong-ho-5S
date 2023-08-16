@@ -71,7 +71,6 @@ myApp.controller(
                         idPhuongXa: $scope.diaChiGiaoHang.idPhuongXa,
                         soLuongSanPham: $scope.soLuongSanPham,
                     };
-                    $scope.getFee();
                 })
                 .catch((error) => {
                     console.log(error);
