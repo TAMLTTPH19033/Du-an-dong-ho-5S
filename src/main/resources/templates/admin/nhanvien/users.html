@@ -51,7 +51,7 @@
                 <th th:replace="admin/fragment/fragments::column_link('ho', 'Họ')"></th>
                 <th th:replace="admin/fragment/fragments::column_link('ten', 'Tên')"></th>
                 <th th:replace="admin/fragment/fragments::column_link('soDienThoai', 'SốĐiệnThoại')"></th>
-                <th th:replace="admin/fragment/fragments::column_link('chucVu', 'Chức Vụ')"></th>
+<!--                <th th:replace="admin/fragment/fragments::column_link('chucVu', 'Chức Vụ')"></th>-->
                 <th th:replace="admin/fragment/fragments::column_link('enabled', 'Enabled')"></th>
                 <th>Action</th>
 
@@ -70,7 +70,7 @@
                 <td>[[${nv.ho}]]</td>
                 <td>[[${nv.ten}]]</td>
                 <td>[[${nv.soDienThoai}]]</td>
-                <td>[[${nv.chucVu}]]</td>
+<!--                <td>[[${nv.chucVu}]]</td>-->
                 <td>[[${nv.enabled}]]</td>
                 <td>
                     <a style="text-decoration: none" th:href="@{'/admin/users/edit/' + ${nv.id}}" title="Thay đổi thông tin">
