@@ -381,7 +381,7 @@ myApp.controller(
                         });
                         setTimeout(function (){
                             $window.location.reload();
-                        },1600)
+                        },2600)
 
                     })
                     .catch((error) => {
