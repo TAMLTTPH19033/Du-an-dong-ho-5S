@@ -50,6 +50,9 @@ public class HoaDonChiTiet {
     @Column(name = "gia_ban")
     private Double giaBan;
 
+    public HoaDonChiTiet(Integer idHoaDonChiTiet) {
+        this.idHoaDonChiTiet = idHoaDonChiTiet;
+    }
     @Column(name = "chiet_khau")
     private Integer chietKhau;
 
@@ -76,7 +79,19 @@ public class HoaDonChiTiet {
         this.giaBan = giaBan;
         this.setDonHang(new DonHang(phiVanChuyen));
     }
+
+    public HoaDonChiTiet(Integer idHoaDonChiTiet, Integer soLuong, Double giaBan, Double phiVanChuyen) {
+        this.idHoaDonChiTiet = idHoaDonChiTiet;
+        this.soLuong = soLuong;
+        this.giaBan = giaBan;
+        this.setDonHang(new DonHang(phiVanChuyen));
+    }
+
     public HoaDonChiTiet(ChiTietSanPham chiTietSanPham) {
         this.chiTietSanPham = chiTietSanPham;
+    }
+
+    public HoaDonChiTiet(DonHang donHang) {
+        this.donHang = donHang;
     }
 }

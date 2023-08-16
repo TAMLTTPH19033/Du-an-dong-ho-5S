@@ -88,13 +88,13 @@ function getDenominator(period, reportType) {
 }
 
 function setSalesAmount(period, reportType, labelTotalItems) {
-	$("#textTotalGrossSales" + reportType).text(formatCurrency(totalGrossSales) + ' VND');
-	$("#textTotalNetSales" + reportType).text(formatCurrency(totalNetSales) + ' VND');
+	$("#textTotalGrossSales" + reportType).text(formatCurrency(totalGrossSales) + ' Đ');
+	$("#textTotalNetSales" + reportType).text(formatCurrency(totalNetSales) + ' Đ');
 
 	denominator = getDenominator(period, reportType);
 
-	$("#textAvgGrossSales" + reportType).text(formatCurrency(parseInt(totalGrossSales / denominator)) + ' VND');
-	$("#textAvgNetSales" + reportType).text(formatCurrency(parseInt(totalNetSales / denominator)) + ' VND');
+	$("#textAvgGrossSales" + reportType).text(formatCurrency(parseInt(totalGrossSales / denominator)) + ' Đ');
+	$("#textAvgNetSales" + reportType).text(formatCurrency(parseInt(totalNetSales / denominator)) + ' Đ');
 	$("#labelTotalItems" + reportType).text(labelTotalItems);
 	$("#textTotalItems" + reportType).text(totalItems + ' Đơn');
 }

@@ -11,6 +11,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -60,13 +61,17 @@ public interface HoaDonChiTietRepository extends JpaRepository<HoaDonChiTiet, In
     public void updateSoLuongSanPhamWithEdit(int soLuong, int idHoaDonChiTiet);
 
     @Query("SELECT NEW  com.datn.dongho5s.Entity.HoaDonChiTiet(d.chiTietSanPham.sanPham.danhMuc.ten, d.soLuong," +
-            "d.giaBan, d.donHang.phiVanChuyen)" + "  FROM HoaDonChiTiet d WHERE d.donHang.ngayTao BETWEEN ?1 AND ?2")
+            "d.giaBan, d.donHang.phiVanChuyen)" + "  FROM HoaDonChiTiet d WHERE d.donHang.ngayTao BETWEEN ?1 AND ?2 AND d.donHang.trangThaiDonHang = 3")
     public List<HoaDonChiTiet> findWithCategoryAndTimeBetween(Date startTime, Date endTime);
 
     @Query("SELECT NEW  com.datn.dongho5s.Entity.HoaDonChiTiet(d.soLuong, d.chiTietSanPham.sanPham.tenSanPham," +
-            "d.giaBan, d.donHang.phiVanChuyen)" + "  FROM HoaDonChiTiet d WHERE d.donHang.ngayTao BETWEEN ?1 AND ?2")
+            "d.giaBan, d.donHang.phiVanChuyen)" + "  FROM HoaDonChiTiet d WHERE d.donHang.ngayTao BETWEEN ?1 AND ?2 AND d.donHang.trangThaiDonHang = 3")
     public List<HoaDonChiTiet> findWithProductAndTimeBetween(Date startTime, Date endTime);
 
+    @Query("SELECT NEW  com.datn.dongho5s.Entity.HoaDonChiTiet(d.chiTietSanPham.idChiTietSanPham, d.soLuong, d.giaBan, " +
+            "d.donHang.phiVanChuyen)" + "  FROM HoaDonChiTiet d WHERE d.donHang.ngayTao BETWEEN ?1 AND ?2 AND d.donHang.trangThaiDonHang = 3"
+            )
+    public List<HoaDonChiTiet> findWithOrderDetailAndTimeBetween(Date startTime, Date endTime);
     @Modifying
     @Transactional
     public void deleteByDonHang(DonHang donHang);

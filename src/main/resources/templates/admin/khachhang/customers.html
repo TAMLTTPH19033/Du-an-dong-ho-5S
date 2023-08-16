@@ -15,9 +15,9 @@
                 <h2>Thông Tin Khách Hàng</h2>
             </div>
 
-<!--            <div th:if="${message != null}" class="alert alert-success text-center">-->
-<!--                [[${message}]]-->
-<!--            </div>-->
+            <div th:if="${message != null}" class="alert alert-success text-center">
+                [[${message}]]
+            </div>
 
 
             <div>
@@ -48,7 +48,7 @@
                         <th th:replace="admin/fragment/fragments::khachhang_link('thoiGianTaoTaiKhoan', 'Thời gian tạo tài khoản')"></th>
                         <th th:replace="admin/fragment/fragments::khachhang_link('ngaySua', 'Ngày Sửa')"></th>
                         <th th:replace="admin/fragment/fragments::khachhang_link('enabled', 'Enabled')"></th>
-
+                        <Th>Action</Th>
                     </tr>
                     </thead>
                     <tbody>
@@ -65,10 +65,19 @@
                         <td>[[${kh.soDienThoai}]]</td>
                         <td>[[${kh.email}]]</td>
                         <td>[[${kh.ngaySinh}]]</td>
-                        <td>[[${kh.gioiTinh}]]</td>
+                        <td>
+                            <span th:if="${kh.gioiTinh == 0}">Nam</span>
+                            <span th:if="${kh.gioiTinh == 1}">Nữ</span>
+                            <span th:unless="${kh.gioiTinh == 1 or kh.gioiTinh == 0}">Không Xác Định</span>
+                        </td>
+<!--                        <td>[[${kh.gioiTinh}]]</td>-->
                         <td>[[${kh.thoiGianTaoTaiKhoan}]]</td>
                         <td>[[${kh.ngaySua}]]</td>
                         <td>[[${kh.enabled}]]</td>
+                        <td>
+                            <a class="icon-green" style="text-decoration: none" th:href="@{'/admin/customers/edit/' + ${kh.idKhachHang}}"
+                               title="Thay đổi thông tin">Update</a>
+                        </td>
                     </tr>
                     </tbody>
                 </table>

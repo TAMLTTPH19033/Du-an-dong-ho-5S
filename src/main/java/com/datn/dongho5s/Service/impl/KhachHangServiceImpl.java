@@ -3,6 +3,7 @@ package com.datn.dongho5s.Service.impl;
 
 import com.datn.dongho5s.Entity.DiaChi;
 import com.datn.dongho5s.Entity.KhachHang;
+import com.datn.dongho5s.Exception.KhachHangNotFoundException;
 import com.datn.dongho5s.Repository.DiaChiRepository;
 import com.datn.dongho5s.Repository.KhachHangRepository;
 import com.datn.dongho5s.Response.ThongTinCaNhanResponse;
@@ -32,7 +33,15 @@ public class KhachHangServiceImpl implements KhachHangService {
         if (id == null) return null;
         return khachHangRepository.findById(id).get();
     }
-
+    @Override
+    public KhachHang get(Integer id) throws KhachHangNotFoundException, Exception {
+        try {
+            return khachHangRepository.findById(id)
+                    .orElseThrow(() -> new KhachHangNotFoundException("Không tìm thấy khách hàng nào theo ID: " + id));
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage()); // Xử lý ngoại lệ bằng cách throws Exception
+        }
+    }
     @Override
     public KhachHang updateThongTinCaNhan(Integer idKhachHang,ThongTinCaNhanResponse thongTinCaNhanResponse) {
         KhachHang khachHangExist = this.findKhachHangById(idKhachHang);
@@ -112,4 +121,25 @@ public class KhachHangServiceImpl implements KhachHangService {
         return khachHangRepo.findBySoDienThoai(phoneNumber);
     }
 
+    @Override
+    public boolean checkUnique(Integer id, String email, String soDienThoai) {
+        KhachHang khachHangTheoEmailSDT = khachHangRepository.findByEmailAndSoDienThoai(email, soDienThoai);
+        if (khachHangTheoEmailSDT == null) return true;
+        boolean isCreatingNew = (id == null);
+        if (isCreatingNew) {
+            if (khachHangTheoEmailSDT != null) {
+                return false;
+            }
+        }else {
+            if (khachHangTheoEmailSDT.getIdKhachHang() != id) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public void updateKhachHangEnabledStatus(Integer id, boolean enabled) {
+        khachHangRepository.updateEnabledStatus(id,enabled);
+    }
 }

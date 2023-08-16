@@ -81,9 +81,13 @@ public interface DonHangRepository extends JpaRepository<DonHang, Integer> {
     @Query(value = "select dh from DonHang dh where dh.khachHang.idKhachHang = ?1 and dh.trangThaiDonHang = ?2")
     List<DonHang> findHDByStatus(Integer idKhachHang, Integer trangThaiDonHang);
 
-    @Query("SELECT NEW com.datn.dongho5s.Entity.DonHang(o.idDonHang, o.ngayTao, o.tongTien, o.phiVanChuyen) FROM DonHang o " +
-            "WHERE o.ngayTao BETWEEN ?1 AND ?2 ORDER BY o.ngayTao ASC")
-    public List<DonHang> findByOrderBetween(Date startTime, Date endTime);
+//    @Query("SELECT NEW com.datn.dongho5s.Entity.DonHang(o.idDonHang, o.ngayTao, o.tongTien, o.phiVanChuyen) FROM DonHang o " +
+//            "WHERE o.ngayTao BETWEEN ?1 AND ?2 ORDER BY o.ngayTao ASC")
+//    public List<DonHang> findByOrderBetween(Date startTime, Date endTime);
+
+    @Query("SELECT NEW com.datn.dongho5s.Entity.DonHang(o.idDonHang, o.ngayTao, o.tongTien, o.phiVanChuyen, o.trangThaiDonHang) FROM DonHang o " +
+            "WHERE o.ngayTao BETWEEN ?1 AND ?2 AND o.trangThaiDonHang = ?3 ORDER BY o.ngayTao ASC")
+    public List<DonHang> findByOrderByStatusBetween(Date startTime, Date endTime, Integer status);
 
     public DonHang findByMaDonHang(String maDonHang);
 
