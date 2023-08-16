@@ -5,12 +5,11 @@ import com.datn.dongho5s.GiaoHangNhanhService.APIResponseEntity.PhiVanChuyenResp
 import com.datn.dongho5s.GiaoHangNhanhService.APIResponseEntity.ThemDonHangResponseGHN;
 import com.datn.dongho5s.GiaoHangNhanhService.Request.PhiVanChuyenRequest;
 import com.datn.dongho5s.GiaoHangNhanhService.Request.TaoDonHangRequestGHN;
+import com.datn.dongho5s.Utils.PhuongThucThanhToan;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
+import com.google.gson.*;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -19,6 +18,7 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 
+@Slf4j
 public class DonHangAPI {
 
     private static final String FeeAPI = "https://dev-online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/fee";
@@ -50,6 +50,7 @@ public class DonHangAPI {
                 BaseResponse<PhiVanChuyenResponse> responseObject = objectMapper.readValue(responseBody, new TypeReference<>() {
                 });
                 PhiVanChuyenResponse thongTinPhi = responseObject.getData();
+                System.out.println(thongTinPhi.toString());
                 return thongTinPhi.getTotal();
             } catch (Exception e) {
                 System.out.println(e);
@@ -57,7 +58,7 @@ public class DonHangAPI {
             }
     }
 
-    public static ThemDonHangResponseGHN createOrder(TaoDonHangRequestGHN request) throws Exception {
+    public static Integer createOrder(TaoDonHangRequestGHN request) throws Exception {
         HttpClient httpClient = HttpClientBuilder.create().build();
         HttpPost httpPost = new HttpPost(CreateOrderAPI);
         httpPost.setHeader("Token", Constant.TOKEN);
@@ -83,7 +84,6 @@ public class DonHangAPI {
             body.addProperty("to_district_id",request.getIdQuanHuyen());
             body.addProperty("to_ward_code",request.getStringPhuongXa());
             body.addProperty("to_address",request.getToAddress());
-            body.addProperty("payment_type_id",2);
             body.addProperty("note",request.getNote());
             body.addProperty("required_note",Constant.REQUIRED_NOTE);
             body.addProperty("to_name",request.getToName());
@@ -94,6 +94,12 @@ public class DonHangAPI {
             body.addProperty("width",request.getTrungBinhCacCanh());
             body.addProperty("weight",request.getSoLuongSanPham()*Constant.TRONG_LUONG_SAN_PHAM);
 
+            if(request.getPhuongThuc()== PhuongThucThanhToan.TRA_SAU){
+                body.addProperty("cod_amount",request.getThanhTien().intValue());
+                body.addProperty("payment_type_id",2);
+            }else if(request.getPhuongThuc()== PhuongThucThanhToan.VNPAY){
+                body.addProperty("payment_type_id",1);
+            }
             JsonArray items = new JsonArray();
             request.getListItems().forEach(item->{
                 JsonObject covertJO = new JsonObject();
@@ -106,20 +112,25 @@ public class DonHangAPI {
             body.add("items",items);
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             String jsonString = gson.toJson(body);
-            System.out.println(jsonString);
+            log.info("Thông tin đơn hàng gửi lên Giao hàng nhanh {}", jsonString);
             StringEntity requestEntity = new StringEntity(body.toString());
             httpPost.setEntity(requestEntity);
             HttpResponse response = httpClient.execute(httpPost);
             HttpEntity entity = response.getEntity();
             String responseBody = EntityUtils.toString(entity);
+            JsonParser parser = new JsonParser();
+            JsonObject jsonObject = parser.parse(responseBody).getAsJsonObject();
+
+            //Check code
+            Integer code = jsonObject.get("code").getAsInt();
 
             //Mapper
-            ObjectMapper objectMapper = new ObjectMapper();
-            BaseResponse<ThemDonHangResponseGHN> responseObject = objectMapper.readValue(responseBody, new TypeReference<>() {
-            });
-            ThemDonHangResponseGHN thongTinDonHang = responseObject.getData();
-            System.out.println(responseBody);
-            return thongTinDonHang;
+//            ObjectMapper objectMapper = new ObjectMapper();
+//            BaseResponse<ThemDonHangResponseGHN> responseObject = objectMapper.readValue(responseBody, new TypeReference<>() {
+//            });
+//            ThemDonHangResponseGHN thongTinDonHang = responseObject.getData();
+            log.info("Thông tin đơn hàng trả về của Giao hàng nhanh {}",responseBody);
+            return code;
         } catch (Exception e) {
             System.out.println(e);
             return null;
