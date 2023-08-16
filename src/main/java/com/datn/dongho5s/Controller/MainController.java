@@ -2,6 +2,7 @@ package com.datn.dongho5s.Controller;
 
 import com.datn.dongho5s.Entity.NhanVien;
 import com.datn.dongho5s.Repository.NhanVienRepository;
+import com.datn.dongho5s.Request.LoginAdminRequest;
 import com.datn.dongho5s.Request.LoginRequest;
 import com.datn.dongho5s.Security.AccountFilterService;
 import com.datn.dongho5s.Service.AccountService;
@@ -46,11 +47,11 @@ public class MainController {
 
 
     @PostMapping("/admin")
-    public ModelAndView authenticateUser(@Valid LoginRequest loginRequest, BindingResult bindingResult, Model model) throws Exception {
+    public ModelAndView authenticateUser(@Valid LoginAdminRequest loginAdminRequest, BindingResult bindingResult, Model model) throws Exception {
         // Xử lý đăng nhập và kiểm tra kết quả
         Authentication authentication;
         try {
-            authentication = authenticate(loginRequest.getUsername(), loginRequest.getPassword());
+            authentication = authenticate(loginAdminRequest.getEmail(), loginAdminRequest.getPassword());
             SecurityContextHolder.getContext().setAuthentication(authentication);
             NhanVien userEntity = nhanVienRepository.getNhanVienByEmail(authentication.getName());
             String jwt = tokenProvider.generateToken(authentication);

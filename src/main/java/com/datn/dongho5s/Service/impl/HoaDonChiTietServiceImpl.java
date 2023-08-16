@@ -44,6 +44,7 @@ public class HoaDonChiTietServiceImpl implements HoaDonChiTietService {
                     .chiTietSanPham(ctsp)
                     .soLuong(item.getSoLuong())
                     .giaBan(ctsp.getGiaSanPham())
+                    .chietKhau(ctsp.getKhuyenMai().getChietKhau())
                     .build();
             result.add(hdct);
         });
@@ -104,6 +105,7 @@ public class HoaDonChiTietServiceImpl implements HoaDonChiTietService {
                     .donHang(donHang)
                     .giaBan(chiTietSanPham.getGiaSanPham())
                     .soLuong(soLuong)
+                    .chietKhau(chiTietSanPham.getKhuyenMai().getChietKhau())
                     .build());
         } else{ // else ctsp exist -> update quantity by idHDCT
             chiTietSanPhamRepository.updateSoLuongCTSPById(soLuong,chiTietSanPham.getIdChiTietSanPham());
@@ -136,5 +138,11 @@ public class HoaDonChiTietServiceImpl implements HoaDonChiTietService {
         // cap nhat lai so luong da thay doi
         int slHienTai = hoaDonChiTiet.getSoLuong();
         chiTietSanPhamRepository.updateSoLuongFromHDCT(slHienTai - soLuongThayDoi,hoaDonChiTiet.getChiTietSanPham().getIdChiTietSanPham());
+    }
+
+    @Override
+    public void xoaHDCTByIdDonHang(DonHang donHang) {
+        List<HoaDonChiTiet> listHDCT = hoaDonChiTietRepository.findByDonHang(donHang);
+        hoaDonChiTietRepository.deleteAll(listHDCT);
     }
 }
