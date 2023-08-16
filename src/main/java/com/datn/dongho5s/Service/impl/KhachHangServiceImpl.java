@@ -138,8 +138,8 @@ public class KhachHangServiceImpl implements KhachHangService {
         return true;
     }
 
-    @Override
-    public void updateKhachHangEnabledStatus(Integer id, boolean enabled) {
-        khachHangRepository.updateEnabledStatus(id,enabled);
-    }
+//    @Override
+//    public void updateKhachHangEnabledStatus(Integer id, boolean enabled) {
+//        khachHangRepository.updateEnabledStatus(id,enabled);
+//    }
 }

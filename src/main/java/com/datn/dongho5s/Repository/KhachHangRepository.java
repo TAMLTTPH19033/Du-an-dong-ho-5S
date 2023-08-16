@@ -27,9 +27,9 @@ public interface KhachHangRepository extends JpaRepository<KhachHang,Integer> {
             "kh.soDienThoai, '', kh.ngaySua)) LIKE %?1%")
     public Page<KhachHang> findAll(String keyword, Pageable pageable);
 
-    @Query("UPDATE KhachHang kh SET kh.enabled = ?2 WHERE kh.idKhachHang = ?1")
-    @Modifying
-    void updateEnabledStatus(Integer id, boolean enabled);
+//    @Query("UPDATE KhachHang kh SET kh.enabled = ?2 WHERE kh.idKhachHang = ?1")
+//    @Modifying
+//    void updateEnabledStatus(Integer id, boolean enabled);
     public KhachHang findByEmailAndSoDienThoai(String email, String soDienThoai);
 
     public KhachHang findBySoDienThoai(String phoneNumber);
