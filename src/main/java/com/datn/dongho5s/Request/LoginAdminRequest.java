@@ -1,22 +1,16 @@
 package com.datn.dongho5s.Request;
 
+import jdk.jfr.Name;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 public class LoginAdminRequest {
-    private String Email;
-    private String Password;
+    private String email;
+    private String password;
 
-    public String getEmail() {
-        return Email;
-    }
 
-    public void setEmail(String email) {
-        Email = email;
-    }
-
-    public String getPassword() {
-        return Password;
-    }
-
-    public void setPassword(String password) {
-        Password = password;
-    }
 }

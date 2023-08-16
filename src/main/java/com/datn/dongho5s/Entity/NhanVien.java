@@ -42,7 +42,7 @@ public class NhanVien implements UserDetails {
     private String email;
 
     @Column(name = "mat_khau")
-    private String matKhau;
+    private String password;
 
     @Column(nullable = false)
     private boolean enabled;
@@ -69,7 +69,7 @@ public class NhanVien implements UserDetails {
         this.ho = ho;
         this.ten = ten;
         this.email = email;
-        this.matKhau = matKhau;
+        this.password = matKhau;
     }
 
     public Integer getId() {
@@ -137,12 +137,13 @@ public class NhanVien implements UserDetails {
     }
 
     public String getMatKhau() {
-        return matKhau;
+        return password;
     }
 
     public void setMatKhau(String matKhau) {
-        this.matKhau = matKhau;
+        this.password = matKhau;
     }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -157,12 +158,12 @@ public class NhanVien implements UserDetails {
 
     @Override
     public String getPassword() {
-        return this.matKhau;
+        return this.password;
     }
 
     @Override
     public String getUsername() {
-        return this.getEmail();
+        return this.email;
     }
 
     @Override
