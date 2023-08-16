@@ -56,7 +56,7 @@ public class BanHangController {
             Double tongTien = 0d;
             for (HoaDonChiTiet h: donHangByMa.getListHoaDonChiTiet()) {
                 if (h.getChiTietSanPham().getKhuyenMai().isEnabled() == true){
-                    tongTien += h.getGiaBan() * h.getSoLuong() * h.getChiTietSanPham().getKhuyenMai().getChietKhau() / 100;
+                    tongTien += h.getGiaBan() * h.getSoLuong() * h.getChietKhau() / 100;
                 } else{
                     tongTien +=  h.getGiaBan() * h.getSoLuong();
                 }
@@ -213,7 +213,7 @@ public class BanHangController {
                 tongTien += h.getGiaBan() * h.getSoLuong();
             }else {
                 if (h.getChiTietSanPham().getKhuyenMai().isEnabled() == true) {
-                    tongTien += h.getGiaBan() * h.getSoLuong() * h.getChiTietSanPham().getKhuyenMai().getChietKhau() / 100;
+                    tongTien += h.getGiaBan() * h.getSoLuong() * h.getChietKhau() / 100;
                 } else {
                     tongTien += h.getGiaBan() * h.getSoLuong();
                 }
@@ -259,6 +259,7 @@ public class BanHangController {
     ){
         // them san pham hoac cap nhat san pham neu ctsp đã tồn tại
         ChiTietSanPham chiTietSanPham = chiTietSanPhamService.findByMaChiTietSanPham(maCTSP);
+
         DonHang donHangByMa = (DonHang) httpSession.getAttribute("donHangHienTai");
 
         hoaDonChiTietService.themSoLuongSanPham(soLuong,chiTietSanPham,donHangByMa);

@@ -88,7 +88,6 @@ public class HoaDonChiTietServiceImpl implements HoaDonChiTietService {
             ChiTietSanPham chiTietSanPham,
             DonHang donHang
     ) {
-        //if not exist
         int existIdHCT = -1;
         for (HoaDonChiTiet hoaDonChiTiet : donHang.getListHoaDonChiTiet()){
             if (hoaDonChiTiet.getChiTietSanPham().getIdChiTietSanPham() == chiTietSanPham.getIdChiTietSanPham()){
@@ -96,16 +95,20 @@ public class HoaDonChiTietServiceImpl implements HoaDonChiTietService {
                 break;
             }
         }
+        //if not exist
         if (existIdHCT==-1){
             chiTietSanPhamRepository.updateSoLuongCTSPById(soLuong,chiTietSanPham.getIdChiTietSanPham());
+
             hoaDonChiTietRepository.save(HoaDonChiTiet
                     .builder()
                     .chiTietSanPham(chiTietSanPham)
                     .donHang(donHang)
+                    .chietKhau(chiTietSanPham.getKhuyenMai().getChietKhau())
                     .giaBan(chiTietSanPham.getGiaSanPham())
                     .soLuong(soLuong)
                     .build());
-        } else{ // else ctsp exist -> update quantity by idHDCT
+        } else{
+            // else ctsp exist -> update quantity by idHDCT
             chiTietSanPhamRepository.updateSoLuongCTSPById(soLuong,chiTietSanPham.getIdChiTietSanPham());
             hoaDonChiTietRepository.updateSoLuongSanPham(soLuong,existIdHCT);
         }

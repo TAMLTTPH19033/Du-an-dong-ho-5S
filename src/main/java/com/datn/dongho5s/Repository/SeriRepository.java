@@ -11,13 +11,10 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SeriRepository extends JpaRepository<Seri,Integer> {
-
     @Query("SELECT s FROM Seri s WHERE s.idImei LIKE %:keyword%")
     Page<Seri> findByIdImeiLike(@Param("keyword") String keyword, Pageable pageable);
-
     @Query(value = "select count(s) from Seri s where s.trangThai = 1 and s.chiTietSanPham.idChiTietSanPham = ?1")
     Integer countSeri (Integer chiTietSanPham);
-
     @Query("""
         SELECT COUNT(sr.chiTietSanPham)
         FROM Seri sr
