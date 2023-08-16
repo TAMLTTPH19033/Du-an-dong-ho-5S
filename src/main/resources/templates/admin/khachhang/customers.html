@@ -48,7 +48,7 @@
                         <th th:replace="admin/fragment/fragments::khachhang_link('thoiGianTaoTaiKhoan', 'Thời gian tạo tài khoản')"></th>
                         <th th:replace="admin/fragment/fragments::khachhang_link('ngaySua', 'Ngày Sửa')"></th>
                         <th th:replace="admin/fragment/fragments::khachhang_link('enabled', 'Enabled')"></th>
-                        <Th>Action</Th>
+<!--                        <Th>Action</Th>-->
                     </tr>
                     </thead>
                     <tbody>
@@ -74,10 +74,10 @@
                         <td>[[${kh.thoiGianTaoTaiKhoan}]]</td>
                         <td>[[${kh.ngaySua}]]</td>
                         <td>[[${kh.enabled}]]</td>
-                        <td>
-                            <a class="icon-green" style="text-decoration: none" th:href="@{'/admin/customers/edit/' + ${kh.idKhachHang}}"
-                               title="Thay đổi thông tin">Update</a>
-                        </td>
+<!--                        <td>-->
+<!--                            <a class="icon-green" style="text-decoration: none" th:href="@{'/admin/customers/edit/' + ${kh.idKhachHang}}"-->
+<!--                               title="Thay đổi thông tin">Update</a>-->
+<!--                        </td>-->
                     </tr>
                     </tbody>
                 </table>

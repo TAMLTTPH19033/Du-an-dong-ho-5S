@@ -53,16 +53,16 @@ public class KhachHangController {
 
     }
 
-    @GetMapping("/admin/customers/{id}/enabled/{status}")
-    public String updateKhachHangEnabledStatus(@PathVariable("id") Integer id,
-                                                @PathVariable("status")boolean enabled,
-                                                RedirectAttributes redirectAttributes){
-        service.updateKhachHangEnabledStatus(id,enabled);
-        String status = enabled ? "online" : "offline";
-        String message = "Khách hàng có id " + id + " thay đổi trạng thái thành " + status;
-        redirectAttributes.addFlashAttribute("message",message);
-        return "redirect:/customers";
-    }
+//    @GetMapping("/admin/customers/{id}/enabled/{status}")
+//    public String updateKhachHangEnabledStatus(@PathVariable("id") Integer id,
+//                                                @PathVariable("status")boolean enabled,
+//                                                RedirectAttributes redirectAttributes){
+//        service.updateKhachHangEnabledStatus(id,enabled);
+//        String status = enabled ? "online" : "offline";
+//        String message = "Khách hàng có id " + id + " thay đổi trạng thái thành " + status;
+//        redirectAttributes.addFlashAttribute("message",message);
+//        return "redirect:/customers";
+//    }
 
 //    @GetMapping("/admin/customers/new")
 //    public String newKhachHang(Model model){
@@ -71,31 +71,31 @@ public class KhachHangController {
 //        return "admin/khachhang/customer_form";
 //    }
 //
-    @PostMapping("/admin/customers/save")
-    public String saveKhachHang(KhachHang KhachHang, RedirectAttributes redirectAttributes){
-        service.saveKhachHang(KhachHang);
-        redirectAttributes.addFlashAttribute("message","Thay Đổi Thành Công");
-        return "redirect:/admin/customers";
-    }
-//
-    @GetMapping("/admin/customers/edit/{id}")
-    public String editKhachHang(@PathVariable(name = "id") Integer id,
-                                 Model model,
-                                 RedirectAttributes redirectAttributes){
-        try {
-            KhachHang KhachHang = service.get(id);
-            model.addAttribute("KhachHang", KhachHang);
-            model.addAttribute("pageTitle", "Update Khách hàng (ID: " + id + ")");
-            return "admin/khachhang/customer_form";
-        } catch (KhachHangNotFoundException ex) {
-            redirectAttributes.addFlashAttribute("message", ex.getMessage());
-            return "redirect:/admin/customers";
-        }
-        catch (Exception ex) {
-            redirectAttributes.addFlashAttribute("error", "Đã xảy ra lỗi trong quá trình xử lý. Vui lòng thử lại sau.");
-            return "redirect:/error";
-        }
-    }
+//    @PostMapping("/admin/customers/save")
+//    public String saveKhachHang(KhachHang KhachHang, RedirectAttributes redirectAttributes){
+//        service.saveKhachHang(KhachHang);
+//        redirectAttributes.addFlashAttribute("message","Thay Đổi Thành Công");
+//        return "redirect:/admin/customers";
+//    }
+////
+//    @GetMapping("/admin/customers/edit/{id}")
+//    public String editKhachHang(@PathVariable(name = "id") Integer id,
+//                                 Model model,
+//                                 RedirectAttributes redirectAttributes){
+//        try {
+//            KhachHang KhachHang = service.get(id);
+//            model.addAttribute("KhachHang", KhachHang);
+//            model.addAttribute("pageTitle", "Update Khách hàng (ID: " + id + ")");
+//            return "admin/khachhang/customer_form";
+//        } catch (KhachHangNotFoundException ex) {
+//            redirectAttributes.addFlashAttribute("message", ex.getMessage());
+//            return "redirect:/admin/customers";
+//        }
+//        catch (Exception ex) {
+//            redirectAttributes.addFlashAttribute("error", "Đã xảy ra lỗi trong quá trình xử lý. Vui lòng thử lại sau.");
+//            return "redirect:/error";
+//        }
+//    }
 
 //    @GetMapping("/admin/customers/export/csv")
 //    public void exportToCSV(HttpServletResponse response) throws IOException {
