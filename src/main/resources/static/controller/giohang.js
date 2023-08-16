@@ -15,7 +15,9 @@
         if(currentUser != null) {
             $http.get(`/api/giohang/${currentUser.idKhachHang}`).then((resp) => {
                 $scope.cart = resp.data;
-                // console.log($scope.cart);
+                $scope.cart.forEach(item => {
+                    $scope.countSeri(item.chiTietSanPham.idChiTietSanPham)
+                })
             }).catch(error => {
                 if(error.status == 403) {
                     Swal.fire({
@@ -42,6 +44,7 @@
         }
     };
     $rootScope.index();
+
 
     // toorng sp vaf toorng tieefn
     $scope.setTotalnavBar  = function (item) {
@@ -108,9 +111,9 @@
             $http
                 .get(`/chi-tiet-san-pham/countSeri/${idChiTietSanPham}`)
                 .then(function (response) {
-                    // $scope.SeriBySP.set(idChiTietSanPham, response.data);
+                    $scope.SeriBySP.set(idChiTietSanPham, response.data);
                     // console.log(response.data,"daaaaaaaaaaaa")
-                    $scope.count = response.data;
+                    // $scope.count = response.data;
                 })
 
                 .catch(function (error) {
@@ -118,9 +121,9 @@
                 });
         }
     $scope.tang = function (item,soLuong) {
-        $scope.countSeri(item.chiTietSanPham.idChiTietSanPham);
+
         if (item) {
-            if(item.soLuongSanPham >= $scope.count){
+            if(item.soLuongSanPham >= $scope.SeriBySP.get(item.chiTietSanPham.idChiTietSanPham)){
                 Swal.fire({
                             icon: "warning",
                             title: "Thông báo!",
