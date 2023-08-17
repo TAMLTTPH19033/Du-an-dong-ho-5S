@@ -15,6 +15,7 @@ import java.util.Date;
 import java.util.List;
 
 public interface DonHangService {
+    public static final int DONHANG_PAGE = 10;
     DonHang save(DonHang donHang);
 
     DonHang getById(Integer idDonHang);
@@ -48,4 +49,14 @@ public interface DonHangService {
     String xoaDonHangAdmin(DonHang donHang);
 
     void xoaDonHang(DonHang donhang);
+
+    List<DonHang> getAllDonHang();
+
+    List<DonHang> getAllPaginationDonHang();
+
+    Page<DonHang> listByPage(int pageNumber, String sortField, String sortDir, String keyword);
+     Page<DonHang> listByPageStatus(int pageNumber, String sortField, String sortDir, String keyword, int status);
+
+    Integer countDHbyStatus(Integer trangThaiDonhang);
+    Integer countDHAll();
 }

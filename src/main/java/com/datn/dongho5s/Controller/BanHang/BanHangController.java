@@ -56,7 +56,7 @@ public class BanHangController {
             Double tongTien = 0d;
             for (HoaDonChiTiet h: donHangByMa.getListHoaDonChiTiet()) {
                 if (h.getChiTietSanPham().getKhuyenMai().isEnabled() == true){
-                    tongTien += h.getGiaBan() * h.getSoLuong() * h.getChiTietSanPham().getKhuyenMai().getChietKhau() / 100;
+                    tongTien += h.getGiaBan() * h.getSoLuong() * h.getChietKhau() / 100;
                 } else{
                     tongTien +=  h.getGiaBan() * h.getSoLuong();
                 }
@@ -193,7 +193,9 @@ public class BanHangController {
         @PathVariable("phoneNumber") String phoneNumber
     ){
         KhachHang khachHang = khachHangService.findByPhoneNumber(phoneNumber);
-        if (khachHang!= null) return ResponseEntity.status(HttpStatus.OK).body(khachHang.getSoDienThoai());
+        if (khachHang!= null) {
+            return ResponseEntity.status(HttpStatus.OK).body(khachHang.getSoDienThoai());
+        }
         return null;
     }
 
@@ -213,7 +215,7 @@ public class BanHangController {
                 tongTien += h.getGiaBan() * h.getSoLuong();
             }else {
                 if (h.getChiTietSanPham().getKhuyenMai().isEnabled() == true) {
-                    tongTien += h.getGiaBan() * h.getSoLuong() * h.getChiTietSanPham().getKhuyenMai().getChietKhau() / 100;
+                    tongTien += h.getGiaBan() * h.getSoLuong() * h.getChietKhau() / 100;
                 } else {
                     tongTien += h.getGiaBan() * h.getSoLuong();
                 }
@@ -259,6 +261,7 @@ public class BanHangController {
     ){
         // them san pham hoac cap nhat san pham neu ctsp đã tồn tại
         ChiTietSanPham chiTietSanPham = chiTietSanPhamService.findByMaChiTietSanPham(maCTSP);
+
         DonHang donHangByMa = (DonHang) httpSession.getAttribute("donHangHienTai");
 
         hoaDonChiTietService.themSoLuongSanPham(soLuong,chiTietSanPham,donHangByMa);
@@ -294,6 +297,7 @@ public class BanHangController {
         if (soLuongCapNhat<=0){
             // xoa hoa don chi tiet
             hoaDonChiTietService.xoaHDCT(hoaDonChiTiet);
+
         } else{
             // Cap nhat lai so luong
             hoaDonChiTietService.updateSoLuongInHDCT(hoaDonChiTiet,soLuongCapNhat);

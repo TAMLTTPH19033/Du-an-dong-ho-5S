@@ -397,8 +397,8 @@
   // document.getElementById("ngayTao").value = todayFormatted; // Set giá trị mặc định cho input
 
 
-  const inputField = document.getElementById('sdt');
-  const submitButton = document.getElementById('tao-moi-don-hang');
+  var inputField = document.getElementById('sdt');
+  var submitButton = document.getElementById('tao-moi-don-hang');
 
   inputField.addEventListener('input', function() {
     fetch(`/admin/ban-hang/khach-hang/api/` + inputField.value.trim())

@@ -94,7 +94,6 @@ public class ChiTietSanPhamServiceImpl implements ChiTietSanPhamService {
                         .vatLieu(lstSP.getVatLieu())
                         .mauSac(lstSP.getMauSac())
                         .khuyenMai(lstSP.getKhuyenMai())
-//                        .soLuong(lstSP.getSoLuong())
                         .soLuong(seriRepository.countByIdCTSPEnabled(lstSP.getIdChiTietSanPham()))  // find All Imei status is enabled
                         .build()).collect(Collectors.toList());
         return lst;
