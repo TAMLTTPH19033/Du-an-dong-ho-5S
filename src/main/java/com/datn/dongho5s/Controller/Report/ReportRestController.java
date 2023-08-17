@@ -22,7 +22,6 @@ public class ReportRestController {
     @GetMapping("/statisticals/sales_report_by_date/{period}")
     public List<ReportItem> getReportDataByDatePeriod(@PathVariable("period") String period){
         System.out.println("Report peroid: " + period);
-
         switch (period){
             case "last_7_days":
                 return masterOrderReportService.getReportDataLast7Days(ReportType.DAY);
@@ -80,23 +79,4 @@ public class ReportRestController {
                 return orderDetailReportService.getReportDataLast7Days(reportType);
         }
     }
-
-//    @GetMapping("/statisticals/sales_report_by_month/{startDate}/{endDate}")
-//    public List<ReportItem> getReportDataByMonthPeriod(@PathVariable("startDate") String startDate,
-//                                                      @PathVariable("endDate") String endDate) throws ParseException {
-//        DateFormat dateFormater = new SimpleDateFormat("yyyy-MM");
-//        Date startTime = dateFormater.parse(startDate);
-//        Date endTime = dateFormater.parse(endDate);
-//
-//        return masterOrderReportService.getReportDataLastXMonths(endTime.getMonth() - startTime.getMonth());
-//    }
-//
-//    @GetMapping("/statisticals/sales_report_by_year/{startDate}/{endDate}")
-//    public List<ReportItem> getReportDataByYearPeriod(@PathVariable("startDate") String startDate,
-//                                                      @PathVariable("endDate") String endDate) throws ParseException {
-//        DateFormat dateFormater = new SimpleDateFormat("yyyy");
-//        Date startTime = dateFormater.parse(startDate);
-//        Date endTime = dateFormater.parse(endDate);
-//        return masterOrderReportService.getReportDataLastXYears(endTime.getYear() - startTime.getYear());
-//    }
 }

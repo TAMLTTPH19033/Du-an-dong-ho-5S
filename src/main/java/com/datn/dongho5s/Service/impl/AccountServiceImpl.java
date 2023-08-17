@@ -142,6 +142,12 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public ResponseEntity<?> changePass(Principal p ,ChangePassRequest changePassRequest) throws Exception {
+        if (changePassRequest.getNewPass() == null){
+            throw new BadRequestException("Mật khẩu không được để trống");
+        }
+        if (changePassRequest.getConfirmPass() == null){
+            throw new BadRequestException("Mật khẩu không được để trống");
+        }
         String email = p.getName();
         KhachHang user = khachHangRepository.getKhachHangByEmail(email);
         boolean f = passwordEncoder.matches(changePassRequest.getOldPass(), user.getPassword());

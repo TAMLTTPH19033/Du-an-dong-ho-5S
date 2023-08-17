@@ -1,7 +1,7 @@
 package com.datn.dongho5s.Controller.KhachHang;
 
 import com.datn.dongho5s.Entity.KhachHang;
-import com.datn.dongho5s.Service.DiaChiService;
+import com.datn.dongho5s.Exception.KhachHangNotFoundException;
 import com.datn.dongho5s.Service.KhachHangService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -10,6 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import java.util.List;
 
 @Controller
@@ -56,7 +59,7 @@ public class KhachHangController {
 //                                                RedirectAttributes redirectAttributes){
 //        service.updateKhachHangEnabledStatus(id,enabled);
 //        String status = enabled ? "online" : "offline";
-//        String message = "Vật liệu có id " + id + " thay đổi trạng thái thành " + status;
+//        String message = "Khách hàng có id " + id + " thay đổi trạng thái thành " + status;
 //        redirectAttributes.addFlashAttribute("message",message);
 //        return "redirect:/customers";
 //    }
@@ -64,17 +67,17 @@ public class KhachHangController {
 //    @GetMapping("/admin/customers/new")
 //    public String newKhachHang(Model model){
 //        model.addAttribute("KhachHang",new KhachHang());
-//        model.addAttribute("pageTitle","Tạo Mới Vật Liệu");
-//        return "admin/khachhang/material_form";
+//        model.addAttribute("pageTitle","Tạo Mới Khách hàng");
+//        return "admin/khachhang/customer_form";
 //    }
 //
 //    @PostMapping("/admin/customers/save")
 //    public String saveKhachHang(KhachHang KhachHang, RedirectAttributes redirectAttributes){
-//        service.save(KhachHang);
+//        service.saveKhachHang(KhachHang);
 //        redirectAttributes.addFlashAttribute("message","Thay Đổi Thành Công");
 //        return "redirect:/admin/customers";
 //    }
-//
+////
 //    @GetMapping("/admin/customers/edit/{id}")
 //    public String editKhachHang(@PathVariable(name = "id") Integer id,
 //                                 Model model,
@@ -82,12 +85,13 @@ public class KhachHangController {
 //        try {
 //            KhachHang KhachHang = service.get(id);
 //            model.addAttribute("KhachHang", KhachHang);
-//            model.addAttribute("pageTitle", "Update Vật Liệu (ID: " + id + ")");
-//            return "admin/khachhang/material_form";
+//            model.addAttribute("pageTitle", "Update Khách hàng (ID: " + id + ")");
+//            return "admin/khachhang/customer_form";
 //        } catch (KhachHangNotFoundException ex) {
 //            redirectAttributes.addFlashAttribute("message", ex.getMessage());
 //            return "redirect:/admin/customers";
-//        } catch (Exception ex) {
+//        }
+//        catch (Exception ex) {
 //            redirectAttributes.addFlashAttribute("error", "Đã xảy ra lỗi trong quá trình xử lý. Vui lòng thử lại sau.");
 //            return "redirect:/error";
 //        }
