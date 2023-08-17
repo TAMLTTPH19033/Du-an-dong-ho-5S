@@ -2,27 +2,28 @@ package com.datn.dongho5s.Controller.RestController.DonHang;
 
 import com.datn.dongho5s.Cache.DiaChiCache;
 import com.datn.dongho5s.Configure.VNPayConfig;
+import com.datn.dongho5s.Entity.ChiTietGioHang;
 import com.datn.dongho5s.Entity.DonHang;
+import com.datn.dongho5s.Entity.GioHang;
 import com.datn.dongho5s.Entity.HoaDonChiTiet;
 import com.datn.dongho5s.Entity.KhachHang;
-import com.datn.dongho5s.GiaoHangNhanhService.APIResponseEntity.ThemDonHangResponseGHN;
 import com.datn.dongho5s.GiaoHangNhanhService.DiaChiAPI;
 import com.datn.dongho5s.GiaoHangNhanhService.DonHangAPI;
 import com.datn.dongho5s.GiaoHangNhanhService.Request.ChiTietItemRequestGHN;
 import com.datn.dongho5s.GiaoHangNhanhService.Request.PhiVanChuyenRequest;
-import com.datn.dongho5s.GiaoHangNhanhService.Request.TaoDonHangRequestGHN;
 import com.datn.dongho5s.Request.DonHangRequest;
-import com.datn.dongho5s.Request.HoaDonChiTietRequest;
 import com.datn.dongho5s.Request.ThemDonHangRequest;
+import com.datn.dongho5s.Response.ChiTietGioHangResponse;
 import com.datn.dongho5s.Response.DonHangResponse;
+import com.datn.dongho5s.Response.GiohangResponse;
 import com.datn.dongho5s.Response.HoaDonChiTietResponse;
 import com.datn.dongho5s.Response.VNPayUrlResponse;
+import com.datn.dongho5s.Service.ChiTietGioHangService;
 import com.datn.dongho5s.Service.DonHangService;
+import com.datn.dongho5s.Service.GioHangService;
 import com.datn.dongho5s.Service.HoaDonChiTietService;
 import com.datn.dongho5s.Service.KhachHangService;
 import com.datn.dongho5s.Utils.PhuongThucThanhToan;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -66,6 +67,10 @@ public class DonHangRestController {
     HoaDonChiTietService hdctService;
     @Autowired
     HttpServletRequest request;
+    @Autowired
+    GioHangService gioHangService;
+    @Autowired
+    ChiTietGioHangService chiTietGioHangService;
 
 
     @PostMapping("/tinh-phi-van-chuyen")
@@ -100,6 +105,12 @@ public class DonHangRestController {
             DonHang savedDonHang = donHangService.save(donHang);
             List<HoaDonChiTiet> listHoaDonChiTiet = hdctService.convertToListHoaDonChiTiet(themDonHangRequest.getListHoaDonChiTietRequest(), savedDonHang.getIdDonHang());
             hdctService.saveAll(listHoaDonChiTiet);
+//            GiohangResponse gioHang = gioHangService.findGioHang(themDonHangRequest.getKhachHangId());
+            List<Integer> listCTSPId = new ArrayList<>();
+            themDonHangRequest.getListHoaDonChiTietRequest().forEach(item->{
+                listCTSPId.add( item.getIdChiTietSanPham());
+            });
+            chiTietGioHangService.removeByCTSPAndKhachHang(khachHang.getIdKhachHang() , listCTSPId);
             return ResponseEntity.status(HttpStatus.OK).body(savedDonHang);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e);
@@ -150,7 +161,11 @@ public class DonHangRestController {
         DonHang savedDonHang = donHangService.save(donHang);
         List<HoaDonChiTiet> listHoaDonChiTiet = hdctService.convertToListHoaDonChiTiet(themDonHangRequest.getListHoaDonChiTietRequest(), savedDonHang.getIdDonHang());
         hdctService.saveAll(listHoaDonChiTiet);
-
+        List<Integer> listCTSPId = new ArrayList<>();
+        themDonHangRequest.getListHoaDonChiTietRequest().forEach(item->{
+            listCTSPId.add( item.getIdChiTietSanPham());
+        });
+        chiTietGioHangService.removeByCTSPAndKhachHang(khachHang.getIdKhachHang() , listCTSPId);
         Double amount = (hdctService.getTongGia(themDonHangRequest.getListHoaDonChiTietRequest())+ themDonHangRequest.getPhiVanChuyen()) * 100;
         String vnp_Version = VNPayConfig.version;
         String vnp_Command = VNPayConfig.command;

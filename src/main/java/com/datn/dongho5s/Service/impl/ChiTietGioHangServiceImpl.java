@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -145,8 +146,15 @@ public class ChiTietGioHangServiceImpl implements ChiTietGioHangService {
         }
     }
 
-
-
+    @Override
+    public void removeByCTSPAndKhachHang(Integer idKhachHang, List<Integer> idChiTietSanPhams) {
+        List<ChiTietGioHang> listChiTietGioHang = new ArrayList<>();
+        idChiTietSanPhams.forEach(item->{
+            ChiTietGioHang ctgh = chiTietGioHangRepository.findChiTietGioHangByCTSPVaKhachHang(item,idKhachHang);
+            listChiTietGioHang.add(ctgh);
+        });
+        chiTietGioHangRepository.deleteAll(listChiTietGioHang);
+    }
 
 
     public void delete(Integer id) {

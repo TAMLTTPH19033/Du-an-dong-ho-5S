@@ -107,7 +107,6 @@ myApp.controller(
         soLuongSanPham: $scope.soLuongSanPham,
         phiVanChuyen: $scope.fee,
       };
-        console.log($scope.checkOutRequest,"aaaaaaaaaaaaaaaaaaaaaaa")
       if (isVNPAY==true) {
         $http
           .post(thanhToanVNPayAPI, $scope.checkOutRequest)
