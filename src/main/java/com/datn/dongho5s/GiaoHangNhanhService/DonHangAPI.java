@@ -99,6 +99,8 @@ public class DonHangAPI {
                 body.addProperty("payment_type_id",2);
             }else if(request.getPhuongThuc()== PhuongThucThanhToan.VNPAY){
                 body.addProperty("payment_type_id",1);
+            }else {
+                body.addProperty("payment_type_id",1);
             }
             JsonArray items = new JsonArray();
             request.getListItems().forEach(item->{
