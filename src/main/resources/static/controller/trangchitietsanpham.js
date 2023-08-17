@@ -314,7 +314,7 @@ myApp.controller(
                   });
                   setTimeout(function (){
                     $window.location.reload();
-                  },3600)
+                  },2600)
                 }
               })
               .catch((error) => {
@@ -344,7 +344,30 @@ myApp.controller(
           chiTietSanPham: $scope.chiTietSanPham
         },
       ]);
-      $location.path("/checkout");
+      Swal.fire({
+        title: 'Xác nhận mua sản phẩm ?',
+        text: "Bạn hãy xác nhận mua sản phẩm ",
+        icon: 'info',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Xác nhận'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire({
+            title:'Loading',
+            onOpen: ()=>{
+              Swal.showLoading();
+            },
+            timer : 2000
+          })
+          setTimeout(function (){
+          $window.location.href="#checkout"
+          },1900)
+        }
+      })
+
+
     };
 
     $scope.PhanHoiAPI = function () {

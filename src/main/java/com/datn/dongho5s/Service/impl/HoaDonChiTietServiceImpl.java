@@ -40,14 +40,22 @@ public class HoaDonChiTietServiceImpl implements HoaDonChiTietService {
     @Override
     public List<HoaDonChiTiet> convertToListHoaDonChiTiet(List<HoaDonChiTietRequest> list, Integer idDonHang) {
         List<HoaDonChiTiet> result = new ArrayList<>();
+
         list.forEach(item -> {
+
+            Integer chietKhau = null;
             ChiTietSanPham ctsp = chiTietSanPhamService.getChiTietSanPhamById(item.getIdChiTietSanPham());
+            if(ctsp.getKhuyenMai() == null || ctsp.getKhuyenMai().isEnabled()== false){
+                chietKhau = null;
+            }else{
+                chietKhau = ctsp.getKhuyenMai().getChietKhau();
+            }
             HoaDonChiTiet hdct = HoaDonChiTiet.builder()
                     .donHang(donHangService.getById(idDonHang))
                     .chiTietSanPham(ctsp)
                     .soLuong(item.getSoLuong())
                     .giaBan(ctsp.getGiaSanPham())
-                    .chietKhau(ctsp.getKhuyenMai().getChietKhau())
+                    .chietKhau(chietKhau)
                     .build();
             result.add(hdct);
         });
@@ -114,9 +122,6 @@ public class HoaDonChiTietServiceImpl implements HoaDonChiTietService {
                     .build());
             // step 2: update status seri is 3
             seriRepository.themSoLuongAdmin(hoaDonChiTiet.getIdHoaDonChiTiet(),soLuong,chiTietSanPham.getIdChiTietSanPham());
-            System.out.println("SoLuong is " + soLuong);
-            System.out.println("Id ctsp is " + chiTietSanPham.getIdChiTietSanPham());
-            System.out.println("Hdct is " + existIdHCT);
         } else{
             // else ctsp exist -> update quantity by idHDCT
             hoaDonChiTietRepository.updateSoLuongSanPham(soLuong,existIdHCT);

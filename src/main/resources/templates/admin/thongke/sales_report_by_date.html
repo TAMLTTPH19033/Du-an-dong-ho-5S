@@ -4,15 +4,14 @@
 <div th:fragment="content(reportType)" th:remove="tag">
     <div th:with="buttonClass = 'button-sales-by' + ${reportType}">
         <button period="last_7_days" class="btn btn-primary m-1"
-                th:classappend="${buttonClass}">Last 7 days</button>
+                th:classappend="${buttonClass}">7 ngày trước</button>
         <button period="last_28_days" class="btn btn-light m-1"
-                th:classappend="${buttonClass}">Last 28 days</button>
+                th:classappend="${buttonClass}">28 ngày trước</button>
         <button period="last_6_months" class="btn btn-light m-1"
-                th:classappend="${buttonClass}">Last 6 Months</button>
+                th:classappend="${buttonClass}">6 tháng trước</button>
         <button period="last_year" class="btn btn-light m-1"
-                th:classappend="${buttonClass}">Last Year</button>
-        <button class="btn btn-light m-1" th:classappend="${buttonClass}">Custom
-            Date Range</button>
+                th:classappend="${buttonClass}">Trong 1 năm</button>
+        <button class="btn btn-light m-1" th:classappend="${buttonClass}">Chọn khoảng ngày thống kê</button>
     </div>
 
     <form>
@@ -21,18 +20,15 @@
             &nbsp; To date: <input type="date" th:id="'endDate' + ${reportType}">
             &nbsp;
             <button type="button" class="btn btn-secondary"
-                    th:id="'buttonViewReportByDateRange' + ${reportType}">View</button>
+                    th:id="'buttonViewReportByDateRange' + ${reportType}">Xem</button>
         </div>
     </form>
-
-    <div th:id="'chart_sales_by' + ${reportType}"
-         class="justify-content-center mt-3"></div>
 
     <div class="row justify-content-center">
         <div class="col-sm-2">
             <div class="card">
                 <div class="card-header">
-                    <b>Total Gross Sales</b>
+                    <b>Tổng Doanh Thu</b>
                 </div>
                 <div class="card-body">
                     <span class="h3" th:id="'textTotalGrossSales' + ${reportType}"></span>
@@ -43,7 +39,7 @@
         <div class="col-sm-2">
             <div class="card">
                 <div class="card-header">
-                    <b>Total Net Sales</b>
+                    <b>Doanh Thu Thuần</b>
                 </div>
                 <div class="card-body">
                     <span class="h3" th:id="'textTotalNetSales' + ${reportType}"></span>
@@ -54,7 +50,7 @@
         <div class="col-sm-2">
             <div class="card">
                 <div class="card-header">
-                    <b>Avg. Gross Sales</b>
+                    <b>Trung bình Tổng Doanh Thu</b>
                 </div>
                 <div class="card-body">
                     <span class="h3" th:id="'textAvgGrossSales' + ${reportType}"></span>
@@ -65,7 +61,7 @@
         <div class="col-sm-2">
             <div class="card">
                 <div class="card-header">
-                    <b>Avg. Net Sales</b>
+                    <b>Trung bình Doanh Thu Thuần</b>
                 </div>
                 <div class="card-body">
                     <span class="h3" th:id="'textAvgNetSales' + ${reportType}"></span>
@@ -84,28 +80,11 @@
             </div>
         </div>
     </div>
+
+    <div th:id="'chart_sales_by' + ${reportType}"
+         class="justify-content-center mt-3"></div>
+
+
 </div>
-
-<!--<script-->
-<!--        src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>-->
-<!--<link rel="stylesheet"-->
-<!--      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">-->
-<!--<script type="text/javascript">-->
-<!--    google.charts.load('current', {'packages':['corechart']});-->
-<!--    google.charts.setOnLoadCallback(drawChart);-->
-<!--</script>-->
-<!--<script type="text/javascript" th:src="@{/controller/sale_report_by_date.js}"></script>-->
-<!--<script th:inline="javascript">-->
-<!--    var real_data = /*[[${chartData}]]*/'noValue';-->
-
-<!--    $(document).ready(function() {-->
-<!--        google.charts.load('current', {-->
-<!--            packages : [ 'corechart', 'bar' ]-->
-<!--        });-->
-<!--        google.charts.setOnLoadCallback(drawColumnChart);-->
-<!--        google.charts.setOnLoadCallback(drawPieChart);-->
-<!--    });-->
-<!--</script>-->
-
 </body>
 </html>

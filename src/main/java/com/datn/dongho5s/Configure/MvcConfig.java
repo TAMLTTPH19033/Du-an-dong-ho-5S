@@ -1,6 +1,9 @@
 package com.datn.dongho5s.Configure;
 
+import com.datn.dongho5s.Utils.DateToTimestampConverter;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -26,5 +29,10 @@ public class MvcConfig implements WebMvcConfigurer {
 
         registry.addResourceHandler("/static/assets/images/**")
                 .addResourceLocations("/static/assets/images/");
+    }
+
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
+        registry.addConverter(new DateToTimestampConverter());
     }
 }

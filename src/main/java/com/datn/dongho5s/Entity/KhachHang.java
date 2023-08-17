@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -57,12 +58,14 @@ public class KhachHang implements UserDetails {
     private String email;
 
     @Column(name = "ngay_sinh")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date ngaySinh;
 
     @Column(name = "gioi_tinh")
     private Integer gioiTinh;
 
     @Column(name = "thoi_gian_tao_tai_khoan")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Timestamp thoiGianTaoTaiKhoan;
 
     @JsonIgnore
@@ -70,6 +73,7 @@ public class KhachHang implements UserDetails {
     private String password;
 
     @Column(name = "ngay_sua")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date ngaySua;
 
     @Column(name = "enabled",nullable = false)

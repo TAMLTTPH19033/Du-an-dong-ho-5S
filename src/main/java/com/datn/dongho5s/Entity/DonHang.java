@@ -105,7 +105,21 @@ public class DonHang {
         this.phiVanChuyen = phiVanChuyen;
     }
 
+    public DonHang(Integer idDonHang, Date ngayTao, Double tongTien, Double phiVanChuyen, Integer trangThaiDonHang) {
+        this.idDonHang = idDonHang;
+        this.ngayTao = ngayTao;
+//        this.ngayGiaoHang = ngayGiaoHang;
+        this.tongTien = tongTien;
+        this.phiVanChuyen = phiVanChuyen;
+        this.trangThaiDonHang = trangThaiDonHang;
+    }
+
+
     public DonHang(Double phiVanChuyen) {
         this.phiVanChuyen = phiVanChuyen;
+    }
+
+    public DonHang(Integer trangThaiDonHang) {
+        this.trangThaiDonHang = trangThaiDonHang;
     }
 }
