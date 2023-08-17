@@ -282,26 +282,72 @@
                 })
             })
             checkOutDataService.setData($scope.chiTietSanPham);
-            $location.path("/checkout");
+
+            Swal.fire({
+                title: 'Xác nhận thanh toán?',
+                text: "Bạn hãy xác nhận thanh toán",
+                icon: 'info',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Xác nhận'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title:'Loading',
+                        onOpen: ()=>{
+                            Swal.showLoading();
+                        },
+                        timer : 2000
+                    })
+                    setTimeout(function () {
+                        $window.location.href = "#checkout"
+                    }, 1900)
+                }
+            })
+
         };
 
-
         $scope.buy = () => {
-        $scope.chiTietSanPham=[];
-        if($scope.selection.length == 0){
-            $scope.errorSelectedSP = "* Vui lòng chọn sản phẩm!";
-            return;
-        }
-        $scope.selection.forEach(item=>{
-            $scope.chiTietSanPham.push({
-                idChiTietSanPham: item.chiTietSanPham.idChiTietSanPham,
-                giaBan: item.giaBan,
-                soLuong: item.soLuongSanPham,
-                chiTietSanPham: item.chiTietSanPham
+
+            $scope.chiTietSanPham=[];
+            if($scope.selection.length == 0){
+                $scope.errorSelectedSP = "* Vui lòng chọn sản phẩm!";
+                return;
+            }
+            $scope.selection.forEach(item=>{
+                $scope.chiTietSanPham.push({
+                    idChiTietSanPham: item.chiTietSanPham.idChiTietSanPham,
+                    giaBan: item.giaBan,
+                    soLuong: item.soLuongSanPham,
+                    chiTietSanPham: item.chiTietSanPham
+                })
             })
-        })
-        checkOutDataService.setData($scope.chiTietSanPham);
-        $location.path("/checkout");
+            checkOutDataService.setData($scope.chiTietSanPham);
+
+            Swal.fire({
+                title: 'Xác nhận thanh toán?',
+                text: "Bạn hãy xác nhận thanh toán",
+                icon: 'info',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Xác nhận'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: 'Loading',
+                        onOpen: () => {
+                            Swal.showLoading();
+                        },
+                        timer: 1000
+                    })
+                    setTimeout(function () {
+                        $window.location.href = "#checkout"
+                    }, 1900)
+                }
+            })
+
       };
 
 
