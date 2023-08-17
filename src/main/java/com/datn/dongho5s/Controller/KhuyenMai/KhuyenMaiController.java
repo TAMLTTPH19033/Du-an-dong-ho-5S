@@ -14,15 +14,23 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
 public class KhuyenMaiController {
     @Autowired
     KhuyenMaiService service;
+    @Autowired
+    HttpServletRequest request;
 
     @GetMapping("/admin/discounts")
     public String listFirstPage(Model model){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("admin") == null ){
+            return "redirect:/login-admin" ;
+        }
         return listByPage(1,model,"tenKhuyenMai","asc",null);
     }
 
@@ -30,6 +38,10 @@ public class KhuyenMaiController {
     public String listByPage(@PathVariable(name = "pageNum") int pageNum, Model model,
                              @Param("sortField")String sortField,@Param("sortDir")String sortDir,
                              @Param("keyword")String keyword) {
+        HttpSession session = request.getSession();
+        if(session.getAttribute("admin") == null ){
+            return "redirect:/login-admin" ;
+        }
         Page<KhuyenMai> page = service.listByPage(pageNum,sortField,sortDir,keyword);
         List<KhuyenMai> listKhuyenMai = page.getContent();
         long startCount = (pageNum-1) * KhuyenMaiServiceImpl.DISCOUNT_PER_PAGE +1;
@@ -53,6 +65,10 @@ public class KhuyenMaiController {
     }
     @GetMapping("/admin/discounts/new")
     public String newKhuyenMai(Model model){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("admin") == null ){
+            return "redirect:/login-admin" ;
+        }
         model.addAttribute("khuyenMai", new KhuyenMai());
         model.addAttribute("pageTitle", "Tạo Mới Khuyến Mãi");
         return "admin/khuyenmai/discounts_form";
@@ -60,6 +76,10 @@ public class KhuyenMaiController {
 
     @PostMapping("/admin/discounts/save")
     public String saveKhuyenMai(KhuyenMai khuyenMai, RedirectAttributes redirectAttributes){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("admin") == null ){
+            return "redirect:/login-admin" ;
+        }
         System.out.println(khuyenMai);
         System.out.println("controller");
         service.save(khuyenMai);
@@ -71,7 +91,12 @@ public class KhuyenMaiController {
     public String editKhuyenMai(@PathVariable(name = "id") Integer id,
                                 Model model,
                                 RedirectAttributes redirectAttributes){
+
         try{
+            HttpSession session = request.getSession();
+            if(session.getAttribute("admin") == null ){
+                return "redirect:/login-admin" ;
+            }
             KhuyenMai khuyenMai = service.get(id);
             model.addAttribute("khuyenMai",khuyenMai);
             model.addAttribute("pageTitle","Update Khuyến Mãi (ID : " + id + ")");

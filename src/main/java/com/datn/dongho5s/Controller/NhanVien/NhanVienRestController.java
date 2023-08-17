@@ -6,10 +6,14 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+
 @RestController
 public class NhanVienRestController {
     @Autowired
     private NhanVienService service;
+    @Autowired
+    HttpServletRequest request;
 
     @PostMapping("/admin/users/check_email")
     public String checkDuplicateEmail(@Param("id") Integer id ,@Param("email") String email){

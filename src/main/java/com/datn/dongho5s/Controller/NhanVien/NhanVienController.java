@@ -21,7 +21,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -30,10 +33,16 @@ public class NhanVienController {
 
     @Autowired
     private NhanVienService service;
+    @Autowired
+    HttpServletRequest request;
 
 //    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/admin/users")
     public String listFirstPage(Model model){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("admin") == null ){
+            return "redirect:/login-admin" ;
+        }
         return listByPage(1,model,"email","asc",null);
     }
 
@@ -42,6 +51,10 @@ public class NhanVienController {
                              @Param("sortField")String sortField , @Param("sortDir")String sortDir,
                              @Param("keyword")String keyword
                              ){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("admin") == null ){
+            return "redirect:/login-admin" ;
+        }
         System.out.println("SortField: " + sortField);
         System.out.println("sortOrder: " + sortDir);
         Page<NhanVien> page = service.listByPage(pageNum, sortField, sortDir,keyword);
@@ -72,6 +85,10 @@ public class NhanVienController {
 
     @GetMapping("/admin/users/new")
     public String newUser(Model model){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("admin") == null ){
+            return "redirect:/login-admin" ;
+        }
         List<ChucVu> listChucVu = service.listChucVu();
         NhanVien nhanVien = new NhanVien();
         nhanVien.setEnabled(true);
@@ -84,6 +101,10 @@ public class NhanVienController {
     @PostMapping("/admin/users/save")
     public String saveUser(NhanVien nhanVien, RedirectAttributes redirectAttributes,
                            @RequestParam("image")MultipartFile multipartFile) throws IOException {
+        HttpSession session = request.getSession();
+        if(session.getAttribute("admin") == null ){
+            return "redirect:/login-admin" ;
+        }
         if(!multipartFile.isEmpty()){
             String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
             nhanVien.setAnh(fileName);
@@ -105,6 +126,10 @@ public class NhanVienController {
                            Model model,
                            RedirectAttributes redirectAttributes){
         try{
+            HttpSession session = request.getSession();
+            if(session.getAttribute("admin") == null ){
+                return "redirect:/login-admin" ;
+            }
             NhanVien nhanVien = service.get(id);
             List<ChucVu> listChucVu = service.listChucVu();
             model.addAttribute("nhanVien", nhanVien);
@@ -124,6 +149,10 @@ public class NhanVienController {
                            Model model,
                            RedirectAttributes redirectAttributes){
         try{
+            HttpSession session = request.getSession();
+            if(session.getAttribute("admin") == null ){
+                return "redirect:/login-admin" ;
+            }
             service.delete(id);
             redirectAttributes.addFlashAttribute("message","Người dùng ID" + id + "đã xóa thành công");
         }catch (NhanVienNotFoundException ex){
@@ -136,6 +165,10 @@ public class NhanVienController {
     public String updateNhanVienEnabledStatus(@PathVariable("id") Integer id,
                                               @PathVariable("status") boolean enabled,
                                               RedirectAttributes redirectAttributes){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("admin") == null ){
+            return "redirect:/login-admin" ;
+        }
         service.updateNhanVienEnabledStatus(id, enabled);
         String status = enabled ? "online" : "offline";
         String message = "Nhân viên có id " + id + " thay đổi trạng thái thành " + status;

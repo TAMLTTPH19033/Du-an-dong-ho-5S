@@ -7,10 +7,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+
 @RestController
 public class ChiTietSanPhamUniqueRestController {
     @Autowired
     private ChiTietSanPhamService chiTietSanPhamService;
+    @Autowired
+    HttpServletRequest request;
 
     @PostMapping("/admin/productDetails/check_details_unique")
     public String checkUniqueDetails(
