@@ -6,6 +6,7 @@ import com.datn.dongho5s.Entity.DonHang;
 import com.datn.dongho5s.Entity.HoaDonChiTiet;
 import com.datn.dongho5s.Repository.ChiTietSanPhamRepository;
 import com.datn.dongho5s.Repository.HoaDonChiTietRepository;
+import com.datn.dongho5s.Repository.SeriRepository;
 import com.datn.dongho5s.Request.HoaDonChiTietRequest;
 import com.datn.dongho5s.Service.ChiTietSanPhamService;
 import com.datn.dongho5s.Service.DonHangService;
@@ -28,6 +29,8 @@ public class HoaDonChiTietServiceImpl implements HoaDonChiTietService {
     DonHangService donHangService;
     @Autowired
     ChiTietSanPhamService chiTietSanPhamService;
+    @Autowired
+    SeriRepository seriRepository;
 
     @Override
     public HoaDonChiTiet save(HoaDonChiTiet hdct) {
@@ -96,11 +99,11 @@ public class HoaDonChiTietServiceImpl implements HoaDonChiTietService {
                 break;
             }
         }
+
         //if not exist
         if (existIdHCT==-1){
-            chiTietSanPhamRepository.updateSoLuongCTSPById(soLuong,chiTietSanPham.getIdChiTietSanPham());
-
-            hoaDonChiTietRepository.save(HoaDonChiTiet
+            // step 1: save quantity to hdct
+            HoaDonChiTiet hoaDonChiTiet = hoaDonChiTietRepository.save(HoaDonChiTiet
                     .builder()
                     .chiTietSanPham(chiTietSanPham)
                     .donHang(donHang)
@@ -109,10 +112,16 @@ public class HoaDonChiTietServiceImpl implements HoaDonChiTietService {
                     .soLuong(soLuong)
                     .chietKhau(chiTietSanPham.getKhuyenMai().getChietKhau())
                     .build());
+            // step 2: update status seri is 3
+            seriRepository.themSoLuongAdmin(hoaDonChiTiet.getIdHoaDonChiTiet(),soLuong,chiTietSanPham.getIdChiTietSanPham());
+            System.out.println("SoLuong is " + soLuong);
+            System.out.println("Id ctsp is " + chiTietSanPham.getIdChiTietSanPham());
+            System.out.println("Hdct is " + existIdHCT);
         } else{
             // else ctsp exist -> update quantity by idHDCT
-            chiTietSanPhamRepository.updateSoLuongCTSPById(soLuong,chiTietSanPham.getIdChiTietSanPham());
             hoaDonChiTietRepository.updateSoLuongSanPham(soLuong,existIdHCT);
+            // step 2: update status seri is 3
+            seriRepository.themSoLuongAdmin(existIdHCT,soLuong,chiTietSanPham.getIdChiTietSanPham());
         }
     }
 
@@ -120,8 +129,7 @@ public class HoaDonChiTietServiceImpl implements HoaDonChiTietService {
     public void xoaHDCT(
             HoaDonChiTiet hoaDonChiTiet
     ){
-        // update lại số lượng sản phẩm
-        chiTietSanPhamRepository.updateSoLuongFromHDCT(hoaDonChiTiet.getSoLuong(),hoaDonChiTiet.getChiTietSanPham().getIdChiTietSanPham());
+        seriRepository.xoaSoLuongSanPham(hoaDonChiTiet.getIdHoaDonChiTiet());
         // xoa HDCT
         hoaDonChiTietRepository.xoaHDCT(hoaDonChiTiet.getIdHoaDonChiTiet());
     }

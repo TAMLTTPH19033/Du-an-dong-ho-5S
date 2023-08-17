@@ -193,7 +193,9 @@ public class BanHangController {
         @PathVariable("phoneNumber") String phoneNumber
     ){
         KhachHang khachHang = khachHangService.findByPhoneNumber(phoneNumber);
-        if (khachHang!= null) return ResponseEntity.status(HttpStatus.OK).body(khachHang.getSoDienThoai());
+        if (khachHang!= null) {
+            return ResponseEntity.status(HttpStatus.OK).body(khachHang.getSoDienThoai());
+        }
         return null;
     }
 

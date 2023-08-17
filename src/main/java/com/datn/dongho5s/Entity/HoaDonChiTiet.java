@@ -58,7 +58,7 @@ public class HoaDonChiTiet {
     @JsonIgnore
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    private List<Seri> listSeri ;
+    private List<Seri> listSeri;
 
     public HoaDonChiTiet(String tenDanhMuc, Integer soLuong, Double giaBan, Double phiVanChuyen) {
         this.chiTietSanPham = new ChiTietSanPham();
