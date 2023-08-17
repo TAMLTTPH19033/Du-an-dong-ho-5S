@@ -77,7 +77,7 @@ public class ChiTietGioHangServiceImpl implements ChiTietGioHangService {
     public ChiTietGioHangResponse add(CartRequest cartRequest) {
         KhachHang khachHang = khachHangRepository.findById(cartRequest.getIdKhachHang()).get();
         GioHang gioHang = GioHang.builder()
-                .idGioHang(1)
+                .idGioHang(null)
                 .ngayTaoGioHang(new Date())
                 .trangThaiGioHang(1)
                 .khachHang(khachHang)
@@ -109,7 +109,7 @@ public class ChiTietGioHangServiceImpl implements ChiTietGioHangService {
                 return add(cartRequest);
             } else {
                 ChiTietSanPham chiTietSanPham = chiTietSanPhamRepository.findById(cartRequest.getIdChiTietSanPham()).get();
-                ChiTietGioHang chiTietGioHang = chiTietGioHangRepository.findChiTietGioHangByCTSP(cartRequest.getIdChiTietSanPham());
+                ChiTietGioHang chiTietGioHang = chiTietGioHangRepository.findChiTietGioHangByCTSP(cartRequest.getIdChiTietSanPham(), cartRequest.getIdKhachHang());
                 if (chiTietGioHang == null) {
 
                     ChiTietGioHang chiTietGioHang1 = ChiTietGioHang.builder()

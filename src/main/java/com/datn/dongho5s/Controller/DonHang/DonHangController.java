@@ -60,6 +60,7 @@ public class DonHangController {
     HoaDonChiTietService hdctService;
     @Autowired
     private DonHangService donHangService;
+
     @Autowired
     HttpServletRequest request;
     @Autowired
@@ -81,6 +82,7 @@ public class DonHangController {
 
     @GetMapping("/don-hang/thong-tin-thanh-toan")
     public RedirectView thongTinThanhToan() {
+
         try {
 
 	/*  IPN URL: Record payment results from VNPAY
@@ -156,6 +158,10 @@ public class DonHangController {
     @GetMapping("/admin/don-hang")
     public String getForm(Model model,
                           HttpSession httpSession) {
+        HttpSession session = request.getSession();
+        if(session.getAttribute("admin") == null ){
+            return "redirect:/login-admin" ;
+        }
         return findAll(1, model,httpSession);
     }
 
@@ -165,6 +171,10 @@ public class DonHangController {
             Model model,
             HttpSession httpSession
     ) {
+        HttpSession session = request.getSession();
+        if(session.getAttribute("admin") == null ){
+            return "redirect:/login-admin" ;
+        }
         Page<DonHang> donHangs = donHangService.getAll(pageNum);
 
         model.addAttribute("list", donHangs.getContent());
@@ -187,6 +197,11 @@ public class DonHangController {
             Model model,
             RedirectAttributes redirectAttributes
     ) {
+        HttpSession sessionn = request.getSession();
+        System.out.println(sessionn.getAttribute("admin") +"co sesion r");
+        if(sessionn.getAttribute("admin") == null ){
+            return "redirect:/login-admin" ;
+        }
         DonHang donHang = donHangService.findById(id);
         if(trangThai == TrangThaiDonHang.DANG_CHUAN_BI){
             try {

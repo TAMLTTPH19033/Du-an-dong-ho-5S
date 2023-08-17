@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -23,9 +25,15 @@ import java.util.List;
 public class VatLieuController {
     @Autowired
     private VatLieuService service;
+    @Autowired
+    HttpServletRequest request;
 
     @GetMapping("/admin/materials")
     public String listFirstPage(Model model){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("admin") == null ){
+            return "redirect:/login-admin" ;
+        }
         return listByPage(1,model,"tenVatLieu","asc",null);
     }
 
@@ -33,6 +41,10 @@ public class VatLieuController {
     private String listByPage(@PathVariable(name = "pageNum") int pageNum, Model model,
                               @Param("sortField") String sortField,@Param("sortDir") String sortDir,
                               @Param("keyword") String keyword){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("admin") == null ){
+            return "redirect:/login-admin" ;
+        }
 
         Page<VatLieu> page = service.listByPage(pageNum,sortField,sortDir,keyword);
         List<VatLieu> listVatLieu = page.getContent();
@@ -60,6 +72,10 @@ public class VatLieuController {
     public String updateVatLieuEnabledStatus(@PathVariable("id") Integer id,
                                                 @PathVariable("status")boolean enabled,
                                                 RedirectAttributes redirectAttributes){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("admin") == null ){
+            return "redirect:/login-admin" ;
+        }
         service.updateVatLieuEnabledStatus(id,enabled);
         String status = enabled ? "online" : "offline";
         String message = "Vật liệu có id " + id + " thay đổi trạng thái thành " + status;
@@ -69,6 +85,10 @@ public class VatLieuController {
 
     @GetMapping("/admin/materials/new")
     public String newVatLieu(Model model){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("admin") == null ){
+            return "redirect:/login-admin" ;
+        }
         model.addAttribute("vatLieu",new VatLieu());
         model.addAttribute("pageTitle","Tạo Mới Vật Liệu");
         return "admin/vatlieu/material_form";
@@ -76,6 +96,10 @@ public class VatLieuController {
 
     @PostMapping("/admin/materials/save")
     public String saveVatLieu(VatLieu vatLieu, RedirectAttributes redirectAttributes){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("admin") == null ){
+            return "redirect:/login-admin" ;
+        }
         service.save(vatLieu);
         redirectAttributes.addFlashAttribute("message","Thay Đổi Thành Công");
         return "redirect:/admin/materials";
@@ -85,7 +109,12 @@ public class VatLieuController {
     public String editVatLieu(@PathVariable(name = "id") Integer id,
                                  Model model,
                                  RedirectAttributes redirectAttributes){
+
         try {
+            HttpSession session = request.getSession();
+            if(session.getAttribute("admin") == null ){
+                return "redirect:/login-admin" ;
+            }
             VatLieu vatLieu = service.get(id);
             model.addAttribute("vatLieu", vatLieu);
             model.addAttribute("pageTitle", "Update Vật Liệu (ID: " + id + ")");

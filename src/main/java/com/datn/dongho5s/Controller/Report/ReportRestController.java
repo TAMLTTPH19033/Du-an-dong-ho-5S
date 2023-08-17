@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -19,6 +20,9 @@ import java.util.List;
 public class ReportRestController {
     @Autowired private MasterOrderReportService masterOrderReportService;
     @Autowired private HoaDonChiTietReportServiceImpl orderDetailReportService;
+    @Autowired
+    HttpServletRequest request;
+
     @GetMapping("/statisticals/sales_report_by_date/{period}")
     public List<ReportItem> getReportDataByDatePeriod(@PathVariable("period") String period){
         System.out.println("Report peroid: " + period);

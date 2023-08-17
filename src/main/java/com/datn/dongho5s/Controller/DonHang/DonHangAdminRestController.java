@@ -29,6 +29,8 @@ public class DonHangAdminRestController {
 
     @Autowired
     private DonHangService donHangService;
+    @Autowired
+    HttpServletRequest request;
 
     @GetMapping("/findByTrangThai/{trangThai}")
     public ResponseEntity<?> findByTrangThaiDonHang(
@@ -103,7 +105,7 @@ public class DonHangAdminRestController {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        status = status ==7 ? null : status;
+        status = status == 7 ? null : status;
         List<DonHang> lst = donHangService.findByNgayTao(dateStartParse,dateEndParse,status);
         return ResponseEntity.status(HttpStatus.OK).body(lst);
     }

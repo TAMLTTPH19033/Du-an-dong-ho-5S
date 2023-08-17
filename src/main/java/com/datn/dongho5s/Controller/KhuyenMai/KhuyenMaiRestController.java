@@ -9,10 +9,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+
 @RestController
 public class KhuyenMaiRestController {
     @Autowired
     KhuyenMaiService service;
+    @Autowired
+    HttpServletRequest request;
 
     @PostMapping("/admin/discounts/check_name")
     public String checkDuplicateTenAndMa(@Param("id") Integer id, @Param("ten") String ten, @Param("ma") String ma) {
