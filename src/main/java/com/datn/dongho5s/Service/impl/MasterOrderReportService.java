@@ -1,14 +1,16 @@
 package com.datn.dongho5s.Service.impl;
-import com.datn.dongho5s.Entity.ReportItem;
 import com.datn.dongho5s.Entity.DonHang;
+import com.datn.dongho5s.Entity.ReportItem;
 import com.datn.dongho5s.Entity.ReportType;
 import com.datn.dongho5s.Repository.DonHangRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;

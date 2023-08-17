@@ -6,6 +6,7 @@ import com.datn.dongho5s.Entity.ReportItem;
 import com.datn.dongho5s.Entity.ReportType;
 import com.datn.dongho5s.Repository.HoaDonChiTietRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -91,6 +92,21 @@ public class HoaDonChiTietReportServiceImpl extends AbstractReportService {
 
 		return listReportItems;
 	}
+
+//	@Override
+//	public List<DonHang> getAllDonHang() {
+//		return null;
+//	}
+//
+//	@Override
+//	public List<DonHang> getAllPaginationDonHang() {
+//		return null;
+//	}
+//
+//	@Override
+//	public Page<DonHang> listByPage(int pageNumber, String sortField, String sortDir, String keyword) {
+//		return null;
+//	}
 
 	private void printReportData(List<ReportItem> listReportItems) {
 		for (ReportItem item : listReportItems) {
