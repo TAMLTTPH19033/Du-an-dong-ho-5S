@@ -118,7 +118,7 @@ public class HoaDonChiTietServiceImpl implements HoaDonChiTietService {
                     .chietKhau(chiTietSanPham.getKhuyenMai().getChietKhau())
                     .giaBan(chiTietSanPham.getGiaSanPham())
                     .soLuong(soLuong)
-                    .chietKhau(chiTietSanPham.getKhuyenMai().getChietKhau())
+                    .chietKhau(chiTietSanPham.getKhuyenMai().isEnabled() == false || chiTietSanPham.getKhuyenMai() == null ? null : chiTietSanPham.getKhuyenMai().getChietKhau())
                     .build());
             // step 2: update status seri is 3
             seriRepository.themSoLuongAdmin(hoaDonChiTiet.getIdHoaDonChiTiet(),soLuong,chiTietSanPham.getIdChiTietSanPham());
