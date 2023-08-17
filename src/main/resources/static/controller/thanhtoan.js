@@ -33,8 +33,15 @@ myApp.controller(
     $scope.listHoaDonChiTietRequest = checkOutDataService.getData();
 
     if ($scope.listHoaDonChiTietRequest == undefined) {
-      alert("Please select item");
-      $window.location.href = '#index';
+        Swal.fire({
+            title: 'Cảnh báo',
+            text: "Bạn chưa chọn sản phảm nào",
+            icon: 'warning',
+            timer:2000
+        })
+        setTimeout(function (){
+            $window.location.href = '#cart';
+            },1900)
       return;
     } else {
       $scope.listHoaDonChiTietRequest.forEach((item) => {
@@ -95,6 +102,7 @@ myApp.controller(
 
 
     $scope.thanhToan = (isVNPAY) => {
+
       $scope.checkOutRequest = {
         khachHangId: currentUser.idKhachHang,
         listHoaDonChiTietRequest:
@@ -107,32 +115,76 @@ myApp.controller(
         soLuongSanPham: $scope.soLuongSanPham,
         phiVanChuyen: $scope.fee,
       };
-        console.log($scope.checkOutRequest,"aaaaaaaaaaaaaaaaaaaaaaa")
       if (isVNPAY==true) {
-        $http
-          .post(thanhToanVNPayAPI, $scope.checkOutRequest)
-          .then(function (response) {
-            var url = response.data.url;
-            $window.open(url, "_self");
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      } else {
-        $http
-          .post(themDonHangApi, $scope.checkOutRequest)
-          .then((response) => {
-            if(response.status == 200){
+          Swal.fire({
+              title: 'Bạn muốn thanh toán VNPay?',
+              text: "Thanh toán với phương thức VNPay ",
+              icon: 'info',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Xác nhận'
+          }).then((result) => {
+              if (result.isConfirmed) {
+                  Swal.fire({
+                      title:'Loading',
+                      onOpen: ()=>{
+                          Swal.showLoading();
+                      },
+                      timer : 2000
+                  })
 
-                $location.path("/success");
-            }else{
-                $location.path("/fail");
-            }
+                  setTimeout(function (){
+                      $http
+                          .post(thanhToanVNPayAPI, $scope.checkOutRequest)
+                          .then(function (response) {
+                              var url = response.data.url;
+                              $window.open(url, "_self");
+                          })
+                          .catch((error) => {
+                              console.log(error);
+                          });
+                  },1900)
+              }
           })
-          .catch((error) => {
-              console.log(error);
-              $location.path("/fail");
-          });
+
+      } else {
+          Swal.fire({
+              title: 'Bạn muốn thanh toán trả sau?',
+              text: "Thanh toán với phương thức trả sau khi nhận hàng ",
+              icon: 'info',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Xác nhận'
+          }).then((result) => {
+              if (result.isConfirmed) {
+                  Swal.fire({
+                      title:'Loading',
+                      onOpen: ()=>{
+                          Swal.showLoading();
+                      },
+                      timer : 2000
+                  })
+
+                  setTimeout(function (){
+                      $http
+                          .post(themDonHangApi, $scope.checkOutRequest)
+                          .then((response) => {
+                              if(response.status == 200){
+
+                                  $window.location.href ="#success";
+                              }else{
+                                  $window.location.path="#fail";
+                              }
+                          })
+                          .catch((error) => {
+                              console.log(error);
+                              $window.location.path="#fail";
+                          });
+                  },1900)
+              }
+          })
       }
     };
     $scope.listHoaDonChiTietRequest.forEach((item) => {
@@ -253,6 +305,15 @@ myApp.controller(
                   ghiChu: $scope.diachi.ghichu,
                   soDienThoai: $scope.diachi.sdt
               }
+
+              Swal.fire({
+                  title: 'Loading',
+                  onOpen: () => {
+                      Swal.showLoading();
+                  },
+                  timer: 2000
+              })
+              setTimeout(function () {
               $http
                   .post(addDiaChiAPI + currentUser.idKhachHang , $scope.diachiRequest)
                   .then((resp) => {
@@ -270,6 +331,7 @@ myApp.controller(
                   .catch((error) => {
                       console.log(error);
                   });
+              },2000)
           }else{
               Swal.fire({
                   icon: "warning",

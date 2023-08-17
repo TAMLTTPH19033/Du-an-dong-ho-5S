@@ -37,14 +37,22 @@ public class HoaDonChiTietServiceImpl implements HoaDonChiTietService {
     @Override
     public List<HoaDonChiTiet> convertToListHoaDonChiTiet(List<HoaDonChiTietRequest> list, Integer idDonHang) {
         List<HoaDonChiTiet> result = new ArrayList<>();
+
         list.forEach(item -> {
+
+            Integer chietKhau = null;
             ChiTietSanPham ctsp = chiTietSanPhamService.getChiTietSanPhamById(item.getIdChiTietSanPham());
+            if(ctsp.getKhuyenMai() == null || ctsp.getKhuyenMai().isEnabled()== false){
+                chietKhau = null;
+            }else{
+                chietKhau = ctsp.getKhuyenMai().getChietKhau();
+            }
             HoaDonChiTiet hdct = HoaDonChiTiet.builder()
                     .donHang(donHangService.getById(idDonHang))
                     .chiTietSanPham(ctsp)
                     .soLuong(item.getSoLuong())
                     .giaBan(ctsp.getGiaSanPham())
-                    .chietKhau(ctsp.getKhuyenMai().getChietKhau())
+                    .chietKhau(chietKhau)
                     .build();
             result.add(hdct);
         });
@@ -98,7 +106,13 @@ public class HoaDonChiTietServiceImpl implements HoaDonChiTietService {
             }
         }
         if (existIdHCT==-1){
+            Integer chietKhau = null;
             chiTietSanPhamRepository.updateSoLuongCTSPById(soLuong,chiTietSanPham.getIdChiTietSanPham());
+            if(chiTietSanPham.getKhuyenMai() == null || chiTietSanPham.getKhuyenMai().isEnabled()== false){
+                chietKhau = null;
+            }else{
+                chietKhau = chiTietSanPham.getKhuyenMai().getChietKhau();
+            }
             hoaDonChiTietRepository.save(HoaDonChiTiet
                     .builder()
                     .chiTietSanPham(chiTietSanPham)
