@@ -4,6 +4,7 @@ package com.datn.dongho5s.Repository;
 import com.datn.dongho5s.Entity.DanhMuc;
 import com.datn.dongho5s.Entity.DonHang;
 import com.datn.dongho5s.Entity.HoaDonChiTiet;
+import com.datn.dongho5s.Entity.KhachHang;
 import com.datn.dongho5s.Entity.PhanHoi;
 import com.datn.dongho5s.Service.DonHangService;
 import org.springframework.data.domain.Page;
@@ -94,4 +95,20 @@ public interface DonHangRepository extends JpaRepository<DonHang, Integer> {
     @Transactional
     @Modifying
     public void deleteByMaDonHang(String maDonHang);
+
+    @Query("SELECT dh FROM DonHang dh WHERE UPPER(CONCAT( dh.maDonHang, ' ', " +
+            "dh.khachHang.tenKhachHang, '', dh.diaChi)) LIKE %?1% ")
+     Page<DonHang> findAllPagination(String keyword, Pageable pageable);
+
+    @Query("SELECT dh FROM DonHang dh WHERE UPPER(CONCAT( dh.maDonHang, ' ', " +
+            "dh.khachHang.tenKhachHang, '', dh.diaChi)) LIKE %?1% AND dh.trangThaiDonHang = ?2")
+    Page<DonHang> findAllPaginationStatus(String keyword, Pageable pageable, Integer status);
+
+    @Query("SELECT count(dh) FROM DonHang dh WHERE dh.trangThaiDonHang = ?1")
+     Integer countDHbyStatus(Integer trangThaiDonhang);
+
+    @Query("SELECT count(dh) FROM DonHang dh ")
+    Integer countDHAll();
+
+
 }

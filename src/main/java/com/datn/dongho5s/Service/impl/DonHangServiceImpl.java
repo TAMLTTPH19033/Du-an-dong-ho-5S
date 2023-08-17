@@ -15,8 +15,12 @@ import com.datn.dongho5s.mapper.HoaDonChiTietMapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import javax.swing.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -169,5 +173,57 @@ public class DonHangServiceImpl implements DonHangService {
     @Override
     public void xoaDonHang(DonHang donhang) {
         donHangRepository.delete(donhang);
+    }
+
+    @Override
+    public List<DonHang> getAllDonHang() {
+        return donHangRepository.findAll();
+    }
+
+    @Override
+    public List<DonHang> getAllPaginationDonHang() {
+        return (List<DonHang>) donHangRepository.findAllSort((Pageable) Sort.by("maDonHang").ascending());
+    }
+
+
+    @Override
+    public Page<DonHang> listByPage(int pageNumber, String sortField, String sortDir, String keyword) {
+//        Sort sort = Sort.by(sortField);
+//        sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
+        Pageable pageable = PageRequest.of(pageNumber - 1 , DONHANG_PAGE, Sort.by(SortOrder(sortField,sortDir)));
+        if (keyword != null){
+            return donHangRepository.findAllPagination(keyword,pageable);
+        }
+        return donHangRepository.findAll(pageable);
+    }
+
+    @Override
+    public Page<DonHang> listByPageStatus(int pageNumber, String sortField, String sortDir, String keyword, int status) {
+//        Sort sort = Sort.by(sortField);
+//        sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
+        Pageable pageable = PageRequest.of(pageNumber - 1 , DONHANG_PAGE, Sort.by(SortOrder(sortField,sortDir)));
+        if (keyword != null){
+            return donHangRepository.findAllPaginationStatus(keyword,pageable, status);
+        }
+        return donHangRepository.findAll(pageable);
+    }
+    @Override
+    public Integer countDHbyStatus(Integer trangThaiDonhang) {
+        return donHangRepository.countDHbyStatus(trangThaiDonhang);
+    }
+    @Override
+    public Integer countDHAll() {
+        return donHangRepository.countDHAll();
+    }
+    public List<Sort.Order> SortOrder(String sort, String sortDirection) {
+        List<Sort.Order> sorts = new ArrayList<>();
+        Sort.Direction direction ;
+        if (sortDirection != null) {
+            direction = Sort.Direction.fromString(sortDirection);
+        } else {
+            direction = Sort.Direction.DESC;
+        }
+        sorts.add(new Sort.Order(direction, sort));
+        return sorts;
     }
 }
