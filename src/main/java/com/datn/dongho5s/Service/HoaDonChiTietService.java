@@ -34,7 +34,7 @@ public interface HoaDonChiTietService {
     );
 
     void xoaHDCT(
-            HoaDonChiTiet hoaDonChiTiet
+        HoaDonChiTiet hoaDonChiTiet
     );
 
     HoaDonChiTiet findHoaDonChiTietById(

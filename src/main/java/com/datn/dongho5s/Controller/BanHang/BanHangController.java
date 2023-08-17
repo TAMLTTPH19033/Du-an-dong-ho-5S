@@ -297,6 +297,7 @@ public class BanHangController {
         if (soLuongCapNhat<=0){
             // xoa hoa don chi tiet
             hoaDonChiTietService.xoaHDCT(hoaDonChiTiet);
+
         } else{
             // Cap nhat lai so luong
             hoaDonChiTietService.updateSoLuongInHDCT(hoaDonChiTiet,soLuongCapNhat);
