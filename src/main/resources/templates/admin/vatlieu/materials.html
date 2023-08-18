@@ -13,9 +13,9 @@
             <main>
                 <div>
                     <h2>Quản lý Vật Liệu</h2>
-                    <a style="text-decoration: none" th:href="@{/admin/materials/new}">Tạo Mới Vật Liệu</a>
+                    <a style="text-decoration: none" th:href="@{/admin/materials/new}"><i style="color: green" class="fas fa-plus"></i></a>
                     &nbsp;|&nbsp;
-                    <a style="text-decoration: none" th:href="@{/admin/materials/export/excel}">Export To Excel</a>
+                    <a style="text-decoration: none" th:href="@{/admin/materials/export/excel}"><i class="far fa-file-excel"></i></a>
                 </div>
 
                 <div th:if="${message != null}" class="alert alert-success text-center">
@@ -58,7 +58,7 @@
 
                             <td>
                                 <a class="icon-green" style="text-decoration: none" th:href="@{'/admin/materials/edit/' + ${vl.idVatLieu}}"
-                                   title="Thay đổi thông tin">Update</a>
+                                   title="Thay đổi thông tin"><i style="color: blue" class="fas fa-edit"></i></a>
                             </td>
                         </tr>
                         </tbody>
