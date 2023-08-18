@@ -122,7 +122,9 @@
                         <td>[[${dh.ngayCapNhap}]]</td>
                         <td>[[${dh.ngayGiaoHang}]]</td>
                         <td>
-                            Xem
+                            <a class="btn btn-outline-danger" th:href="@{/admin/hoa-don-chi-tiet/search/{id}(id=${dh.idDonHang})}">
+                                Xem
+                            </a>
                         </td>
                     </tr>
                     </tbody>

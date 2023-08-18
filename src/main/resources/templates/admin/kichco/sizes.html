@@ -13,9 +13,9 @@
             <main>
                 <div>
                     <h2>Quản lý Kích Cỡ</h2>
-                    <a style="text-decoration: none" th:href="@{/admin/sizes/new}">Tạo Mới Kích Cỡ</a>
+                    <a style="text-decoration: none" th:href="@{/admin/sizes/new}"><i style="color: green" class="fas fa-plus"></i></a>
                     &nbsp;|&nbsp;
-                    <a style="text-decoration: none" th:href="@{/admin/sizes/export/excel}">Export To Excel</a>
+                    <a style="text-decoration: none" th:href="@{/admin/sizes/export/excel}"><i class="far fa-file-excel"></i></a>
                 </div>
 
                 <div th:if="${message != null}" class="alert alert-success text-center">
@@ -60,7 +60,7 @@
 
                             <td>
                                 <a class="icon-green" style="text-decoration: none" th:href="@{'/admin/sizes/edit/' + ${kc.idKichCo}}"
-                                   title="Thay đổi thông tin">Update</a>
+                                   title="Thay đổi thông tin"><i style="color: blue" class="fas fa-edit"></i></a>
                             </td>
                         </tr>
                         </tbody>
