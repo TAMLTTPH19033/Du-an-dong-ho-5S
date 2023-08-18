@@ -12,16 +12,19 @@ import java.nio.file.StandardCopyOption;
 
 
 public class FileUploadUtil {
-    public static void saveFile(String uploadDir, String fileName, MultipartFile multipartFile) throws IOException {
+    public static void saveFile(String uploadDir, String fileName, MultipartFile multipartFile){
         Path uploadPath = Paths.get(uploadDir);
-        if(!Files.exists(uploadPath)){
-            Files.createDirectories(uploadPath);
-        }
-        try(InputStream inputStream = multipartFile.getInputStream()) {
+
+        try {
+            InputStream inputStream = multipartFile.getInputStream();
+            if(!Files.exists(uploadPath)){
+                Files.createDirectories(uploadPath);
+            }
             Path filePath = uploadPath.resolve(fileName);
             Files.copy(inputStream,filePath, StandardCopyOption.REPLACE_EXISTING);
         }catch (IOException ex){
-            throw new IOException("Không lưu được file " + fileName, ex);
+            System.out.println(ex);
+//            throw new IOException("Không lưu được file " + fileName, ex);
         }
     }
 

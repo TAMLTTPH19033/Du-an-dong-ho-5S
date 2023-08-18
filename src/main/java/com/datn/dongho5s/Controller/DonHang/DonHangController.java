@@ -217,6 +217,9 @@ public class DonHangController {
                     redirectAttributes.addFlashAttribute("error","Lỗi hệ thống giao hàng nhanh");
                     return "redirect:/admin/don-hang";
                 }
+                donHang.setTrangThaiDonHang(trangThai);
+                donHang.setNgayCapNhap(new Date());
+//                donHang.setNgayGiaoHang(new Date());
             } catch (Exception e) {
                 log.error("Lỗi gửi Giao Hàng nhanh {}", e);
                 redirectAttributes.addFlashAttribute("error","Lỗi request giao hàng nhanh");

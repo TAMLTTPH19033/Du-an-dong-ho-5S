@@ -292,9 +292,8 @@
 									</div>
 									<br>
 									<div class="single-product-add-cart">
-											<button class="add-cart-text" title="Thêm vào giỏ hàng" ng-click="addToCart()" ng-disabled="SeriBySP.get(chiTietSanPham.idChiTietSanPham) == 0" >Thêm vào giỏ hàng</button>
-<!--											<button class="add-cart-text" title="Thêm vào giỏ hàng" ng-click="addToCart()">Thêm vào giỏ hàng</button>-->
-										<button class="add-cart-text" title="Mua ngay" ng-click="buyNow()"  ng-disabled="SeriBySP.get(chiTietSanPham.idChiTietSanPham) == 0" >Mua ngay</button>
+										<button class="add-cart-text" title="Thêm vào giỏ hàng" ng-click="addToCart()" ng-disabled="SeriBySP.get(chiTietSanPham.idChiTietSanPham) == 0 || chiTietSanPham.trangThai == 0" >Thêm vào giỏ hàng</button>
+										<button class="add-cart-text" title="Mua ngay" ng-click="buyNow()"  ng-disabled="SeriBySP.get(chiTietSanPham.idChiTietSanPham) == 0 ||  chiTietSanPham.trangThai == 0" >Mua ngay</button>
 									</div>
 								</div>
 							</div>
@@ -340,15 +339,15 @@
 														</tr>
 														<tr class="odd">
 															<td>Đường kính</td>
-															<td>{{chiTietSanPham.duongKinhMatDongHo}}</td>
+															<td>{{chiTietSanPham.duongKinhMatDongHo}} mm</td>
 														</tr>
 														<tr class="odd">
 															<td>Độ dày vỏ</td>
-															<td>{{chiTietSanPham.doDayMatDongHo}}</td>
+															<td>{{chiTietSanPham.doDayMatDongHo}} mm</td>
 														</tr>
 														<tr class="odd">
 															<td>Chống nước</td>
-															<td>{{chiTietSanPham.doChiuNuoc}} mét</td>
+															<td>{{chiTietSanPham.doChiuNuoc}} m</td>
 														</tr>
 														<tr class="odd">
 															<td>Chất liệu dây đeo/Vòng tay</td>
@@ -356,7 +355,7 @@
 														</tr>
 														<tr class="odd">
 															<td>Tình trạng</td>
-															<td>{{chiTietSanPham.trangThai}}</td>
+															<td>{{chiTietSanPham.trangThai == 1 ? "Đang bán": "Ngưng bán"}}</td>
 														</tr>
 													</tbody>
 												</table>				

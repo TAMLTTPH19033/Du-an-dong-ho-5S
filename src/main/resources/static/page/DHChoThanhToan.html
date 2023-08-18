@@ -203,7 +203,7 @@
                             <div style="font-size: medium; padding: 0 10px;position: relative">
                                 <div >Mã đơn hàng : {{item.maDonHang}}</div>
                                 <div >Ngày Tạo : {{item.ngayTao | date : "short"}}</div>
-                                <div>Địa Chỉ : {{item.diaChiGiaoHang}}</div>
+                                <div>Địa Chỉ : {{item.diaChi}}, {{item.phuongXa}} - {{item.quanHuyen}} -  {{item.tinhThanh}}</div>
                                 <span style="position: absolute; right: 32px;top: 10px;color: #3ab19c;text-transform: uppercase;">Chờ xác nhận</span>
                             </div>
                             <div class="shipping-item"  ng-repeat="h in item.hoaDonChiTiets" style="line-height: 22px; padding: 10px;">

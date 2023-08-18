@@ -5,7 +5,6 @@ $(document).ready(function (){
 
     $("#fileImage").change(function() {
         fileSize =  this.files[0].size;
-        alert("file size " + fileSize);
         if(fileSize > 1048576){
             this.setCustomValidity("bạn phải chọn ảnh dưới 1MB");
             this.reportValidity();
