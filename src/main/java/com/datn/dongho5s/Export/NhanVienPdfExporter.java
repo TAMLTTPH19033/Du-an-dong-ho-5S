@@ -44,7 +44,7 @@ public class NhanVienPdfExporter extends AbstractExporter {
             table.addCell(nhanVien.getHo());
             table.addCell(nhanVien.getTen());
             table.addCell(String.valueOf(nhanVien.getSoDienThoai()));
-            table.addCell(nhanVien.getChucVu().toString());
+//            table.addCell(nhanVien.getChucVu().toString());
             table.addCell(String.valueOf(nhanVien.isEnabled()));
         }
     }

@@ -14,6 +14,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -38,6 +39,8 @@ public class MainController {
     @Autowired
     HttpServletRequest request;
 
+    @Autowired
+    PasswordEncoder passwordEncoder;
     @GetMapping("/admin")
     public String viewHome(){
         HttpSession session = request.getSession();
@@ -66,25 +69,35 @@ public class MainController {
     @PostMapping("/post/login")
     public ModelAndView authenticateUser(@Valid LoginAdminRequest loginAdminRequest, BindingResult bindingResult, Model model) throws Exception {
         // Xử lý đăng nhập và kiểm tra kết quả
-        Authentication authentication;
+//        Authentication authentication;
         HttpSession session = request.getSession();
         try {
-            authentication = authenticate(loginAdminRequest.getEmail(), loginAdminRequest.getPassword());
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-            NhanVien userEntity = nhanVienRepository.getNhanVienByEmail(authentication.getName());
-            String jwt = tokenProvider.generateToken(authentication);
-            session.setAttribute("admin",userEntity);
-            System.out.println(session.getAttribute("admin")+"aaaaaaaaaaa");
+//            authentication = authenticate(loginAdminRequest.getEmail(), loginAdminRequest.getPassword());
+//            SecurityContextHolder.getContext().setAuthentication(authentication);
+            NhanVien userEntity = nhanVienRepository.getNhanVienByEmail(loginAdminRequest.getEmail());
+            if(passwordEncoder.matches(loginAdminRequest.getPassword(),userEntity.getMatKhau())){
+                session.setAttribute("admin",userEntity);
+                System.out.println(session.getAttribute("admin")+"aaaaaaaaaaa");
+                ModelAndView mv = new ModelAndView("redirect:/admin");
+                return mv;
+
+            }else{
+                model.addAttribute("error", "Đăng nhập không thành công. Vui lòng kiểm tra lại email và mật khẩu.");
+                return new ModelAndView("admin/login");
+            }
+//            String jwt = tokenProvider.generateToken(authentication);
+//            session.setAttribute("admin",userEntity);
+//            System.out.println(session.getAttribute("admin")+"aaaaaaaaaaa");
             // Thực hiện chuyển hướng đến view "login-success.html" và truyền dữ liệu cần hiển thị
-            ModelAndView mv = new ModelAndView("redirect:/admin");
+//            ModelAndView mv = new ModelAndView("redirect:/admin");
 //            mv.addObject("id", userEntity.getId());
 //            mv.addObject("description", "Đăng nhập thành công");
 //            mv.addObject("name", userEntity.getEmail());
             // Truyền token dưới dạng hidden input trong form
 //            mv.addObject("token", jwt);
 
-            return mv;
         } catch (Exception ex) {
+            System.out.println(ex);
             model.addAttribute("error", "Đăng nhập không thành công. Vui lòng kiểm tra lại email và mật khẩu.");
             // Trả về view login
             return new ModelAndView("admin/login");

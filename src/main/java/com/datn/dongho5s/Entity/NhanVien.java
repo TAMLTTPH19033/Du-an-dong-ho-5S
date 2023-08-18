@@ -15,7 +15,7 @@ import java.util.*;
 @AllArgsConstructor
 @Builder
 @Table(name = "NhanVien")
-public class NhanVien implements UserDetails {
+public class NhanVien {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -145,41 +145,37 @@ public class NhanVien implements UserDetails {
     }
 
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        Set<ChucVu> chucVu = this.getChucVu();
-        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+//    @Override
+//    public Collection<? extends GrantedAuthority> getAuthorities() {
+//        List<SimpleGrantedAuthority> authorities=new ArrayList<>();
+//        authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+//        return  authorities;
+//    }
 
-        for(ChucVu cv : chucVu ){
-            authorities.add(new SimpleGrantedAuthority(cv.getTenChucVu()));
-        }
-        return authorities;
-    }
-
-    @Override
-    public String getPassword() {
-        return this.password;
-    }
-
-    @Override
-    public String getUsername() {
-        return this.email;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
+//    @Override
+//    public String getPassword() {
+//        return this.password;
+//    }
+//
+//    @Override
+//    public String getUsername() {
+//        return this.email;
+//    }
+//
+//    @Override
+//    public boolean isAccountNonExpired() {
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean isAccountNonLocked() {
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean isCredentialsNonExpired() {
+//        return true;
+//    }
 
     public boolean isEnabled() {
         return enabled;
@@ -205,17 +201,17 @@ public class NhanVien implements UserDetails {
         this.anh = anh;
     }
 
-    public Set<ChucVu> getChucVu() {
-        return chucVu;
-    }
-
-    public void setChucVu(Set<ChucVu> chucVu) {
-        this.chucVu = chucVu;
-    }
-
-    public void addChucVu(ChucVu chucVu){
-        this.chucVu.add(chucVu);
-    }
+//    public Set<ChucVu> getChucVu() {
+//        return chucVu;
+//    }
+//
+//    public void setChucVu(Set<ChucVu> chucVu) {
+//        this.chucVu = chucVu;
+//    }
+//
+//    public void addChucVu(ChucVu chucVu){
+//        this.chucVu.add(chucVu);
+//    }
 
     @Override
     public String toString() {
@@ -224,7 +220,7 @@ public class NhanVien implements UserDetails {
                 ", ho='" + ho + '\'' +
                 ", ten='" + ten + '\'' +
                 ", email='" + email + '\'' +
-                ", chucVu=" + chucVu +
+//                ", chucVu=" + chucVu +
                 '}';
     }
 
