@@ -117,7 +117,7 @@
                          ' đ'"></td>
                         <td style="width: 120px" th:text="${#numbers.formatDecimal(dh.tongTien, 0, 'COMMA', 0, 'POINT')} +
                          ' đ'"></td>
-                        <td>[[${dh.phuongThuc}]]</td>
+                        <td>[[${dh.phuongThuc == 0 ? "Trả sau" : dh.phuongThuc == 1 ? "VN Pay" : ""}]]</td>
                         <td>[[${dh.ngayTao}]]</td>
                         <td>[[${dh.ngayCapNhap}]]</td>
                         <td>[[${dh.ngayGiaoHang}]]</td>
