@@ -24,9 +24,8 @@ public interface ChiTietSanPhamRepository extends JpaRepository<ChiTietSanPham,I
     @Query("""
         SELECT ctsp
         FROM ChiTietSanPham ctsp
-        WHERE UPPER(CONCAT(ctsp.maChiTietSanPham, ' ')) LIKE %?1% 
     """)
-    public Page<ChiTietSanPham> findAllHung(String keyword,Pageable pageable);
+    public Page<ChiTietSanPham> findAllHung(Pageable pageable);
            
     @Query("SELECT ctsp FROM ChiTietSanPham  ctsp WHERE UPPER(CONCAT(ctsp.idChiTietSanPham,' ', ctsp.maChiTietSanPham, ' ',ctsp.dayDeo,' ', ctsp.khuyenMai,' ', ctsp.mauSac,' ',ctsp.sanPham)) LIKE %?1%")
     public Page<ChiTietSanPham> findAll(String keyword,Pageable pageable);
