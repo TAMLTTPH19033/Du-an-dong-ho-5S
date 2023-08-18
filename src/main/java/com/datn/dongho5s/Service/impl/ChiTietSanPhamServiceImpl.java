@@ -2,9 +2,7 @@ package com.datn.dongho5s.Service.impl;
 
 
 import com.datn.dongho5s.Entity.ChiTietSanPham;
-import com.datn.dongho5s.Entity.SanPham;
 import com.datn.dongho5s.Exception.ChiTietSanPhamNotFountException;
-import com.datn.dongho5s.Exception.SanPhamNotFountException;
 import com.datn.dongho5s.Repository.ChiTietSanPhamRepository;
 import com.datn.dongho5s.Repository.SeriRepository;
 import com.datn.dongho5s.Response.SanPhamAdminResponse;
@@ -75,13 +73,13 @@ public class ChiTietSanPhamServiceImpl implements ChiTietSanPhamService {
         return chiTietSanPhamRepository.findByMaSP(maSanPham,PageRequest.of(pageNum - 1, 5));
     }
     @Override
-    public Page<ChiTietSanPham> getALlChiTietSanPhamPage(int pageNum, String keyword){
-        return chiTietSanPhamRepository.findAllHung(keyword,PageRequest.of(pageNum - 1, 5));
+    public Page<ChiTietSanPham> getALlChiTietSanPhamPage(int pageNum){
+        return chiTietSanPhamRepository.findAllHung(PageRequest.of(pageNum - 1, 5));
     }
 
     @Override
-    public List<SanPhamAdminResponse> getAllSanPhamAminResponse(int pageNum,String keyword) {
-        List<ChiTietSanPham> lstChiTietSanPhams = getALlChiTietSanPhamPage(pageNum,keyword).getContent();
+    public List<SanPhamAdminResponse> getAllSanPhamAminResponse(int pageNum) {
+        List<ChiTietSanPham> lstChiTietSanPhams = getALlChiTietSanPhamPage(pageNum).getContent();
 
         List<SanPhamAdminResponse> lst = lstChiTietSanPhams
                 .stream()

@@ -115,10 +115,9 @@ public class HoaDonChiTietServiceImpl implements HoaDonChiTietService {
                     .builder()
                     .chiTietSanPham(chiTietSanPham)
                     .donHang(donHang)
-                    .chietKhau(chiTietSanPham.getKhuyenMai().getChietKhau())
                     .giaBan(chiTietSanPham.getGiaSanPham())
                     .soLuong(soLuong)
-                    .chietKhau(chiTietSanPham.getKhuyenMai().isEnabled() == false || chiTietSanPham.getKhuyenMai() == null ? null : chiTietSanPham.getKhuyenMai().getChietKhau())
+                    .chietKhau((chiTietSanPham.getKhuyenMai() == null || chiTietSanPham.getKhuyenMai().isEnabled() == false) ? null : chiTietSanPham.getKhuyenMai().getChietKhau())
                     .build());
             // step 2: update status seri is 3
             seriRepository.themSoLuongAdmin(hoaDonChiTiet.getIdHoaDonChiTiet(),soLuong,chiTietSanPham.getIdChiTietSanPham());
@@ -146,12 +145,18 @@ public class HoaDonChiTietServiceImpl implements HoaDonChiTietService {
         return hoaDonChiTietRepository.findByIdHoaDonChiTiet(id);
     }
     @Override
-    public void updateSoLuongInHDCT(
+    public void updateSoLuongImeiThem(
             HoaDonChiTiet hoaDonChiTiet,
             int soLuongThayDoi
     ){
+        // update so luong hdct
         hoaDonChiTietRepository.updateSoLuongSanPhamWithEdit(soLuongThayDoi,hoaDonChiTiet.getIdHoaDonChiTiet());
-        // cap nhat lai so luong da thay doi
+        // cap nhat lai so luong imei da thay doi
+        int soLuongMax = seriRepository.soLuongImeiCoTheCapNhat(hoaDonChiTiet.getIdHoaDonChiTiet());
+
+        if (soLuongThayDoi <= soLuongMax) {
+
+        }
         int slHienTai = hoaDonChiTiet.getSoLuong();
         chiTietSanPhamRepository.updateSoLuongFromHDCT(slHienTai - soLuongThayDoi,hoaDonChiTiet.getChiTietSanPham().getIdChiTietSanPham());
     }

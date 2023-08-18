@@ -58,6 +58,25 @@ public interface SeriRepository extends JpaRepository<Seri,Integer> {
         @Param("idChiTietSanPham") int idChiTietSanPham
     );
 
+    @Query(nativeQuery = true,value = """
+        WITH
+            soLuongDaMua AS (
+                SELECT COUNT(*) AS count
+                FROM seri s
+                WHERE s.id_hoa_don_chi_tiet = :idHDCT
+            ),
+            soLuongTon AS (
+                SELECT COUNT(*) AS count
+                FROM seri s
+                WHERE s.id_chi_tiet_san_pham = :idHDCT
+                AND   s.id_hoa_don_chi_tiet IS NULL
+            )
+        SELECT
+        	(SELECT count FROM soLuongDaMua) +
+        	(SELECT count FROM soLuongTon) AS total_count;
+    """)
+    int soLuongImeiCoTheCapNhat(@Param("idHDCT") int idHDCT);
+
     @Modifying
     @Transactional
     @Query("""
