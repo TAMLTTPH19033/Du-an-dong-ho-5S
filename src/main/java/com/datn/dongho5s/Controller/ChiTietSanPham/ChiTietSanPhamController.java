@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -44,8 +46,15 @@ public class ChiTietSanPhamController {
     @Autowired
     private KichCoService kichCoService;
 
+    @Autowired
+    HttpServletRequest request;
+
     @GetMapping("/admin/productDetails")
     public String listFirstPage(Model model){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("admin") == null ){
+            return "redirect:/login-admin" ;
+        }
         return listByPage(1,model,"maChiTietSanPham","asc",null);
     }
 
@@ -54,7 +63,10 @@ public class ChiTietSanPhamController {
                               @Param("sortField") String sortField, @Param("sortDir") String sortDir,
                               @Param("keyword") String keyword){
 //        System.out.println("Thương Hiệu Được Lọc" + brandSelect);
-
+        HttpSession session = request.getSession();
+        if(session.getAttribute("admin") == null ){
+            return "redirect:/login-admin" ;
+        }
         Page<ChiTietSanPham> page = chiTietSanPhamService.listByPage(pageNum,sortField,sortDir,keyword);
         List<ChiTietSanPham> listChiTietSanPham = page.getContent();
 
@@ -81,6 +93,10 @@ public class ChiTietSanPhamController {
 
     @GetMapping("/admin/productDetails/new")
     public String newProduct(Model model){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("admin") == null ){
+            return "redirect:/login-admin" ;
+        }
         List<SanPham> listSanPham = sanPhamService.listAll();
         List<DayDeo> listDayDeo = dayDeoService.getAllDayDeo();
         List<KhuyenMai> listKhuyenMai = khuyenMaiService.listAll();
@@ -102,6 +118,10 @@ public class ChiTietSanPhamController {
 
     @PostMapping("/admin/productDetails/save")
     public String saveProductDetails(ChiTietSanPham chiTietSanPham, RedirectAttributes ra) throws IOException {
+        HttpSession session = request.getSession();
+        if(session.getAttribute("admin") == null ){
+            return "redirect:/login-admin" ;
+        }
             chiTietSanPhamService.save(chiTietSanPham);
         ra.addFlashAttribute("message","Thay Đổi Thành Công.");
         return "redirect:/admin/productDetails";
@@ -112,6 +132,10 @@ public class ChiTietSanPhamController {
     public String editProduct(@PathVariable("id") Integer id, Model model,
                               RedirectAttributes ra){
         try{
+            HttpSession session = request.getSession();
+            if(session.getAttribute("admin") == null ){
+                return "redirect:/login-admin" ;
+            }
             ChiTietSanPham chiTietSanPham = chiTietSanPhamService.get(id);
             List<SanPham> listSanPham = sanPhamService.listAll();
             List<DayDeo> listDayDeo = dayDeoService.getAllDayDeo();
@@ -137,6 +161,10 @@ public class ChiTietSanPhamController {
 
     @PostMapping("/admin/productDetails/update")
     public String updateProductDetails(ChiTietSanPham chiTietSanPham, RedirectAttributes ra) throws IOException {
+        HttpSession session = request.getSession();
+        if(session.getAttribute("admin") == null ){
+            return "redirect:/login-admin" ;
+        }
         chiTietSanPhamService.save(chiTietSanPham);
         ra.addFlashAttribute("message","Thay Đổi Thành Công.");
         return "redirect:/admin/productDetails";

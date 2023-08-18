@@ -25,6 +25,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -49,15 +51,25 @@ public class ImeiController {
     SeriService seriService;
     @Autowired
     ChiTietSanPhamService ctspService;
+    @Autowired
+    HttpServletRequest request;
 
     @GetMapping("")
     public String init() {
+        HttpSession session = request.getSession();
+        if(session.getAttribute("admin") == null ){
+            return "redirect:/login-admin" ;
+        }
         return "admin/imei/imei";
     }
 
     @GetMapping("/page/{pageNum}")
     public String listByPage(@PathVariable(name = "pageNum") int pageNum, Model model,
                              @Param("keyword") String keyword) {
+        HttpSession session = request.getSession();
+        if(session.getAttribute("admin") == null ){
+            return "redirect:/login-admin" ;
+        }
         Page<Seri> page = seriService.searchSeri(pageNum, ITEM_PER_PAGE, keyword);
         List<Seri> listSeri = page.getContent();
         long startCount = pageNum * ITEM_PER_PAGE + 1;
@@ -79,6 +91,10 @@ public class ImeiController {
 
     @GetMapping("/new")
     public String newSeri(Model model) {
+        HttpSession session = request.getSession();
+        if(session.getAttribute("admin") == null ){
+            return "redirect:/login-admin" ;
+        }
         model.addAttribute("seri", new Seri());
         model.addAttribute("pageTitle", "Tạo Mới Seri");
         return "admin/imei/imei_form";
@@ -89,6 +105,10 @@ public class ImeiController {
                            Model model,
                            RedirectAttributes redirectAttributes) {
         try {
+            HttpSession session = request.getSession();
+            if(session.getAttribute("admin") == null ){
+                return "redirect:/login-admin" ;
+            }
             model.addAttribute("edit", true);
             Seri seri = seriService.get(id);
             if (seri == null) {
@@ -106,6 +126,10 @@ public class ImeiController {
 
     @PostMapping("/save")
     public String upTrangThaiImei(Seri seri, RedirectAttributes redirectAttributes) {
+        HttpSession session = request.getSession();
+        if(session.getAttribute("admin") == null ){
+            return "redirect:/login-admin" ;
+        }
         Seri updateSeri = seriService.get(seri.getIdSeri());
         updateSeri.setTrangThai(seri.getTrangThai());
         updateSeri.setIdImei(seri.getIdImei());
@@ -118,6 +142,10 @@ public class ImeiController {
     public String uploadFile(@RequestParam("file") MultipartFile file,
                              Seri seri
             , RedirectAttributes redirectAttributes) {
+        HttpSession session = request.getSession();
+        if(session.getAttribute("admin") == null ){
+            return "redirect:/login-admin" ;
+        }
         if (seri.getChiTietSanPham() == null || ctspService.getChiTietSanPhamByMa(seri.getChiTietSanPham().getMaChiTietSanPham())==null) {
             redirectAttributes.addFlashAttribute("message", "Vui lòng chọn đúng chi tiết cần thêm Imei");
             return "redirect:/admin/seri";

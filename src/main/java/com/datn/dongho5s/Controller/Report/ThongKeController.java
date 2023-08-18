@@ -30,9 +30,15 @@ public class ThongKeController {
     private DonHangService service;
     @Autowired
     private HoaDonChiTietService hoaDonChiTietService;
+    @Autowired
+    HttpServletRequest request;
 
     @GetMapping("/admin/statisticals")
     public String listFirstPage(@RequestParam(name = "status", required = false) Integer status, Model model) {
+        HttpSession session = request.getSession();
+        if(session.getAttribute("admin") == null ){
+            return "redirect:/login-admin" ;
+        }
         if (status != null) {
             return listByPageStatus(1, status, model, "ngayTao", "desc", null);
         }
@@ -44,6 +50,10 @@ public class ThongKeController {
     private String listByPage(@PathVariable(name = "pageNum") int pageNum, Model model,
                               @Param("sortField") String sortField, @Param("sortDir") String sortDir,
                               @Param("keyword") String keyword){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("admin") == null ){
+            return "redirect:/login-admin" ;
+        }
 
         Page<DonHang> page = service.listByPage(pageNum, sortField, sortDir, keyword);
         List<DonHang> listDonHang = page.getContent();
@@ -89,6 +99,10 @@ public class ThongKeController {
     private String listByPageStatus(@PathVariable(name = "pageNum") int pageNum, @PathVariable(name = "status") int status,
                                     Model model, @Param("sortField") String sortField, @Param("sortDir") String sortDir,
                                     @Param("keyword") String keyword) {
+        HttpSession session = request.getSession();
+        if(session.getAttribute("admin") == null ){
+            return "redirect:/login-admin" ;
+        }
         List<DonHang> listDonHang = new ArrayList<>();
         Page<DonHang> page;
         if(status == 10){
@@ -138,6 +152,10 @@ public class ThongKeController {
             Model model,
             HttpSession session
     ) {
+         session = request.getSession();
+        if(session.getAttribute("admin") == null ){
+            return "redirect:/login-admin" ;
+        }
         List<HoaDonChiTiet> lst = hoaDonChiTietService.getByIdDonHang(id);
         Double tongTien = service.tongTien(id);
 
@@ -161,6 +179,7 @@ public class ThongKeController {
             Model model,
             HttpSession session
     ) throws Exception {
+
 
         DonHang donHang = (DonHang) session.getAttribute("donHang");
 

@@ -6,6 +6,7 @@ import com.datn.dongho5s.Entity.ChiTietSanPham;
 import com.datn.dongho5s.Entity.DonHang;
 import com.datn.dongho5s.Entity.HoaDonChiTiet;
 import com.datn.dongho5s.Entity.KhachHang;
+import com.datn.dongho5s.Entity.Seri;
 import com.datn.dongho5s.GiaoHangNhanhService.APIResponseEntity.ThemDonHangResponseGHN;
 import com.datn.dongho5s.GiaoHangNhanhService.DiaChiAPI;
 import com.datn.dongho5s.GiaoHangNhanhService.DonHangAPI;
@@ -17,7 +18,9 @@ import com.datn.dongho5s.Service.ChiTietSanPhamService;
 import com.datn.dongho5s.Service.DonHangService;
 import com.datn.dongho5s.Service.HoaDonChiTietService;
 import com.datn.dongho5s.Service.KhachHangService;
+import com.datn.dongho5s.Service.SeriService;
 import com.datn.dongho5s.Utils.TrangThaiDonHang;
+import com.datn.dongho5s.Utils.TrangThaiImei;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -60,10 +63,13 @@ public class DonHangController {
     HoaDonChiTietService hdctService;
     @Autowired
     private DonHangService donHangService;
+
     @Autowired
     HttpServletRequest request;
     @Autowired
     ChiTietSanPhamService ctspService;
+    @Autowired
+    SeriService seriService;
 
     private List<ChiTietItemRequestGHN> toListChiTietItem(List<HoaDonChiTiet> listHDCT) {
         List<ChiTietItemRequestGHN> result = new ArrayList<>();
@@ -81,6 +87,7 @@ public class DonHangController {
 
     @GetMapping("/don-hang/thong-tin-thanh-toan")
     public RedirectView thongTinThanhToan() {
+
         try {
 
 	/*  IPN URL: Record payment results from VNPAY
@@ -156,6 +163,10 @@ public class DonHangController {
     @GetMapping("/admin/don-hang")
     public String getForm(Model model,
                           HttpSession httpSession) {
+        HttpSession session = request.getSession();
+        if(session.getAttribute("admin") == null ){
+            return "redirect:/login-admin" ;
+        }
         return findAll(1, model,httpSession);
     }
 
@@ -165,6 +176,10 @@ public class DonHangController {
             Model model,
             HttpSession httpSession
     ) {
+        HttpSession session = request.getSession();
+        if(session.getAttribute("admin") == null ){
+            return "redirect:/login-admin" ;
+        }
         Page<DonHang> donHangs = donHangService.getAll(pageNum);
 
         model.addAttribute("list", donHangs.getContent());
@@ -187,6 +202,11 @@ public class DonHangController {
             Model model,
             RedirectAttributes redirectAttributes
     ) {
+        HttpSession sessionn = request.getSession();
+        System.out.println(sessionn.getAttribute("admin") +"co sesion r");
+        if(sessionn.getAttribute("admin") == null ){
+            return "redirect:/login-admin" ;
+        }
         DonHang donHang = donHangService.findById(id);
         if(trangThai == TrangThaiDonHang.DANG_CHUAN_BI){
             try {
@@ -206,12 +226,53 @@ public class DonHangController {
             donHang.setTrangThaiDonHang(trangThai);
             donHang.setNgayCapNhap(new Date());
             List<HoaDonChiTiet> listHDCT = donHang.getListHoaDonChiTiet();
-            listHDCT.forEach(item->{
-                ChiTietSanPham ctsp = item.getChiTietSanPham();
-                ctsp.setSoLuong(item.getChiTietSanPham().getSoLuong()-item.getSoLuong());
-                ctspService.update(ctsp);
+            listHDCT.forEach(hdct->{
+                ChiTietSanPham ctsp = hdct.getChiTietSanPham();
+                Integer soLuong = hdct.getSoLuong();
+                List<Seri> listSeri = seriService.findByChiTietSanPham(ctsp,soLuong);
+                listSeri.forEach(seri -> {
+                    seri.setTrangThai(TrangThaiImei.DANG_GIAO);
+                    seri.setHoaDonChiTiet(hdct);
+                });
+                seriService.saveMany(listSeri);
+                hdct.setListSeri(listSeri);
             });
-        }else{
+            hdctService.saveAll(listHDCT);
+        }else if(trangThai == TrangThaiDonHang.HOAN_THANH){
+            donHang.setTrangThaiDonHang(trangThai);
+            donHang.setNgayCapNhap(new Date());
+            List<HoaDonChiTiet> listHDCT = donHang.getListHoaDonChiTiet();
+            listHDCT.forEach(hdct->{
+                ChiTietSanPham ctsp = hdct.getChiTietSanPham();
+                Integer soLuong = hdct.getSoLuong();
+                List<Seri> listSeri = seriService.findByChiTietSanPham(ctsp,soLuong);
+                listSeri.forEach(seri -> {
+                    seri.setTrangThai(TrangThaiImei.DA_BAN);
+                    seri.setNgayBan(new Timestamp(new Date().getTime()));
+                });
+                seriService.saveMany(listSeri);
+            });
+            hdctService.saveAll(listHDCT);
+        }else if(trangThai == TrangThaiDonHang.DA_HUY){
+            donHang.setTrangThaiDonHang(trangThai);
+            donHang.setNgayCapNhap(new Date());
+            List<HoaDonChiTiet> listHDCT = donHang.getListHoaDonChiTiet();
+            listHDCT.forEach(hdct->{
+                ChiTietSanPham ctsp = hdct.getChiTietSanPham();
+                Integer soLuong = hdct.getSoLuong();
+                List<Seri> listSeri = seriService.findByChiTietSanPham(ctsp,soLuong);
+                listSeri.forEach(seri -> {
+                    seri.setTrangThai(TrangThaiImei.CHUA_BAN);
+                    seri.setNgayBan(null);
+                    seri.setHoaDonChiTiet(null);
+                });
+                seriService.saveMany(listSeri);
+            });
+            hdctService.saveAll(listHDCT);
+        }else if(trangThai == TrangThaiDonHang.YEU_CAU_HOAN_TRA){
+            donHang.setTrangThaiDonHang(trangThai);
+            donHang.setNgayCapNhap(new Date());
+        }else if(trangThai == TrangThaiDonHang.DA_HOAN_TRA){
             donHang.setTrangThaiDonHang(trangThai);
             donHang.setNgayCapNhap(new Date());
         }

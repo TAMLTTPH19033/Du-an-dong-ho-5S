@@ -42,17 +42,16 @@ public class SecurityConfiguration {
             @Override
             public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
                 KhachHang customer = khachHangRepository.getKhachHangByEmail(username);
-                NhanVien staff = nhanVienRepository.getNhanVienByEmail(username);
+//                NhanVien staff = nhanVienRepository.getNhanVienByEmail(username);
                 if(customer != null){
                     return customer.get();
-                }else if (staff != null) {
-                    System.out.println(staff);
-                    return staff.get();
+//                }else if (staff != null) {
+//                    System.out.println(staff);
+//                    return staff.get();
                 } else {
                     throw new UsernameNotFoundException("Không tìm thấy người dùng với email: " + username);
                 }
             }
-
         };
     }
 

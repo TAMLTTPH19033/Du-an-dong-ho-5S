@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -77,7 +78,7 @@ public class ChiTietGioHangServiceImpl implements ChiTietGioHangService {
     public ChiTietGioHangResponse add(CartRequest cartRequest) {
         KhachHang khachHang = khachHangRepository.findById(cartRequest.getIdKhachHang()).get();
         GioHang gioHang = GioHang.builder()
-                .idGioHang(1)
+                .idGioHang(null)
                 .ngayTaoGioHang(new Date())
                 .trangThaiGioHang(1)
                 .khachHang(khachHang)
@@ -109,7 +110,7 @@ public class ChiTietGioHangServiceImpl implements ChiTietGioHangService {
                 return add(cartRequest);
             } else {
                 ChiTietSanPham chiTietSanPham = chiTietSanPhamRepository.findById(cartRequest.getIdChiTietSanPham()).get();
-                ChiTietGioHang chiTietGioHang = chiTietGioHangRepository.findChiTietGioHangByCTSP(cartRequest.getIdChiTietSanPham());
+                ChiTietGioHang chiTietGioHang = chiTietGioHangRepository.findChiTietGioHangByCTSP(cartRequest.getIdChiTietSanPham(), cartRequest.getIdKhachHang());
                 if (chiTietGioHang == null) {
 
                     ChiTietGioHang chiTietGioHang1 = ChiTietGioHang.builder()
@@ -145,8 +146,15 @@ public class ChiTietGioHangServiceImpl implements ChiTietGioHangService {
         }
     }
 
-
-
+    @Override
+    public void removeByCTSPAndKhachHang(Integer idKhachHang, List<Integer> idChiTietSanPhams) {
+        List<ChiTietGioHang> listChiTietGioHang = new ArrayList<>();
+        idChiTietSanPhams.forEach(item->{
+            ChiTietGioHang ctgh = chiTietGioHangRepository.findChiTietGioHangByCTSPVaKhachHang(item,idKhachHang);
+            listChiTietGioHang.add(ctgh);
+        });
+        chiTietGioHangRepository.deleteAll(listChiTietGioHang);
+    }
 
 
     public void delete(Integer id) {

@@ -42,11 +42,18 @@ public class BanHangController {
     @Autowired
     KhachHangService khachHangService;
 
+    @Autowired
+    HttpServletRequest request;
+
     @GetMapping
     public String getFormBanHang(
         Model model,
         HttpSession httpSession
     ){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("admin") == null ){
+            return "redirect:/login-admin" ;
+        }
         HoaDonAdminRequest hoaDonAdminRequest = new HoaDonAdminRequest();
         model.addAttribute("hoaDonAdminRequest", hoaDonAdminRequest);
 
@@ -83,6 +90,10 @@ public class BanHangController {
         HttpSession httpSession,
         @ModelAttribute("hoaDonAdminRequest") HoaDonAdminRequest hoaDonAdminRequest
     ){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("admin") == null ){
+            return "redirect:/login-admin" ;
+        }
         // set list san pham
         List<SanPhamAdminResponse> sanPhamList = chiTietSanPhamService.getAllSanPhamAminResponse(1,keywork);
 
@@ -99,6 +110,10 @@ public class BanHangController {
             Model model,
             @PathVariable("pageNum") int pageNum
     ) {
+        HttpSession session = request.getSession();
+        if(session.getAttribute("admin") == null ){
+            return "redirect:/login-admin" ;
+        }
         Page<HoaDonChiTiet> lstHDCTPage = hoaDonChiTietService.getHDCTByMaDonHang(null,pageNum);
 
         List<HoaDonChiTiet> lstHDCT = lstHDCTPage.getContent();
@@ -114,6 +129,10 @@ public class BanHangController {
             HttpSession httpSession,
             @ModelAttribute("hoaDonAdminRequest") HoaDonAdminRequest hoaDonAdminRequest
     ){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("admin") == null ){
+            return "redirect:/login-admin" ;
+        }
         String maDonHangCD = this.generateMaHD();
         KhachHang khachHang = (KhachHang) httpSession.getAttribute("khachHangExist");
 
@@ -163,6 +182,10 @@ public class BanHangController {
             @ModelAttribute("hoaDonAdminRequest") HoaDonAdminRequest hoaDonAdminRequest,
             HttpSession httpSession
     ){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("admin") == null ){
+            return "redirect:/login-admin" ;
+        }
         KhachHang khachHang = khachHangService.findByPhoneNumber(phoneNumber);
 
         if (khachHang!= null){
@@ -192,6 +215,7 @@ public class BanHangController {
     public ResponseEntity<String> findKHByPfindhoneNumber(
         @PathVariable("phoneNumber") String phoneNumber
     ){
+
         KhachHang khachHang = khachHangService.findByPhoneNumber(phoneNumber);
         if (khachHang!= null) {
             return ResponseEntity.status(HttpStatus.OK).body(khachHang.getSoDienThoai());
@@ -206,6 +230,10 @@ public class BanHangController {
         HttpSession httpSession,
         @ModelAttribute("hoaDonAdminRequest") HoaDonAdminRequest hoaDonAdminRequest
     ){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("admin") == null ){
+            return "redirect:/login-admin" ;
+        }
         DonHang donHangByMa = donHangService.findByMaDonHang(maHoaDon);
 
         httpSession.setAttribute("donHangHienTai",donHangByMa);
@@ -259,6 +287,10 @@ public class BanHangController {
         HttpSession httpSession,
         Model model
     ){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("admin") == null ){
+            return "redirect:/login-admin" ;
+        }
         // them san pham hoac cap nhat san pham neu ctsp đã tồn tại
         ChiTietSanPham chiTietSanPham = chiTietSanPhamService.findByMaChiTietSanPham(maCTSP);
 
@@ -275,6 +307,10 @@ public class BanHangController {
             HttpSession httpSession,
             Model model
     ){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("admin") == null ){
+            return "redirect:/login-admin" ;
+        }
         // xoa hoa don chi tiet
         HoaDonChiTiet hoaDonChiTiet = hoaDonChiTietService.findHoaDonChiTietById(idHDCT);
         hoaDonChiTietService.xoaHDCT(hoaDonChiTiet);
@@ -291,6 +327,10 @@ public class BanHangController {
             HttpSession httpSession,
             Model model
     ){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("admin") == null ){
+            return "redirect:/login-admin" ;
+        }
         int soLuongCapNhat = soLuong;
         HoaDonChiTiet hoaDonChiTiet = hoaDonChiTietService.findHoaDonChiTietById(idHDCT);
 
@@ -311,6 +351,10 @@ public class BanHangController {
     public String thanhToan(
         HttpSession httpSession
     ){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("admin") == null ){
+            return "redirect:/login-admin" ;
+        }
         DonHang donHang = (DonHang) httpSession.getAttribute("donHangHienTai");
         // chuyen trang thai hoan thanh don hang
         donHang.setTrangThaiDonHang(3);
@@ -326,6 +370,10 @@ public class BanHangController {
             HttpSession httpSession,
             HttpServletResponse response
     ) throws Exception {
+        HttpSession session = request.getSession();
+        if(session.getAttribute("admin") == null ){
+            return "redirect:/login-admin" ;
+        }
         DonHang donHang = (DonHang) httpSession.getAttribute("donHangHienTai");
         // chuyen trang thai hoan thanh don hang
         donHang.setTrangThaiDonHang(3);
@@ -345,6 +393,10 @@ public class BanHangController {
     public String huyHoaDon(
         HttpSession httpSession
     ){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("admin") == null ){
+            return "redirect:/login-admin" ;
+        }
 
         DonHang donHang = (DonHang) httpSession.getAttribute("donHangHienTai");
         // huy hoa don

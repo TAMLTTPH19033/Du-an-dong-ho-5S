@@ -84,7 +84,7 @@ public class NhanVienExcelExporter extends AbstractExporter {
             createCell(row, columnIndex++, nhanVien.getHo(), cellStyle);
             createCell(row, columnIndex++, nhanVien.getTen(), cellStyle);
             createCell(row, columnIndex++, nhanVien.getSoDienThoai(), cellStyle);
-            createCell(row, columnIndex++, nhanVien.getChucVu().toString(), cellStyle);
+//            createCell(row, columnIndex++, nhanVien.getChucVu().toString(), cellStyle);
             createCell(row, columnIndex++, nhanVien.isEnabled(), cellStyle);
 
         }

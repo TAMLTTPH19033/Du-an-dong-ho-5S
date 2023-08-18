@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -37,10 +39,16 @@ public class   SanPhamController {
     @Autowired
     private AnhSanPhamService anhSanPhamService;
 
+    @Autowired
+    HttpServletRequest request;
 
 
     @GetMapping("/admin/products")
     public String listFirstPage(Model model){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("admin") == null ){
+            return "redirect:/login-admin" ;
+        }
        return listByPage(1,model,"tenSanPham","asc",null);
     }
 
@@ -48,6 +56,10 @@ public class   SanPhamController {
     private String listByPage(@PathVariable(name = "pageNum") int pageNum, Model model,
                               @Param("sortField") String sortField, @Param("sortDir") String sortDir,
                               @Param("keyword") String keyword){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("admin") == null ){
+            return "redirect:/login-admin" ;
+        }
 //        System.out.println("Thương Hiệu Được Lọc" + brandSelect);
 
         Page<SanPham> page = sanPhamService.listByPage(pageNum,sortField,sortDir,keyword);
@@ -77,6 +89,10 @@ public class   SanPhamController {
 
     @GetMapping("/admin/products/new")
     public String newProduct(Model model){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("admin") == null ){
+            return "redirect:/login-admin" ;
+        }
         List<ThuongHieu> listThuongHieu = thuongHieuService.getAllThuongHieu();
         List<DanhMuc> listDanhMuc = danhmucService.listAll();
         SanPham sanPham = new SanPham();
@@ -91,6 +107,10 @@ public class   SanPhamController {
     @PostMapping("/admin/products/save")
     public String saveProduct(SanPham sanPham, RedirectAttributes ra,
                               @RequestParam("fileImage") MultipartFile multipartFile) throws IOException {
+        HttpSession session = request.getSession();
+        if(session.getAttribute("admin") == null ){
+            return "redirect:/login-admin" ;
+        }
         System.out.println(multipartFile.getOriginalFilename());
         if(!multipartFile.isEmpty()){
             String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
@@ -114,7 +134,12 @@ public class   SanPhamController {
     @GetMapping("/admin/products/edit/{id}")
     public String editProduct(@PathVariable("id") Integer id, Model model,
                               RedirectAttributes ra){
+
         try{
+            HttpSession session = request.getSession();
+            if(session.getAttribute("admin") == null ){
+                return "redirect:/login-admin" ;
+            }
             SanPham sanPham = sanPhamService.get(id);
             List<ThuongHieu> listThuongHieu = thuongHieuService.getAllThuongHieu();
             List<DanhMuc> listDanhMuc = danhmucService.listAll();
@@ -133,6 +158,10 @@ public class   SanPhamController {
     @PostMapping("/admin/products/update")
     public String updateProduct(SanPham sanPham, RedirectAttributes ra,
                                 @RequestParam("fileImage") MultipartFile multipartFile) throws IOException {
+        HttpSession session = request.getSession();
+        if(session.getAttribute("admin") == null ){
+            return "redirect:/login-admin" ;
+        }
         if (!multipartFile.isEmpty()) {
             String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
             sanPham.setMainImage(fileName);
