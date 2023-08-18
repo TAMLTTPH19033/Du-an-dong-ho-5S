@@ -2,15 +2,12 @@ package com.datn.dongho5s.Controller.Report;
 
 import com.datn.dongho5s.Cache.DiaChiCache;
 import com.datn.dongho5s.Entity.DonHang;
-import com.datn.dongho5s.Entity.DonHang;
 import com.datn.dongho5s.Entity.HoaDonChiTiet;
 import com.datn.dongho5s.Entity.StatusValue;
 import com.datn.dongho5s.Export.HoaDonPdf;
 import com.datn.dongho5s.GiaoHangNhanhService.DiaChiAPI;
 import com.datn.dongho5s.Service.DonHangService;
-import com.datn.dongho5s.Service.DonHangService;
 import com.datn.dongho5s.Service.HoaDonChiTietService;
-import com.datn.dongho5s.Service.impl.MasterOrderReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
@@ -20,14 +17,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+
 
 @Controller
 public class ThongKeController {
