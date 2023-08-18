@@ -49,14 +49,15 @@
                     <div class="form-group-row">
                         <label class="col-sm-2 col-form-label">Khuyến Mãi:</label>
                         <div class="col-sm-10">
-                            <select th:field="*{khuyenMai}" class="form-control" required="" name="khuyenMai">
+                            <select th:field="*{khuyenMai}" class="form-control"  name="khuyenMai">
+                                <option value="">-- Không có khuyến mãi --</option>
                                 <th:block th:each="kmai : ${listKhuyenMai}">
                                     <option th:value="${kmai.idKhuyenMai}">[[${kmai.tenKhuyenMai}]]</option>
                                 </th:block>
-
                             </select>
                         </div>
                     </div>
+
 
                     <div class="form-group-row">
                         <label class="col-sm-2 col-form-label">Màu Sắc:</label>
