@@ -18,4 +18,7 @@ public interface ChiTietGioHangRepository extends JpaRepository<ChiTietGioHang,I
     @Query("select ctgh from ChiTietGioHang ctgh where ctgh.chiTietSanPham.idChiTietSanPham = ?1 and ctgh.gioHang.khachHang.idKhachHang = ?2")
     ChiTietGioHang findChiTietGioHangByCTSP(Integer idChiTietSanPham, Integer idKhachHang);
 
+    @Query("select ctgh from ChiTietGioHang ctgh where ctgh.chiTietSanPham.idChiTietSanPham = ?1 and ctgh.gioHang.khachHang.idKhachHang = ?2")
+    ChiTietGioHang findChiTietGioHangByCTSPVaKhachHang(Integer idChiTietSanPham , Integer idKhachHang);
+
 }

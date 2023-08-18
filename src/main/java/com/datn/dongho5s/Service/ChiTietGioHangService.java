@@ -19,4 +19,6 @@ public interface ChiTietGioHangService {
     ChiTietGioHangResponse add(CartRequest cartRequest);
 
     ChiTietGioHangResponse addToCart(CartRequest cartRequest);
+
+    void removeByCTSPAndKhachHang (Integer idKhachHang , List<Integer> idChiTietSanPhams);
 }
