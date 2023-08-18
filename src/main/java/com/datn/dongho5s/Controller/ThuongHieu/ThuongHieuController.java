@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -26,9 +28,15 @@ import java.util.List;
 public class ThuongHieuController {
     @Autowired
     private ThuongHieuService service;
+    @Autowired
+    HttpServletRequest request;
 
     @GetMapping("/admin/brands")
     public String listFirstPage(Model model){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("admin") == null ){
+            return "redirect:/login-admin" ;
+        }
         return listByPage(1,model,"tenThuongHieu","asc",null);
     }
 
@@ -36,6 +44,10 @@ public class ThuongHieuController {
     private String listByPage(@PathVariable(name = "pageNum") int pageNum, Model model,
                               @Param("sortField") String sortField,@Param("sortDir") String sortDir,
                               @Param("keyword") String keyword){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("admin") == null ){
+            return "redirect:/login-admin" ;
+        }
 
         Page<ThuongHieu> page = service.listByPage(pageNum,sortField,sortDir,keyword);
         List<ThuongHieu> listThuongHieu = page.getContent();
@@ -64,6 +76,10 @@ public class ThuongHieuController {
     public String updateThuongHieuEnabledStatus(@PathVariable("id") Integer id,
                                                 @PathVariable("status")boolean enabled,
                                                 RedirectAttributes redirectAttributes){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("admin") == null ){
+            return "redirect:/login-admin" ;
+        }
         service.updateThuongHieuEnabledStatus(id,enabled);
         String status = enabled ? "online" : "offline";
         String message = "Thương Hiệu có id " + id + " thay đổi trạng thái thành " + status;
@@ -73,6 +89,10 @@ public class ThuongHieuController {
 
     @GetMapping("/admin/brands/new")
     public String newThuongHieu(Model model){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("admin") == null ){
+            return "redirect:/login-admin" ;
+        }
         model.addAttribute("thuongHieu",new ThuongHieu());
         model.addAttribute("pageTitle","Tạo Mới Thương Hiệu");
         return "admin/thuonghieu/brands_form";
@@ -80,6 +100,10 @@ public class ThuongHieuController {
 
     @PostMapping("/admin/brands/save")
     public String saveThuongHieu(ThuongHieu thuongHieu, RedirectAttributes redirectAttributes){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("admin") == null ){
+            return "redirect:/login-admin" ;
+        }
         service.save(thuongHieu);
         redirectAttributes.addFlashAttribute("message","Thay Đổi Thành Công");
         return "redirect:/admin/brands";
@@ -90,6 +114,10 @@ public class ThuongHieuController {
                                  Model model,
                                  RedirectAttributes redirectAttributes){
         try {
+            HttpSession session = request.getSession();
+            if(session.getAttribute("admin") == null ){
+                return "redirect:/login-admin" ;
+            }
             ThuongHieu thuongHieu = service.get(id);
             model.addAttribute("thuongHieu", thuongHieu);
             model.addAttribute("pageTitle", "Update Thương Hiệu (ID: " + id + ")");

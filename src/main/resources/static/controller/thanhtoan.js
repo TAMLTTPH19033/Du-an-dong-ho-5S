@@ -175,12 +175,12 @@ myApp.controller(
 
                                   $window.location.href ="#success";
                               }else{
-                                  $window.location.path="#fail";
+                                  $window.location.href="#fail";
                               }
                           })
                           .catch((error) => {
                               console.log(error);
-                              $window.location.path="#fail";
+                              $window.location.href="#fail";
                           });
                   },1900)
               }

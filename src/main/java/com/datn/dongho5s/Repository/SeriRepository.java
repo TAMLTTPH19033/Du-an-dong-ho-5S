@@ -1,6 +1,7 @@
 package com.datn.dongho5s.Repository;
 
 
+import com.datn.dongho5s.Entity.ChiTietSanPham;
 import com.datn.dongho5s.Entity.Seri;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,6 +11,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Repository
 public interface SeriRepository extends JpaRepository<Seri,Integer> {
@@ -25,6 +28,10 @@ public interface SeriRepository extends JpaRepository<Seri,Integer> {
                 AND sr.hoaDonChiTiet is null
     """)
     int countByIdCTSPEnabled (int idCTSP);
+
+
+    List<Seri> findByChiTietSanPhamAndTrangThai(ChiTietSanPham chiTietSanPham,Integer trangThai, Pageable pageable);
+
     @Query(nativeQuery = true, value = """
         WITH soLuong AS
             (
@@ -61,4 +68,5 @@ public interface SeriRepository extends JpaRepository<Seri,Integer> {
         WHERE s.hoaDonChiTiet.idHoaDonChiTiet = ?1
     """)
     void xoaSoLuongSanPham(int idHDCT);
+
 }

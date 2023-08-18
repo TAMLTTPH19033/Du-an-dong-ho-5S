@@ -1,9 +1,11 @@
 package com.datn.dongho5s.Service.impl;
 
 
+import com.datn.dongho5s.Entity.ChiTietSanPham;
 import com.datn.dongho5s.Entity.Seri;
 import com.datn.dongho5s.Repository.SeriRepository;
 import com.datn.dongho5s.Service.SeriService;
+import com.datn.dongho5s.Utils.TrangThaiImei;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -46,4 +48,11 @@ public class SeriServiceImpl implements SeriService {
     public Integer countSeri(Integer idChiTietSanPham) {
         return repo.countSeri(idChiTietSanPham);
     }
+
+    @Override
+    public List<Seri> findByChiTietSanPham(ChiTietSanPham chiTietSanPham, Integer soLuong) {
+        Pageable pageable = PageRequest.of(0, soLuong);
+        return repo.findByChiTietSanPhamAndTrangThai(chiTietSanPham, TrangThaiImei.CHUA_BAN,pageable);
+    }
+
 }

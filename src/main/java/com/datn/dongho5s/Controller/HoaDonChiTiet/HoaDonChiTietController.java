@@ -9,12 +9,14 @@ import com.datn.dongho5s.Service.DonHangService;
 import com.datn.dongho5s.Service.HoaDonChiTietService;
 import com.itextpdf.text.DocumentException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -28,6 +30,8 @@ public class HoaDonChiTietController {
 
     @Autowired
     private DonHangService donHangService;
+    @Autowired
+    HttpServletRequest request;
 
     @GetMapping("/search/{id}")
     public String getByIdDonHang(
@@ -35,6 +39,10 @@ public class HoaDonChiTietController {
             Model model,
             HttpSession session
     ) {
+       session = request.getSession();
+        if(session.getAttribute("admin") == null ){
+            return "redirect:/login-admin" ;
+        }
         List<HoaDonChiTiet> lst = hoaDonChiTietService.getByIdDonHang(id);
         Double tongTien = donHangService.tongTien(id);
 

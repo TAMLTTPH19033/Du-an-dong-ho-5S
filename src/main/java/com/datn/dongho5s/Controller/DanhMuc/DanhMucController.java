@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -28,9 +30,15 @@ import java.util.List;
 public class DanhMucController {
     @Autowired
     private DanhmucService service;
+    @Autowired
+    HttpServletRequest request;
 
     @GetMapping("/admin/categories")
     public String listFirstPage(Model model){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("admin") == null ){
+            return "redirect:/login-admin" ;
+        }
         return listByPage(1,model,"ten","asc",null);
     }
 
@@ -39,6 +47,10 @@ public class DanhMucController {
                              @Param("sortField")String sortField , @Param("sortDir")String sortDir,
                              @Param("keyword")String keyword
     ){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("admin") == null ){
+            return "redirect:/login-admin" ;
+        }
         System.out.println("SortField: " + sortField);
         System.out.println("sortOrder: " + sortDir);
         Page<DanhMuc> page = service.listByPage(pageNum, sortField, sortDir,keyword);
@@ -71,6 +83,10 @@ public class DanhMucController {
     public String updateDanhMucEnabledStatus(@PathVariable("id") Integer id,
                                               @PathVariable("status") boolean enabled,
                                               RedirectAttributes redirectAttributes){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("admin") == null ){
+            return "redirect:/login-admin" ;
+        }
         service.updateDanhMucEnabledStatus(id, enabled);
         String status = enabled ? "online" : "offline";
         String message = "Danh Mục có id " + id + " thay đổi trạng thái thành " + status;
@@ -80,6 +96,10 @@ public class DanhMucController {
 
     @GetMapping("/admin/categories/new")
     public String newDanhMuc(Model model){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("admin") == null ){
+            return "redirect:/login-admin" ;
+        }
         model.addAttribute("danhMuc", new DanhMuc());
         model.addAttribute("pageTitle","Tạo Mới Danh Mục");
         return "admin/danhmuc/categories_form";
@@ -87,6 +107,10 @@ public class DanhMucController {
 
     @PostMapping("/admin/categories/save")
     public String saveDanhMuc(DanhMuc danhMuc, RedirectAttributes redirectAttributes){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("admin") == null ){
+            return "redirect:/login-admin" ;
+        }
          service.save(danhMuc);
         redirectAttributes.addFlashAttribute("message","Thay Đổi Thành Công");
         return "redirect:/admin/categories";
@@ -97,6 +121,10 @@ public class DanhMucController {
                            Model model,
                            RedirectAttributes redirectAttributes){
         try{
+            HttpSession session = request.getSession();
+            if(session.getAttribute("admin") == null ){
+                return "redirect:/login-admin" ;
+            }
             DanhMuc danhMuc = service.get(id);
             model.addAttribute("danhMuc", danhMuc);
             model.addAttribute("pageTitle","Update Danh Mục (ID : " + id + ")");
@@ -113,6 +141,7 @@ public class DanhMucController {
 
     @GetMapping("/admin/categories/export/csv")
     public void exportToCSV(HttpServletResponse response) throws IOException {
+
         List<DanhMuc> listDanhMuc = service.listAll();
         DanhMucCsvExporter exporter = new DanhMucCsvExporter();
         exporter.export(listDanhMuc,response);
