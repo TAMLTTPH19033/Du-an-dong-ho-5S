@@ -67,11 +67,12 @@
                         <td>[[${ctsp.maChiTietSanPham}]]</td>
                         <td>[[${ctsp.sanPham.tenSanPham}]]</td>
                         <td>[[${ctsp.dayDeo.tenDayDeo}]]</td>
-                        <td>[[${ctsp.khuyenMai.tenKhuyenMai}]]</td>
+                        <td >[[${ctsp.khuyenMai == null ? "" : ctsp.khuyenMai.enabled == false ? "" : ctsp.khuyenMai.tenKhuyenMai}]]</td>
                         <td>[[${ctsp.mauSac.tenMauSac}]]</td>
                         <td>[[${ctsp.vatLieu.tenVatLieu}]]</td>
                         <td>[[${ctsp.kichCo.tenKichCo}]]</td>
-                        <td>[[${ctsp.giaSanPham}]]</td>
+                        <td th:text="${#numbers.formatDecimal(ctsp.giaSanPham, 0, 'COMMA', 0, 'POINT')} +
+                         ' đ'"></td>
                         <td>[[${ctsp.soLuong}]]</td>
                         <td>
                             [[${ctsp.trangThai == 1 ? 'Hoạt động' : 'Không hoạt động'}]]
