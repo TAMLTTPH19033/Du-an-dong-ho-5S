@@ -117,13 +117,15 @@ public class HoaDonChiTietServiceImpl implements HoaDonChiTietService {
                     .soLuong(soLuong)
                     .chietKhau((chiTietSanPham.getKhuyenMai() == null || chiTietSanPham.getKhuyenMai().isEnabled() == false) ? null : chiTietSanPham.getKhuyenMai().getChietKhau())
                     .build());
+            List<Integer> listSeri = seriRepository.getListSeri(soLuong,chiTietSanPham.getIdChiTietSanPham());
             // step 2: update status seri is 3
-            seriRepository.themSoLuongAdmin(hoaDonChiTiet.getIdHoaDonChiTiet(),soLuong,chiTietSanPham.getIdChiTietSanPham());
+            seriRepository.themSoLuongAdmin(hoaDonChiTiet.getIdHoaDonChiTiet(),listSeri);
         } else{
             // else ctsp exist -> update quantity by idHDCT
             hoaDonChiTietRepository.updateSoLuongSanPham(soLuong,existIdHCT);
-            // step 2: update status seri is 3
-            seriRepository.themSoLuongAdmin(existIdHCT,soLuong,chiTietSanPham.getIdChiTietSanPham());
+            List<Integer> listSeri = seriRepository.getListSeri(soLuong,chiTietSanPham.getIdChiTietSanPham());
+                    // step 2: update status seri is 3
+            seriRepository.themSoLuongAdmin(existIdHCT,listSeri);
         }
     }
 
