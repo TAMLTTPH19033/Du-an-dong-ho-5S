@@ -12,8 +12,6 @@ import com.datn.dongho5s.Service.ChiTietSanPhamService;
 import com.datn.dongho5s.Service.DonHangService;
 import com.datn.dongho5s.Service.HoaDonChiTietService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -89,8 +87,8 @@ public class HoaDonChiTietServiceImpl implements HoaDonChiTietService {
     }
 
     @Override
-    public Page<HoaDonChiTiet> getHDCTByMaDonHang(String maDonHang, int pageNum) {
-        Page<HoaDonChiTiet> hoaDonChiTietPage = hoaDonChiTietRepository.findByMaDonHang(maDonHang, PageRequest.of(pageNum - 1, 5));
+    public List<HoaDonChiTiet> getHDCTByMaDonHang(String maDonHang) {
+        List<HoaDonChiTiet> hoaDonChiTietPage = hoaDonChiTietRepository.findByMaDonHang(maDonHang);
         return hoaDonChiTietPage;
     }
 

@@ -105,9 +105,7 @@ public class BanHangController {
         DonHang donHangByMa = (DonHang) httpSession.getAttribute("donHangHienTai");
 
         if (donHangByMa!= null){
-            Page<HoaDonChiTiet> lstHDCTPage = hoaDonChiTietService.getHDCTByMaDonHang(donHangByMa.getMaDonHang(),1);
-
-            List<HoaDonChiTiet> lstHDCT = lstHDCTPage.getContent();
+            List<HoaDonChiTiet> lstHDCT = hoaDonChiTietService.getHDCTByMaDonHang(donHangByMa.getMaDonHang());
 
             model.addAttribute("lstHDCT",lstHDCT);
 
@@ -142,9 +140,8 @@ public class BanHangController {
         if(session.getAttribute("admin") == null ){
             return "redirect:/login-admin" ;
         }
-        Page<HoaDonChiTiet> lstHDCTPage = hoaDonChiTietService.getHDCTByMaDonHang(null,pageNum);
 
-        List<HoaDonChiTiet> lstHDCT = lstHDCTPage.getContent();
+        List<HoaDonChiTiet> lstHDCT = hoaDonChiTietService.getHDCTByMaDonHang(null);
 
         model.addAttribute("lstHDCT",lstHDCT);
 
@@ -311,9 +308,7 @@ public class BanHangController {
 
         //set list hdct
 
-        Page<HoaDonChiTiet> lstHDCTPage = hoaDonChiTietService.getHDCTByMaDonHang(donHangByMa.getMaDonHang(),1);
-
-        List<HoaDonChiTiet> lstHDCT = lstHDCTPage.getContent();
+        List<HoaDonChiTiet> lstHDCT = hoaDonChiTietService.getHDCTByMaDonHang(donHangByMa.getMaDonHang());
 
         model.addAttribute("lstHDCT",lstHDCT);
 

@@ -25,7 +25,7 @@ public interface HoaDonChiTietService {
 
     List<HoaDonChiTiet> getByHoaDonId(DonHang donHang);
 
-    public Page<HoaDonChiTiet> getHDCTByMaDonHang(String maDonHang, int pageNum);
+    public List<HoaDonChiTiet> getHDCTByMaDonHang(String maDonHang);
 
     void themSoLuongSanPham(
             int soLuong,

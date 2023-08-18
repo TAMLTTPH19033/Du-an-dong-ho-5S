@@ -33,7 +33,7 @@ public interface HoaDonChiTietRepository extends JpaRepository<HoaDonChiTiet, In
         FROM HoaDonChiTiet h JOIN DonHang d ON h.donHang.idDonHang = d.idDonHang
         WHERE d.maDonHang = ?1
     """)
-    public Page<HoaDonChiTiet> findByMaDonHang(String maDonHang, Pageable pageable);
+    public List<HoaDonChiTiet> findByMaDonHang(String maDonHang);
 
     @Query(value = """
         UPDATE HoaDonChiTiet h
