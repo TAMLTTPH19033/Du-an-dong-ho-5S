@@ -38,10 +38,10 @@ public interface HoaDonChiTietService {
     );
 
     HoaDonChiTiet findHoaDonChiTietById(
-            int id
+        int id
     );
 
-    void updateSoLuongInHDCT(
+    void updateSoLuongImeiThem(
             HoaDonChiTiet hoaDonChiTiet,
             int soLuongThayDoi
     );
