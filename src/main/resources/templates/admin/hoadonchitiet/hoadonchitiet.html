@@ -120,7 +120,8 @@
                                     <div class="col-md-7">
                                         <div class="card-body">
                                             <h3 class="card-title">[[${cat.chiTietSanPham.sanPham.tenSanPham}]]</h3>
-                                            <h5 class="card-text">Giá: [[${cat.giaBan}]]đ</h5>
+                                            <h5 class="card-text" th:text="${#numbers.formatDecimal(cat.giaBan, 0, 'COMMA', 0, 'POINT')} +
+                         ' đ'">Giá: [[${cat.giaBan}]]</h5>
                                             <p class="card-text">Số lượng: x[[${cat.soLuong}]]</p>
                                         </div>
                                     </div>
@@ -145,7 +146,8 @@
                                         <h5>Đơn giá các sản phẩm </h5>
                                     </div>
                                     <div class="col-md-7">
-                                        <h5 style="padding-left: 15px">[[${donHang.tongTien}]]đ</h5>
+                                        <h5 style="padding-left: 15px" th:text="${#numbers.formatDecimal(donHang.tongTien, 0, 'COMMA', 0, 'POINT')} +
+                         ' đ'">[[${donHang.tongTien}]]</h5>
                                     </div>
                                 </div>
 
@@ -154,7 +156,8 @@
                                         <h5>Phí vận chuyển </h5>
                                     </div>
                                     <div class="col-md-7">
-                                        <h5 style="padding-left: 15px">[[${donHang.phiVanChuyen}]]đ</h5>
+                                        <h5 style="padding-left: 15px" th:text="${#numbers.formatDecimal(donHang.phiVanChuyen, 0, 'COMMA', 0, 'POINT')} +
+                         ' đ'">[[${donHang.phiVanChuyen}]]</h5>
                                     </div>
                                 </div>
 
@@ -163,7 +166,8 @@
                                         <h3>Tổng tiền </h3>
                                     </div>
                                     <div class="col-md-7">
-                                        <h3 style="color: #e71616;padding-left: 15px">[[${donHang.tongTien + donHang.phiVanChuyen}]]đ</h3>
+                                        <h3 style="color: #e71616;padding-left: 15px" th:text="${#numbers.formatDecimal(donHang.tongTien + donHang.phiVanChuyen, 0, 'COMMA', 0, 'POINT')} +
+                         ' đ'">[[${donHang.tongTien + donHang.phiVanChuyen}]]</h3>
                                     </div>
                                 </div>
                             </div>
@@ -200,22 +204,27 @@
                                         <td th:text="${__${iterStat.index + 1}__}">1</td>
                                         <td>[[${cat.chiTietSanPham.sanPham.tenSanPham}]]</td>
                                         <td>x[[${cat.soLuong}]]</td>
-                                        <td>[[${cat.giaBan}]]đ</td>
-                                        <td>[[${cat.giaBan*cat.soLuong}]]</td>
+                                        <td th:text="${#numbers.formatDecimal(cat.giaBan, 0, 'COMMA', 0, 'POINT')} +
+                         ' đ'">[[${cat.giaBan}]]đ</td>
+                                        <td th:text="${#numbers.formatDecimal(cat.giaBan*cat.soLuong, 0, 'COMMA', 0, 'POINT')} +
+                         ' đ'">[[${cat.giaBan*cat.soLuong}]]</td>
                                     </tr>
                                     </tbody>
                                 </table>
                                 <div class="row">
                                     <div class="col-md-6" style="padding-left: 10px;color:black">Đơn giá các sản phẩm</div>
-                                    <div class="col-md-6" style="text-align: center;color:black">[[${donHang.tongTien}]]đ</div>
+                                    <div class="col-md-6" style="text-align: center;color:black" th:text="${#numbers.formatDecimal(donHang.tongTien, 0, 'COMMA', 0, 'POINT')} +
+                         ' đ'">[[${donHang.tongTien}]]</div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6" style="padding-left: 10px;color:black">Phí vận chuyển</div>
-                                    <div class="col-md-6" style="text-align: center;color:black">[[${donHang.phiVanChuyen}]]đ</div>
+                                    <div class="col-md-6" style="text-align: center;color:black" th:text="${#numbers.formatDecimal(donHang.phiVanChuyen, 0, 'COMMA', 0, 'POINT')} +
+                         ' đ'">[[${donHang.phiVanChuyen}]]</div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-6" style="padding-left: 10px;color:black">Tổng tiền</div>
-                                    <div class="col-md-6" style="text-align: center;color:red">[[${donHang.tongTien + donHang.phiVanChuyen}]]đ</div>
+                                    <div class="col-md-6" style="padding-left: 10px;color:black" >Tổng tiền</div>
+                                    <div class="col-md-6" style="text-align: center;color:red" th:text="${#numbers.formatDecimal(donHang.tongTien + donHang.phiVanChuyen, 0, 'COMMA', 0, 'POINT')} +
+                         ' đ'">[[${donHang.tongTien + donHang.phiVanChuyen}]]</div>
                                 </div>
                             </div>
                             <div class="card-footer bg-transparent border-danger" style="text-align: center">Chúc quý khách vui vẻ! Hẹn gặp lại!</div>
@@ -228,7 +237,6 @@
                     </div>
                 </div>
             </div>
-    </div>
     </section>
     <!-- MAIN-CONTENT-SECTION END -->
 </div>

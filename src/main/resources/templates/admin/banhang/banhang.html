@@ -244,7 +244,8 @@
                   </div>
                   <div class="col-md-12">
                     <label for="thanhTien" class="form-label">Thành tiền</label>
-                    <input type="text" class="form-control" id="thanhTien" name="tongTienDonHang" th:field="*{tongTienDonHang}" disabled style="background-color: white">
+                    <input type="text" class="form-control" id="thanhTien" name="tongTienDonHang" th:text="${#numbers.formatDecimal(tongTienDonHang, 0, 'COMMA', 0, 'POINT')} +
+                         ' đ'" th:field="*{tongTienDonHang}" disabled style="background-color: white">
                   </div>
                   <div class="col-12">
                     <button class="btn btn-outline-primary"
