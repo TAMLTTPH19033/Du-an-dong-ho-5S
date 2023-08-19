@@ -154,7 +154,10 @@
 					<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
 						<!-- PRODUCT-LEFT-SIDEBAR START -->
 						<div class="product-left-sidebar">
-							<h2 class="left-title pro-g-page-title">Catalog</h2>
+							<button class="btn compare-button" ng-click="searchList()">
+								Tìm kiếm
+								<i class="fa fa-chevron-right"></i>
+							</button>
 							<!-- SINGLE SIDEBAR ENABLED FILTERS START -->
 							<div class="product-single-sidebar">
 								<span class="sidebar-title">Tên</span>
@@ -181,7 +184,7 @@
 								<ul>
 									<li ng-repeat="thuongHieu in listSetting.listThuongHieu" >
 										<label class="cheker">
-											<input type="checkbox" name ="thuongHieu" id="{{thuongHieu.idThuongHieu}}" ng-model="thuongHieu.checked" ng-change="changeThuongHieus()"/>
+											<input type="checkbox" name ="thuongHieu" id="{{thuongHieu.idThuongHieu}}" ng-model="thuongHieu.checked" ng-change="changeThuongHieucs()"/>
 											<span></span>
 										</label>
 										<a href="#">{{thuongHieu.tenThuongHieu}}</a>
@@ -217,19 +220,7 @@
 								</ul>
 							</div>
 							<!-- SINGLE SIDEBAR CONDITION END -->
-							<!-- SINGLE SIDEBAR PRICE START -->
-							<div class="product-single-sidebar">
-								<span class="sidebar-title">Price</span>
-								<ul>
-									<li> 
-										<label><strong>Range:</strong><input type="text" id="slidevalue" /></label>
-									</li>
-									<li>
-										<div id="price-range"></div>	
-									</li>
-								</ul>
-							</div>
-							<!-- SINGLE SIDEBAR PRICE END -->
+
 							<!-- SINGLE SIDEBAR SIZE START -->
 							<div class="product-single-sidebar">
 								<span class="sidebar-title">Kích cỡ</span>
@@ -258,10 +249,7 @@
 								</ul>
 							</div>
 							<!-- SINGLE SIDEBAR COLOR END -->
-								<button class="btn compare-button" ng-click="searchList()">
-									Tìm kiếm 
-									<i class="fa fa-chevron-right"></i>
-								</button>
+
 						</div>
 						<!-- PRODUCT-LEFT-SIDEBAR END -->
 					</div>
@@ -282,8 +270,8 @@
 							<div class="product-category-title">
 								<!-- PRODUCT-CATEGORY-TITLE START -->
 								<h1>
-									<span class="cat-name">Women</span>
-									<span class="count-product">There are 13 products.</span>
+									<span class="cat-name">Sản phẩm</span>
+<!--									<span class="count-product">There are 13 products.</span>-->
 								</h1>
 								<!-- PRODUCT-CATEGORY-TITLE END -->
 							</div>
@@ -291,14 +279,14 @@
 								<div class="product-shooting-bar">
 									<!-- SHOORT-BY START -->
 									<div class="shoort-by">
-										<label for="productShort">Sort by</label>
+										<label for="productShort">Sắp xếp theo</label>
 										<div class="short-select-option">
 											<select name="sortby" id="productShort" ng-model="selectedSortOption" ng-change="handleSortChange()">
 												<option value="0">--</option>
-												<option value="1">Price: Lowest first</option>
-												<option value="2">Price: Highest first</option>
-												<option value="3">Product Name: A to Z</option>
-												<option value="4">Product Name: Z to A</option>
+												<option value="1">Giá tăng dần</option>
+												<option value="2">Giá giảm dần</option>
+												<option value="3">Tên sản phẩm: A to Z</option>
+												<option value="4">Tên sản phẩm: Z to A</option>
 											</select>												
 										</div>
 									</div>
@@ -333,13 +321,13 @@
 									<div class="showing-next-prev">
 										<ul class="pagination-bar">
 											<li ng-class="{ 'disabled' : isFirstPage }">
-												<a  ng-click="previousPage()" style="cursor: pointer"><i class="fa fa-chevron-left "></i>Previous</a>
+												<a  ng-click="previousPage()" style="cursor: pointer"><i class="fa fa-chevron-left "></i>Trước</a>
 											</li>
 											<li ng-class="{ 'active' : page == currentPage }" ng-repeat="page in pages" ng-click="changePage(page)">
 												<span><a class="pagi-num" style="cursor: pointer">{{ page }}</a></span>
 											</li>
 											<li ng-class="{ 'disabled' : isLastPage }">
-												<a ng-click="nextPage()" style="cursor: pointer">Next<i class="fa fa-chevron-right" ></i></a>
+												<a ng-click="nextPage()" style="cursor: pointer">Sau<i class="fa fa-chevron-right" ></i></a>
 											</li>
 										</ul>
 										<form action="#">

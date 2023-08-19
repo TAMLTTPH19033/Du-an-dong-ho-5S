@@ -99,17 +99,27 @@ public class DonHangServiceImpl implements DonHangService {
     }
 
     @Override
-    public List<DonHangResponse> findAllHD(Integer idKhachHang) {
+    public List<DonHangResponse> findAllHD(Integer idKhachHang) throws Exception {
         List<DonHang> listHD = donHangRepository.findAllHD(idKhachHang);
-        List<DonHangResponse> responseList = listHD.stream().map(DonHangMapping::mapEntitytoResponseBT).collect(Collectors.toList());
+        List<DonHangResponse> responseList =new ArrayList<>();
+        for (DonHang don: listHD) {
+            DonHangResponse donHangResponse = new DonHangResponse();
+            donHangResponse = DonHangMapping.mapEntitytoResponseBT(don);
+            responseList.add(donHangResponse);
+        }
         responseList.sort((o1,o2) -> o2.getNgayTao().compareTo(o1.getNgayTao()));
         return responseList;
     }
 
     @Override
-    public List<DonHangResponse> findHDByStatus(Integer idKhachHang, Integer trangThaiDonHang) {
+    public List<DonHangResponse> findHDByStatus(Integer idKhachHang, Integer trangThaiDonHang) throws Exception {
         List<DonHang> listHD = donHangRepository.findHDByStatus(idKhachHang,trangThaiDonHang);
-        List<DonHangResponse> responseList = listHD.stream().map(DonHangMapping::mapEntitytoResponse).collect(Collectors.toList());
+        List<DonHangResponse> responseList =new ArrayList<>();
+        for (DonHang don: listHD) {
+            DonHangResponse donHangResponse = new DonHangResponse();
+            donHangResponse = DonHangMapping.mapEntitytoResponse(don);
+            responseList.add(donHangResponse);
+        }
         responseList.sort((o1,o2) -> o2.getNgayTao().compareTo(o1.getNgayTao()));
         return responseList;
     }

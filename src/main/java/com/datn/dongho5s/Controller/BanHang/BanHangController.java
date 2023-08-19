@@ -162,7 +162,7 @@ public class BanHangController {
         if(session.getAttribute("admin") == null ){
             return "redirect:/login-admin" ;
         }
-      
+      NhanVien nhanVien = (NhanVien) session.getAttribute("admin");
         model.addAttribute("currentPage", 1);
         model.addAttribute("totalPages", chiTietSanPhamService.getALlChiTietSanPhamPage(1).getTotalPages());
       
@@ -192,7 +192,7 @@ public class BanHangController {
                 .maDonHang(maDonHangCD)
                 .trangThaiDonHang(0)
                 .tongTien(0d)
-                //.nhanVien()0
+                .nhanVien(nhanVien)
                 .ngayCapNhap(new Date())
                 .ngayGiaoHang(new Date())
                 .khachHang(khachHang)
@@ -443,6 +443,8 @@ public class BanHangController {
         donHangService.xoaDonHangAdmin(donHang);
 
         httpSession.removeAttribute("donHangHienTai");
+        httpSession.removeAttribute("khachHangExist");
+
         return "redirect:/admin/ban-hang";
     }
     public String generateMaHD(){

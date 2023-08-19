@@ -113,7 +113,13 @@
                             })
 
                             setTimeout(function (){
-                                $scope.removeSP(item);
+                                $scope.delete(item);
+                                var sp = $scope.selection.find((e) => e === item)
+                                if(sp){
+                                    $scope.total -= item.giaBan * item.soLuongSanPham ;
+                                    $scope.totalSp -= item.soLuongSanPham ;
+                                }
+                                $window.location.reload();
                                 return;
                             },2600)
 
@@ -124,6 +130,7 @@
                 }else {
                     item.soLuongSanPham = Number(item.soLuongSanPham) - 1;
                     soLuong = item.soLuongSanPham;
+                    $scope.update(item, soLuong);
                     var sp = $scope.selection.find((e) => e === item)
                     if (sp) {
                         $scope.total -= item.giaBan;

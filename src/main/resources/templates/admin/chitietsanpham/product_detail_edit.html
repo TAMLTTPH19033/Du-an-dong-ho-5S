@@ -19,7 +19,7 @@
                     <div class="form-group-row">
                         <label class="col-sm-2 col-form-label">Mã Chi Tiết Sản Phẩm:</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" th:field="*{maChiTietSanPham}" name="maChiTietSanPham" required minlength="3" maxlength="12"/>
+                            <input type="text" class="form-control" th:field="*{maChiTietSanPham}" name="maChiTietSanPham" readonly="readonly" minlength="3" maxlength="12"/>
                         </div>
                     </div>
 
@@ -50,11 +50,11 @@
                     <div class="form-group-row">
                         <label class="col-sm-2 col-form-label">Khuyến Mãi:</label>
                         <div class="col-sm-10">
-                            <select th:field="*{khuyenMai}" class="form-control" required="" name="khuyenMai">
+                            <select th:field="*{khuyenMai}" class="form-control"  name="khuyenMai">
+                                <option value="">-- Không có khuyến mãi --</option>
                                 <th:block th:each="kmai : ${listKhuyenMai}">
                                     <option th:value="${kmai.idKhuyenMai}">[[${kmai.tenKhuyenMai}]]</option>
                                 </th:block>
-
                             </select>
                         </div>
                     </div>
@@ -188,44 +188,44 @@
     });
 
 
-    function checkUniqueUpdateDetail(form) {
-        var url = "[[@{/admin/productDetails/check_details_unique}]]";
-        var selectedSanPham = form.sanPham.options[form.sanPham.selectedIndex].text;
-        var selectedDayDeo = form.dayDeo.options[form.dayDeo.selectedIndex].text;
-        var selectedMauSac = form.mauSac.options[form.mauSac.selectedIndex].text;
-        var selectedVatLieu = form.vatLieu.options[form.vatLieu.selectedIndex].text;
-        var selectedKichCo = form.kichCo.options[form.kichCo.selectedIndex].text;
-        var idChiTietSanPhamValue = form.idChiTietSanPham.value;
-        var maChiTietSanPhamValue = form.maChiTietSanPham.value;
-        var csrfValue = $("input[name='_csrf']").val();
-
-        var params = {
-            idChiTietSanPham: idChiTietSanPhamValue,
-            maChiTietSanPham: maChiTietSanPhamValue,
-            tenSanPham: selectedSanPham,
-            tenDayDeo: selectedDayDeo,
-            tenMauSac: selectedMauSac,
-            tenKichCo: selectedKichCo,
-            tenVatLieu: selectedVatLieu,
-            _csrf: csrfValue
-        };
-
-        $.post(url, params)
-            .done(function(response) {
-                if (response == "OK") {
-                    form.submit();
-                } else if (response == "Duplicated") {
-                    showWarningModal("Mã Hoặc Thông tin chi tiết sản phẩm đã tồn tại Hãy Kiểm Tra Mã và Các Trường Tên Sản Phẩm ,Tên Dây Đeo, Tên Vật Liệu, Tên Màu Sắc, Tên Kích Cỡ Không Được Đồng Thời Giống Nhau.");
-                } else {
-                    showErrorModal("Lỗi phản hồi từ server");
-                }
-            })
-            .fail(function() {
-                showErrorModal("Không thể kết nối đến server");
-            });
-
-        return false;
-    }
+    // function checkUniqueUpdateDetail(form) {
+    //     var url = "[[@{/admin/productDetails/check_details_unique}]]";
+    //     var selectedSanPham = form.sanPham.options[form.sanPham.selectedIndex].text;
+    //     var selectedDayDeo = form.dayDeo.options[form.dayDeo.selectedIndex].text;
+    //     var selectedMauSac = form.mauSac.options[form.mauSac.selectedIndex].text;
+    //     var selectedVatLieu = form.vatLieu.options[form.vatLieu.selectedIndex].text;
+    //     var selectedKichCo = form.kichCo.options[form.kichCo.selectedIndex].text;
+    //     var idChiTietSanPhamValue = form.idChiTietSanPham.value;
+    //     var maChiTietSanPhamValue = form.maChiTietSanPham.value;
+    //     var csrfValue = $("input[name='_csrf']").val();
+    //
+    //     var params = {
+    //         idChiTietSanPham: idChiTietSanPhamValue,
+    //         maChiTietSanPham: maChiTietSanPhamValue,
+    //         tenSanPham: selectedSanPham,
+    //         tenDayDeo: selectedDayDeo,
+    //         tenMauSac: selectedMauSac,
+    //         tenKichCo: selectedKichCo,
+    //         tenVatLieu: selectedVatLieu,
+    //         _csrf: csrfValue
+    //     };
+    //
+    //     $.post(url, params)
+    //         .done(function(response) {
+    //             if (response == "OK") {
+    //                 form.submit();
+    //             } else if (response == "Duplicated") {
+    //                 showWarningModal("Mã Hoặc Thông tin chi tiết sản phẩm đã tồn tại Hãy Kiểm Tra Mã và Các Trường Tên Sản Phẩm ,Tên Dây Đeo, Tên Vật Liệu, Tên Màu Sắc, Tên Kích Cỡ Không Được Đồng Thời Giống Nhau.");
+    //             } else {
+    //                 showErrorModal("Lỗi phản hồi từ server");
+    //             }
+    //         })
+    //         .fail(function() {
+    //             showErrorModal("Không thể kết nối đến server");
+    //         });
+    //
+    //     return false;
+    // }
 
 
 </script>

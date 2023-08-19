@@ -33,29 +33,33 @@ public interface SeriRepository extends JpaRepository<Seri,Integer> {
     List<Seri> findByChiTietSanPhamAndTrangThai(ChiTietSanPham chiTietSanPham,Integer trangThai, Pageable pageable);
 
     @Query(nativeQuery = true, value = """
-        WITH soLuong AS
-            (
-                SELECT s.id_seri s
-                FROM seri s
-                WHERE s.trang_thai = 1
-                AND   s.id_chi_tiet_san_pham = :idChiTietSanPham
-                LIMIT :soLuong
-            )
+
        UPDATE seri s1
        SET s1.trang_thai = 3,
            s1.id_hoa_don_chi_tiet = :idHoaDonChiTiet,
            s1.ngay_ban = CURRENT_TIMESTAMP()
-       WHERE s1.id_seri IN (
-                                SELECT *
-                                FROM soLuong
-                           )
+       WHERE s1.id_seri IN :listSeri
     """)
     @Modifying
     @Transactional
     void themSoLuongAdmin(
         @Param("idHoaDonChiTiet") int idHoaDonChiTiet,
-        @Param("soLuong") int soLuong,
-        @Param("idChiTietSanPham") int idChiTietSanPham
+        @Param("listSeri") List<Integer> listSeri
+    );
+
+    @Query(nativeQuery = true, value = """
+
+                SELECT s.id_seri s
+                FROM seri s
+                WHERE s.trang_thai = 1
+                AND   s.id_chi_tiet_san_pham = :idChiTietSanPham
+                LIMIT :soLuong
+    """)
+    @Modifying
+    @Transactional
+    List<Integer> getListSeri(
+            @Param("soLuong") int soLuong,
+            @Param("idChiTietSanPham") int idChiTietSanPham
     );
 
     @Query(nativeQuery = true,value = """
