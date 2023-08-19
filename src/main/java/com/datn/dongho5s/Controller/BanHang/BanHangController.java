@@ -225,10 +225,10 @@ public class BanHangController {
             hoaDonAdminRequest = HoaDonAdminRequest
                     .builder()
                     .maHoaDon("")
-                    .sdt(khachHang.getSoDienThoai())
+                    .sdt(khachHang.getSoDienThoai().trim())
                     .tongTienDonHang(0d)
                     .ngayTao(dateParseToString(new Date(),"yyyy-MM-dd"))
-                    .tenKhachHang(khachHang.getTenKhachHang())
+                    .tenKhachHang(khachHang.getTenKhachHang().trim())
                     .build();
             model.addAttribute("hoaDonAdminRequest",hoaDonAdminRequest);
 
@@ -278,6 +278,7 @@ public class BanHangController {
         DonHang donHangByMa = donHangService.findByMaDonHang(maHoaDon);
 
         httpSession.setAttribute("donHangHienTai",donHangByMa);
+
         Double tongTien = 0d;
         for (HoaDonChiTiet h: donHangByMa.getListHoaDonChiTiet()) {
             if(h.getChiTietSanPham().getKhuyenMai() == null){

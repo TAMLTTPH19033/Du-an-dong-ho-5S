@@ -181,12 +181,12 @@
                   <td th:text="${sp.vatLieu.tenVatLieu}"></td>
                   <td th:text="${sp.khuyenMai == null || sp.khuyenMai.enabled == false ? '' : sp.khuyenMai.chietKhau}"></td>
                   <td>
-                    <a class="btn btn-outline-danger them-san-pham"
+                    <button class="btn btn-outline-danger them-san-pham"
                        data-bs-toggle="modal"
                        data-bs-target="#soLuongSanPham"
                        th:data-ma-ctsp="${sp.maChiTietSanPham}"
                        th:data-so-luong-ton="${sp.soLuong}"
-                    >Thêm</a>
+                    >Thêm</button>
                   </td>
                 </tr>
                 </tbody>
@@ -400,6 +400,42 @@
   // var todayFormatted = yyyy+'-'+mm+'-'+dd; // Chuỗi ngày tháng được định dạng theo định dạng của input type="date"
   // document.getElementById("ngayTao").value = todayFormatted; // Set giá trị mặc định cho input
 
+  // disabled khi don hang null
+  var validateDonHang = () => {
+    var isExist_MaDH = document.getElementById("maHoaDon").value;
+
+    var btn_taoMoi = document.getElementById("tao-moi-don-hang");
+    var btn_thanhToan = document.getElementById("thanhToan");
+    var btn_huydon = document.getElementById("huyDon");
+    var btn_search_by_phoneNumber = document.getElementById("")
+    // if not exist =>> disabled them, thanh toan, huy | enabled tao moi
+    if (isExist_MaDH != ''){
+      btn_taoMoi.disabled = true;
+      btn_thanhToan.disabled = false;
+      btn_huydon.disabled = false;
+
+      // enabled
+      var buttons_them_sam_pham = document.getElementsByClassName("them-san-pham");
+
+      for (var i = 0; i < buttons_them_sam_pham.length; i++) {
+        buttons_them_sam_pham[i].disabled = false;
+      }
+    } else {
+      btn_taoMoi.disabled = false;
+      btn_thanhToan.disabled = true;
+      btn_huydon.disabled = true;
+
+      // enabled
+      var buttons_them_sam_pham = document.getElementsByClassName("them-san-pham");
+
+      for (var i = 0; i < buttons_them_sam_pham.length; i++) {
+        buttons_them_sam_pham[i].disabled = true;
+      }
+    }
+
+  }
+
+  validateDonHang();
 
   var inputField = document.getElementById('sdt');
   var submitButton = document.getElementById('tao-moi-don-hang');
@@ -458,6 +494,7 @@
         console.log("Lỗi: " + error);
       }
     });
+    validateDonHang();
   });
   // erro
   $('#xacNhanThanhToan').click(function() {
@@ -471,6 +508,7 @@
         console.log("Lỗi: " + error);
       }
     });
+    validateDonHang();
   });
 
   $('#xuatHoaDon').click(function() {
@@ -484,6 +522,7 @@
         console.log("Lỗi: " + error);
       }
     });
+    validateDonHang();
   });
 
   $('#huyDonHangHienTai').click(function() {
@@ -497,6 +536,7 @@
         console.log("Lỗi: " + error);
       }
     });
+    validateDonHang();
   });
 
   // chuc nang xoa san pham tu hoa don chi tiet
