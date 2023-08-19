@@ -43,6 +43,9 @@ public class BanHangController {
     KhachHangService khachHangService;
 
     @Autowired
+    SeriService seriService;
+
+    @Autowired
     HttpServletRequest request;
 
     @GetMapping
@@ -372,10 +375,10 @@ public class BanHangController {
         return "redirect:/admin/ban-hang/hoa-don/" + donHangByMa.getMaDonHang();
     }
 
-    @PostMapping("/hoa-don-chi-tiet/sua/{idHD}/so-luong/{soLuong}")
+    @PostMapping("/hoa-don-chi-tiet/sua/{idHDCT}/so-luong/{soLuongCapNhat}")
     public String updateHDCT(
-            @PathVariable("idHD") int idHDCT,
-            @PathVariable("soLuong") int soLuong,
+            @PathVariable("idHDCT") int idHDCT,
+            @PathVariable("soLuongCapNhat") int soLuongCapNhat,
             HttpSession httpSession,
             Model model
     ){
@@ -383,17 +386,8 @@ public class BanHangController {
         if(session.getAttribute("admin") == null ){
             return "redirect:/login-admin" ;
         }
-        int soLuongCapNhat = soLuong;
-        HoaDonChiTiet hoaDonChiTiet = hoaDonChiTietService.findHoaDonChiTietById(idHDCT);
 
-        if (soLuongCapNhat<=0){
-            // xoa hoa don chi tiet
-            hoaDonChiTietService.xoaHDCT(hoaDonChiTiet);
-
-        } else{
-            // Cap nhat lai so luong
-            hoaDonChiTietService.updateSoLuongImeiThem(hoaDonChiTiet,soLuongCapNhat);
-        }
+        seriService.updateSoLuongAdmin(idHDCT, soLuongCapNhat);
 
         DonHang donHangByMa = (DonHang) httpSession.getAttribute("donHangHienTai");
         return "redirect:/admin/ban-hang/hoa-don/" + donHangByMa.getMaDonHang();

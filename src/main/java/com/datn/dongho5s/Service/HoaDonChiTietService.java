@@ -41,10 +41,5 @@ public interface HoaDonChiTietService {
         int id
     );
 
-    void updateSoLuongImeiThem(
-            HoaDonChiTiet hoaDonChiTiet,
-            int soLuongThayDoi
-    );
-
     void xoaHDCTByIdDonHang(DonHang donHang);
 }
