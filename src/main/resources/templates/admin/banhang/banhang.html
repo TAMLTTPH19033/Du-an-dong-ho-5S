@@ -341,7 +341,7 @@
             <input type="text" id="soLuongThemCapNhat" class="form-control">
           </div>
         </form>
-<!--        <label id="errorMessage" style="color: red; display: none;">Giá trị không hợp lệ!</label>-->
+        <label id="errorMessageSuaSoLuong" style="color: red; display: none;">Giá trị không hợp lệ!</label>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Hủy</button>
@@ -561,10 +561,42 @@
   // chuc nang xoa san pham tu hoa don chi tiet end
 
   // chuc nang cap nhat san pham tu hoa don chi tiet
-
+/////////////////////////////////////////////////////////////////////////////
+  // Lấy IDHDCT từ bảng
   var idHDCTSua;
+  var soLuongMaxCoTheThem;
   $('.hoa-don-chi-tiet-sua').click(function() {
     idHDCTSua = $(this).data('id-hdct-sua');
+    fetch(`/admin/ban-hang/seri/api/` + idHDCTSua)
+            .then(response => response.json())
+            .then(data => {
+              // Kiểm tra kết quả từ server và xử lý tương ứng
+              if (data != null) {
+                soLuongMaxCoTheThem = parseInt(data);
+              }
+            })
+            .catch(error => {
+              console.error('Lỗi:', error);
+            });
+    console.log(soLuongMaxCoTheThem);
+  });
+  // validate input nếu > số lượng có thể mua thì disabled button thêm
+  $(document).ready(function() {
+    // Theo dõi sự thay đổi trong ô input
+    $("#soLuongThemCapNhat").on("input", function() {
+      var soLuongSua = document.getElementById('soLuongThemCapNhat').value;
+      var parttern = /^[0-9]+$/;
+      // Kiểm tra giá trị
+      if (soLuongSua > soLuongMaxCoTheThem || soLuongSua <= 0 || !parttern.test(soLuongSua)) {
+        $("#capNhatSoLuong").prop("disabled", true);
+        // Hiển thị thông báo lỗi
+        $("#errorMessageSuaSoLuong").show();
+      } else {
+        $("#capNhatSoLuong").prop("disabled", false);
+        // Ẩn thông báo lỗi
+        $("#errorMessageSuaSoLuong").hide();
+      }
+    });
   });
 
   $('#capNhatSoLuong').click(function() {

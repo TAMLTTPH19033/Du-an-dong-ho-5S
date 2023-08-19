@@ -258,6 +258,18 @@ public class BanHangController {
         }
         return null;
     }
+    @GetMapping("/seri/api/{idHDCT}")
+    @ResponseBody
+    public ResponseEntity<Integer> validateImeiUpdate(
+        @PathVariable("idHDCT") int idHDCT
+    ){
+        Integer soLuongMax = donHangService.soLuongImeiCoTheCapNhat(idHDCT);
+        System.out.println(soLuongMax);
+        if (soLuongMax!= null) {
+            return ResponseEntity.status(HttpStatus.OK).body(soLuongMax);
+        }
+        return null;
+    }
 
     @GetMapping("/hoa-don/{maHoaDon}")
     public String chonHoaDon(

@@ -59,4 +59,6 @@ public interface DonHangService {
 
     Integer countDHbyStatus(Integer trangThaiDonhang);
     Integer countDHAll();
+
+    Integer soLuongImeiCoTheCapNhat(int idHDCT);
 }
