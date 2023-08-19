@@ -67,7 +67,7 @@
                         <td>[[${ctsp.maChiTietSanPham}]]</td>
                         <td>[[${ctsp.sanPham.tenSanPham}]]</td>
                         <td>[[${ctsp.dayDeo.tenDayDeo}]]</td>
-                        <td>[[${ctsp.khuyenMai.tenKhuyenMai}]]</td>
+                        <td >[[${ctsp.khuyenMai == null ? "" : ctsp.khuyenMai.enabled == false ? "" : ctsp.khuyenMai.tenKhuyenMai}]]</td>
                         <td>[[${ctsp.mauSac.tenMauSac}]]</td>
                         <td>[[${ctsp.vatLieu.tenVatLieu}]]</td>
                         <td>[[${ctsp.kichCo.tenKichCo}]]</td>

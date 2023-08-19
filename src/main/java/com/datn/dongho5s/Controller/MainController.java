@@ -44,7 +44,6 @@ public class MainController {
     @GetMapping("/admin")
     public String viewHome(){
         HttpSession session = request.getSession();
-        System.out.println(session.getAttribute("admin") +"co sesion r");
         if(session.getAttribute("admin") == null ){
             return "redirect:/login-admin";
         }
@@ -77,7 +76,6 @@ public class MainController {
             NhanVien userEntity = nhanVienRepository.getNhanVienByEmail(loginAdminRequest.getEmail());
             if(passwordEncoder.matches(loginAdminRequest.getPassword(),userEntity.getMatKhau())){
                 session.setAttribute("admin",userEntity);
-                System.out.println(session.getAttribute("admin")+"aaaaaaaaaaa");
                 ModelAndView mv = new ModelAndView("redirect:/admin");
                 return mv;
 

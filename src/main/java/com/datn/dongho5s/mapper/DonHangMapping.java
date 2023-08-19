@@ -1,7 +1,9 @@
 package com.datn.dongho5s.mapper;
 
+import com.datn.dongho5s.Cache.DiaChiCache;
 import com.datn.dongho5s.Entity.DonHang;
 import com.datn.dongho5s.Entity.GioHang;
+import com.datn.dongho5s.GiaoHangNhanhService.DiaChiAPI;
 import com.datn.dongho5s.Request.GioHangRequest;
 import com.datn.dongho5s.Response.DonHangResponse;
 import com.datn.dongho5s.Response.GiohangResponse;
@@ -9,20 +11,21 @@ import lombok.Data;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.TimeZone;
 
 @Data
 public class DonHangMapping {
 
-    public  static DonHangResponse mapEntitytoResponseBT(DonHang donHang){
+    public static DonHangResponse mapEntitytoResponseBT(DonHang donHang) throws Exception {
         DonHangResponse donHangResponse =  DonHangResponse.builder()
                 .idDonHang(donHang.getIdDonHang())
                 .maDonHang(donHang.getMaDonHang())
                 .diaChi(donHang.getDiaChi())
                 .ghiChu(donHang.getGhiChu())
-                .idPhuongXa(donHang.getIdPhuongXa())
-                .idQuanHuyen(donHang.getIdQuanHuyen())
-                .idTinhThanh(donHang.getIdTinhThanh())
+                .PhuongXa(getXa(donHang.getIdQuanHuyen(), donHang.getIdPhuongXa()))
+                .QuanHuyen(getQuan(donHang.getIdTinhThanh(), donHang.getIdQuanHuyen()))
+                .TinhThanh(getTinh(donHang.getIdTinhThanh()))
                 .ngayTao(donHang.getNgayTao())
                 .ngayGiaoHang(donHang.getNgayGiaoHang())
                 .khachHang(donHang.getKhachHang())
@@ -31,12 +34,11 @@ public class DonHangMapping {
                 .tongTien(donHang.getTongTien())
                 .hoaDonChiTiets(donHang.getListHoaDonChiTiet())
                 .lyDo(donHang.getLyDo())
-//                .ngayCapNhap(df.format(donHang.getNgayCapNhap()))
                 .build();
         return donHangResponse;
     }
 
-    public  static DonHangResponse mapEntitytoResponse(DonHang donHang){
+    public  static DonHangResponse mapEntitytoResponse(DonHang donHang) throws Exception {
         TimeZone tz = TimeZone.getTimeZone("UTC");
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.sss'Z'"); // Quoted "Z" to indicate UTC, no timezone offset
         df.setTimeZone(tz);
@@ -46,9 +48,9 @@ public class DonHangMapping {
                 .maDonHang(donHang.getMaDonHang())
                 .diaChi(donHang.getDiaChi())
                 .ghiChu(donHang.getGhiChu())
-                .idPhuongXa(donHang.getIdPhuongXa())
-                .idQuanHuyen(donHang.getIdQuanHuyen())
-                .idTinhThanh(donHang.getIdTinhThanh())
+                .PhuongXa(getXa(donHang.getIdQuanHuyen(), donHang.getIdPhuongXa()))
+                .QuanHuyen(getQuan(donHang.getIdTinhThanh(), donHang.getIdQuanHuyen()))
+                .TinhThanh(getTinh(donHang.getIdTinhThanh()))
                 .ngayTao(donHang.getNgayTao())
                 .ngayGiaoHang(donHang.getNgayGiaoHang())
                 .khachHang(donHang.getKhachHang())
@@ -63,4 +65,19 @@ public class DonHangMapping {
     }
 
 
+    public static String  getTinh(Integer idTP) throws Exception {
+        HashMap<Integer,String> listTP = DiaChiCache.hashMapTinhThanh;
+        String tinh = listTP.get(idTP);
+        return tinh;
+    }
+    public static String  getQuan(Integer idTP , Integer idQH) throws Exception {
+        HashMap<Integer,String> listQH  = DiaChiAPI.callGetQuanHuyenAPI(idTP);
+        String quan = listQH.get(idQH);
+        return quan;
+    }
+    public static String  getXa( Integer idQH, String idPX) throws Exception {
+        HashMap<String, String> listPX  = DiaChiAPI.callGetPhuongXaAPI(idQH);
+        String xa = listPX.get(idPX);
+        return xa;
+    }
 }

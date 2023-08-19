@@ -77,7 +77,7 @@ public class BanHangController {
                         .tenKhachHang(donHangByMa.getKhachHang() == null ? "" : donHangByMa.getKhachHang().getTenKhachHang())
                     .build());
         }
-        this.getListSanPham(model,1,"",httpSession,hoaDonAdminRequest);
+        this.getListSanPham(model,1,httpSession,hoaDonAdminRequest);
         this.getListHDCT(model,1);
         return "admin/banhang/banhang";
     }
@@ -86,7 +86,6 @@ public class BanHangController {
     public String getListSanPham(
         Model model,
         @PathVariable("pageNum") int pageNum,
-        @RequestParam("keywork") String keywork,
         HttpSession httpSession,
         @ModelAttribute("hoaDonAdminRequest") HoaDonAdminRequest hoaDonAdminRequest
     ){
@@ -95,12 +94,39 @@ public class BanHangController {
             return "redirect:/login-admin" ;
         }
         // set list san pham
-        List<SanPhamAdminResponse> sanPhamList = chiTietSanPhamService.getAllSanPhamAminResponse(1,keywork);
+        List<SanPhamAdminResponse> sanPhamList = chiTietSanPhamService.getAllSanPhamAminResponse(pageNum);
 
         model.addAttribute("listSanPham", sanPhamList);
 
         model.addAttribute("currentPage", pageNum);
-        model.addAttribute("totalPages", chiTietSanPhamService.getALlChiTietSanPhamPage(pageNum,keywork).getTotalPages());
+        model.addAttribute("totalPages", chiTietSanPhamService.getALlChiTietSanPhamPage(pageNum).getTotalPages());
+
+
+        DonHang donHangByMa = (DonHang) httpSession.getAttribute("donHangHienTai");
+
+        if (donHangByMa!= null){
+            List<HoaDonChiTiet> lstHDCT = hoaDonChiTietService.getHDCTByMaDonHang(donHangByMa.getMaDonHang());
+
+            model.addAttribute("lstHDCT",lstHDCT);
+
+            Double tongTien = 0d;
+
+            for (HoaDonChiTiet h: donHangByMa.getListHoaDonChiTiet()) {
+                if (h.getChiTietSanPham().getKhuyenMai() == null || h.getChiTietSanPham().getKhuyenMai().isEnabled() == false){
+                    tongTien += h.getGiaBan() * h.getSoLuong();
+                } else{
+                    tongTien += h.getGiaBan() * h.getSoLuong() * h.getChietKhau() / 100;
+                }
+            }
+            model.addAttribute("hoaDonAdminRequest", HoaDonAdminRequest
+                    .builder()
+                    .maHoaDon(donHangByMa.getMaDonHang())
+                    .sdt(donHangByMa.getKhachHang() == null ? "" : donHangByMa.getKhachHang().getSoDienThoai())
+                    .tongTienDonHang(tongTien)
+                    .ngayTao(dateParseToString(donHangByMa.getNgayTao(),"yyyy-MM-dd"))
+                    .tenKhachHang(donHangByMa.getKhachHang() == null ? "" : donHangByMa.getKhachHang().getTenKhachHang())
+                    .build());
+        }
 
         return "admin/banhang/banhang";
     }
@@ -114,9 +140,8 @@ public class BanHangController {
         if(session.getAttribute("admin") == null ){
             return "redirect:/login-admin" ;
         }
-        Page<HoaDonChiTiet> lstHDCTPage = hoaDonChiTietService.getHDCTByMaDonHang(null,pageNum);
 
-        List<HoaDonChiTiet> lstHDCT = lstHDCTPage.getContent();
+        List<HoaDonChiTiet> lstHDCT = hoaDonChiTietService.getHDCTByMaDonHang(null);
 
         model.addAttribute("lstHDCT",lstHDCT);
 
@@ -129,10 +154,18 @@ public class BanHangController {
             HttpSession httpSession,
             @ModelAttribute("hoaDonAdminRequest") HoaDonAdminRequest hoaDonAdminRequest
     ){
+
+        model.addAttribute("currentPage", 1);
+        model.addAttribute("totalPages", chiTietSanPhamService.getALlChiTietSanPhamPage(1).getTotalPages());
+
         HttpSession session = request.getSession();
         if(session.getAttribute("admin") == null ){
             return "redirect:/login-admin" ;
         }
+      NhanVien nhanVien = (NhanVien) session.getAttribute("admin");
+        model.addAttribute("currentPage", 1);
+        model.addAttribute("totalPages", chiTietSanPhamService.getALlChiTietSanPhamPage(1).getTotalPages());
+      
         String maDonHangCD = this.generateMaHD();
         KhachHang khachHang = (KhachHang) httpSession.getAttribute("khachHangExist");
 
@@ -159,7 +192,7 @@ public class BanHangController {
                 .maDonHang(maDonHangCD)
                 .trangThaiDonHang(0)
                 .tongTien(0d)
-                //.nhanVien()0
+                .nhanVien(nhanVien)
                 .ngayCapNhap(new Date())
                 .ngayGiaoHang(new Date())
                 .khachHang(khachHang)
@@ -203,9 +236,12 @@ public class BanHangController {
         }
 
         // set list san pham
-        List<SanPhamAdminResponse> sanPhamList = chiTietSanPhamService.getAllSanPhamAminResponse(1,"");
+        List<SanPhamAdminResponse> sanPhamList = chiTietSanPhamService.getAllSanPhamAminResponse(1);
 
         model.addAttribute("listSanPham",sanPhamList);
+
+        model.addAttribute("currentPage", 1);
+        model.addAttribute("totalPages", chiTietSanPhamService.getALlChiTietSanPhamPage(1).getTotalPages());
 
         return "admin/banhang/banhang";
     }
@@ -230,10 +266,15 @@ public class BanHangController {
         HttpSession httpSession,
         @ModelAttribute("hoaDonAdminRequest") HoaDonAdminRequest hoaDonAdminRequest
     ){
+      
         HttpSession session = request.getSession();
         if(session.getAttribute("admin") == null ){
             return "redirect:/login-admin" ;
         }
+      
+        model.addAttribute("currentPage", 1);
+        model.addAttribute("totalPages", chiTietSanPhamService.getALlChiTietSanPhamPage(1).getTotalPages());
+
         DonHang donHangByMa = donHangService.findByMaDonHang(maHoaDon);
 
         httpSession.setAttribute("donHangHienTai",donHangByMa);
@@ -261,21 +302,19 @@ public class BanHangController {
         model.addAttribute("hoaDonAdminRequest",hoaDonAdminRequest);
 
         // set list san pham
-        List<SanPhamAdminResponse> sanPhamList = chiTietSanPhamService.getAllSanPhamAminResponse(1,"");
+        List<SanPhamAdminResponse> sanPhamList = chiTietSanPhamService.getAllSanPhamAminResponse(1);
 
         model.addAttribute("listSanPham",sanPhamList);
 
         //set list hdct
 
-        Page<HoaDonChiTiet> lstHDCTPage = hoaDonChiTietService.getHDCTByMaDonHang(donHangByMa.getMaDonHang(),1);
-
-        List<HoaDonChiTiet> lstHDCT = lstHDCTPage.getContent();
+        List<HoaDonChiTiet> lstHDCT = hoaDonChiTietService.getHDCTByMaDonHang(donHangByMa.getMaDonHang());
 
         model.addAttribute("lstHDCT",lstHDCT);
 
         //set list ctsp
 
-        model.addAttribute("lstCTSP",chiTietSanPhamService.getAllSanPhamAminResponse(1,""));
+        model.addAttribute("lstCTSP",chiTietSanPhamService.getAllSanPhamAminResponse(1));
 
         return "admin/banhang/banhang";
     }
@@ -340,7 +379,7 @@ public class BanHangController {
 
         } else{
             // Cap nhat lai so luong
-            hoaDonChiTietService.updateSoLuongInHDCT(hoaDonChiTiet,soLuongCapNhat);
+            hoaDonChiTietService.updateSoLuongImeiThem(hoaDonChiTiet,soLuongCapNhat);
         }
 
         DonHang donHangByMa = (DonHang) httpSession.getAttribute("donHangHienTai");
@@ -381,9 +420,9 @@ public class BanHangController {
         donHangService.thanhToanAdmin(donHang);
 
         //xuat
-//        List<HoaDonChiTiet> lst = hoaDonChiTietService.getByIdDonHang(donHang.getIdDonHang());
-//        HoaDonPdf hoaDonPdf = new HoaDonPdf();
-//        hoaDonPdf.exportToPDF(response, lst, donHang);
+        //        List<HoaDonChiTiet> lst = hoaDonChiTietService.getByIdDonHang(donHang.getIdDonHang());
+        //        HoaDonPdf hoaDonPdf = new HoaDonPdf();
+        //        hoaDonPdf.exportToPDF(response, lst, donHang);
 
         httpSession.removeAttribute("donHangHienTai");
         return "redirect:/admin/ban-hang";
@@ -403,9 +442,10 @@ public class BanHangController {
         donHangService.xoaDonHangAdmin(donHang);
 
         httpSession.removeAttribute("donHangHienTai");
+        httpSession.removeAttribute("khachHangExist");
+
         return "redirect:/admin/ban-hang";
     }
-
     public String generateMaHD(){
         return "HD" +
                 new Date().toString().toUpperCase().replaceAll("[^a-zA-Z0-9]", "") +

@@ -32,72 +32,48 @@
         <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion" style="background: linear-gradient(to bottom, #555555, #2ecc71, #3498db);">
             <div class="sb-sidenav-menu">
                 <div class="nav">
-                    <div class="sb-sidenav-menu-heading">Báo Cáo</div>
-
-                    <a class="nav-link" href="index.html">
-                        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                        Biểu Đồ
-                    </a>
-
                     <div class="sb-sidenav-menu-heading">Menu</div>
-<!--                    <div th:if="${token.authorities.contains('ADMIN')}">-->
-<!--                        sec:authorize="hasAuthority('ADMIN')"-->
                     <a class="nav-link collapsed" id="users" th:href="@{/admin/users}"  >
                         <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                         User
                     </a>
-<!--                    </div>-->
+                    <a class="nav-link collapsed" id="ban-hang" th:href="@{/admin/ban-hang}" >
+                        <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                        Bán hàng
+                    </a>
                     <a class="nav-link collapsed" id="products" th:href="@{/admin/products}" >
                         <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                        Product
+                        Sản phẩm
                     </a>
                     <a class="nav-link collapsed" id="productDetails" th:href="@{/admin/productDetails}" >
                         <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                        Product Details
+                       Chi tiết sản phẩm
+                    </a>
+                    <a class="nav-link collapsed" id="don-hang" th:href="@{/admin/don-hang}" >
+                        <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                        Đơn hàng
                     </a>
                     <a class="nav-link collapsed" id="categories" th:href="@{/admin/categories}">
                         <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                        Categories
+                        Dạnh mục
                     </a>
                     <a class="nav-link collapsed" id="brands" th:href="@{/admin/brands}">
                         <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                        Brands
+                        Thương hiệu
                     </a>
                     <a class="nav-link collapsed" id="customers" th:href="@{/admin/customers}" >
                         <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                         Khách Hàng
                     </a>
-                    <a class="nav-link collapsed" id="cards" th:href="@{/admin/cards}" >
-                        <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                        Card
-                    </a>
-                    <a class="nav-link collapsed" id="cardsDetails" th:href="@{/admin/cardsDetail}" >
-                        <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                        CardDetail
-                    </a>
-                    <a class="nav-link collapsed" id="orders" th:href="@{/admin/orders}" >
-                        <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                        Orders
-                    </a>
-                    <a class="nav-link collapsed" id="ordersDetail" th:href="@{/admin/ordersDetail}" >
-                        <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                        OrdersDetail
-                    </a>
+
                     <a class="nav-link collapsed" id="statisticals" th:href="@{/admin/statisticals}" >
                         <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                         Thống Kê
                     </a>
-                    <a class="nav-link collapsed" id="posts" th:href="@{/admin/posts}" >
-                        <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                        Posts
-                    </a>
+
                     <a class="nav-link collapsed" id="seri" th:href="@{/admin/seri}" >
                         <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                         Seri
-                    </a>
-                    <a class="nav-link collapsed" id="straps" th:href="@{/admin/straps}" >
-                        <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                        Straps
                     </a>
                     <a class="nav-link collapsed" id="sizes" th:href="@{/admin/sizes}" >
                         <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
@@ -111,27 +87,11 @@
                         <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                         Màu sắc
                     </a>
-                    <a class="nav-link collapsed" id="don-hang" th:href="@{/admin/don-hang}" >
-                        <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                        Đơn hàng
-                    </a>
-                    <a class="nav-link collapsed" id="ban-hang" th:href="@{/admin/ban-hang}" >
-                        <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                        Bán hàng
-                    </a>
                     <a class="nav-link collapsed" id="discounts" th:href="@{/admin/discounts}" >
                         <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                        DisCounts
+                        Khuyến mại
                     </a>
                     <div class="sb-sidenav-menu-heading">Addons</div>
-                    <a class="nav-link" href="charts.html">
-                        <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                        Charts
-                    </a>
-                    <a class="nav-link" href="tables.html">
-                        <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                        Tables
-                    </a>
                 </div>
             </div>
             <div class="sb-sidenav-footer" style="background: linear-gradient(to right, #b2b2b2, #2ecc71, #3498db); color: white;">

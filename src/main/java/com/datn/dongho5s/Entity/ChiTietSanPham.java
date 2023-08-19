@@ -31,6 +31,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 @Table(name = "chitietsanpham")
 public class ChiTietSanPham {
     @Id

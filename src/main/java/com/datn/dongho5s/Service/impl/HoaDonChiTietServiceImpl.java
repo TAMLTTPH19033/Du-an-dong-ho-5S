@@ -12,8 +12,6 @@ import com.datn.dongho5s.Service.ChiTietSanPhamService;
 import com.datn.dongho5s.Service.DonHangService;
 import com.datn.dongho5s.Service.HoaDonChiTietService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -89,8 +87,8 @@ public class HoaDonChiTietServiceImpl implements HoaDonChiTietService {
     }
 
     @Override
-    public Page<HoaDonChiTiet> getHDCTByMaDonHang(String maDonHang, int pageNum) {
-        Page<HoaDonChiTiet> hoaDonChiTietPage = hoaDonChiTietRepository.findByMaDonHang(maDonHang, PageRequest.of(pageNum - 1, 5));
+    public List<HoaDonChiTiet> getHDCTByMaDonHang(String maDonHang) {
+        List<HoaDonChiTiet> hoaDonChiTietPage = hoaDonChiTietRepository.findByMaDonHang(maDonHang);
         return hoaDonChiTietPage;
     }
 
@@ -115,18 +113,19 @@ public class HoaDonChiTietServiceImpl implements HoaDonChiTietService {
                     .builder()
                     .chiTietSanPham(chiTietSanPham)
                     .donHang(donHang)
-                    .chietKhau(chiTietSanPham.getKhuyenMai().getChietKhau())
                     .giaBan(chiTietSanPham.getGiaSanPham())
                     .soLuong(soLuong)
-                    .chietKhau(chiTietSanPham.getKhuyenMai().isEnabled() == false || chiTietSanPham.getKhuyenMai() == null ? null : chiTietSanPham.getKhuyenMai().getChietKhau())
+                    .chietKhau((chiTietSanPham.getKhuyenMai() == null || chiTietSanPham.getKhuyenMai().isEnabled() == false) ? null : chiTietSanPham.getKhuyenMai().getChietKhau())
                     .build());
+            List<Integer> listSeri = seriRepository.getListSeri(soLuong,chiTietSanPham.getIdChiTietSanPham());
             // step 2: update status seri is 3
-            seriRepository.themSoLuongAdmin(hoaDonChiTiet.getIdHoaDonChiTiet(),soLuong,chiTietSanPham.getIdChiTietSanPham());
+            seriRepository.themSoLuongAdmin(hoaDonChiTiet.getIdHoaDonChiTiet(),listSeri);
         } else{
             // else ctsp exist -> update quantity by idHDCT
             hoaDonChiTietRepository.updateSoLuongSanPham(soLuong,existIdHCT);
-            // step 2: update status seri is 3
-            seriRepository.themSoLuongAdmin(existIdHCT,soLuong,chiTietSanPham.getIdChiTietSanPham());
+            List<Integer> listSeri = seriRepository.getListSeri(soLuong,chiTietSanPham.getIdChiTietSanPham());
+                    // step 2: update status seri is 3
+            seriRepository.themSoLuongAdmin(existIdHCT,listSeri);
         }
     }
 
@@ -146,12 +145,18 @@ public class HoaDonChiTietServiceImpl implements HoaDonChiTietService {
         return hoaDonChiTietRepository.findByIdHoaDonChiTiet(id);
     }
     @Override
-    public void updateSoLuongInHDCT(
+    public void updateSoLuongImeiThem(
             HoaDonChiTiet hoaDonChiTiet,
             int soLuongThayDoi
     ){
+        // update so luong hdct
         hoaDonChiTietRepository.updateSoLuongSanPhamWithEdit(soLuongThayDoi,hoaDonChiTiet.getIdHoaDonChiTiet());
-        // cap nhat lai so luong da thay doi
+        // cap nhat lai so luong imei da thay doi
+        int soLuongMax = seriRepository.soLuongImeiCoTheCapNhat(hoaDonChiTiet.getIdHoaDonChiTiet());
+
+        if (soLuongThayDoi <= soLuongMax) {
+
+        }
         int slHienTai = hoaDonChiTiet.getSoLuong();
         chiTietSanPhamRepository.updateSoLuongFromHDCT(slHienTai - soLuongThayDoi,hoaDonChiTiet.getChiTietSanPham().getIdChiTietSanPham());
     }

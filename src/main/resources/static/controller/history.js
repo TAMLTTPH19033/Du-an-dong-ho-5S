@@ -69,7 +69,6 @@ myApp.controller(
                     .then((resp) => {
                         $scope.donHang = resp.data;
                         $scope.items.push($scope.donHang[0])
-                        $scope.items.push($scope.donHang[1])
                     }).catch(error => {
                     if (error.status == 403) {
                         Swal.fire({
@@ -155,7 +154,6 @@ myApp.controller(
                 .then((resp) => {
                     $scope.donHang = resp.data;
                     $scope.items.push($scope.donHang[0])
-                    $scope.items.push($scope.donHang[1])
                 }).catch(error => {
                 if (error.status == 403) {
                     Swal.fire({
@@ -212,7 +210,6 @@ myApp.controller(
                 .then((resp) => {
                     $scope.donHang = resp.data;
                     $scope.items.push($scope.donHang[0])
-                    $scope.items.push($scope.donHang[1])
                 }).catch(error => {
                 if (error.status == 403) {
                     Swal.fire({
@@ -431,7 +428,6 @@ myApp.controller(
                 .then((resp) => {
                     $scope.donHang = resp.data;
                     $scope.items.push($scope.donHang[0])
-                    $scope.items.push($scope.donHang[1])
                 }).catch(error => {
                 if (error.status == 403) {
                     Swal.fire({

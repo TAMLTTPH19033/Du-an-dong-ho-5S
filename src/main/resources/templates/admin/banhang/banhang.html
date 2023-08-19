@@ -89,7 +89,7 @@
           <div class="col-sm-9">
             <!--  Ban hang-->
             <h3 style="font-weight: bold">Chi tiết hoá đơn</h3>
-            <div class="row gio-hang bg-body-tertiary p-3 rounded border border-light" style="height: 300px">
+            <div class="row gio-hang bg-body-tertiary p-3 rounded border border-light" style="height: 300px; overflow: scroll">
               <table class="table">
                 <thead>
                 <tr>
@@ -105,9 +105,10 @@
                 <tr th:each="hdct : ${lstHDCT}">
                   <td th:text="${hdct.chiTietSanPham.maChiTietSanPham}"></td>
                   <td th:text="${hdct.chiTietSanPham.sanPham.tenSanPham}"></td>
-                  <td th:text="${hdct.chiTietSanPham.giaSanPham}"></td>
+                  <td th:text="${#numbers.formatDecimal(hdct.chiTietSanPham.giaSanPham, 0, 'COMMA', 0, 'POINT')} +
+                  ' đ'"></td>
                   <td th:text="${hdct.soLuong}"></td>
-                  <td th:text="${hdct.chiTietSanPham.khuyenMai == null ? '' : hdct.chiTietSanPham.khuyenMai.chietKhau }"></td>
+                  <td th:text="${hdct.chiTietSanPham.khuyenMai == null || hdct.chiTietSanPham.khuyenMai.enabled == false ? '' : hdct.chiTietSanPham.khuyenMai.chietKhau }"></td>
                   <td>
                     <a class="btn btn-outline-dark hoa-don-chi-tiet-xoa"
                         data-bs-toggle="modal"
@@ -173,11 +174,12 @@
                 <tr th:each="sp : ${listSanPham}">
                   <td th:text="${sp.maChiTietSanPham}"></td>
                   <td th:text="${sp.sanPham.tenSanPham}"></td>
-                  <td th:text="${sp.giaSanPham}"></td>
+                  <td th:text="${#numbers.formatDecimal(sp.giaSanPham, 0, 'COMMA', 0, 'POINT')} +
+                  ' đ'"></td>
                   <td th:text="${sp.soLuong}"></td>
                   <td th:text="${sp.mauSac.tenMauSac}"></td>
                   <td th:text="${sp.vatLieu.tenVatLieu}"></td>
-                  <td th:text="${sp.khuyenMai == null ? '' : sp.khuyenMai.chietKhau}"></td>
+                  <td th:text="${sp.khuyenMai == null || sp.khuyenMai.enabled == false ? '' : sp.khuyenMai.chietKhau}"></td>
                   <td>
                     <a class="btn btn-outline-danger them-san-pham"
                        data-bs-toggle="modal"
@@ -357,6 +359,8 @@
       <div class="modal-header">
         <h3 class="modal-title" id="thanhToanHoaDonLabel">Thanh toán</h3>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Hủy</button>

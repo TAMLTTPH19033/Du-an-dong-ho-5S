@@ -138,7 +138,7 @@
 
     <a th:fragment="page_spct_link(pageNum, label)"
        class="page-link"
-       th:href="@{'/admin/ban-hang/sanpham/page/' + ${pageNum}+ ${keyword != null ? '&keyword' + keyword : ''}}"> [[${label}]]</a>
+       th:href="@{'/admin/ban-hang/sanpham/page/' + ${pageNum}}"> [[${label}]]</a>
 
     <a th:fragment="mausac_link(pageNum, label)"
        class="page-link"

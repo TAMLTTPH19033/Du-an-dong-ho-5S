@@ -32,9 +32,9 @@ public interface DonHangService {
 
     List<HoaDonChiTietResponse> findHDCTbyDH(Integer idDonhang);
 
-    List<DonHangResponse> findAllHD(Integer idKhachHang);
+    List<DonHangResponse> findAllHD(Integer idKhachHang) throws Exception;
 
-    List<DonHangResponse> findHDByStatus(Integer idKhachHang, Integer trangThaiDonHang);
+    List<DonHangResponse> findHDByStatus(Integer idKhachHang, Integer trangThaiDonHang) throws Exception;
 
     public DonHangResponse updateDH(DonHangRequest donHangRequest);
 

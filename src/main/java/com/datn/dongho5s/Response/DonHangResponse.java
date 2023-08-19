@@ -33,11 +33,11 @@ public class DonHangResponse {
 
     private Integer trangThaiDonHang;
 
-    private Integer idTinhThanh;
+    private String TinhThanh;
 
-    private Integer idQuanHuyen;
+    private String QuanHuyen;
 
-    private String idPhuongXa;
+    private String PhuongXa;
 
     private String diaChi;
 
