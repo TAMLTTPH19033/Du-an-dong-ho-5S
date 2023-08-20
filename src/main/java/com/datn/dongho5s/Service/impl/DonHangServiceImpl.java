@@ -20,7 +20,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -239,5 +238,11 @@ public class DonHangServiceImpl implements DonHangService {
         }
         sorts.add(new Sort.Order(direction, sort));
         return sorts;
+    }
+
+    @Override
+    public Integer soLuongImeiCoTheCapNhat(int idHDCT){
+        HoaDonChiTiet hoaDonChiTiet = hoaDonChiTietRepository.findByIdHoaDonChiTiet(idHDCT);
+        return seriRepository.soLuongDaMuaByHDCT(idHDCT) + seriRepository.soLuongTonByHDCT(hoaDonChiTiet.getChiTietSanPham().getIdChiTietSanPham());
     }
 }

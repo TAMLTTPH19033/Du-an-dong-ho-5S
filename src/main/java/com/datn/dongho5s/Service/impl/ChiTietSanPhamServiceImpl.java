@@ -96,7 +96,30 @@ public class ChiTietSanPhamServiceImpl implements ChiTietSanPhamService {
                         .build()).collect(Collectors.toList());
         return lst;
     }
+    @Override
+    public int totalPageSearchSP(String key, int pageNum){
+        return chiTietSanPhamRepository.searchByKey(key,PageRequest.of(pageNum - 1, 5)).getTotalPages();
+    }
 
+    @Override
+    public List<SanPhamAdminResponse> searchSP(String key, int pageNum) {
+        List<ChiTietSanPham> lstChiTietSanPhams = chiTietSanPhamRepository.searchByKey(key,PageRequest.of(pageNum - 1, 5)).getContent();
+
+        List<SanPhamAdminResponse> lst = lstChiTietSanPhams
+                .stream()
+                .map(lstSP -> SanPhamAdminResponse
+                        .builder()
+                        .idChiTietSanPham(lstSP.getIdChiTietSanPham())
+                        .maChiTietSanPham(lstSP.getMaChiTietSanPham())
+                        .giaSanPham(lstSP.getGiaSanPham())
+                        .sanPham(lstSP.getSanPham())
+                        .vatLieu(lstSP.getVatLieu())
+                        .mauSac(lstSP.getMauSac())
+                        .khuyenMai(lstSP.getKhuyenMai())
+                        .soLuong(seriRepository.countByIdCTSPEnabled(lstSP.getIdChiTietSanPham()))  // find All Imei status is enabled
+                        .build()).collect(Collectors.toList());
+        return lst;
+    }
     @Override
     public ChiTietSanPham findByMaChiTietSanPham(String maChimaTietSanPham) {
         return chiTietSanPhamRepository.findByMaChiTietSanPham(maChimaTietSanPham);

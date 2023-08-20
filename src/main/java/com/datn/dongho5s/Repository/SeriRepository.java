@@ -33,7 +33,6 @@ public interface SeriRepository extends JpaRepository<Seri,Integer> {
     List<Seri> findByChiTietSanPhamAndTrangThai(ChiTietSanPham chiTietSanPham,Integer trangThai, Pageable pageable);
 
     @Query(nativeQuery = true, value = """
-
        UPDATE seri s1
        SET s1.trang_thai = 3,
            s1.id_hoa_don_chi_tiet = :idHoaDonChiTiet,
@@ -45,6 +44,21 @@ public interface SeriRepository extends JpaRepository<Seri,Integer> {
     void themSoLuongAdmin(
         @Param("idHoaDonChiTiet") int idHoaDonChiTiet,
         @Param("listSeri") List<Integer> listSeri
+    );
+
+    @Query(nativeQuery = true, value = """
+       UPDATE seri s1
+       SET s1.trang_thai = 1,
+           s1.id_hoa_don_chi_tiet = null,
+           s1.ngay_ban = null
+       WHERE s1.id_hoa_don_chi_tiet = :idHoaDonChiTiet
+       LIMIT :soLuong
+    """)
+    @Modifying
+    @Transactional
+    void giamSoLuongAdmin(
+            @Param("idHoaDonChiTiet") int idHoaDonChiTiet,
+            @Param("soLuong") int soLuong
     );
 
     @Query(nativeQuery = true, value = """
@@ -63,24 +77,18 @@ public interface SeriRepository extends JpaRepository<Seri,Integer> {
     );
 
     @Query(nativeQuery = true,value = """
-        WITH
-            soLuongDaMua AS (
-                SELECT COUNT(*) AS count
-                FROM seri s
-                WHERE s.id_hoa_don_chi_tiet = :idHDCT
-            ),
-            soLuongTon AS (
-                SELECT COUNT(*) AS count
-                FROM seri s
-                WHERE s.id_chi_tiet_san_pham = :idHDCT
-                AND   s.id_hoa_don_chi_tiet IS NULL
-            )
-        SELECT
-        	(SELECT count FROM soLuongDaMua) +
-        	(SELECT count FROM soLuongTon) AS total_count;
+        SELECT COUNT(*) AS count
+        FROM seri s
+        WHERE s.id_hoa_don_chi_tiet = :idHDCT
     """)
-    int soLuongImeiCoTheCapNhat(@Param("idHDCT") int idHDCT);
-
+    int soLuongDaMuaByHDCT(@Param("idHDCT") int idHDCT);
+    @Query(nativeQuery = true,value = """
+        SELECT COUNT(*) AS count
+        FROM seri s
+        WHERE s.id_chi_tiet_san_pham = :idCTSP
+        AND   s.id_hoa_don_chi_tiet IS NULL
+    """)
+    int soLuongTonByHDCT(@Param("idCTSP") int idCTSP);
     @Modifying
     @Transactional
     @Query("""

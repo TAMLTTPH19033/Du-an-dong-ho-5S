@@ -130,27 +130,12 @@
               <h3 style="font-weight: bold">Sản phẩm</h3>
 
               <div class="row">
-                <div class="col-md-7">
-                  <form>
+                <div class="col-md-12">
+                  <form th:action="@{/admin/ban-hang/tim-kiem}" method="GET">
                     <div class="row">
-                      <input class="col-sm-8">
+                      <input class="col-sm-8" type="text" name="searchSP">
                       <div class="col-sm-4">
                         <button type="submit" class="btn btn-outline-dark">Tìm kiếm</button>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-                <div class="col-md-5">
-                  <form>
-                    <div class="row">
-                      <label for="danhMuc" class="col-sm-4">Thể loại</label>
-                      <div class="col-sm-8">
-                        <select class="form-select" id="danhMuc">
-                          <option selected>Cao cấp</option>
-                          <option value="1">Hạng Trung</option>
-                          <option value="2">Two</option>
-                          <option value="3">Three</option>
-                        </select>
                       </div>
                     </div>
                   </form>
@@ -181,12 +166,12 @@
                   <td th:text="${sp.vatLieu.tenVatLieu}"></td>
                   <td th:text="${sp.khuyenMai == null || sp.khuyenMai.enabled == false ? '' : sp.khuyenMai.chietKhau}"></td>
                   <td>
-                    <a class="btn btn-outline-danger them-san-pham"
+                    <button class="btn btn-outline-danger them-san-pham"
                        data-bs-toggle="modal"
                        data-bs-target="#soLuongSanPham"
                        th:data-ma-ctsp="${sp.maChiTietSanPham}"
                        th:data-so-luong-ton="${sp.soLuong}"
-                    >Thêm</a>
+                    >Thêm</button>
                   </td>
                 </tr>
                 </tbody>
@@ -222,34 +207,33 @@
             <h3 style="font-weight: bold">Thông tin</h3>
             <form th:action="@{/admin/ban-hang/khach-hang/tim-kiem}" class="form-inline m-3" method="GET">
               <div class="d-flex align-items-center">
-                <input style="width: 250px; margin-right: 10px" type="search" placeholder="Tìm kiếm" class="form-control" required name="phoneNumber" />
-                <input style="margin-right: 10px" type="submit" value="Tìm kiếm" class="btn btn-outline-info ml-2" />
+                <input style="width: 250px; margin-right: 10px" type="search" id="timKiemSDTInput" placeholder="Tìm kiếm" class="form-control" required name="phoneNumber" />
+                <input style="margin-right: 10px" type="submit" value="Tìm kiếm" id="timKiemSDT" class="btn btn-outline-info ml-2" />
               </div>
             </form>
             <form th:object="${hoaDonAdminRequest}" th:action="@{/admin/ban-hang/hoa-don/tao-moi}" method="post">
               <div class="row thong-tin-hoa-don bg-body-tertiary p-3 rounded border border-light">
-                  <div class="col-md-4">
+                  <div class="col-md-12">
                     <label for="maHoaDon" class="form-label">Mã hóa đơn</label>
                     <input type="text" class="form-control" id="maHoaDon" name="maHoaDon" th:field="*{maHoaDon}" disabled style="background-color: white">
                   </div>
-                  <div class="col-md-8">
+                  <div class="col-md-12">
                     <label for="sdt" class="form-label">SĐT</label>
                     <input type="text" class="form-control" id="sdt" name="sdt" th:field="*{sdt}">
                   </div>
-                  <div class="col-12">
+                  <div class="col-md-12">
                     <label for="ten" class="form-label">Tên khách hàng</label>
                     <input type="text" class="form-control" id="ten" name="tenKhachHang" th:field="*{tenKhachHang}">
                   </div>
-                  <div class="col-12">
+                  <div class="col-md-12">
                     <label for="ngayTao" class="form-label">Ngày tạo</label>
                     <input type="date" class="form-control" id="ngayTao" name="ngayTao" disabled th:field="*{ngayTao}" style="background-color: white">
                   </div>
                   <div class="col-md-12">
                     <label for="thanhTien" class="form-label">Thành tiền</label>
-                    <input type="text" class="form-control" id="thanhTien" name="tongTienDonHang" th:text="${#numbers.formatDecimal(tongTienDonHang, 0, 'COMMA', 0, 'POINT')} +
-                         ' đ'" th:field="*{tongTienDonHang}" disabled style="background-color: white">
+                    <input type="text" class="form-control" id="thanhTien" name="tongTienDonHang" th:field="*{tongTienDonHang}" disabled style="background-color: white">
                   </div>
-                  <div class="col-12">
+                  <div class="col-md-12">
                     <button class="btn btn-outline-primary"
                             type="submit"
                             id="tao-moi-don-hang"
@@ -341,7 +325,7 @@
             <input type="text" id="soLuongThemCapNhat" class="form-control">
           </div>
         </form>
-<!--        <label id="errorMessage" style="color: red; display: none;">Giá trị không hợp lệ!</label>-->
+        <label id="errorMessageSuaSoLuong" style="color: red; display: none;">Giá trị không hợp lệ!</label>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Hủy</button>
@@ -365,7 +349,9 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Hủy</button>
         <button type="button" id="xacNhanThanhToan" class="btn btn-outline-danger" data-bs-dismiss="modal">Xác nhận</button>
-        <button type="button" id="xuatHoaDon" class="btn btn-outline-danger" data-bs-dismiss="modal">Xuất hóa đơn</button>
+        <form th:method="GET" th:action="@{/admin/ban-hang/hoa-don/xuat-hoa-don}" style="display: inline">
+          <button type="submit" id="xuatHoaDon" class="btn btn-outline-danger" data-bs-dismiss="modal">Xuất hóa đơn</button>
+        </form>
       </div>
     </div>
   </div>
@@ -401,6 +387,48 @@
   // var todayFormatted = yyyy+'-'+mm+'-'+dd; // Chuỗi ngày tháng được định dạng theo định dạng của input type="date"
   // document.getElementById("ngayTao").value = todayFormatted; // Set giá trị mặc định cho input
 
+  // disabled khi don hang null
+  var validateDonHang = () => {
+    var isExist_MaDH = document.getElementById("maHoaDon").value;
+
+    var btn_taoMoi = document.getElementById("tao-moi-don-hang");
+    var btn_thanhToan = document.getElementById("thanhToan");
+    var btn_huydon = document.getElementById("huyDon");
+    var btn_search_by_phoneNumber = document.getElementById("timKiemSDT");
+    // if not exist =>> disabled them, thanh toan, huy | enabled tao moi
+    if (isExist_MaDH != ''){
+      btn_taoMoi.disabled = true;
+      btn_search_by_phoneNumber.disabled = true;
+      btn_thanhToan.disabled = false;
+      btn_huydon.disabled = false;
+      // enabled
+      var buttons_them_sam_pham = document.getElementsByClassName("them-san-pham");
+
+      for (var i = 0; i < buttons_them_sam_pham.length; i++) {
+        buttons_them_sam_pham[i].disabled = false;
+      }
+    } else {
+      if (document.getElementById('sdt').value.trim() == '' || document.getElementById('ten').value.trim() == ''){
+        btn_taoMoi.disabled = true;
+      }else{
+        btn_taoMoi.disabled = false;
+      }
+
+      btn_search_by_phoneNumber.disabled = false;
+      btn_thanhToan.disabled = true;
+      btn_huydon.disabled = true;
+
+      // enabled
+      var buttons_them_sam_pham = document.getElementsByClassName("them-san-pham");
+
+      for (var i = 0; i < buttons_them_sam_pham.length; i++) {
+        buttons_them_sam_pham[i].disabled = true;
+      }
+    }
+
+  }
+
+  validateDonHang();
 
   var inputField = document.getElementById('sdt');
   var submitButton = document.getElementById('tao-moi-don-hang');
@@ -413,12 +441,26 @@
               if (data === inputField.value.trim()) {
                 submitButton.disabled = true;
               } else {
-                submitButton.disabled = false;
+                if (document.getElementById('sdt').value.trim() == '' || document.getElementById('ten').value.trim() == ''){
+                  submitButton.disabled = true;
+                }else{
+                  submitButton.disabled = false;
+                }
               }
             })
             .catch(error => {
               console.error('Lỗi:', error);
             });
+  });
+
+  document.getElementById('ten').addEventListener('input', function() {
+
+      if (document.getElementById('sdt').value.trim() == '' || document.getElementById('ten').value.trim() == ''){
+        document.getElementById('tao-moi-don-hang').disabled = true;
+      }else{
+        document.getElementById('tao-moi-don-hang').disabled = false;
+      }
+
   });
 
   var maCTSP;
@@ -459,6 +501,7 @@
         console.log("Lỗi: " + error);
       }
     });
+    validateDonHang();
   });
   // erro
   $('#xacNhanThanhToan').click(function() {
@@ -472,19 +515,11 @@
         console.log("Lỗi: " + error);
       }
     });
+    validateDonHang();
   });
 
   $('#xuatHoaDon').click(function() {
-    $.ajax({
-      url: "/admin/ban-hang/hoa-don/xuat-hoa-don",
-      method: "POST",
-      success: function(response) {
-        $('#content').html(response);
-      },
-      error: function(xhr, status, error) {
-        console.log("Lỗi: " + error);
-      }
-    });
+    validateDonHang();
   });
 
   $('#huyDonHangHienTai').click(function() {
@@ -498,6 +533,7 @@
         console.log("Lỗi: " + error);
       }
     });
+    validateDonHang();
   });
 
   // chuc nang xoa san pham tu hoa don chi tiet
@@ -521,17 +557,49 @@
   // chuc nang xoa san pham tu hoa don chi tiet end
 
   // chuc nang cap nhat san pham tu hoa don chi tiet
-
+/////////////////////////////////////////////////////////////////////////////
+  // Lấy IDHDCT từ bảng
   var idHDCTSua;
+  var soLuongMaxCoTheThem;
   $('.hoa-don-chi-tiet-sua').click(function() {
     idHDCTSua = $(this).data('id-hdct-sua');
+    fetch(`/admin/ban-hang/seri/api/` + idHDCTSua)
+            .then(response => response.json())
+            .then(data => {
+              // Kiểm tra kết quả từ server và xử lý tương ứng
+              if (data != null) {
+                soLuongMaxCoTheThem = parseInt(data);
+              }
+            })
+            .catch(error => {
+              console.error('Lỗi:', error);
+            });
+    console.log(soLuongMaxCoTheThem);
+  });
+  // validate input nếu > số lượng có thể mua thì disabled button thêm
+  $(document).ready(function() {
+    // Theo dõi sự thay đổi trong ô input
+    $("#soLuongThemCapNhat").on("input", function() {
+      var soLuongSua = document.getElementById('soLuongThemCapNhat').value;
+      var parttern = /^[0-9]+$/;
+      // Kiểm tra giá trị
+      if (soLuongSua > soLuongMaxCoTheThem || soLuongSua <= 0 || !parttern.test(soLuongSua)) {
+        $("#capNhatSoLuong").prop("disabled", true);
+        // Hiển thị thông báo lỗi
+        $("#errorMessageSuaSoLuong").show();
+      } else {
+        $("#capNhatSoLuong").prop("disabled", false);
+        // Ẩn thông báo lỗi
+        $("#errorMessageSuaSoLuong").hide();
+      }
+    });
   });
 
   $('#capNhatSoLuong').click(function() {
-    var a = document.getElementById("soLuongThemCapNhat").value;
-    console.log(a,"so luong","ma",idHDCTSua);
+    var soLuongThemCapNhat = document.getElementById("soLuongThemCapNhat").value;
+
     $.ajax({
-      url: "/admin/ban-hang/hoa-don-chi-tiet/sua/"+ idHDCTSua+"/so-luong/" + a,
+      url: "/admin/ban-hang/hoa-don-chi-tiet/sua/"+ idHDCTSua+"/so-luong/" + soLuongThemCapNhat,
       method: "POST",
       success: function(response) {
         $('#content').html(response);

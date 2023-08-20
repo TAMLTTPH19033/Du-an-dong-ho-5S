@@ -22,6 +22,10 @@ public interface ChiTietSanPhamService {
 
     List<SanPhamAdminResponse> getAllSanPhamAminResponse(int pageNum);
 
+    int totalPageSearchSP(String key, int pageNum);
+
+    List<SanPhamAdminResponse> searchSP(String key, int pageNum);
+
     ChiTietSanPham findByMaChiTietSanPham(String maChimaTietSanPham);
     ChiTietSanPham getChiTietSanPhamByMa (String ma);
 

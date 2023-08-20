@@ -144,22 +144,6 @@ public class HoaDonChiTietServiceImpl implements HoaDonChiTietService {
     ){
         return hoaDonChiTietRepository.findByIdHoaDonChiTiet(id);
     }
-    @Override
-    public void updateSoLuongImeiThem(
-            HoaDonChiTiet hoaDonChiTiet,
-            int soLuongThayDoi
-    ){
-        // update so luong hdct
-        hoaDonChiTietRepository.updateSoLuongSanPhamWithEdit(soLuongThayDoi,hoaDonChiTiet.getIdHoaDonChiTiet());
-        // cap nhat lai so luong imei da thay doi
-        int soLuongMax = seriRepository.soLuongImeiCoTheCapNhat(hoaDonChiTiet.getIdHoaDonChiTiet());
-
-        if (soLuongThayDoi <= soLuongMax) {
-
-        }
-        int slHienTai = hoaDonChiTiet.getSoLuong();
-        chiTietSanPhamRepository.updateSoLuongFromHDCT(slHienTai - soLuongThayDoi,hoaDonChiTiet.getChiTietSanPham().getIdChiTietSanPham());
-    }
 
     @Override
     public void xoaHDCTByIdDonHang(DonHang donHang) {

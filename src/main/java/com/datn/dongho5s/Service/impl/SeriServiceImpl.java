@@ -2,7 +2,9 @@ package com.datn.dongho5s.Service.impl;
 
 
 import com.datn.dongho5s.Entity.ChiTietSanPham;
+import com.datn.dongho5s.Entity.HoaDonChiTiet;
 import com.datn.dongho5s.Entity.Seri;
+import com.datn.dongho5s.Repository.HoaDonChiTietRepository;
 import com.datn.dongho5s.Repository.SeriRepository;
 import com.datn.dongho5s.Service.SeriService;
 import com.datn.dongho5s.Utils.TrangThaiImei;
@@ -18,6 +20,9 @@ import java.util.List;
 public class SeriServiceImpl implements SeriService {
     @Autowired
     SeriRepository repo;
+
+    @Autowired
+    HoaDonChiTietRepository hoaDonChiTietRepository;
     @Override
     public Seri save(Seri seri) {
         return repo.save(seri);
@@ -55,4 +60,22 @@ public class SeriServiceImpl implements SeriService {
         return repo.findByChiTietSanPhamAndTrangThai(chiTietSanPham, TrangThaiImei.CHUA_BAN,pageable);
     }
 
+    @Override
+    public void updateSoLuongAdmin(int idHDCT, int soLuongCapNhat){
+        HoaDonChiTiet hoaDonChiTiet = hoaDonChiTietRepository.findByIdHoaDonChiTiet(idHDCT);
+
+        int soLuongHienTai = repo.soLuongDaMuaByHDCT(idHDCT);
+        // nếu số lượng cập nhật > số lượng đã thêm
+        if (soLuongCapNhat > soLuongHienTai) {
+            repo.themSoLuongAdmin(hoaDonChiTiet.getIdHoaDonChiTiet(),repo.getListSeri(soLuongCapNhat - soLuongHienTai,hoaDonChiTiet.getChiTietSanPham().getIdChiTietSanPham()));
+       }
+        // nếu số lượng cập nhật < số lượng đã thêm
+        if (soLuongCapNhat < soLuongHienTai) {
+            repo.giamSoLuongAdmin(idHDCT,soLuongHienTai - soLuongCapNhat);
+        }
+        // update hdct
+        hoaDonChiTiet.setSoLuong(soLuongCapNhat);
+        hoaDonChiTietRepository.save(hoaDonChiTiet);
+        // nếu số lượng cập nhật = số lượng đã thêm
+    }
 }
