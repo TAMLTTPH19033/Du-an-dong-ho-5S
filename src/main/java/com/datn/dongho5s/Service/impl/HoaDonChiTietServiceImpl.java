@@ -52,9 +52,14 @@ public class HoaDonChiTietServiceImpl implements HoaDonChiTietService {
                     .donHang(donHangService.getById(idDonHang))
                     .chiTietSanPham(ctsp)
                     .soLuong(item.getSoLuong())
-                    .giaBan(ctsp.getGiaSanPham())
                     .chietKhau(chietKhau)
                     .build();
+
+            if(chietKhau== null){
+                hdct.setGiaBan(ctsp.getGiaSanPham());
+            }else{
+                hdct.setGiaBan(ctsp.getGiaSanPham() - ctsp.getGiaSanPham()*chietKhau/100);
+            }
             result.add(hdct);
         });
         return result;
@@ -113,10 +118,17 @@ public class HoaDonChiTietServiceImpl implements HoaDonChiTietService {
                     .builder()
                     .chiTietSanPham(chiTietSanPham)
                     .donHang(donHang)
-                    .giaBan(chiTietSanPham.getGiaSanPham())
+//                    .giaBan(chiTietSanPham.getGiaSanPham())
                     .soLuong(soLuong)
                     .chietKhau((chiTietSanPham.getKhuyenMai() == null || chiTietSanPham.getKhuyenMai().isEnabled() == false) ? null : chiTietSanPham.getKhuyenMai().getChietKhau())
                     .build());
+
+
+            if(chiTietSanPham.getKhuyenMai() == null || chiTietSanPham.getKhuyenMai().isEnabled() == false){
+                hoaDonChiTiet.setGiaBan(chiTietSanPham.getGiaSanPham());
+            }else{
+                hoaDonChiTiet.setGiaBan(chiTietSanPham.getGiaSanPham() - chiTietSanPham.getGiaSanPham()* hoaDonChiTiet.getChietKhau()/100);
+            }
             List<Integer> listSeri = seriRepository.getListSeri(soLuong,chiTietSanPham.getIdChiTietSanPham());
             // step 2: update status seri is 3
             seriRepository.themSoLuongAdmin(hoaDonChiTiet.getIdHoaDonChiTiet(),listSeri);

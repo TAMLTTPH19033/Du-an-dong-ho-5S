@@ -62,10 +62,14 @@ public class DonHangAdminRestController {
 
     private DonHangAdminResponse toDonHangAdminResponse (DonHang donHang) throws Exception {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        String tinhThanh = DiaChiCache.hashMapTinhThanh.get(donHang.getIdTinhThanh()) ;
-        String quanHuyen = DiaChiAPI.callGetQuanHuyenAPI(donHang.getIdTinhThanh()).get(donHang.getIdQuanHuyen());
-        String phuongXa = DiaChiAPI.callGetPhuongXaAPI(donHang.getIdQuanHuyen()).get(donHang.getIdPhuongXa());
-        String detailDiaChi = tinhThanh +"-"+ quanHuyen + "-" +phuongXa +"-" + donHang.getDiaChi();
+        String detailDiaChi = "";
+
+        if(donHang.getIdTinhThanh()!= null && donHang.getIdQuanHuyen()!= null && donHang.getIdQuanHuyen()!= null  ) {
+            String tinhThanh = DiaChiCache.hashMapTinhThanh.get(donHang.getIdTinhThanh());
+            String quanHuyen = DiaChiAPI.callGetQuanHuyenAPI(donHang.getIdTinhThanh()).get(donHang.getIdQuanHuyen());
+            String phuongXa = DiaChiAPI.callGetPhuongXaAPI(donHang.getIdQuanHuyen()).get(donHang.getIdPhuongXa());
+            detailDiaChi = tinhThanh + "-" + quanHuyen + "-" + phuongXa + "-" + donHang.getDiaChi();
+        }
         DonHangAdminResponse result = DonHangAdminResponse.builder()
                 .idDonHang(donHang.getIdDonHang())
                 .maDonHang(donHang.getMaDonHang())
