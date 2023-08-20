@@ -18,23 +18,45 @@ import java.util.TimeZone;
 public class DonHangMapping {
 
     public static DonHangResponse mapEntitytoResponseBT(DonHang donHang) throws Exception {
-        DonHangResponse donHangResponse =  DonHangResponse.builder()
-                .idDonHang(donHang.getIdDonHang())
-                .maDonHang(donHang.getMaDonHang())
-                .diaChi(donHang.getDiaChi())
-                .ghiChu(donHang.getGhiChu())
-                .PhuongXa(getXa(donHang.getIdQuanHuyen(), donHang.getIdPhuongXa()))
-                .QuanHuyen(getQuan(donHang.getIdTinhThanh(), donHang.getIdQuanHuyen()))
-                .TinhThanh(getTinh(donHang.getIdTinhThanh()))
-                .ngayTao(donHang.getNgayTao())
-                .ngayGiaoHang(donHang.getNgayGiaoHang())
-                .khachHang(donHang.getKhachHang())
-                .phiVanChuyen(donHang.getPhiVanChuyen())
-                .trangThaiDonHang(donHang.getTrangThaiDonHang())
-                .tongTien(donHang.getTongTien())
-                .hoaDonChiTiets(donHang.getListHoaDonChiTiet())
-                .lyDo(donHang.getLyDo())
-                .build();
+        DonHangResponse donHangResponse;
+        if(donHang.getIdTinhThanh() == null || donHang.getIdQuanHuyen()== null|| donHang.getIdPhuongXa() == null ){
+             donHangResponse =  DonHangResponse.builder()
+                    .idDonHang(donHang.getIdDonHang())
+                    .maDonHang(donHang.getMaDonHang())
+                    .diaChi(null)
+                    .ghiChu(donHang.getGhiChu())
+                    .PhuongXa(null)
+                    .QuanHuyen(null)
+                    .TinhThanh(null)
+                    .ngayTao(donHang.getNgayTao())
+                    .ngayGiaoHang(donHang.getNgayGiaoHang())
+                    .khachHang(donHang.getKhachHang())
+                    .phiVanChuyen(donHang.getPhiVanChuyen())
+                    .trangThaiDonHang(donHang.getTrangThaiDonHang())
+                    .tongTien(donHang.getTongTien())
+                    .hoaDonChiTiets(donHang.getListHoaDonChiTiet())
+                    .lyDo(donHang.getLyDo())
+                    .build();
+
+        }else {
+             donHangResponse = DonHangResponse.builder()
+                    .idDonHang(donHang.getIdDonHang())
+                    .maDonHang(donHang.getMaDonHang())
+                    .diaChi(donHang.getDiaChi())
+                    .ghiChu(donHang.getGhiChu())
+                    .PhuongXa(getXa(donHang.getIdQuanHuyen(), donHang.getIdPhuongXa()))
+                    .QuanHuyen(getQuan(donHang.getIdTinhThanh(), donHang.getIdQuanHuyen()))
+                    .TinhThanh(getTinh(donHang.getIdTinhThanh()))
+                    .ngayTao(donHang.getNgayTao())
+                    .ngayGiaoHang(donHang.getNgayGiaoHang())
+                    .khachHang(donHang.getKhachHang())
+                    .phiVanChuyen(donHang.getPhiVanChuyen())
+                    .trangThaiDonHang(donHang.getTrangThaiDonHang())
+                    .tongTien(donHang.getTongTien())
+                    .hoaDonChiTiets(donHang.getListHoaDonChiTiet())
+                    .lyDo(donHang.getLyDo())
+                    .build();
+        }
         return donHangResponse;
     }
 
@@ -42,25 +64,46 @@ public class DonHangMapping {
         TimeZone tz = TimeZone.getTimeZone("UTC");
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.sss'Z'"); // Quoted "Z" to indicate UTC, no timezone offset
         df.setTimeZone(tz);
+        DonHangResponse donHangResponse;
+        if(donHang.getDiaChi() == null || donHang.getIdTinhThanh() == null || donHang.getIdQuanHuyen()== null|| donHang.getIdPhuongXa() == null ){
+            donHangResponse =  DonHangResponse.builder()
+                    .idDonHang(donHang.getIdDonHang())
+                    .maDonHang(donHang.getMaDonHang())
+                    .diaChi(null)
+                    .ghiChu(donHang.getGhiChu())
+                    .PhuongXa(null)
+                    .QuanHuyen(null)
+                    .TinhThanh(null)
+                    .ngayTao(donHang.getNgayTao())
+                    .ngayGiaoHang(donHang.getNgayGiaoHang())
+                    .khachHang(donHang.getKhachHang())
+                    .phiVanChuyen(donHang.getPhiVanChuyen())
+                    .trangThaiDonHang(donHang.getTrangThaiDonHang())
+                    .tongTien(donHang.getTongTien())
+                    .hoaDonChiTiets(donHang.getListHoaDonChiTiet())
+                    .lyDo(donHang.getLyDo())
+                    .build();
 
-        DonHangResponse donHangResponse =  DonHangResponse.builder()
-                .idDonHang(donHang.getIdDonHang())
-                .maDonHang(donHang.getMaDonHang())
-                .diaChi(donHang.getDiaChi())
-                .ghiChu(donHang.getGhiChu())
-                .PhuongXa(getXa(donHang.getIdQuanHuyen(), donHang.getIdPhuongXa()))
-                .QuanHuyen(getQuan(donHang.getIdTinhThanh(), donHang.getIdQuanHuyen()))
-                .TinhThanh(getTinh(donHang.getIdTinhThanh()))
-                .ngayTao(donHang.getNgayTao())
-                .ngayGiaoHang(donHang.getNgayGiaoHang())
-                .khachHang(donHang.getKhachHang())
-                .phiVanChuyen(donHang.getPhiVanChuyen())
-                .trangThaiDonHang(donHang.getTrangThaiDonHang())
-                .tongTien(donHang.getTongTien())
-                .hoaDonChiTiets(donHang.getListHoaDonChiTiet())
-                .lyDo(donHang.getLyDo())
-                .ngayCapNhap(df.format(donHang.getNgayCapNhap()))
-                .build();
+        }else {
+             donHangResponse = DonHangResponse.builder()
+                    .idDonHang(donHang.getIdDonHang())
+                    .maDonHang(donHang.getMaDonHang())
+                    .diaChi(donHang.getDiaChi())
+                    .ghiChu(donHang.getGhiChu())
+                    .PhuongXa(getXa(donHang.getIdQuanHuyen(), donHang.getIdPhuongXa()))
+                    .QuanHuyen(getQuan(donHang.getIdTinhThanh(), donHang.getIdQuanHuyen()))
+                    .TinhThanh(getTinh(donHang.getIdTinhThanh()))
+                    .ngayTao(donHang.getNgayTao())
+                    .ngayGiaoHang(donHang.getNgayGiaoHang())
+                    .khachHang(donHang.getKhachHang())
+                    .phiVanChuyen(donHang.getPhiVanChuyen())
+                    .trangThaiDonHang(donHang.getTrangThaiDonHang())
+                    .tongTien(donHang.getTongTien())
+                    .hoaDonChiTiets(donHang.getListHoaDonChiTiet())
+                    .lyDo(donHang.getLyDo())
+                    .ngayCapNhap(df.format(donHang.getNgayCapNhap()))
+                    .build();
+        }
         return donHangResponse;
     }
 
