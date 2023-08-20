@@ -130,12 +130,27 @@
               <h3 style="font-weight: bold">Sản phẩm</h3>
 
               <div class="row">
-                <div class="col-md-12">
-                  <form th:action="@{/admin/ban-hang/tim-kiem}" method="GET">
+                <div class="col-md-7">
+                  <form>
                     <div class="row">
-                      <input class="col-sm-8" type="text" name="searchSP">
+                      <input class="col-sm-8">
                       <div class="col-sm-4">
                         <button type="submit" class="btn btn-outline-dark">Tìm kiếm</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="col-md-5">
+                  <form>
+                    <div class="row">
+                      <label for="danhMuc" class="col-sm-4">Thể loại</label>
+                      <div class="col-sm-8">
+                        <select class="form-select" id="danhMuc">
+                          <option selected>Cao cấp</option>
+                          <option value="1">Hạng Trung</option>
+                          <option value="2">Two</option>
+                          <option value="3">Three</option>
+                        </select>
                       </div>
                     </div>
                   </form>
@@ -207,25 +222,25 @@
             <h3 style="font-weight: bold">Thông tin</h3>
             <form th:action="@{/admin/ban-hang/khach-hang/tim-kiem}" class="form-inline m-3" method="GET">
               <div class="d-flex align-items-center">
-                <input style="width: 250px; margin-right: 10px" type="search" id="timKiemSDTInput" placeholder="Tìm kiếm" class="form-control" required name="phoneNumber" />
+                <input style="width: 250px; margin-right: 10px" type="search" placeholder="Tìm kiếm" class="form-control" required name="phoneNumber" />
                 <input style="margin-right: 10px" type="submit" value="Tìm kiếm" id="timKiemSDT" class="btn btn-outline-info ml-2" />
               </div>
             </form>
             <form th:object="${hoaDonAdminRequest}" th:action="@{/admin/ban-hang/hoa-don/tao-moi}" method="post">
               <div class="row thong-tin-hoa-don bg-body-tertiary p-3 rounded border border-light">
-                  <div class="col-md-12">
+                  <div class="col-md-4">
                     <label for="maHoaDon" class="form-label">Mã hóa đơn</label>
                     <input type="text" class="form-control" id="maHoaDon" name="maHoaDon" th:field="*{maHoaDon}" disabled style="background-color: white">
                   </div>
-                  <div class="col-md-12">
+                  <div class="col-md-8">
                     <label for="sdt" class="form-label">SĐT</label>
                     <input type="text" class="form-control" id="sdt" name="sdt" th:field="*{sdt}">
                   </div>
-                  <div class="col-md-12">
+                  <div class="col-12">
                     <label for="ten" class="form-label">Tên khách hàng</label>
                     <input type="text" class="form-control" id="ten" name="tenKhachHang" th:field="*{tenKhachHang}">
                   </div>
-                  <div class="col-md-12">
+                  <div class="col-12">
                     <label for="ngayTao" class="form-label">Ngày tạo</label>
                     <input type="date" class="form-control" id="ngayTao" name="ngayTao" disabled th:field="*{ngayTao}" style="background-color: white">
                   </div>
@@ -233,7 +248,7 @@
                     <label for="thanhTien" class="form-label">Thành tiền</label>
                     <input type="text" class="form-control" id="thanhTien" name="tongTienDonHang" th:field="*{tongTienDonHang}" disabled style="background-color: white">
                   </div>
-                  <div class="col-md-12">
+                  <div class="col-12">
                     <button class="btn btn-outline-primary"
                             type="submit"
                             id="tao-moi-don-hang"
@@ -349,9 +364,7 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Hủy</button>
         <button type="button" id="xacNhanThanhToan" class="btn btn-outline-danger" data-bs-dismiss="modal">Xác nhận</button>
-        <form th:method="GET" th:action="@{/admin/ban-hang/hoa-don/xuat-hoa-don}" style="display: inline">
-          <button type="submit" id="xuatHoaDon" class="btn btn-outline-danger" data-bs-dismiss="modal">Xuất hóa đơn</button>
-        </form>
+        <button type="button" id="xuatHoaDon" class="btn btn-outline-danger" data-bs-dismiss="modal">Xuất hóa đơn</button>
       </div>
     </div>
   </div>
@@ -394,11 +407,12 @@
     var btn_taoMoi = document.getElementById("tao-moi-don-hang");
     var btn_thanhToan = document.getElementById("thanhToan");
     var btn_huydon = document.getElementById("huyDon");
-    var btn_search_by_phoneNumber = document.getElementById("timKiemSDT");
+    var btn_search_by_phoneNumber = document.getElementById("timKiemSDT")
     // if not exist =>> disabled them, thanh toan, huy | enabled tao moi
     if (isExist_MaDH != ''){
       btn_taoMoi.disabled = true;
       btn_search_by_phoneNumber.disabled = true;
+
       btn_thanhToan.disabled = false;
       btn_huydon.disabled = false;
       // enabled
@@ -413,7 +427,6 @@
       } else {
         btn_taoMoi.disabled = false;
       }
-
       btn_search_by_phoneNumber.disabled = false;
       btn_thanhToan.disabled = true;
       btn_huydon.disabled = true;
@@ -522,6 +535,16 @@
   });
 
   $('#xuatHoaDon').click(function() {
+    $.ajax({
+      url: "/admin/ban-hang/hoa-don/xuat-hoa-don",
+      method: "POST",
+      success: function(response) {
+        $('#content').html(response);
+      },
+      error: function(xhr, status, error) {
+        console.log("Lỗi: " + error);
+      }
+    });
     validateDonHang();
   });
 
