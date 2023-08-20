@@ -52,4 +52,11 @@ public interface ChiTietSanPhamRepository extends JpaRepository<ChiTietSanPham,I
             String tenSanPham, String tenDayDeo, String tenMauSac, String tenKichCo, String tenVatLieu);
 
     ChiTietSanPham findByIdChiTietSanPham(Integer idChiTietSanPham);
+
+    @Query("""
+        SELECT c 
+        FROM ChiTietSanPham c
+        WHERE LOWER(CONCAT(c.maChiTietSanPham,c.sanPham.tenSanPham)) LIKE %?1%  
+    """)
+    public Page<ChiTietSanPham> searchByKey(String key,Pageable pageable);
 }
