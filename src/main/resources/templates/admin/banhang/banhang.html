@@ -408,7 +408,11 @@
         buttons_them_sam_pham[i].disabled = false;
       }
     } else {
-      btn_taoMoi.disabled = false;
+      if (document.getElementById('sdt').value.trim() == '' || document.getElementById('ten').value.trim() == ''){
+        btn_taoMoi.disabled = true;
+      }else{
+        btn_taoMoi.disabled = false;
+      }
 
       btn_search_by_phoneNumber.disabled = false;
       btn_thanhToan.disabled = true;
@@ -437,12 +441,26 @@
               if (data === inputField.value.trim()) {
                 submitButton.disabled = true;
               } else {
-                submitButton.disabled = false;
+                if (document.getElementById('sdt').value.trim() == '' || document.getElementById('ten').value.trim() == ''){
+                  submitButton.disabled = true;
+                }else{
+                  submitButton.disabled = false;
+                }
               }
             })
             .catch(error => {
               console.error('Lỗi:', error);
             });
+  });
+
+  document.getElementById('ten').addEventListener('input', function() {
+
+      if (document.getElementById('sdt').value.trim() == '' || document.getElementById('ten').value.trim() == ''){
+        document.getElementById('tao-moi-don-hang').disabled = true;
+      }else{
+        document.getElementById('tao-moi-don-hang').disabled = false;
+      }
+
   });
 
   var maCTSP;
