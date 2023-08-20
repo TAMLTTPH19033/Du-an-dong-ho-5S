@@ -108,8 +108,8 @@ myApp.controller("SanPhamController", function ($scope, $rootScope, $http,$filte
     //   tenSanPham: null
     // };
   }else{
-    $scope.danhMucIds = $scope.searchServiceData.thuongHieuId;
-    $scope.thuongHieuIds = $scope.searchServiceData.danhMucId;
+    $scope.danhMucIds = $scope.searchServiceData.danhMucId;
+    $scope.thuongHieuIds = $scope.searchServiceData.thuongHieuId;
     $scope.dayDeoIds = $scope.searchServiceData.dayDeoId;
     $scope.vatLieuIds = $scope.searchServiceData.vatLieuId;
     $scope.kichCoIds = $scope.searchServiceData.sizeId;
