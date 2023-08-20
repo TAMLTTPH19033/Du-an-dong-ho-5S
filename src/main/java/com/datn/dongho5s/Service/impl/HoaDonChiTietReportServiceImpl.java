@@ -27,11 +27,11 @@ public class HoaDonChiTietReportServiceImpl extends AbstractReportService {
 		List<HoaDonChiTiet> listHoaDonChiTiets = null;
 
 		if (reportType.equals(ReportType.CATEGORY)) {
-			listHoaDonChiTiets = repo.findWithCategoryAndTimeBetween(startDate, endDate);
+			listHoaDonChiTiets = repo.findWithCategoryAndTimeBetween(startDate, endDate, 3);
 		} else if (reportType.equals(ReportType.PRODUCT)) {
-			listHoaDonChiTiets = repo.findWithProductAndTimeBetween(startDate, endDate);
+			listHoaDonChiTiets = repo.findWithProductAndTimeBetween(startDate, endDate, 3);
 		} else if (reportType.equals(ReportType.ORDERDETAIL)) {
-			listHoaDonChiTiets = repo.findWithOrderDetailAndTimeBetween(startDate, endDate);
+			listHoaDonChiTiets = repo.findWithOrderDetailAndTimeBetween(startDate, endDate, 3);
 		}
 
 		//printRawData(listHoaDonChiTiets);
@@ -67,11 +67,11 @@ public class HoaDonChiTietReportServiceImpl extends AbstractReportService {
 			} else if (reportType.equals(ReportType.ORDERDETAIL)) {
 				identifier = String.valueOf(detail.getIdHoaDonChiTiet());
 			}
-
+			Integer soLuong = repo.countHD(detail.getDonHang().getIdDonHang());
 			ReportItem reportItem = new ReportItem(identifier);
-			double netSales = detail.getGiaBan() * detail.getSoLuong() ;
+			double netSales = detail.getGiaBan() * detail.getSoLuong();
+//			double grossSales = netSales + (detail.getDonHang().getPhiVanChuyen() / (double) soLuong);
 			double grossSales = netSales + (detail.getDonHang().getPhiVanChuyen());
-
 
 			int itemIndex = listReportItems.indexOf(reportItem);
 

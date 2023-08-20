@@ -60,8 +60,8 @@ public class MasterOrderReportService extends AbstractReportService {
             }
             if (itemIndex >=0){
                 reportItem = listReportItems.get(itemIndex);
-                reportItem.addGrossSales(order.getTongTien());
-                reportItem.addNetSales(order.getTongTien() - order.getPhiVanChuyen());
+                reportItem.addGrossSales(order.getTongTien() + order.getPhiVanChuyen());
+                reportItem.addNetSales(order.getTongTien());
                 reportItem.increaseOrderCount();
                 reportItem.addStatus(order.getTrangThaiDonHang());
             }
