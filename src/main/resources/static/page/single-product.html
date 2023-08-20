@@ -146,7 +146,7 @@
 						<div class="bstore-breadcrumb">
 							<a href="#/index">Trang chủ<span><i class="fa fa-caret-right"></i> </span> </a>
 							<span> <i class="fa fa-caret-right"> </i> </span>
-							<a href="shop-gird.html"> {{sanPhamDetail.danhMuc.ten}} </a>
+							<a href="#/sanpham"> {{sanPhamDetail.danhMuc.ten}} </a>
 							<span> {{sanPhamDetail.tenSanPham}} </span>
 						</div>
 						<!-- BSTORE-BREADCRUMB END -->
@@ -178,7 +178,7 @@
                                                         </span>
                                                     </span>
                                                 </span>
-												<a class="fancybox" href="/assets/images/{{selectImage}}" data-fancybox-group="gallery"><span class="btn large-btn">View larger <i class="fa fa-search-plus"></i></span></a>
+												<a class="fancybox" href="/assets/images/{{selectImage}}" data-fancybox-group="gallery"><span class="btn large-btn">Xem chi tiết<i class="fa fa-search-plus"></i></span></a>
 											</div>	
 										</div>
 									</div>										
@@ -213,10 +213,10 @@
 											<i class="fa fa-star-half-empty"></i>
 										</div>
 										<div class="read-reviews">
-											<a href="#">Read reviews (1)</a>
+											<a href="#">Đánh giá(1)</a>
 										</div>
 										<div class="write-review">
-											<a href="#">Write a review</a>
+											<a href="#">Viết đánh giá</a>
 										</div>		
 									</div>
 									<div ng-if="chiTietSanPham.giaSanPham == getGia()">
@@ -310,9 +310,9 @@
 <!--										<li><a href="#review" data-toggle="tab">reviews</a></li>-->
 <!--									</ul>-->
 									<ul class="nav nav-tabs more-info-tab">
-										<li class="{{moreInfo}}"><a class="btn" ng-click="changeTab(1)" data-toggle="tab">more info</a></li>
-										<li class="{{dataSheet}}"><a class="btn" ng-click="changeTab(2)" data-toggle="tab">data sheet</a></li>
-										<li class="{{review}}"><a class="btn" ng-click="changeTab(3)" data-toggle="tab">reviews</a></li>
+										<li class="{{moreInfo}}"><a class="btn" ng-click="changeTab(1)" data-toggle="tab">Giới thiệu</a></li>
+										<li class="{{dataSheet}}"><a class="btn" ng-click="changeTab(2)" data-toggle="tab">Thông tin </a></li>
+										<li class="{{review}}"><a class="btn" ng-click="changeTab(3)" data-toggle="tab">Đánh giá</a></li>
 									</ul>
 									  <!-- Tab panes -->
 									<div class="tab-content">
@@ -398,9 +398,9 @@
 													</div>
 													<div ng-if="pages.length > 0 ">
 														<div class="write-your-review">
-															<p><strong>write A REVIEW</strong></p>
-															<p>write A REVIEW</p>
-															<span class="usefull-comment">Was this comment useful to you? <span>Yes</span><span>No</span></span>
+															<p><strong>Đánh gía</strong></p>
+															<p>Đánh giá</p>
+															<span class="usefull-comment">Bạn có thấy đánh giá này hữu ích không <span>Có</span><span>Không</span></span>
 														</div>
 													</div>
 
