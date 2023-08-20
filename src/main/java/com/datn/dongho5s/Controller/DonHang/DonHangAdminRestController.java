@@ -80,10 +80,12 @@ public class DonHangAdminRestController {
                 .trangThaiDonHang(donHang.getTrangThaiDonHang())
                 .diaChi(detailDiaChi)
                 .tongTien(donHang.getTongTien())
-                .phiVanChuyen(donHang.getPhiVanChuyen())
                 .ghiChu(donHang.getGhiChu())
                 .lyDo(donHang.getLyDo())
                 .build();
+        if(donHang.getPhiVanChuyen()!= null){
+            result.setPhiVanChuyen(donHang.getPhiVanChuyen());
+        }
         if(donHang.getNhanVien()!= null){
             result.setIdNhanVien(donHang.getNhanVien().getId());
         }
