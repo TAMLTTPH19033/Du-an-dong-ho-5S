@@ -170,22 +170,38 @@ public class BanHangController {
         model.addAttribute("totalPages", chiTietSanPhamService.getALlChiTietSanPhamPage(1).getTotalPages());
       
         String maDonHangCD = this.generateMaHD();
+
         KhachHang khachHang = (KhachHang) httpSession.getAttribute("khachHangExist");
 
         if (khachHang == null){
-            khachHang = KhachHang
-                    .builder()
-                    .tenKhachHang(hoaDonAdminRequest.getTenKhachHang())
-                    .soDienThoai(hoaDonAdminRequest.getSdt())
-                    .enabled(true)
-                    .listDiaChi(null)
-                    .email(null)
-                    .gioiTinh(null)
-                    .password(null)
-                    .ngaySinh(null)
-                    .ngaySua(new Date())
-                    .thoiGianTaoTaiKhoan(null)
-                    .build();
+            KhachHang kh =  khachHangService.findByPhoneNumber(hoaDonAdminRequest.getSdt().trim());
+            if (kh!= null){
+
+                kh.setTenKhachHang(hoaDonAdminRequest.getTenKhachHang());
+                kh.setSoDienThoai(hoaDonAdminRequest.getSdt());
+
+                khachHangService.saveKhachHang(kh);
+            } else{
+                khachHang = KhachHang
+                        .builder()
+                        .tenKhachHang(hoaDonAdminRequest.getTenKhachHang())
+                        .soDienThoai(hoaDonAdminRequest.getSdt())
+                        .enabled(true)
+                        .listDiaChi(null)
+                        .email(null)
+                        .gioiTinh(null)
+                        .password(null)
+                        .ngaySinh(null)
+                        .ngaySua(new Date())
+                        .thoiGianTaoTaiKhoan(null)
+                        .build();
+
+                khachHangService.saveKhachHang(khachHang);
+            }
+        } else {
+
+            khachHang.setTenKhachHang(hoaDonAdminRequest.getTenKhachHang());
+            khachHang.setSoDienThoai(hoaDonAdminRequest.getSdt());
 
             khachHangService.saveKhachHang(khachHang);
         }
@@ -361,6 +377,17 @@ public class BanHangController {
         ChiTietSanPham chiTietSanPham = chiTietSanPhamService.findByMaChiTietSanPham(maCTSP);
 
         DonHang donHangByMa = (DonHang) httpSession.getAttribute("donHangHienTai");
+
+        Double tongTien = 0d;
+        for (HoaDonChiTiet h: donHangByMa.getListHoaDonChiTiet()) {
+            if (h.getChiTietSanPham().getKhuyenMai().isEnabled() == true){
+                tongTien += h.getGiaBan() * h.getSoLuong() * h.getChietKhau() / 100;
+            } else{
+                tongTien +=  h.getGiaBan() * h.getSoLuong();
+            }
+        }
+
+        donHangByMa.setTongTien(tongTien);
 
         hoaDonChiTietService.themSoLuongSanPham(soLuong,chiTietSanPham,donHangByMa);
 
