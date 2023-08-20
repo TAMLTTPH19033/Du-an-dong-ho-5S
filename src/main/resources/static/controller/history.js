@@ -258,7 +258,8 @@ myApp.controller(
     ) {
         const today = new Date();
 // // Trừ đi 7 ngày
-        today.setDate(today.getDate() - 7);
+//         today.setDate(today.getDate() - 7);
+        today.setMinutes(today.getMinutes() - 2);
         $rootScope.expirationDate = today.toISOString();
         console.log( $rootScope.expirationDate)
 
@@ -484,7 +485,6 @@ myApp.controller(
                 .then((resp) => {
                     $scope.donHang = resp.data;
                     $scope.items.push($scope.donHang[0])
-                    $scope.items.push($scope.donHang[1])
 
                 }).catch(error => {
                 if (error.status == 403) {

@@ -186,9 +186,12 @@
 						<tbody>
 						<!-- SINGLE CART_ITEM START -->
 						<tr ng-repeat="item in cart">
-							<td>
+							<td >
+								<span ng-show="SeriBySP.get(item.chiTietSanPham.idChiTietSanPham)">
 								<input type="checkbox"  ng-checked="selection.indexOf(item) > -1" ng-click="toggleSelection(item)" style="text-align: center"/>
+								</span>
 							</td>
+
 							<td class="cart-product">
 								<a href="#/chitietsanpham/{{item.chiTietSanPham.sanPham.idSanPham}}"><img alt="Blouse" src="/assets/images/{{item.chiTietSanPham.sanPham.listAnhSanPham[0].link}}" width="80%"></a>
 							</td>
@@ -200,7 +203,7 @@
 								<small><a href="#">Dây đeo :{{item.chiTietSanPham.dayDeo.tenDayDeo}}
 									, Vật liệu : {{item.chiTietSanPham.vatLieu.tenVatLieu}} </a></small>
 							</td>
-							<td class="cart-avail"><span class="label label-success">In stock</span></td>
+							<td class="cart-avail"><span class="label label-success">Còn hàng</span></td>
 							<td class="cart-unit">
 								<ul class="price text-right">
 									<li class="price special-price"> {{item.giaBan | number}} đ</li>
