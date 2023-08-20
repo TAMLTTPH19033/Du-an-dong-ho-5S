@@ -88,15 +88,28 @@ function getDenominator(period, reportType) {
 }
 
 function setSalesAmount(period, reportType, labelTotalItems) {
-	$("#textTotalGrossSales" + reportType).text(formatCurrency(totalGrossSales) + ' Đ');
-	$("#textTotalNetSales" + reportType).text(formatCurrency(totalNetSales) + ' Đ');
+	if (reportType === "_category" || reportType === "_product"){
+		$("#textTotalGrossSales" + reportType).closest(".col-sm-2").hide();
+		$("#textAvgGrossSales" + reportType).closest(".col-sm-2").hide();
+		$(".col-sm-2:visible").addClass("col-sm-3").removeClass("col-sm-2");
+		$("#textTotalNetSales" + reportType).text(formatCurrency(totalNetSales) + ' Đ');
+		denominator = getDenominator(period, reportType);
+		$("#textAvgNetSales" + reportType).text(formatCurrency(parseInt(totalNetSales / denominator)) + ' Đ');
+		$("#labelTotalItems" + reportType).text(labelTotalItems);
+		$("#textTotalItems" + reportType).text(totalItems + ' Đơn');
+	}
+	else
+	{
+		$("#textTotalGrossSales" + reportType).text(formatCurrency(totalGrossSales) + ' Đ');
+		$("#textTotalNetSales" + reportType).text(formatCurrency(totalNetSales) + ' Đ');
 
-	denominator = getDenominator(period, reportType);
+		denominator = getDenominator(period, reportType);
 
-	$("#textAvgGrossSales" + reportType).text(formatCurrency(parseInt(totalGrossSales / denominator)) + ' Đ');
-	$("#textAvgNetSales" + reportType).text(formatCurrency(parseInt(totalNetSales / denominator)) + ' Đ');
-	$("#labelTotalItems" + reportType).text(labelTotalItems);
-	$("#textTotalItems" + reportType).text(totalItems + ' Đơn');
+		$("#textAvgGrossSales" + reportType).text(formatCurrency(parseInt(totalGrossSales / denominator)) + ' Đ');
+		$("#textAvgNetSales" + reportType).text(formatCurrency(parseInt(totalNetSales / denominator)) + ' Đ');
+		$("#labelTotalItems" + reportType).text(labelTotalItems);
+		$("#textTotalItems" + reportType).text(totalItems + ' Đơn');
+	}
 }
 
 function formatChartData(data, columnIndex1, columnIndex2) {

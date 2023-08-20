@@ -61,18 +61,21 @@ public interface HoaDonChiTietRepository extends JpaRepository<HoaDonChiTiet, In
     public void updateSoLuongSanPhamWithEdit(int soLuong, int idHoaDonChiTiet);
 
     @Query("SELECT NEW  com.datn.dongho5s.Entity.HoaDonChiTiet(d.chiTietSanPham.sanPham.danhMuc.ten, d.soLuong," +
-            "d.giaBan, d.donHang.phiVanChuyen)" + "  FROM HoaDonChiTiet d WHERE d.donHang.ngayTao BETWEEN ?1 AND ?2 AND d.donHang.trangThaiDonHang = 3")
-    public List<HoaDonChiTiet> findWithCategoryAndTimeBetween(Date startTime, Date endTime);
+            "d.giaBan, d.donHang.phiVanChuyen)" + "  FROM HoaDonChiTiet d WHERE d.donHang.ngayTao BETWEEN ?1 AND ?2 AND d.donHang.trangThaiDonHang = ?3")
+    public List<HoaDonChiTiet> findWithCategoryAndTimeBetween(Date startTime, Date endTime, Integer status);
 
     @Query("SELECT NEW  com.datn.dongho5s.Entity.HoaDonChiTiet(d.soLuong, d.chiTietSanPham.sanPham.tenSanPham," +
-            "d.giaBan, d.donHang.phiVanChuyen)" + "  FROM HoaDonChiTiet d WHERE d.donHang.ngayTao BETWEEN ?1 AND ?2 AND d.donHang.trangThaiDonHang = 3")
-    public List<HoaDonChiTiet> findWithProductAndTimeBetween(Date startTime, Date endTime);
+            "d.giaBan, d.donHang.phiVanChuyen)" + "  FROM HoaDonChiTiet d WHERE d.donHang.ngayTao BETWEEN ?1 AND ?2 AND d.donHang.trangThaiDonHang = ?3")
+    public List<HoaDonChiTiet> findWithProductAndTimeBetween(Date startTime, Date endTime, Integer status);
 
     @Query("SELECT NEW  com.datn.dongho5s.Entity.HoaDonChiTiet(d.chiTietSanPham.idChiTietSanPham, d.soLuong, d.giaBan, " +
-            "d.donHang.phiVanChuyen)" + "  FROM HoaDonChiTiet d WHERE d.donHang.ngayTao BETWEEN ?1 AND ?2 AND d.donHang.trangThaiDonHang = 3"
+            "d.donHang.phiVanChuyen)" + "  FROM HoaDonChiTiet d WHERE d.donHang.ngayTao BETWEEN ?1 AND ?2 AND d.donHang.trangThaiDonHang = ?3"
             )
-    public List<HoaDonChiTiet> findWithOrderDetailAndTimeBetween(Date startTime, Date endTime);
+    public List<HoaDonChiTiet> findWithOrderDetailAndTimeBetween(Date startTime, Date endTime, Integer status);
     @Modifying
     @Transactional
     public void deleteByDonHang(DonHang donHang);
+
+    @Query("SELECT count(hd) FROM HoaDonChiTiet hd WHERE hd.donHang.idDonHang = ?1")
+    Integer countHD(Integer id);
 }

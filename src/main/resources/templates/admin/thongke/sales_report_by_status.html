@@ -104,7 +104,7 @@
                     </thead>
                     <tbody>
                     <tr th:each="dh :${listDonHang}">
-                        <td>[[${dh.maDonHang}]]</td>
+                        <td style="width: 100px">[[${dh.maDonHang}]]</td>
                         <td>[[${dh.nhanVien == null ? "" : dh.nhanVien.ten}]] </td>
                         <td>[[${dh.khachHang.tenKhachHang}]]</td>
                         <td>[[${dh.diaChi}]]</td>

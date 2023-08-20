@@ -28,20 +28,22 @@ function loadSalesReportByDateForProduct(period) {
 
 function prepareChartDataForSalesReportByProduct(responseJSON) {
 	data = new google.visualization.DataTable();
-	data.addColumn('string', 'Product');
-	data.addColumn('number', 'Quantity');
-	data.addColumn('number', 'Gross Sales');
-	data.addColumn('number', 'Net Sales');
+	data.addColumn('string', 'Sản phẩm');
+	data.addColumn('number', 'Số lượng');
+	data.addColumn('number', 'Tổng doanh thu');
+	data.addColumn('number', 'Doanh thu thuần');
 
-	totalGrossSales = 0.0;
-	totalNetSales = 0.0;
+	totalGrossSales = 0;
+	totalNetSales = 0;
 	totalItems = 0;
 	console.log(data)
 	$.each(responseJSON, function(index, reportItem) {
 		console.log(reportItem);
-		data.addRows([[reportItem.identifier, reportItem.productsCount, reportItem.grossSales, reportItem.netSales]]);
-		totalGrossSales += parseFloat(reportItem.grossSales);
-		totalNetSales += parseFloat(reportItem.netSales);
+		data.addRows([
+			[reportItem.identifier, reportItem.productsCount, reportItem.grossSales, reportItem.netSales]
+		]);
+		totalGrossSales += parseInt(reportItem.grossSales);
+		totalNetSales += parseInt(reportItem.netSales);
 		totalItems += parseInt(reportItem.productsCount);
 	});
 	console.log(data)
@@ -58,6 +60,14 @@ function customizeChartForSalesReportByProduct() {
 }
 
 function drawChartForSalesReportByProduct() {
+	var formatter = new google.visualization.NumberFormat({
+		groupingSymbol: '.',
+		decimalSymbol: ',',
+		fractionDigits: 0
+	});
+
+	formatter.format(data, 2); // Format the third column (Tổng doanh thu)
+	formatter.format(data, 3); // Format the fourth column (Doanh thu thuần)
 	var salesChart = new google.visualization.Table(document.getElementById('chart_sales_by_product'));
 	salesChart.draw(data, chartOptions);
 }
