@@ -94,7 +94,7 @@ public class ChiTietGioHangServiceImpl implements ChiTietGioHangService {
                 .chiTietSanPham(chiTietSanPham)
                 .gioHang(gioHang)
                 .ghiChu("")
-                .giaBan(chiTietSanPham.getGiaSanPham())
+                .giaBan(cartRequest.getGiaSanPham())
                 .ngayTao(new Date())
                 .soLuongSanPham(cartRequest.getSoLuong())
                 .build();

@@ -24,14 +24,23 @@ public class HoaDonChiTietReportServiceImpl extends AbstractReportService {
 	@Override
 	protected List<ReportItem> getReportDataByDateRangeInternal(
 			Date startDate, Date endDate, ReportType reportType) {
-		List<HoaDonChiTiet> listHoaDonChiTiets = null;
+		List<HoaDonChiTiet> listHoaDonChiTiets = new ArrayList<>();
 
 		if (reportType.equals(ReportType.CATEGORY)) {
-			listHoaDonChiTiets = repo.findWithCategoryAndTimeBetween(startDate, endDate, 3);
+			List<HoaDonChiTiet> combinedList1 = repo.findWithCategoryAndTimeBetween(startDate, endDate, 3);
+			List<HoaDonChiTiet> combinedList2 = repo.findWithCategoryAndTimeBetween(startDate, endDate, 5);
+			listHoaDonChiTiets.addAll(combinedList1);
+			listHoaDonChiTiets.addAll(combinedList2);
 		} else if (reportType.equals(ReportType.PRODUCT)) {
-			listHoaDonChiTiets = repo.findWithProductAndTimeBetween(startDate, endDate, 3);
+			List<HoaDonChiTiet> combinedList1 = repo.findWithProductAndTimeBetween(startDate, endDate, 3);
+			List<HoaDonChiTiet> combinedList2 = repo.findWithProductAndTimeBetween(startDate, endDate, 5);
+			listHoaDonChiTiets.addAll(combinedList1);
+			listHoaDonChiTiets.addAll(combinedList2);
 		} else if (reportType.equals(ReportType.ORDERDETAIL)) {
-			listHoaDonChiTiets = repo.findWithOrderDetailAndTimeBetween(startDate, endDate, 3);
+			List<HoaDonChiTiet> combinedList1 = repo.findWithOrderDetailAndTimeBetween(startDate, endDate, 3);
+			List<HoaDonChiTiet> combinedList2 = repo.findWithOrderDetailAndTimeBetween(startDate, endDate, 5);
+			listHoaDonChiTiets.addAll(combinedList1);
+			listHoaDonChiTiets.addAll(combinedList2);
 		}
 
 		//printRawData(listHoaDonChiTiets);

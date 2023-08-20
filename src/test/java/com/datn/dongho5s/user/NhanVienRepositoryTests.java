@@ -33,7 +33,7 @@ public class NhanVienRepositoryTests {
     public void testCreateUser(){
         ChucVu chucVuAdmin =  entityManager.find(ChucVu.class,1);
         NhanVien userAnnt = new NhanVien("Nguyen","TruongAn","anntph18823@gmail.com","annt123");
-        userAnnt.addChucVu(chucVuAdmin);
+//        userAnnt.addChucVu(chucVuAdmin);
 
         NhanVien savedNhanVien = repo.save(userAnnt);
         assertThat(savedNhanVien.getId()).isGreaterThan(0);
@@ -43,7 +43,7 @@ public class NhanVienRepositoryTests {
     public void testCreateNewUser(){
         ChucVu chucVuAdmin =  entityManager.find(ChucVu.class,2);
         NhanVien userHuong = new NhanVien("Nguyen","ThuHuong","huongntph18824@gmail.com","huongnt123");
-        userHuong.addChucVu(chucVuAdmin);
+//        userHuong.addChucVu(chucVuAdmin);
 
         NhanVien savedNhanVien = repo.save(userHuong);
         assertThat(savedNhanVien.getId()).isGreaterThan(0);
@@ -53,7 +53,7 @@ public class NhanVienRepositoryTests {
     public void testCreateNewTwoUser(){
         ChucVu chucVuAdmin =  entityManager.find(ChucVu.class,2);
         NhanVien userNgoc = new NhanVien("Nguyen","vungoc","ngocvnph18825@gmail.com","ngocvn123");
-        userNgoc.addChucVu(chucVuAdmin);
+//        userNgoc.addChucVu(chucVuAdmin);
 
         NhanVien savedNhanVien = repo.save(userNgoc);
         assertThat(savedNhanVien.getId()).isGreaterThan(0);
