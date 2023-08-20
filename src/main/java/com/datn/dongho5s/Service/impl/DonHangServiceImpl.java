@@ -113,7 +113,7 @@ public class DonHangServiceImpl implements DonHangService {
     @Override
     public List<DonHangResponse> findHDByStatus(Integer idKhachHang, Integer trangThaiDonHang) throws Exception {
         List<DonHang> listHD = donHangRepository.findHDByStatus(idKhachHang,trangThaiDonHang);
-        List<DonHangResponse> responseList =new ArrayList<>();
+        List<DonHangResponse> responseList = new ArrayList<>();
         for (DonHang don: listHD) {
             DonHangResponse donHangResponse = new DonHangResponse();
             donHangResponse = DonHangMapping.mapEntitytoResponse(don);

@@ -202,7 +202,7 @@
                             <div style="font-size: medium; padding: 0 10px;position: relative">
                                 <div >Mã đơn hàng : {{item.maDonHang}}</div>
                                 <div >Ngày Tạo : {{item.ngayTao | date : "short"}}</div>
-                                <div>Địa Chỉ : {{item.diaChi}}, {{item.phuongXa}} - {{item.quanHuyen}} -  {{item.tinhThanh}}</div>
+                                <div ng-show="item.diaChi != null">Địa Chỉ : {{item.diaChi}}, {{item.phuongXa}} - {{item.quanHuyen}} -  {{item.tinhThanh}}</div>
                                 <span style="position: absolute; right: 32px;top: 10px;color: #3ab19c;text-transform: uppercase;">Đơn Hàng Giao thành công</span>
                             </div>
 
