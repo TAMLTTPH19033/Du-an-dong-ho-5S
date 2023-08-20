@@ -37,21 +37,6 @@ public interface ChiTietSanPhamRepository extends JpaRepository<ChiTietSanPham,I
     @Query("SELECT ctsp FROM ChiTietSanPham  ctsp WHERE UPPER(CONCAT(ctsp.idChiTietSanPham,' ', ctsp.maChiTietSanPham, ' ',ctsp.dayDeo,' ', ctsp.khuyenMai,' ', ctsp.mauSac,' ',ctsp.sanPham)) LIKE %?1%")
     public Page<ChiTietSanPham> findAll(String keyword,Pageable pageable);
 
-    @Query(value = """
-        UPDATE ChiTietSanPham c
-        SET c.soLuong = c.soLuong - ?1
-        WHERE c.idChiTietSanPham = ?2
-    """)
-    @Modifying
-    public void updateSoLuongCTSPById(int soLuong,int id);
-    @Query(value = """
-        UPDATE ChiTietSanPham c
-        SET c.soLuong = c.soLuong + ?1
-        WHERE c.idChiTietSanPham = ?2
-    """)
-    @Modifying
-    public void updateSoLuongFromHDCT(int soLuong,int id);
-
     ChiTietSanPham findByMaChiTietSanPham(String ma);
 
 
