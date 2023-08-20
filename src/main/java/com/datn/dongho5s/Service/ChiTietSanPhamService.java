@@ -13,6 +13,11 @@ import java.util.List;
 
 public interface ChiTietSanPhamService {
     public static final int PRODUCT_DETAIL_PER_PAGE = 5;
+
+    int totalPageSearchSP(String key, int pageNum);
+
+    List<SanPhamAdminResponse> searchSP(String key, int pageNum);
+
     TimKiemSettingResponse getTimKiemSetting ();
     ChiTietSanPham getChiTietSanPhamById(Integer id);
     ChiTietSanPham update(ChiTietSanPham chiTietSanPham);

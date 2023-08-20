@@ -264,6 +264,52 @@ public class BanHangController {
 
         return "admin/banhang/banhang";
     }
+    @GetMapping("/tim-kiem")
+    public String searchSP(
+            @RequestParam("searchSP") String key,
+            Model model,
+            HttpSession httpSession,
+            @ModelAttribute("hoaDonAdminRequest") HoaDonAdminRequest hoaDonAdminRequest
+    ){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("admin") == null ){
+            return "redirect:/login-admin" ;
+        }
+
+        // set list san pham
+        model.addAttribute("listSanPham",chiTietSanPhamService.searchSP(key.trim(),1));
+
+        model.addAttribute("currentPage", 1);
+        model.addAttribute("totalPages", chiTietSanPhamService.totalPageSearchSP(key.trim(),1));
+
+        DonHang donHangByMa = (DonHang) httpSession.getAttribute("donHangHienTai");
+
+        if (donHangByMa!= null){
+            List<HoaDonChiTiet> lstHDCT = hoaDonChiTietService.getHDCTByMaDonHang(donHangByMa.getMaDonHang());
+
+            model.addAttribute("lstHDCT",lstHDCT);
+
+            Double tongTien = 0d;
+
+            for (HoaDonChiTiet h: donHangByMa.getListHoaDonChiTiet()) {
+                if (h.getChiTietSanPham().getKhuyenMai() == null || h.getChiTietSanPham().getKhuyenMai().isEnabled() == false){
+                    tongTien += h.getGiaBan() * h.getSoLuong();
+                } else{
+                    tongTien += h.getGiaBan() * h.getSoLuong() * h.getChietKhau() / 100;
+                }
+            }
+            model.addAttribute("hoaDonAdminRequest", HoaDonAdminRequest
+                    .builder()
+                    .maHoaDon(donHangByMa.getMaDonHang())
+                    .sdt(donHangByMa.getKhachHang() == null ? "" : donHangByMa.getKhachHang().getSoDienThoai())
+                    .tongTienDonHang(tongTien)
+                    .ngayTao(dateParseToString(donHangByMa.getNgayTao(),"yyyy-MM-dd"))
+                    .tenKhachHang(donHangByMa.getKhachHang() == null ? "" : donHangByMa.getKhachHang().getTenKhachHang())
+                    .build());
+        }
+
+        return "admin/banhang/banhang";
+    }
 
     @GetMapping("/khach-hang/api/{phoneNumber}")
     @ResponseBody

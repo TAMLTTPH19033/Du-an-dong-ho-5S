@@ -14,6 +14,13 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public interface ChiTietSanPhamRepository extends JpaRepository<ChiTietSanPham,Integer>{
 
+    @Query("""
+        SELECT c 
+        FROM ChiTietSanPham c
+        WHERE LOWER(CONCAT(c.maChiTietSanPham,c.sanPham.tenSanPham)) LIKE %?1%  
+    """)
+    public Page<ChiTietSanPham> searchByKey(String key,Pageable pageable);
+
     @Query(nativeQuery = true,value = """
         SELECT *
         FROM chitietsanpham c JOIN sanpham sp ON c.id_san_pham = sp.id_san_pham
