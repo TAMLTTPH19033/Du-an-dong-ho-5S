@@ -2,9 +2,7 @@
   <div class="container">
     <div class="row">
       <!-- SHOPPING-CART START -->
-      <div
-        class="col-lg-3 col-md-3 col-sm-12 col-xs-12 pull-right shopingcartarea"
-      >
+      <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 pull-right shopingcartarea">
         <div class="shopping-cart-out pull-right">
           <div class="shopping-cart">
             <a class="shop-link" href="#cart" title="View my shopping cart">
@@ -13,49 +11,33 @@
               <span class="ajax-cart-quantity">{{totalSp}}</span>
             </a>
 
+
             <div class="shipping-cart-overly" style="overflow: scroll">
               <div ng-if="cart.length == 0" class="text-center">
-                <span style="margin-top: 10px" >K có sản phẩm nào</span>
+                <span>K có sản phẩm nào</span>
               </div>
               <div ng-if="cart.length > 0">
-                <div
-                  class="shipping-item"
-                  ng-repeat="item in cart"
-                  ng-init="setTotals(item)"
-                >
-                  <span class="cross-icon" ng-click="removeSP(item)"
-                    ><i class="fa fa-times-circle"></i
-                  ></span>
+                <div class="shipping-item" ng-repeat="item in cart" ng-init="setTotals(item)">
+                                        <span class="cross-icon" ng-click="removeSP(item)"><i
+                                                class="fa fa-times-circle"></i></span>
                   <div class="shipping-item-image" style="width: 30%">
-                    <a
-                      href="#/chitietsanpham/{{item.chiTietSanPham.sanPham.idSanPham}}"
-                      ><img
-                        src="/assets/images/{{item.chiTietSanPham.sanPham.listAnhSanPham[0].link}}"
-                        alt="shopping image"
-                    /></a>
+                    <a href="#/chitietsanpham/{{item.chiTietSanPham.sanPham.idSanPham}}"><img
+                            src="/assets/images/{{item.chiTietSanPham.sanPham.listAnhSanPham[0].link}}"
+                            alt="shopping image"/></a>
                   </div>
-                  <div
-                    class="shipping-item-text"
-                    style="width: 60%; float: right"
-                  >
-                    <span
-                      >{{item.soLuongSanPham}}
-                      <span class="pro-quan-x">x</span>
-                      <a href="#" class="pro-cat"
-                        >{{item.chiTietSanPham.sanPham.tenSanPham}}
-                      </a></span
-                    >
-                    <span class="pro-quality"
-                      ><a href="#sanpham"
-                        >{{item.chiTietSanPham.kichCo.tenKichCo}},{{item.chiTietSanPham.mauSac.tenMauSac}}</a
-                      ></span>
-                    <p>{{item.giaBan |number}} đ</p>
+                  <div class="shipping-item-text" style="width: 60%; float: right">
+                                            <span>{{item.soLuongSanPham}} <span class="pro-quan-x">x</span> <a href="#"
+                                                                                                               class="pro-cat">{{item.chiTietSanPham.sanPham.tenSanPham}} </a></span>
+
+                    <span class="pro-quality"><a href="#sanpham">{{item.chiTietSanPham.dayDeo.tenDayDeo}},{{item.chiTietSanPham.vatLieu.tenVatLieu}}</a></span>
+                    <span class="pro-quality"><a href="#sanpham">{{item.chiTietSanPham.kichCo.tenKichCo}},{{item.chiTietSanPham.mauSac.tenMauSac}}</a></span>
+                    <p>{{item.giaBan | number}} đ</p>
                   </div>
                 </div>
                 <div class="shipping-total-bill">
                   <div class="cart-prices">
-                    <span class="shipping-cost">0.00</span>
-                    <span>Vận chuyển(Tạm tính)</span>
+                    <span class="shipping-cost">0.00 đ</span>
+                    <span>Vận chuyển (Tạm tính)</span>
                   </div>
                   <div class="total-shipping-prices">
                     <span class="shipping-total">{{total | number}} đ</span>
@@ -72,15 +54,13 @@
       </div>
       <!-- SHOPPING-CART END -->
       <!-- MAINMENU START -->
-      <div
-        class="col-lg-9 col-md-9 col-sm-12 col-xs-12 no-padding-right menuarea"
-      >
+      <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 no-padding-right menuarea">
         <div class="mainmenu">
           <nav>
             <ul class="list-inline mega-menu">
-              <li class="active"><a href="#index">Trang chủ</a></li>
-              <li><a href="#sanpham">Sản Phẩm</a></li>
-              <li><a href="#chinhSach">Chính sách bảo hành và đổi trả</a></li>
+              <li class="active"><a href="#index">Trang chủ</a> </li>
+              <li> <a href="#sanpham">Sản Phẩm</a></li>
+              <li> <a href="#chinhSach">Chính sách bảo hành và đổi trả</a></li>
               <li><a href="#contact">Liên hệ</a></li>
               <li><a href="#about">Về chúng tôi</a></li>
             </ul>
@@ -96,54 +76,47 @@
           <span class="mobile-menu-title">MENU</span>
           <nav>
             <ul>
-              <li>
-                <a href="#">Home</a>
+              <li><a href="#">Home</a>
                 <ul>
                   <li><a href="index.html">Home variation 1</a></li>
                   <li><a href="index-2.html">Home variation 2</a></li>
                 </ul>
               </li>
-              <li>
-                <a href="shop-gird.html">Women</a>
+              <li><a href="shop-gird.html">Women</a>
                 <ul>
-                  <li>
-                    <a href="shop-gird.html">Tops</a>
+                  <li><a href="shop-gird.html">Tops</a>
                     <ul>
                       <li><a href="shop-gird.html">T-Shirts</a></li>
                       <li><a href="shop-gird.html">Blouses</a></li>
                     </ul>
                   </li>
-                  <li>
-                    <a href="shop-gird.html">Dresses</a>
+                  <li><a href="shop-gird.html">Dresses</a>
                     <ul>
                       <li><a href="shop-gird.html">Casual Dresses</a></li>
                       <li><a href="shop-gird.html">Summer Dresses</a></li>
                       <li><a href="shop-gird.html">Evening Dresses</a></li>
                     </ul>
                   </li>
+
                 </ul>
               </li>
-              <li>
-                <a href="shop-gird.html">men</a>
+              <li><a href="shop-gird.html">men</a>
                 <ul>
-                  <li>
-                    <a href="shop-gird.html">Tops</a>
+                  <li><a href="shop-gird.html">Tops</a>
                     <ul>
                       <li><a href="shop-gird.html">Sports</a></li>
                       <li><a href="shop-gird.html">Day</a></li>
                       <li><a href="shop-gird.html">Evening</a></li>
                     </ul>
                   </li>
-                  <li>
-                    <a href="shop-gird.html">Blouses</a>
+                  <li><a href="shop-gird.html">Blouses</a>
                     <ul>
                       <li><a href="shop-gird.html">Handbag</a></li>
                       <li><a href="shop-gird.html">Headphone</a></li>
                       <li><a href="shop-gird.html">Houseware</a></li>
                     </ul>
                   </li>
-                  <li>
-                    <a href="shop-gird.html">Accessories</a>
+                  <li><a href="shop-gird.html">Accessories</a>
                     <ul>
                       <li><a href="shop-gird.html">Houseware</a></li>
                       <li><a href="shop-gird.html">Home</a></li>

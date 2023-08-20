@@ -51,9 +51,7 @@ public class PhanHoiServiceImpl implements PhanHoiService {
     @Override
     public boolean checkPhanHoi(Integer idKhachHang, Integer idChiTietSanPham) {
         List<HoaDonChiTiet> donHangList = donHangRepository.findHDDonHang(idKhachHang,idChiTietSanPham);
-        System.out.println(donHangList);
         if (donHangList.isEmpty()){
-            System.out.println("rỗng rồi");
             return true;
         }
         Long countPH =phanHoiRepository.countPhanHoi(idKhachHang,idChiTietSanPham);
@@ -99,7 +97,6 @@ public class PhanHoiServiceImpl implements PhanHoiService {
 
     @Override
     public Long countPH(Integer idKhachHang, Integer idChiTietSanPham) {
-        System.out.println(phanHoiRepository.countPhanHoi(idKhachHang,idChiTietSanPham));
         return phanHoiRepository.countPhanHoi(idKhachHang,idChiTietSanPham);
     }
 

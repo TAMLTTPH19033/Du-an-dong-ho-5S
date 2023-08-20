@@ -30,16 +30,17 @@
                                             <span>{{item.soLuongSanPham}} <span class="pro-quan-x">x</span> <a href="#"
                                                                                                                class="pro-cat">{{item.chiTietSanPham.sanPham.tenSanPham}} </a></span>
                                         <span class="pro-quality"><a href="#sanpham">{{item.chiTietSanPham.kichCo.tenKichCo}},{{item.chiTietSanPham.mauSac.tenMauSac}}</a></span>
-                                        <p>{{item.giaBan}}</p>
+                                        <span class="pro-quality"><a href="#sanpham">{{item.chiTietSanPham.dayDeo.tenDayDeo}},{{item.chiTietSanPham.vatLieu.tenVatLieu}}</a></span>
+                                        <p>{{item.giaBan | number}} đ</p>
                                     </div>
                                 </div>
                                 <div class="shipping-total-bill">
                                     <div class="cart-prices">
-                                        <span class="shipping-cost">0.00</span>
+                                        <span class="shipping-cost">0.00 đ</span>
                                         <span>Vận chuyển (tạm tính)</span>
                                     </div>
                                     <div class="total-shipping-prices">
-                                        <span class="shipping-total">{{total}}</span>
+                                        <span class="shipping-total">{{total | number}} đ</span>
                                         <span>Tổng</span>
                                     </div>
                                 </div>
@@ -263,7 +264,8 @@
                             <div style="width: 40%;margin-left: 560px  ">
                                 <div class="shipping-total-bill" >
                                     <div class="cart-prices" style="border: none">
-                                        <span class="shipping-cost">{{item.phiVanChuyen | number}} đ</span>
+                                        <span class="shipping-cost" ng-show="item.phiVanChuyen != null">item.phiVanChuyen | number}} đ</span>
+                                        <span class="shipping-cost" ng-show="item.phiVanChuyen == null">0 đ</span>
                                         <span>Vận chuyển</span>
                                     </div>
                                     <div class="total-shipping-prices" >

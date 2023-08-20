@@ -1,5 +1,5 @@
 <div ng-controller="homeCtrl">
-    <header class="main-menu-area">
+    <header class="main-menu-area" ng-controller="homeCtrl">
         <div class="container">
             <div class="row">
                 <!-- SHOPPING-CART START -->
@@ -29,17 +29,19 @@
                                         <div class="shipping-item-text" style="width: 60%; float: right">
                                             <span>{{item.soLuongSanPham}} <span class="pro-quan-x">x</span> <a href="#"
                                                                                                                class="pro-cat">{{item.chiTietSanPham.sanPham.tenSanPham}} </a></span>
+
+                                            <span class="pro-quality"><a href="#sanpham">{{item.chiTietSanPham.dayDeo.tenDayDeo}},{{item.chiTietSanPham.vatLieu.tenVatLieu}}</a></span>
                                             <span class="pro-quality"><a href="#sanpham">{{item.chiTietSanPham.kichCo.tenKichCo}},{{item.chiTietSanPham.mauSac.tenMauSac}}</a></span>
-                                            <p>{{item.giaBan}}</p>
+                                            <p>{{item.giaBan | number}} đ</p>
                                         </div>
                                     </div>
                                     <div class="shipping-total-bill">
                                         <div class="cart-prices">
-                                            <span class="shipping-cost">0.00</span>
-                                            <span>Phí vận chuyển</span>
+                                            <span class="shipping-cost">0.00 đ</span>
+                                            <span>Vận chuyển (Tạm tính)</span>
                                         </div>
                                         <div class="total-shipping-prices">
-                                            <span class="shipping-total">{{total}}</span>
+                                            <span class="shipping-total">{{total | number}} đ</span>
                                             <span>Tổng</span>
                                         </div>
                                     </div>
@@ -68,9 +70,75 @@
                 </div>
                 <!-- MAINMENU END -->
             </div>
+            <div class="row">
+                <!-- MOBILE MENU START -->
+                <div class="col-sm-12 mobile-menu-area">
+                    <div class="mobile-menu hidden-md hidden-lg" id="mob-menu">
+                        <span class="mobile-menu-title">MENU</span>
+                        <nav>
+                            <ul>
+                                <li><a href="#">Home</a>
+                                    <ul>
+                                        <li><a href="index.html">Home variation 1</a></li>
+                                        <li><a href="index-2.html">Home variation 2</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="shop-gird.html">Women</a>
+                                    <ul>
+                                        <li><a href="shop-gird.html">Tops</a>
+                                            <ul>
+                                                <li><a href="shop-gird.html">T-Shirts</a></li>
+                                                <li><a href="shop-gird.html">Blouses</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="shop-gird.html">Dresses</a>
+                                            <ul>
+                                                <li><a href="shop-gird.html">Casual Dresses</a></li>
+                                                <li><a href="shop-gird.html">Summer Dresses</a></li>
+                                                <li><a href="shop-gird.html">Evening Dresses</a></li>
+                                            </ul>
+                                        </li>
+
+                                    </ul>
+                                </li>
+                                <li><a href="shop-gird.html">men</a>
+                                    <ul>
+                                        <li><a href="shop-gird.html">Tops</a>
+                                            <ul>
+                                                <li><a href="shop-gird.html">Sports</a></li>
+                                                <li><a href="shop-gird.html">Day</a></li>
+                                                <li><a href="shop-gird.html">Evening</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="shop-gird.html">Blouses</a>
+                                            <ul>
+                                                <li><a href="shop-gird.html">Handbag</a></li>
+                                                <li><a href="shop-gird.html">Headphone</a></li>
+                                                <li><a href="shop-gird.html">Houseware</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="shop-gird.html">Accessories</a>
+                                            <ul>
+                                                <li><a href="shop-gird.html">Houseware</a></li>
+                                                <li><a href="shop-gird.html">Home</a></li>
+                                                <li><a href="shop-gird.html">Health & Beauty</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li><a href="shop-gird.html">clothing</a></li>
+                                <li><a href="shop-gird.html">tops</a></li>
+                                <li><a href="shop-gird.html">T-shirts</a></li>
+                                <li><a href="#">Delivery</a></li>
+                                <li><a href="#about">About us</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                <!-- MOBILE MENU END -->
+            </div>
         </div>
     </header>
-
     <!-- HEADER-BOTTOM-AREA START -->
     <section class="header-bottom-area">
         <div class="container">

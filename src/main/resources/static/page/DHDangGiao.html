@@ -29,17 +29,19 @@
                                     <div class="shipping-item-text" style="width: 60%; float: right">
                                             <span>{{item.soLuongSanPham}} <span class="pro-quan-x">x</span> <a href="#"
                                                                                                                class="pro-cat">{{item.chiTietSanPham.sanPham.tenSanPham}} </a></span>
+
+                                        <span class="pro-quality"><a href="#sanpham">{{item.chiTietSanPham.dayDeo.tenDayDeo}},{{item.chiTietSanPham.vatLieu.tenVatLieu}}</a></span>
                                         <span class="pro-quality"><a href="#sanpham">{{item.chiTietSanPham.kichCo.tenKichCo}},{{item.chiTietSanPham.mauSac.tenMauSac}}</a></span>
-                                        <p>{{item.giaBan}}</p>
+                                        <p>{{item.giaBan | number}} đ</p>
                                     </div>
                                 </div>
                                 <div class="shipping-total-bill">
                                     <div class="cart-prices">
-                                        <span class="shipping-cost">0.00</span>
-                                        <span>Vận chuyển(Tạm tính)</span>
+                                        <span class="shipping-cost">0.00 đ</span>
+                                        <span>Vận chuyển (Tạm tính)</span>
                                     </div>
                                     <div class="total-shipping-prices">
-                                        <span class="shipping-total">{{total}}</span>
+                                        <span class="shipping-total">{{total | number}} đ</span>
                                         <span>Tổng</span>
                                     </div>
                                 </div>

@@ -14,7 +14,7 @@
 
                         <div class="shipping-cart-overly" style="overflow: scroll">
                             <div ng-if="cart.length == 0" class="text-center">
-                                <span style="margin-top: 10px">K có sản phẩm nào</span>
+                                <span>K có sản phẩm nào</span>
                             </div>
                             <div ng-if="cart.length > 0">
                                 <div class="shipping-item" ng-repeat="item in cart" ng-init="setTotals(item)">
@@ -28,17 +28,19 @@
                                     <div class="shipping-item-text" style="width: 60%; float: right">
                                             <span>{{item.soLuongSanPham}} <span class="pro-quan-x">x</span> <a href="#"
                                                                                                                class="pro-cat">{{item.chiTietSanPham.sanPham.tenSanPham}} </a></span>
+
+                                        <span class="pro-quality"><a href="#sanpham">{{item.chiTietSanPham.dayDeo.tenDayDeo}},{{item.chiTietSanPham.vatLieu.tenVatLieu}}</a></span>
                                         <span class="pro-quality"><a href="#sanpham">{{item.chiTietSanPham.kichCo.tenKichCo}},{{item.chiTietSanPham.mauSac.tenMauSac}}</a></span>
-                                        <p>{{item.giaBan}}</p>
+                                        <p>{{item.giaBan | number}} đ</p>
                                     </div>
                                 </div>
                                 <div class="shipping-total-bill">
                                     <div class="cart-prices">
-                                        <span class="shipping-cost">0.00</span>
-                                        <span>Vận chuyển(Tạm tính)</span>
+                                        <span class="shipping-cost">0.00 đ</span>
+                                        <span>Vận chuyển (Tạm tính)</span>
                                     </div>
                                     <div class="total-shipping-prices">
-                                        <span class="shipping-total">{{total}}</span>
+                                        <span class="shipping-total">{{total | number}} đ</span>
                                         <span>Tổng</span>
                                     </div>
                                 </div>
@@ -162,7 +164,7 @@
                 <div class="single-account-info">
                     <ul>
                         <li style="height: 45px"><a href="#changePass"><i class="fa fa-building"></i><span style="font-size: 10px">Đổi mật khẩu</span>	</a></li>
-                        <li style="height: 45px"><a href="#history"><i class="fa fa-list-ol"></i><span style="font-size: 10px">Đơn hàng</span>	</a></li>
+                        <li style="height: 45px"><a href="#history/all"><i class="fa fa-list-ol"></i><span style="font-size: 10px">Đơn hàng</span>	</a></li>
                         <li style="height: 45px"><a href="#"><i class="fa fa-file-o"></i><span style="font-size: 10px">My credit slips</span>	</a></li>
                         <li style="height: 45px"><a href="#my-address"><i class="fa fa-building"></i><span style="font-size: 10px">Địa chỉ</span>	</a></li>
                         <li style="height: 45px"><a href="#my-info"><i class="fa fa-user"></i><span style="font-size: 10px">Thông tin</span>	</a></li>
