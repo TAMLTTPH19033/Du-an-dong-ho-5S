@@ -408,9 +408,9 @@
         buttons_them_sam_pham[i].disabled = false;
       }
     } else {
-      if (document.getElementById('sdt').value.trim() == '' || document.getElementById('ten').value.trim() == ''){
+      if (document.getElementById('sdt').value.trim() == '' || document.getElementById('ten').value.trim() == '' || sdtExist == document.getElementById('sdt').value.trim() ){
         btn_taoMoi.disabled = true;
-      }else{
+      } else {
         btn_taoMoi.disabled = false;
       }
 
@@ -428,29 +428,29 @@
 
   }
 
-  validateDonHang();
-
   var inputField = document.getElementById('sdt');
   var submitButton = document.getElementById('tao-moi-don-hang');
 
+  var sdtExist;
   inputField.addEventListener('input', function() {
     fetch(`/admin/ban-hang/khach-hang/api/` + inputField.value.trim())
-            .then(response => response.text())
-            .then(data => {
-              // Kiểm tra kết quả từ server và xử lý tương ứng
-              if (data === inputField.value.trim()) {
-                submitButton.disabled = true;
-              } else {
-                if (document.getElementById('sdt').value.trim() == '' || document.getElementById('ten').value.trim() == ''){
-                  submitButton.disabled = true;
-                }else{
-                  submitButton.disabled = false;
-                }
-              }
-            })
-            .catch(error => {
-              console.error('Lỗi:', error);
-            });
+      .then(response => response.text())
+      .then(data => {
+        // Kiểm tra kết quả từ server và xử lý tương ứng
+        if (data === inputField.value.trim()) {
+          sdtExist = data;
+          submitButton.disabled = true;
+        } else {
+          if (document.getElementById('sdt').value.trim() == ''){
+            submitButton.disabled = true;
+          } else {
+            submitButton.disabled = false;
+          }
+        }
+      })
+      .catch(error => {
+        console.error('Lỗi:', error);
+      });
   });
 
   document.getElementById('ten').addEventListener('input', function() {
@@ -458,6 +458,9 @@
       if (document.getElementById('sdt').value.trim() == '' || document.getElementById('ten').value.trim() == ''){
         document.getElementById('tao-moi-don-hang').disabled = true;
       }else{
+        if (sdtExist == document.getElementById('sdt').value.trim()){
+          document.getElementById('tao-moi-don-hang').disabled = true;
+        }
         document.getElementById('tao-moi-don-hang').disabled = false;
       }
 
@@ -557,24 +560,22 @@
   // chuc nang xoa san pham tu hoa don chi tiet end
 
   // chuc nang cap nhat san pham tu hoa don chi tiet
-/////////////////////////////////////////////////////////////////////////////
   // Lấy IDHDCT từ bảng
   var idHDCTSua;
   var soLuongMaxCoTheThem;
   $('.hoa-don-chi-tiet-sua').click(function() {
     idHDCTSua = $(this).data('id-hdct-sua');
     fetch(`/admin/ban-hang/seri/api/` + idHDCTSua)
-            .then(response => response.json())
-            .then(data => {
-              // Kiểm tra kết quả từ server và xử lý tương ứng
-              if (data != null) {
-                soLuongMaxCoTheThem = parseInt(data);
-              }
-            })
-            .catch(error => {
-              console.error('Lỗi:', error);
-            });
-    console.log(soLuongMaxCoTheThem);
+        .then(response => response.json())
+        .then(data => {
+          // Kiểm tra kết quả từ server và xử lý tương ứng
+          if (data != null) {
+            soLuongMaxCoTheThem = parseInt(data);
+          }
+        })
+        .catch(error => {
+          console.error('Lỗi:', error);
+        });
   });
   // validate input nếu > số lượng có thể mua thì disabled button thêm
   $(document).ready(function() {
@@ -609,6 +610,7 @@
       }
     });
   });
+  validateDonHang();
   // chuc nang cap nhat san pham tu hoa don chi tiet end
 </script>
 </body>
