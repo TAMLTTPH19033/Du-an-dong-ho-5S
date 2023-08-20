@@ -1,5 +1,6 @@
 package com.datn.dongho5s.Service.impl;
 import com.datn.dongho5s.Entity.DonHang;
+import com.datn.dongho5s.Entity.HoaDonChiTiet;
 import com.datn.dongho5s.Entity.ReportItem;
 import com.datn.dongho5s.Entity.ReportType;
 import com.datn.dongho5s.Repository.DonHangRepository;
@@ -20,7 +21,11 @@ public class MasterOrderReportService extends AbstractReportService {
     @Autowired private DonHangRepository repo;
 
     protected List<ReportItem> getReportDataByDateRangeInternal(Date startTime, Date endTime, ReportType reportType) {
-        List<DonHang> listOrders = repo.findByOrderByStatusBetween(startTime, endTime, 3);
+        List<DonHang> combinedList1 = repo.findByOrderByStatusBetween(startTime, endTime, 3);
+        List<DonHang> combinedList2 = repo.findByOrderByStatusBetween(startTime, endTime, 5);
+        List<DonHang> listOrders = new ArrayList<>();
+        listOrders.addAll(combinedList1);
+        listOrders.addAll(combinedList2);
         printRawData(listOrders);
         System.out.println("Trạng thái: ");
         printRawDataStatus(listOrders);
@@ -83,7 +88,11 @@ public class MasterOrderReportService extends AbstractReportService {
         Calendar endDate = Calendar.getInstance();
         endDate.setTime(endTime);
 
-        List<DonHang> listOrders = repo.findByOrderByStatusBetween(startTime, endTime, 3);
+        List<DonHang> combinedList1 = repo.findByOrderByStatusBetween(startTime, endTime, 3);
+        List<DonHang> combinedList2 = repo.findByOrderByStatusBetween(startTime, endTime, 5);
+        List<DonHang> listOrders = new ArrayList<>();
+        listOrders.addAll(combinedList1);
+        listOrders.addAll(combinedList2);
 
         do {
             String dateString = dateFormatter.format(startDate.getTime());
@@ -91,7 +100,7 @@ public class MasterOrderReportService extends AbstractReportService {
             // Check if any DonHang status is in the statusList
             boolean hasMatchingStatus = false;
             for (DonHang order : listOrders) {
-                if (statusList == 3) {
+                if (statusList == 3 || statusList == 5) {
                     hasMatchingStatus = true;
                     break;
                 }
