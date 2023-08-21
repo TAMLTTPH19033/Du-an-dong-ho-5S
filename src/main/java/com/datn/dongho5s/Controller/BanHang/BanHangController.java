@@ -77,8 +77,10 @@ public class BanHangController {
                         .tenKhachHang(donHangByMa.getKhachHang() == null ? "" : donHangByMa.getKhachHang().getTenKhachHang())
                     .build());
         }
+
         this.getListSanPham(model,1,httpSession,hoaDonAdminRequest);
-        this.getListHDCT(model,1);
+        this.getListHDCT(model,1,httpSession);
+
         return "admin/banhang/banhang";
     }
 
@@ -101,10 +103,10 @@ public class BanHangController {
         model.addAttribute("currentPage", pageNum);
         model.addAttribute("totalPages", chiTietSanPhamService.getALlChiTietSanPhamPage(pageNum).getTotalPages());
 
-
         DonHang donHangByMa = (DonHang) httpSession.getAttribute("donHangHienTai");
 
         if (donHangByMa!= null){
+
             List<HoaDonChiTiet> lstHDCT = hoaDonChiTietService.getHDCTByMaDonHang(donHangByMa.getMaDonHang());
 
             model.addAttribute("lstHDCT",lstHDCT);
@@ -130,14 +132,20 @@ public class BanHangController {
     @GetMapping("/hoa-don-chi-tiet/page/{pageNum}")
     public String getListHDCT(
             Model model,
-            @PathVariable("pageNum") int pageNum
+            @PathVariable("pageNum") int pageNum,
+            HttpSession httpSession
     ) {
         HttpSession session = request.getSession();
         if(session.getAttribute("admin") == null ){
             return "redirect:/login-admin" ;
         }
-
-        List<HoaDonChiTiet> lstHDCT = hoaDonChiTietService.getHDCTByMaDonHang(null);
+        DonHang donHangByMa = (DonHang) httpSession.getAttribute("donHangHienTai");
+        List<HoaDonChiTiet> lstHDCT;
+        if (donHangByMa!= null){
+            lstHDCT = hoaDonChiTietService.getHDCTByMaDonHang(donHangByMa.getMaDonHang());
+        } else {
+            lstHDCT = hoaDonChiTietService.getHDCTByMaDonHang(null);
+        }
 
         model.addAttribute("lstHDCT",lstHDCT);
 
@@ -251,11 +259,12 @@ public class BanHangController {
     }
     @GetMapping("/tim-kiem")
     public String searchSP(
-            @RequestParam("searchSP") String key,
-            Model model,
-            HttpSession httpSession,
-            @ModelAttribute("hoaDonAdminRequest") HoaDonAdminRequest hoaDonAdminRequest
+        @RequestParam("searchSP") String key,
+        Model model,
+        HttpSession httpSession,
+        @ModelAttribute("hoaDonAdminRequest") HoaDonAdminRequest hoaDonAdminRequest
     ){
+
         HttpSession session = request.getSession();
         if(session.getAttribute("admin") == null ){
             return "redirect:/login-admin" ;
@@ -470,11 +479,12 @@ public class BanHangController {
         donHangService.thanhToanAdmin(donHang);
 
         //xuat
-        //        List<HoaDonChiTiet> lst = hoaDonChiTietService.getByIdDonHang(donHang.getIdDonHang());
-        //        HoaDonPdf hoaDonPdf = new HoaDonPdf();
-        //        hoaDonPdf.exportToPDF(response, lst, donHang);
+        List<HoaDonChiTiet> lst = hoaDonChiTietService.getByIdDonHang(donHang.getIdDonHang());
+        HoaDonPdf hoaDonPdf = new HoaDonPdf();
+        hoaDonPdf.exportToPDF(response, lst, donHang);
 
         httpSession.removeAttribute("donHangHienTai");
+        httpSession.removeAttribute("khachHangExist");
         return "redirect:/admin/ban-hang";
     }
 
