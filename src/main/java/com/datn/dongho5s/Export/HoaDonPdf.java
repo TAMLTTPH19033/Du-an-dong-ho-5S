@@ -37,7 +37,7 @@ public class HoaDonPdf {
         response.setHeader("Content-Disposition", "attachment; filename=\"HD" + donHang.getIdDonHang() + ".pdf\"");
         // Tạo đối tượng PdfWriter để ghi dữ liệu vào tài liệu PDF
 
-         PdfWriter.getInstance(document, response.getOutputStream());
+        PdfWriter.getInstance(document, response.getOutputStream());
         Font font = new Font(BaseFont.createFont("arial/arial.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED));
         font.setColor(220, 20, 60);
         font.setStyle(Font.BOLD);

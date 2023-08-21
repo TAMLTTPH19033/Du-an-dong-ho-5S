@@ -466,8 +466,8 @@ public class BanHangController {
 
     @GetMapping("/hoa-don/xuat-hoa-don")
     public void xuatHoaDon(
-            HttpSession httpSession,
-            HttpServletResponse response
+        HttpServletResponse response,
+        HttpSession httpSession
     ) throws Exception {
 
         DonHang donHang = (DonHang) httpSession.getAttribute("donHangHienTai");
@@ -476,6 +476,14 @@ public class BanHangController {
         List<HoaDonChiTiet> lst = hoaDonChiTietService.getByIdDonHang(donHang.getIdDonHang());
         HoaDonPdf hoaDonPdf = new HoaDonPdf();
         hoaDonPdf.exportToPDF(response, lst, donHang);
+
+//        // chuyen trang thai hoan thanh don hang
+//        donHang.setTrangThaiDonHang(3);
+//        //thanh toan
+//        donHangService.thanhToanAdmin(donHang);
+//
+//        httpSession.removeAttribute("donHangHienTai");
+//        httpSession.removeAttribute("khachHangExist");
     }
 
     @PostMapping("/hoa-don/huy")
@@ -497,9 +505,9 @@ public class BanHangController {
         return "redirect:/admin/ban-hang";
     }
     public String generateMaHD(){
-        return "HD" +
-//                new Date().toString().toUpperCase().replaceAll("[^a-zA-Z0-9]", "") +
-                UUID.randomUUID().toString().toUpperCase().replaceAll("[^a-zA-Z0-9]", "");
+        return "DH" +
+                new Date().toString().toUpperCase().replaceAll("[^a-zA-Z0-9]", "").substring(2,7) +
+                UUID.randomUUID().toString().toUpperCase().replaceAll("[^a-zA-Z0-9]", "").substring(2,8);
     }
 
     public Date stringParseToDate(String dateString, String pattern) {
