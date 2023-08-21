@@ -31,7 +31,7 @@ public interface ChiTietSanPhamService {
     ChiTietSanPham getChiTietSanPhamByMa (String ma);
 
     public List<ChiTietSanPham> listAll();
-    public Page<ChiTietSanPham> listByPage(int pageNumber,String sortField, String sortDir, String keyword);
+
 
     public ChiTietSanPham save(ChiTietSanPham chiTietSanPham);
 
@@ -55,4 +55,8 @@ public interface ChiTietSanPhamService {
             String tenMauSac,
             String tenKichCo,
             String tenVatLieu);
+
+
+    Page<ChiTietSanPham> listByPageAndProductName(int pageNum, String sortField, String sortDir, String keyword, String productName);
 }
+
