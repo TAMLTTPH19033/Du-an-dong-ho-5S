@@ -247,7 +247,7 @@
                                                 <span class="rating-selection">
 														<form ng-submit="sendRate(h)">
 															<div star-ratings  rating-value="ratings.current" max="5"></div>
-															<input type="text" id="noiDungPhanHoi" name="noiDungPhanHoi" ng-model="noiDungPhanHoi" style="    width: 99%;
+															<input type="text" name="noiDungPhanHoi" ng-model="noiDungPhanHoi" style="    width: 99%;
     height: 94px; "/>
 															<a class="btn" style="text-align: end" class="write-review-btn" ng-click="sendRate(h)">Gửi đánh giá của bạn!</a>
 														</form>
@@ -278,11 +278,11 @@
                                 </div>
                                 <span ng-if="  expirationDate < item.ngayCapNhap.toString() ">
                                 <div class="shipping-checkout-btn" style="    padding: 0 10px 20px; background: none; display: flex" >
-                                    <a type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal"  style="padding: 10px 20px; margin-right: 10px; color: black;background: #cec7c7;">
+                                    <a type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#{{item.idDonHang}}"  style="padding: 10px 20px; margin-right: 10px; color: black;background: #cec7c7;">
                                         Yêu cầu hoàn hàng/Trả tiền
                                     </a>
 
-                                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"c ng-controller="historyDoneCtrl" >
+                                    <div class="modal fade" id="{{item.idDonHang}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"c ng-controller="historyDoneCtrl" >
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
