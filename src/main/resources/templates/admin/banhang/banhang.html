@@ -352,7 +352,9 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Hủy</button>
         <button type="button" id="xacNhanThanhToan" class="btn btn-outline-danger" data-bs-dismiss="modal">Xác nhận</button>
-        <button type="button" id="xuatHoaDon" class="btn btn-outline-danger" data-bs-dismiss="modal">Xuất hóa đơn</button>
+        <form th:action="@{/admin/ban-hang/hoa-don/xuat-hoa-don}" >
+          <button type="submit" id="xuatHoaDon" class="btn btn-outline-danger" data-bs-dismiss="modal">Xuất hóa đơn</button>
+        </form>
       </div>
     </div>
   </div>
@@ -571,16 +573,7 @@
   });
 
   $('#xuatHoaDon').click(function() {
-    $.ajax({
-      url: "/admin/ban-hang/hoa-don/xuat-hoa-don",
-      method: "POST",
-      success: function(response) {
-        $('#content').html(response);
-      },
-      error: function(xhr, status, error) {
-        console.log("Lỗi: " + error);
-      }
-    });
+
     validateDonHang();
   });
 
