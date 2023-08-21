@@ -84,8 +84,6 @@ public class ChiTietSanPham {
     @Column(name = "gia_san_pham")
     private Double giaSanPham;
 
-    @Column(name = "so_luong")
-    private Integer soLuong ;
 
     @OneToMany(mappedBy = "chiTietSanPham", cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
