@@ -31,6 +31,7 @@ public interface ChiTietSanPhamRepository extends JpaRepository<ChiTietSanPham,I
     @Query("""
         SELECT ctsp
         FROM ChiTietSanPham ctsp
+        WHERE ctsp.sanPham.trangThai = 1
     """)
     public Page<ChiTietSanPham> findAllHung(Pageable pageable);
            
