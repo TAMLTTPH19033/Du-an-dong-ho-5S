@@ -55,41 +55,46 @@ public class ChiTietSanPhamController {
         if(session.getAttribute("admin") == null ){
             return "redirect:/login-admin" ;
         }
-        return listByPage(1,model,"maChiTietSanPham","asc",null);
+        return listByPage(1,model,"maChiTietSanPham","asc",null,null);
     }
 
     @GetMapping("/admin/productDetails/page/{pageNum}")
     private String listByPage(@PathVariable(name = "pageNum") int pageNum, Model model,
                               @Param("sortField") String sortField, @Param("sortDir") String sortDir,
-                              @Param("keyword") String keyword){
-//        System.out.println("Thương Hiệu Được Lọc" + brandSelect);
+                              @Param("keyword") String keyword,
+                              @Param("productName") String productName) {
         HttpSession session = request.getSession();
-        if(session.getAttribute("admin") == null ){
-            return "redirect:/login-admin" ;
+        if (session.getAttribute("admin") == null) {
+            return "redirect:/login-admin";
         }
-        Page<ChiTietSanPham> page = chiTietSanPhamService.listByPage(pageNum,sortField,sortDir,keyword);
+
+        Page<ChiTietSanPham> page = chiTietSanPhamService.listByPageAndProductName(pageNum, sortField, sortDir, keyword, productName);
         List<ChiTietSanPham> listChiTietSanPham = page.getContent();
 
-
-        long startCount = (pageNum -1) * ChiTietSanPhamService.PRODUCT_DETAIL_PER_PAGE +1;
-        long endCount = startCount + ChiTietSanPhamService.PRODUCT_DETAIL_PER_PAGE-1;
-        if(endCount > page.getTotalElements()){
+        long startCount = (pageNum - 1) * ChiTietSanPhamService.PRODUCT_DETAIL_PER_PAGE + 1;
+        long endCount = startCount + ChiTietSanPhamService.PRODUCT_DETAIL_PER_PAGE - 1;
+        if (endCount > page.getTotalElements()) {
             endCount = page.getTotalElements();
         }
+
         String reverseSortDir = sortDir.equals("asc") ? "desc" : "asc";
         model.addAttribute("currentPage", pageNum);
         model.addAttribute("totalPages", page.getTotalPages());
-        model.addAttribute("startCount",startCount);
-        model.addAttribute("endCount",endCount);
-        model.addAttribute("totalItem",page.getTotalElements());
-        model.addAttribute("listChiTietSanPham",listChiTietSanPham);
-        model.addAttribute("sortField",sortField);
-        model.addAttribute("sortDir",sortDir);
-        model.addAttribute("reverseSortDir",reverseSortDir);
-        model.addAttribute("keyword",keyword);
-        return "admin/chitietsanpham/product_detail";
+        model.addAttribute("startCount", startCount);
+        model.addAttribute("endCount", endCount);
+        model.addAttribute("totalItem", page.getTotalElements());
+        model.addAttribute("listChiTietSanPham", listChiTietSanPham);
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("reverseSortDir", reverseSortDir);
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("productName", productName);
 
+        return "admin/chitietsanpham/product_detail";
     }
+
+
+
 
     @GetMapping("/admin/productDetails/new")
     public String newProduct(Model model){
