@@ -354,12 +354,12 @@ public class BanHangController {
 
         model.addAttribute("thanhTien",tongTien);
         hoaDonAdminRequest = HoaDonAdminRequest
-                            .builder()
-                                .maHoaDon(donHangByMa.getMaDonHang())
-                                .sdt(donHangByMa.getKhachHang() == null ? "" : donHangByMa.getKhachHang().getSoDienThoai())
-                                .ngayTao(dateParseToString(donHangByMa.getNgayTao(),"yyyy-MM-dd"))
-                                .tenKhachHang(donHangByMa.getKhachHang() == null ? "" : donHangByMa.getKhachHang().getTenKhachHang())
-                            .build();
+            .builder()
+                .maHoaDon(donHangByMa.getMaDonHang())
+                .sdt(donHangByMa.getKhachHang() == null ? "" : donHangByMa.getKhachHang().getSoDienThoai())
+                .ngayTao(dateParseToString(donHangByMa.getNgayTao(),"yyyy-MM-dd"))
+                .tenKhachHang(donHangByMa.getKhachHang() == null ? "" : donHangByMa.getKhachHang().getTenKhachHang())
+            .build();
         model.addAttribute("hoaDonAdminRequest",hoaDonAdminRequest);
 
         // set list san pham
@@ -460,32 +460,22 @@ public class BanHangController {
         donHangService.thanhToanAdmin(donHang);
 
         httpSession.removeAttribute("donHangHienTai");
+        httpSession.removeAttribute("khachHangExist");
         return "redirect:/admin/ban-hang";
     }
 
-    @PostMapping("/hoa-don/xuat-hoa-don")
-    public String xuatHoaDon(
+    @GetMapping("/hoa-don/xuat-hoa-don")
+    public void xuatHoaDon(
             HttpSession httpSession,
             HttpServletResponse response
     ) throws Exception {
-        HttpSession session = request.getSession();
-        if(session.getAttribute("admin") == null ){
-            return "redirect:/login-admin" ;
-        }
+
         DonHang donHang = (DonHang) httpSession.getAttribute("donHangHienTai");
-        // chuyen trang thai hoan thanh don hang
-        donHang.setTrangThaiDonHang(3);
-        //thanh toan
-        donHangService.thanhToanAdmin(donHang);
 
         //xuat
         List<HoaDonChiTiet> lst = hoaDonChiTietService.getByIdDonHang(donHang.getIdDonHang());
         HoaDonPdf hoaDonPdf = new HoaDonPdf();
         hoaDonPdf.exportToPDF(response, lst, donHang);
-
-        httpSession.removeAttribute("donHangHienTai");
-        httpSession.removeAttribute("khachHangExist");
-        return "redirect:/admin/ban-hang";
     }
 
     @PostMapping("/hoa-don/huy")
