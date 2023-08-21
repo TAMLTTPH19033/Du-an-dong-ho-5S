@@ -278,6 +278,19 @@ public class DonHangController {
         }else if(trangThai == TrangThaiDonHang.DA_HOAN_TRA){
             donHang.setTrangThaiDonHang(trangThai);
             donHang.setNgayCapNhap(new Date());
+            List<HoaDonChiTiet> listHDCT = donHang.getListHoaDonChiTiet();
+            listHDCT.forEach(hdct->{
+                ChiTietSanPham ctsp = hdct.getChiTietSanPham();
+                Integer soLuong = hdct.getSoLuong();
+                List<Seri> listSeri = seriService.findByChiTietSanPham(ctsp,soLuong);
+                listSeri.forEach(seri -> {
+                    seri.setTrangThai(TrangThaiImei.CHUA_BAN);
+                    seri.setNgayBan(null);
+                    seri.setHoaDonChiTiet(null);
+                });
+                seriService.saveMany(listSeri);
+            });
+            hdctService.saveAll(listHDCT);
         }
 
 

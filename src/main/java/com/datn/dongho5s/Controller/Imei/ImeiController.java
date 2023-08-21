@@ -45,7 +45,7 @@ import java.util.List;
 public class ImeiController {
 
     private final String UPLOAD_DIR = "./uploads/";
-    private final Integer ITEM_PER_PAGE = 10;
+    private final Integer ITEM_PER_PAGE = 20;
 
     @Autowired
     SeriService seriService;
