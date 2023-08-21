@@ -80,8 +80,6 @@ public class DonHangServiceImpl implements DonHangService {
 
         Double tongTien = donHangRepository.tongTienAdmin(id);
 
-        System.out.println("TONG TIEN LA : " + tongTien);
-
         donHangRepository.updateTongTienAdmin(id, tongTien);
     }
 

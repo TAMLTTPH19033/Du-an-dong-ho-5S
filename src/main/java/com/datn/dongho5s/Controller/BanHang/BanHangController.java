@@ -387,9 +387,9 @@ public class BanHangController {
 
         DonHang donHangByMa = (DonHang) httpSession.getAttribute("donHangHienTai");
 
-        donHangService.updateTongTienAdmin(donHangByMa.getIdDonHang());
-
         hoaDonChiTietService.themSoLuongSanPham(soLuong,chiTietSanPham,donHangByMa);
+
+        donHangService.updateTongTienAdmin(donHangByMa.getIdDonHang());
 
         return "redirect:/admin/ban-hang/hoa-don/" + donHangByMa.getMaDonHang();
     }
@@ -409,6 +409,8 @@ public class BanHangController {
         hoaDonChiTietService.xoaHDCT(hoaDonChiTiet);
 
         DonHang donHangByMa = (DonHang) httpSession.getAttribute("donHangHienTai");
+
+        donHangService.updateTongTienAdmin(donHangByMa.getIdDonHang());
 
         return "redirect:/admin/ban-hang/hoa-don/" + donHangByMa.getMaDonHang();
     }
