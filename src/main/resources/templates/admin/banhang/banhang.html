@@ -207,8 +207,8 @@
             <h3 style="font-weight: bold">Thông tin</h3>
             <form th:action="@{/admin/ban-hang/khach-hang/tim-kiem}" class="form-inline m-3" method="GET">
               <div class="d-flex align-items-center">
-                <input style="width: 250px; margin-right: 10px" type="search" placeholder="Tìm kiếm" class="form-control" required name="phoneNumber" />
-                <input style="margin-right: 10px" type="submit" value="Tìm kiếm" id="timKiemSDT" class="btn btn-outline-info ml-2" />
+                <input style="width: 180px; margin-right: 10px" type="search" placeholder="Tìm kiếm" class="form-control" required name="phoneNumber" />
+                <button style="margin-right: 10px" type="submit" id="timKiemSDT" class="btn btn-outline-info ml-2">Tìm kiếm</button>
               </div>
             </form>
             <form th:object="${hoaDonAdminRequest}" th:action="@{/admin/ban-hang/hoa-don/tao-moi}" method="post">
@@ -219,12 +219,14 @@
                   </div>
                   <div class="col-md-12">
                     <label for="sdt" class="form-label">SĐT</label>
-                    <input type="text" class="form-control" id="sdt" name="sdt" th:field="*{sdt}">
+                    <input type="text" class="form-control" id="sdt" name="sdt" th:field="*{sdt}" style="background-color: white">
+                    <label id="errorMessageSDT" style="color: red; display: none;">Độ dài từ 10-11 ký tự số!</label>
                   </div>
                   <div class="col-md-12">
                     <label for="ten" class="form-label">Tên khách hàng</label>
-                    <input type="text" class="form-control" id="ten" name="tenKhachHang" th:field="*{tenKhachHang}">
-                    <label th:text="${messageTrungSDT}"></label>
+                    <input type="text" class="form-control" id="ten" name="tenKhachHang" th:field="*{tenKhachHang}" style="background-color: white">
+                    <label style="color: red" th:text="${messageTrungSDT}"></label>
+                    <label id="errorMessageTen" style="color: red; display: none;">Độ dài ít nhất 5 ký tự chuỗi!</label>
                   </div>
                   <div class="col-md-12">
                     <label for="ngayTao" class="form-label">Ngày tạo</label>
@@ -232,7 +234,7 @@
                   </div>
                   <div class="col-md-12">
                     <label for="thanhTien" class="form-label">Thành tiền</label>
-                    <input type="text" class="form-control" id="thanhTien" name="tongTienDonHang" th:field="*{tongTienDonHang}" disabled style="background-color: white">
+                    <label class="form-control" id="thanhTien" th:text="${#numbers.formatDecimal(thanhTien, 0, 'COMMA', 0, 'POINT')} +' đ'" disabled style="color: red;"></label>
                   </div>
                   <div class="col-md-12">
                     <button class="btn btn-outline-primary"
@@ -387,13 +389,32 @@
   // document.getElementById("ngayTao").value = todayFormatted; // Set giá trị mặc định cho input
 
   // disabled khi don hang null
+
+  document.getElementById("timKiemSDT").addEventListener('click',function () {
+    if (document.getElementById('sdt').value.trim() == '') {
+      document.getElementById('sdt').disabled = false;
+      document.getElementById('ten').disabled = false;
+    } else {
+      document.getElementById('sdt').disabled = true;
+      document.getElementById('ten').disabled = true;
+    }
+  });
+
+  if (document.getElementById('sdt').value.trim() == '') {
+    document.getElementById('sdt').disabled = false;
+    document.getElementById('ten').disabled = false;
+  } else {
+    document.getElementById('sdt').disabled = true;
+    document.getElementById('ten').disabled = true;
+  }
+
   var validateDonHang = () => {
     var isExist_MaDH = document.getElementById("maHoaDon").value;
 
     var btn_taoMoi = document.getElementById("tao-moi-don-hang");
     var btn_thanhToan = document.getElementById("thanhToan");
     var btn_huydon = document.getElementById("huyDon");
-    var btn_search_by_phoneNumber = document.getElementById("timKiemSDT")
+    var btn_search_by_phoneNumber = document.getElementById("timKiemSDT");
     // if not exist =>> disabled them, thanh toan, huy | enabled tao moi
     if (isExist_MaDH != ''){
       btn_taoMoi.disabled = true;
@@ -408,7 +429,10 @@
         buttons_them_sam_pham[i].disabled = false;
       }
     } else {
-      if (document.getElementById('sdt').value.trim() == '' || document.getElementById('ten').value.trim() == '' || sdtExist == document.getElementById('sdt').value.trim() ){
+      if (document.getElementById('sdt').value.trim() == '' ||
+          document.getElementById('ten').value.trim() == '' ||
+          sdtExist == document.getElementById('sdt').value.trim()
+      ){
         btn_taoMoi.disabled = true;
       } else {
         btn_taoMoi.disabled = false;
@@ -426,11 +450,14 @@
     }
 
   }
-
+  validateDonHang();
   var inputField = document.getElementById('sdt');
   var submitButton = document.getElementById('tao-moi-don-hang');
 
   var sdtExist;
+  var regexSDT = /^0[0-9]{9,10}$/;
+  var regexTen = /^[\p{L}\s]{5,}$/u;
+
   inputField.addEventListener('input', function() {
     fetch(`/admin/ban-hang/khach-hang/api/` + inputField.value.trim())
       .then(response => response.text())
@@ -440,9 +467,20 @@
           sdtExist = data;
           submitButton.disabled = true;
         } else {
-          if (document.getElementById('sdt').value.trim() == ''){
+          if (document.getElementById('sdt').value.trim() == ''
+              || document.getElementById('ten').value.trim() == ''
+              || !document.getElementById('sdt').value.trim().match(regexSDT)
+              || !document.getElementById('ten').value.trim().match(regexTen)
+          ){
+            if (document.getElementById('sdt').value.trim() == '' || !document.getElementById('sdt').value.trim().match(regexSDT)){
+              $("#errorMessageSDT").show();
+            } else {
+              $("#errorMessageSDT").hide();
+            }
             submitButton.disabled = true;
           } else {
+            $("#errorMessageTen").hide();
+            $("#errorMessageSDT").hide();
             submitButton.disabled = false;
           }
         }
@@ -454,12 +492,24 @@
 
   document.getElementById('ten').addEventListener('input', function() {
 
-      if (document.getElementById('sdt').value.trim() == '' || document.getElementById('ten').value.trim() == ''){
+      if (document.getElementById('sdt').value.trim() == ''
+          || document.getElementById('ten').value.trim() == ''
+          || !document.getElementById('sdt').value.trim().match(regexSDT)
+          || !document.getElementById('ten').value.trim().match(regexTen)
+      ){
+        if (document.getElementById('ten').value.trim() == '' || !document.getElementById('ten').value.trim().match(regexTen)){
+          $("#errorMessageTen").show();
+        } else {
+          $("#errorMessageTen").hide();
+        }
+
         document.getElementById('tao-moi-don-hang').disabled = true;
       }else{
         if (sdtExist == document.getElementById('sdt').value.trim()){
           document.getElementById('tao-moi-don-hang').disabled = true;
         }
+        $("#errorMessageTen").hide();
+        $("#errorMessageSDT").hide();
         document.getElementById('tao-moi-don-hang').disabled = false;
       }
 
@@ -619,7 +669,6 @@
       }
     });
   });
-  validateDonHang();
   // chuc nang cap nhat san pham tu hoa don chi tiet end
 </script>
 </body>
