@@ -123,9 +123,13 @@
                                             <h5 class="card-text" th:text="${#numbers.formatDecimal(cat.giaBan, 0, 'COMMA', 0, 'POINT')} +
                          ' đ'">Giá: [[${cat.giaBan}]]</h5>
                                             <p class="card-text">Số lượng: x[[${cat.soLuong}]]</p>
+                                            <div>
+                                                <p th:each="seri :${cat.getListSeri()}">[[${seri.idImei}]]</p>
+                                            </div>
                                         </div>
                                     </div>
                                     <hr>
+
                                 </div>
                             </div>
                             <!--            TỔNG TIỀN-->

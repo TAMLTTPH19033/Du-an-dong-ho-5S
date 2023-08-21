@@ -84,6 +84,8 @@ public class DonHangAdminRestController {
                 .build();
         if(donHang.getPhiVanChuyen()!= null){
             result.setPhiVanChuyen(donHang.getPhiVanChuyen());
+        }else{
+            result.setPhiVanChuyen(0.0);
         }
         if(donHang.getNhanVien()!= null){
             result.setIdNhanVien(donHang.getNhanVien().getId());
