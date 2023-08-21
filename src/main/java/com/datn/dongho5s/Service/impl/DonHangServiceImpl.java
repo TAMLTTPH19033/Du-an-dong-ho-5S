@@ -47,7 +47,6 @@ public class DonHangServiceImpl implements DonHangService {
     public DonHang save(DonHang donHang) {
         return donHangRepository.save(donHang);
     }
-
     @Override
     public DonHang getById(Integer idDonHang) {
         Optional<DonHang> optionalDonHang = donHangRepository.findById(idDonHang);
@@ -73,6 +72,17 @@ public class DonHangServiceImpl implements DonHangService {
     ) {
         List<DonHang> allDonHang = donHangRepository.findByNgayTao(dateStart, dateEnd,status);
         return allDonHang;
+    }
+
+    @Override
+    public void updateTongTienAdmin(int id){
+        DonHang donHang = donHangRepository.findByIdDonHang(id);
+
+        Double tongTien = donHangRepository.tongTienAdmin(id);
+
+        System.out.println("TONG TIEN LA : " + tongTien);
+
+        donHangRepository.updateTongTienAdmin(id, tongTien);
     }
 
     @Override

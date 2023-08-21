@@ -19,5 +19,5 @@ public class HoaDonAdminRequest {
 //    Double tongTien;
 //    Double giamGia;
 //    int idHoaDon;
-    Double tongTienDonHang;
+//    Double tongTienDonHang;
 }

@@ -24,6 +24,8 @@ public interface DonHangService {
 
     List<DonHang> findByNgayTao(Date dateStart, Date dateEnd,Integer status);
 
+    void updateTongTienAdmin(int id);
+
     public Double tongTien(int id);
 
     public DonHang findById(int id);
