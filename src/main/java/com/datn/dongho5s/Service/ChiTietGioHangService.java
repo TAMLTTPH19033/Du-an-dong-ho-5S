@@ -6,6 +6,7 @@ import com.datn.dongho5s.Request.ChiTietGioHangRequest;
 import com.datn.dongho5s.Request.ChiTietSanPhamRequest;
 import com.datn.dongho5s.Response.ChiTietGioHangResponse;
 
+import java.util.HashMap;
 import java.util.List;
 
 public interface ChiTietGioHangService {
@@ -20,5 +21,5 @@ public interface ChiTietGioHangService {
 
     ChiTietGioHangResponse addToCart(CartRequest cartRequest);
 
-    void removeByCTSPAndKhachHang (Integer idKhachHang , List<Integer> idChiTietSanPhams);
+    void removeByCTSPAndKhachHang (Integer idKhachHang , HashMap<Integer,Integer> idChiTietSanPhams);
 }

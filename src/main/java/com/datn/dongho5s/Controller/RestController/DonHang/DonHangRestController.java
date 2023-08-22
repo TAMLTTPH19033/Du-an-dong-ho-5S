@@ -106,11 +106,11 @@ public class DonHangRestController {
             List<HoaDonChiTiet> listHoaDonChiTiet = hdctService.convertToListHoaDonChiTiet(themDonHangRequest.getListHoaDonChiTietRequest(), savedDonHang.getIdDonHang());
             hdctService.saveAll(listHoaDonChiTiet);
 //            GiohangResponse gioHang = gioHangService.findGioHang(themDonHangRequest.getKhachHangId());
-            List<Integer> listCTSPId = new ArrayList<>();
+            HashMap<Integer,Integer> hashCTSPIdAndSoLuong = new HashMap();
             themDonHangRequest.getListHoaDonChiTietRequest().forEach(item->{
-                listCTSPId.add( item.getIdChiTietSanPham());
+                hashCTSPIdAndSoLuong.put(item.getIdChiTietSanPham(),item.getSoLuong());
             });
-            chiTietGioHangService.removeByCTSPAndKhachHang(khachHang.getIdKhachHang() , listCTSPId);
+            chiTietGioHangService.removeByCTSPAndKhachHang(khachHang.getIdKhachHang() , hashCTSPIdAndSoLuong);
             return ResponseEntity.status(HttpStatus.OK).body(savedDonHang);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e);
@@ -161,11 +161,11 @@ public class DonHangRestController {
         DonHang savedDonHang = donHangService.save(donHang);
         List<HoaDonChiTiet> listHoaDonChiTiet = hdctService.convertToListHoaDonChiTiet(themDonHangRequest.getListHoaDonChiTietRequest(), savedDonHang.getIdDonHang());
         hdctService.saveAll(listHoaDonChiTiet);
-        List<Integer> listCTSPId = new ArrayList<>();
+        HashMap<Integer,Integer> hashCTSPIdAndSoLuong = new HashMap();
         themDonHangRequest.getListHoaDonChiTietRequest().forEach(item->{
-            listCTSPId.add( item.getIdChiTietSanPham());
+            hashCTSPIdAndSoLuong.put(item.getIdChiTietSanPham(),item.getSoLuong());
         });
-        chiTietGioHangService.removeByCTSPAndKhachHang(khachHang.getIdKhachHang() , listCTSPId);
+        chiTietGioHangService.removeByCTSPAndKhachHang(khachHang.getIdKhachHang() , hashCTSPIdAndSoLuong);
         Double amount = (hdctService.getTongGia(themDonHangRequest.getListHoaDonChiTietRequest())+ themDonHangRequest.getPhiVanChuyen()) * 100;
         String vnp_Version = VNPayConfig.version;
         String vnp_Command = VNPayConfig.command;
