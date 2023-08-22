@@ -47,7 +47,7 @@
                     <thead class="thead-dark">
                     <tr>
                         <th th:replace="admin/fragment/fragments::products_link('idSanPham', 'ID')"></th>
-                        <th>Ảnh</th>
+                        <th style="width: 9%">Ảnh</th>
                         <th>Mã</th>
                         <th th:replace="admin/fragment/fragments::products_link('tenSanPham', 'Tên')"></th>
                         <th th:replace="admin/fragment/fragments::products_link('thuongHieu', 'ThươngHiệu')"></th>
@@ -63,7 +63,7 @@
                         <td>[[${sp.idSanPham}]]</td>
                         <td>
 
-                            <img th:src="@{'/assets/images/'+${sp.listAnhSanPham[0].link}}"
+                            <img th:src="@{${sp.getMainImagePath}}"
                                  style="width: 100px;height: 100px" class="img-fluid"/>
                         </td>
                         <td>[[${sp.maSanPham}]]</td>

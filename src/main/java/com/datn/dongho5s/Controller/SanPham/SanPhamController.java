@@ -124,7 +124,9 @@ public class SanPhamController {
             String uploadDir = "src/main/resources/static/assets/images/";;
             FileUploadUtil.saveFile(uploadDir,fileName,multipartFile);
         }else{
-            sanPhamService.save(sanPham);
+            ra.addFlashAttribute("chuadoianh","Hãy chọn ảnh");
+            return "redirect:/admin/products/new";
+//            sanPhamService.save(sanPham);
         }
 
         ra.addFlashAttribute("message","Thay Đổi Thành Công.");

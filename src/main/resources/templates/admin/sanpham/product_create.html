@@ -11,6 +11,9 @@
             <div>
                 <h2>Quản lý Sản Phẩm | Thêm Sản Phẩm</h2>
             </div>
+            <div th:if ="${chuadoianh != null}" >
+                <span th:text ="${chuadoianh}"></span>
+            </div>
 
             <form th:action="@{/admin/products/save}" method="post" onsubmit="return checkUniqueCreate(this)"
                   enctype="multipart/form-data"
