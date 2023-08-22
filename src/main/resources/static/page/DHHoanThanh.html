@@ -278,11 +278,11 @@
                                 </div>
                                 <span ng-if="  expirationDate < item.ngayCapNhap.toString() ">
                                 <div class="shipping-checkout-btn" style="    padding: 0 10px 20px; background: none; display: flex" >
-                                    <a type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#{{item.idDonHang}}"  style="padding: 10px 20px; margin-right: 10px; color: black;background: #cec7c7;">
+                                    <a type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#{{item.maDonHang}}"  style="padding: 10px 20px; margin-right: 10px; color: black;background: #cec7c7;">
                                         Yêu cầu hoàn hàng/Trả tiền
                                     </a>
 
-                                    <div class="modal fade" id="{{item.idDonHang}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"c ng-controller="historyDoneCtrl" >
+                                    <div class="modal fade" id="{{item.maDonHang}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"c ng-controller="historyDoneCtrl" >
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -299,13 +299,13 @@
                                                         </div>
                                                         <div class="radio">
                                                             <label>
-                                                                <input type="radio" ng-model="lyDo" name="txtLydo" id="optionsRadios2" value="Muốn thay đổi địa chỉ">
+                                                                <input type="radio" ng-model="lyDo" name="txtLydo" id="optionsRadios2" value="  Sản phẩm bị hỏng">
                                                                 Sản phẩm bị hỏng
                                                             </label>
                                                         </div>
                                                         <div class="radio disabled">
                                                             <label>
-                                                                <input type="radio" ng-model="lyDo" name="txtLydo" id="optionsRadios3" value="K muốn mua nữa" >
+                                                                <input type="radio" ng-model="lyDo" name="txtLydo" id="optionsRadios3" value="Sản phẩm có vấn đề" >
                                                                Sản phẩm có vấn đề
                                                             </label>
                                                         </div>

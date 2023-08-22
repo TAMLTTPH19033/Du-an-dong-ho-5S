@@ -84,9 +84,9 @@
 <!--        <span th:if="${session.donHangHienTai != null}" th:text="${session.donHangHienTai}"></span>-->
 <!--        <span th:if="${session.donHangHienTai == null}" th:text="'Giá trị không tồn tại'"></span>-->
       </div>
-      <div style="max-width: 90%;margin: auto;">
+      <div style="max-width: 99%;margin: auto;">
         <div class="row">
-          <div class="col-sm-9">
+          <div class="col-sm-8">
             <!--  Ban hang-->
             <h3 style="font-weight: bold">Chi tiết hoá đơn</h3>
             <div class="row gio-hang bg-body-tertiary p-3 rounded border border-light" style="height: 300px; overflow: scroll">
@@ -137,7 +137,7 @@
                 <div class="col-md-12">
                   <form th:action="@{/admin/ban-hang/tim-kiem}" method="GET">
                     <div class="row">
-                      <input class="col-sm-8" type="text" name="searchSP">
+                      <input class="col-sm-8" type="text" name="searchSP" placeholder="Mã , tên sản phẩm">
                       <div class="col-sm-4">
                         <button type="submit" class="btn btn-outline-dark">Tìm kiếm</button>
                         <button type="submit" class="btn btn-outline-secondary">Tất cả</button>
@@ -208,11 +208,11 @@
             </div>
           </div>
           <!--  Thanh toan-->
-          <div class="col-sm-3">
+          <div class="col-sm-4">
             <h3 style="font-weight: bold">Thông tin</h3>
             <form th:action="@{/admin/ban-hang/khach-hang/tim-kiem}" class="form-inline m-3" method="GET">
               <div class="d-flex align-items-center">
-                <input style="width: 180px; margin-right: 10px" type="search" placeholder="Tìm kiếm" class="form-control" required name="phoneNumber" />
+                <input style="width: 180px; margin-right: 10px" type="search" placeholder="Tìm kiếm số điện thoại" class="form-control" required name="phoneNumber" />
                 <button style="margin-right: 10px" type="submit" id="timKiemSDT" class="btn btn-outline-info ml-2">Tìm kiếm</button>
               </div>
             </form>
@@ -260,7 +260,7 @@
                   </div>
               </div>
             </form>
-            <div class="row thong-tin-hoa-don" style="height: 200px; overflow: scroll;width: 400px;">
+            <div class="row thong-tin-hoa-don" style="height: 200px; overflow: scroll">
               <table class="table table-fixed">
                 <thead>
                 <tr>

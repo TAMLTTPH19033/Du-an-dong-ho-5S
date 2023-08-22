@@ -66,11 +66,11 @@ public class SanPham {
         this.listAnhSanPham.add(new AnhSanPham(imageName,this));
     }
 
-    @Transient
-    public String getMainImagePath(){
-        if (idSanPham == null || mainImage == null) return "/assets/images/image-thumbnail.png";
-        return "/assets/images/"+ this.listAnhSanPham.get(0).getLink();
-    }
+//    @Transient
+//    public String getMainImagePath(){
+//        if (idSanPham == null || mainImage == null) return "/assets/images/image-thumbnail.png";
+//        return "/assets/images/"+ this.listAnhSanPham.get(0).getLink();
+//    }
 
     @Transient
     private String currentMainImage; // Trường ẩn để lưu tên ảnh hiện tại

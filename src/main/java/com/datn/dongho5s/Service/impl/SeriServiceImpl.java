@@ -78,4 +78,9 @@ public class SeriServiceImpl implements SeriService {
         hoaDonChiTietRepository.save(hoaDonChiTiet);
         // nếu số lượng cập nhật = số lượng đã thêm
     }
+
+    @Override
+    public List<Seri> findByHoaDonChiTiet(Integer idhoaDonChiTiet) {
+        return repo.findByHoaDonChiTiet(idhoaDonChiTiet);
+    }
 }

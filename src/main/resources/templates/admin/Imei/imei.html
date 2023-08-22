@@ -79,29 +79,7 @@
                 <span>Không có Imei hiển thị</span>
             </div>
 
-            <div th:if="${totalPages > 1}">
-                <nav>
-                    <ul class="pagination justify-content-center">
-                        <li th:class="${currentPage > 1 ?'page-item' : 'page-item disabled'}">
-                            <a th:replace="admin/fragment/fragments::pagesdiscounts_link(1, 'Trang Đầu')" ></a>
-                        </li>
-                        <li th:class="${currentPage > 1 ?'page-item' : 'page-item disabled'}">
-                            <a th:replace="admin/fragment/fragments::pagesdiscounts_link(${currentPage - 1}, Trước)"></a>
-                        </li>
-                        <li th:class="${currentPage != i ? 'page-item': 'page-item active' }"
-                            th:each="i : ${#numbers.sequence(1,totalPages)}">
-                            <a th:replace="admin/fragment/fragments::pagesdiscounts_link(${i}, ${i})"></a>
-                        </li>
 
-                        <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
-                            <a th:replace="admin/fragment/fragments::pagesdiscounts_link(${currentPage + 1}, Sau)"></a>
-                        </li>
-                        <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
-                            <a th:replace="admin/fragment/fragments::pagesdiscounts_link(${totalPages}, 'Trang Cuối')"></a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
 
 
 

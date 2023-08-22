@@ -18,4 +18,5 @@ public interface SeriService {
     List<Seri> findByChiTietSanPham(ChiTietSanPham chiTietSanPham, Integer soLuong);
 
     void updateSoLuongAdmin(int idHDCT, int soLuongCapNhat);
+    List<Seri> findByHoaDonChiTiet (Integer idhoaDonChiTiet);
 }

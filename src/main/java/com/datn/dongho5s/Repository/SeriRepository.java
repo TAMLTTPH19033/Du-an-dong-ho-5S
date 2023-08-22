@@ -2,6 +2,7 @@ package com.datn.dongho5s.Repository;
 
 
 import com.datn.dongho5s.Entity.ChiTietSanPham;
+import com.datn.dongho5s.Entity.HoaDonChiTiet;
 import com.datn.dongho5s.Entity.Seri;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -100,4 +101,7 @@ public interface SeriRepository extends JpaRepository<Seri,Integer> {
     """)
     void xoaSoLuongSanPham(int idHDCT);
 
+
+    @Query(value = "select s from Seri s where s.hoaDonChiTiet.idHoaDonChiTiet = ?1")
+    List<Seri> findByHoaDonChiTiet (Integer idhoaDonChiTiet);
 }
