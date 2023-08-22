@@ -31,7 +31,7 @@ public class GioHangRestController {
 
     @GetMapping("/{idKhachHang}")
     public ResponseEntity<?> getchiTiet(@PathVariable("idKhachHang") Integer idKhachHang){
-        System.out.println(idKhachHang+"id");
+        System.out.println("Id khách hàng"+ idKhachHang+"id");
         List<ChiTietGioHangResponse> chiTietGioHangList = chiTietGioHangService.getChiTietGioHang(idKhachHang);
         return ResponseEntity.status(HttpStatus.OK).body(chiTietGioHangList);
     }
