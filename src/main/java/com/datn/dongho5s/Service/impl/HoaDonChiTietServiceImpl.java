@@ -129,7 +129,6 @@ public class HoaDonChiTietServiceImpl implements HoaDonChiTietService {
                     .chietKhau((chiTietSanPham.getKhuyenMai() == null || chiTietSanPham.getKhuyenMai().isEnabled() == false) ? null : chiTietSanPham.getKhuyenMai().getChietKhau())
                     .build());
 
-
             if(chiTietSanPham.getKhuyenMai() == null || chiTietSanPham.getKhuyenMai().isEnabled() == false){
                 hoaDonChiTiet.setGiaBan(chiTietSanPham.getGiaSanPham());
             }else{

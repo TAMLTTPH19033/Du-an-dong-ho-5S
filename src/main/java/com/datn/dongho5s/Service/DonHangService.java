@@ -26,6 +26,8 @@ public interface DonHangService {
 
     void updateTongTienAdmin(int id);
 
+    List<DonHang> findDonHangChuaThanhToan();
+
     public Double tongTien(int id);
 
     public DonHang findById(int id);

@@ -36,6 +36,15 @@ public interface DonHangRepository extends JpaRepository<DonHang, Integer> {
     @Transactional
     void updateTongTienAdmin(@Param("id") int id,@Param("tongTien") Double tongTien);
 
+    @Query("""
+        SELECT d
+        FROM DonHang d
+        WHERE d.phuongThuc IS NULL 
+        AND d.trangThaiDonHang = 0
+        ORDER BY d.ngayTao DESC
+    """)
+    List<DonHang> findDonHangChuaThanhToan();
+
     @Query(nativeQuery = true, value = """
         SELECT SUM(h.gia_ban * h.so_luong) as tongTien
         FROM donhang d JOIN hoadonchitiet h ON d.id_don_hang = h.id_don_hang

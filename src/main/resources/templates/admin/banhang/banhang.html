@@ -95,6 +95,8 @@
                 <tr>
                   <th scope="col">Mã sản phẩm</th>
                   <th scope="col">Tên sản phẩm</th>
+                  <th scope="col">Vật liệu</th>
+                  <th scope="col">Màu sắc</th>
                   <th scope="col">Đơn giá</th>
                   <th scope="col">Số lượng</th>
                   <th scope="col">Khuyến mại</th>
@@ -105,6 +107,8 @@
                 <tr th:each="hdct : ${lstHDCT}">
                   <td th:text="${hdct.chiTietSanPham.maChiTietSanPham}"></td>
                   <td th:text="${hdct.chiTietSanPham.sanPham.tenSanPham}"></td>
+                  <td th:text="${hdct.chiTietSanPham.vatLieu.tenVatLieu}"></td>
+                  <td th:text="${hdct.chiTietSanPham.mauSac.tenMauSac}"></td>
                   <td th:text="${#numbers.formatDecimal(hdct.chiTietSanPham.giaSanPham, 0, 'COMMA', 0, 'POINT')} +
                   ' đ'"></td>
                   <td th:text="${hdct.soLuong}"></td>
@@ -136,6 +140,7 @@
                       <input class="col-sm-8" type="text" name="searchSP">
                       <div class="col-sm-4">
                         <button type="submit" class="btn btn-outline-dark">Tìm kiếm</button>
+                        <button type="submit" class="btn btn-outline-secondary">Tất cả</button>
                       </div>
                     </div>
                   </form>
@@ -255,6 +260,30 @@
                   </div>
               </div>
             </form>
+            <div class="row thong-tin-hoa-don" style="height: 200px; overflow: scroll;width: 400px;">
+              <table class="table table-fixed">
+                <thead>
+                <tr>
+                  <th scope="col">Mã hóa đơn</th>
+                  <th scope="col">Trạng thái</th>
+                  <th scope="col">Ngày tạo</th>
+                  <th scope="col">Chức năng</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="hd : ${listHoaDon}">
+                  <td th:text="${hd.maDonHang}"></td>
+                  <td th:text="${hd.trangThaiDonHang == 0 ? 'Chưa thanh toán' : ''}"></td>
+                  <td th:text="${hd.ngayTao}"></td>
+                  <td>
+                    <form th:action="@{/admin/ban-hang/hoa-don/{maDonHang}(maDonHang=${hd.maDonHang})}" th:method="GET">
+                      <button class="btn btn-outline-danger">Chọn</button>
+                    </form>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
@@ -340,14 +369,46 @@
 <!--   add san pham end     -->
 
 <!--  thanhToan hoa don-->
-<div class="modal fade" id="thanhToanHoaDon" tabindex="-1" aria-labelledby="thanhToanHoaDonLabel" aria-hidden="true">
+<div class="modal fade modal-lg" id="thanhToanHoaDon" tabindex="-1" aria-labelledby="thanhToanHoaDonLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
         <h3 class="modal-title" id="thanhToanHoaDonLabel">Thanh toán</h3>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
+<!--      // view hoa don-->
       <div class="modal-body">
+
+        <table class="table overflow-auto scrollbar scrollbar-dark" style="max-height: 500px;">
+          <thead>
+          <tr>
+            <th>#</th>
+            <th scope="col">Tên sản phẩm</th>
+            <th scope="col">Vật liệu</th>
+            <th scope="col">Màu sắc</th>
+            <th scope="col">Số lượng</th>
+            <th scope="col">Đơn giá</th>
+            <th scope="col">Thành tiền</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="cat,iterStat :${lstHDCT}">
+            <td th:text="${__${iterStat.index + 1}__}">1</td>
+            <td>[[${cat.chiTietSanPham.sanPham.tenSanPham}]]</td>
+            <td th:text="${cat.chiTietSanPham.vatLieu.tenVatLieu}"></td>
+            <td th:text="${cat.chiTietSanPham.mauSac.tenMauSac}"></td>
+            <td>x[[${cat.soLuong}]]</td>
+            <td th:text="${#numbers.formatDecimal(cat.giaBan, 0, 'COMMA', 0, 'POINT')} +
+                         ' đ'">[[${cat.giaBan}]]đ</td>
+            <td th:text="${#numbers.formatDecimal(cat.giaBan*cat.soLuong, 0, 'COMMA', 0, 'POINT')} +
+                         ' đ'">[[${cat.giaBan*cat.soLuong}]]</td>
+          </tr>
+          </tbody>
+        </table>
+        <div class="row">
+          <div class="col-md-6" style="padding-left: 10px;color:black" >Tổng tiền</div>
+          <div class="col-md-6" style="text-align: center;color:red" th:text="${thanhTien == null ? 0 : #numbers.formatDecimal(thanhTien, 0, 'COMMA', 0, 'POINT')} + ' đ'"></div>
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Hủy</button>

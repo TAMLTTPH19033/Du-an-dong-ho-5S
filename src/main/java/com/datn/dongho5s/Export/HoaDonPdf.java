@@ -151,14 +151,14 @@ public class HoaDonPdf {
 
 
         // Đơn giá các sản phẩm
-        Paragraph donGia = new Paragraph("Tổng tiền các sản phẩm" + currencyFormat02.format((donHang.getTongTien())), new Font(font));
+        Paragraph donGia = new Paragraph("Tổng tiền các sản phẩm: " + currencyFormat02.format((donHang.getTongTien())), new Font(font));
         donGia.setAlignment(Element.ALIGN_RIGHT);
         donGia.setIndentationLeft(50);
         donGia.setIndentationRight(50);
         donGia.setFont(FontFactory.getFont(FontFactory.TIMES_BOLD, 12, Font.BOLD));
 
         // phí vận chuyển
-        Paragraph pvc = new Paragraph("Phí vận chuyển " +  currencyFormat02.format((donHang.getPhiVanChuyen() == null ? 0 : donHang.getPhiVanChuyen())) , new Font(font));
+        Paragraph pvc = new Paragraph("Phí vận chuyển: " +  currencyFormat02.format((donHang.getPhiVanChuyen() == null ? 0 : donHang.getPhiVanChuyen())) , new Font(font));
         pvc.setAlignment(Element.ALIGN_RIGHT);
         pvc.setIndentationLeft(50);
         pvc.setIndentationRight(50);
