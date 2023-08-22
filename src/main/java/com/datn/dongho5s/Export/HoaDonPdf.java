@@ -134,7 +134,7 @@ public class HoaDonPdf {
         currencyFormat02.setMinimumFractionDigits(0);
         // Thêm dữ liệu vào bảng
         for (HoaDonChiTiet item : lst) {
-            PdfPCell cell5 = new PdfPCell(new Phrase(item.getChiTietSanPham().getSanPham().getTenSanPham() , new Font(font)));
+            PdfPCell cell5 = new PdfPCell(new Phrase(item.getChiTietSanPham().getSanPham().getTenSanPham() +"\n Phân loại :" +item.getChiTietSanPham().getVatLieu().getTenVatLieu() + "," + item.getChiTietSanPham().getMauSac().getTenMauSac(), new Font(font)));
             cell5.setHorizontalAlignment(Element.ALIGN_CENTER);
             PdfPCell cell6 = new PdfPCell(new Phrase("x " +  item.getSoLuong(), new Font(font)));
             cell6.setHorizontalAlignment(Element.ALIGN_CENTER);

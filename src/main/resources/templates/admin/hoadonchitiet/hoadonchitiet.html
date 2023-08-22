@@ -121,8 +121,7 @@
                                     <div class="col-md-7">
                                         <div class="card-body">
                                             <h3 class="card-title">[[${cat.chiTietSanPham.sanPham.tenSanPham}]]</h3>
-                                            <p class="card-text">[[${cat.chiTietSanPham.vatLieu.tenVatLieu}]]</p>
-                                            <p class="card-text">[[${cat.chiTietSanPham.mauSac.tenMauSac}]]</p>
+                                            <p class="card-text">[[${cat.chiTietSanPham.vatLieu.tenVatLieu}]],[[${cat.chiTietSanPham.mauSac.tenMauSac}]]</p>
                                             <h5 class="card-text" th:text="${#numbers.formatDecimal(cat.giaBan, 0, 'COMMA', 0, 'POINT')} +
                          ' đ'">Giá: [[${cat.giaBan}]]</h5>
                                             <p class="card-text">Số lượng: x[[${cat.soLuong}]]</p>
