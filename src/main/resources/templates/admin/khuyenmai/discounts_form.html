@@ -41,7 +41,7 @@
             <div class="form-group row">
                 <label class="col-sm-4 col-form-label">Ngày bắt đầu:</label>
                 <div class="col-sm-12">
-                    <input type="date" class="form-control" th:field="*{ngayBatDau}" id="ngayBatDauInput" onchange="validateDate()" min="2010-01-01" max="2030-12-31"/>
+                    <input type="date" class="form-control" th:field="*{ngayBatDau}" id="ngayBatDauInput" onchange="validateDate()" required min="2010-01-01" max="2030-12-31"/>
                 </div>
             </div>
 

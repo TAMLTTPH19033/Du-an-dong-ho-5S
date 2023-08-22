@@ -82,6 +82,10 @@ public class KhuyenMaiController {
         }
         System.out.println(khuyenMai);
         System.out.println("controller");
+        if (khuyenMai.getMaKhuyenMai().isBlank() || khuyenMai.getTenKhuyenMai().isBlank()){
+            redirectAttributes.addFlashAttribute("message","Không được để trống mã và tên khuyến mại");
+            return "redirect:/admin/discounts";
+        }
         service.save(khuyenMai);
         redirectAttributes.addFlashAttribute("message","Thay Đổi Thành Công");
         return "redirect:/admin/discounts";

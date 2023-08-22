@@ -128,6 +128,10 @@ public class ChiTietSanPhamController {
         if(session.getAttribute("admin") == null ){
             return "redirect:/login-admin" ;
         }
+        if (chiTietSanPham.getMaChiTietSanPham().isBlank() || chiTietSanPham.getMaChiTietSanPham() == null){
+            ra.addFlashAttribute("chuaDienTen","Không được để trống mã");
+            return "redirect:/admin/productDetails/new";
+        }
         List<ChiTietSanPham> list =  chiTietSanPhamService.findByIdSp(chiTietSanPham.getSanPham().getIdSanPham());
         Integer count = 0;
         for (ChiTietSanPham ctsp: list
@@ -143,8 +147,8 @@ public class ChiTietSanPhamController {
         }
 
         if(count > 0){
-            ra.addFlashAttribute("thongbaoTrung", "Sản phẩm đã tồn tại");
-            return "redirect:/admin/productDetails/edit/"+chiTietSanPham.getIdChiTietSanPham();
+            ra.addFlashAttribute("thongbaoTrung", "Không được để trống mã");
+            return "redirect:/admin/productDetails/new";
         }
             chiTietSanPhamService.save(chiTietSanPham);
         ra.addFlashAttribute("message","Thay Đổi Thành Công.");
@@ -186,6 +190,10 @@ public class ChiTietSanPhamController {
     @PostMapping("/admin/productDetails/update")
     public String updateProductDetails(ChiTietSanPham chiTietSanPham, RedirectAttributes ra) throws IOException, ChiTietSanPhamNotFountException {
         HttpSession session = request.getSession();
+        if (chiTietSanPham.getMaChiTietSanPham().isBlank() || chiTietSanPham.getMaChiTietSanPham() == null){
+            ra.addFlashAttribute("chuaDienTen","Không được để trống mã");
+            return "redirect:/admin/productDetails/edit/" + chiTietSanPham.getIdChiTietSanPham();
+        }
         if(session.getAttribute("admin") == null ){
             return "redirect:/login-admin" ;
         }

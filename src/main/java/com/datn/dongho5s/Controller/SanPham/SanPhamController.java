@@ -108,6 +108,10 @@ public class SanPhamController {
     public String saveProduct(SanPham sanPham, RedirectAttributes ra,
                               @RequestParam("fileImage") MultipartFile multipartFile) throws IOException {
         HttpSession session = request.getSession();
+        if (sanPham.getTenSanPham().isBlank() || sanPham.getTenSanPham() == null || sanPham.getMaSanPham().isBlank()){
+            ra.addFlashAttribute("chuaDienTen","Không được để trống mã và tên");
+            return "redirect:/admin/products/new";
+        }
         if(session.getAttribute("admin") == null ){
             return "redirect:/login-admin";
         }
@@ -163,6 +167,10 @@ public class SanPhamController {
         HttpSession session = request.getSession();
         if(session.getAttribute("admin") == null ){
             return "redirect:/login-admin";
+        }
+        if (sanPham.getTenSanPham().isBlank() || sanPham.getTenSanPham() == null || sanPham.getMaSanPham().isBlank()){
+            ra.addFlashAttribute("chuaDienTen","Không được để trống mã và tên");
+            return "redirect:/admin/products/edit/" + sanPham.getIdSanPham();
         }
         if (!multipartFile.isEmpty()) {
             String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());

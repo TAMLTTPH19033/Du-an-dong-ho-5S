@@ -11,6 +11,9 @@
             <div>
                 <h2>Thêm Chi Tiết Sản Phẩm</h2>
             </div>
+            <div th:if ="${chuaDienTen != null}" >
+                <h4 th:text ="${chuaDienTen}"></h4>
+            </div>
             <div th:if="${thongbaoTrung} != null">
                 <h3 class="alert alert-danger" th:text="${thongbaoTrung}"></h3>
             </div>

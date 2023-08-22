@@ -13,6 +13,9 @@
             </div>
             <div th:if="${thongbaoTrung} != null">
                 <h3 class="alert alert-danger" th:text="${thongbaoTrung}"></h3>
+                <div th:if ="${chuaDienTen != null}" >
+                    <h4 th:text ="${chuaDienTen}"></h4>
+                </div>
             </div>
             <form th:action="@{/admin/productDetails/update}" method="post" style="max-width: 500px;margin: 0 auto"
                   th:object="${chiTietSanPham}" onsubmit="return checkUniqueUpdateDetail(this);">
