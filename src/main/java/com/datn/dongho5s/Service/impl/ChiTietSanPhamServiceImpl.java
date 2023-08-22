@@ -20,6 +20,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -136,17 +137,7 @@ public class ChiTietSanPhamServiceImpl implements ChiTietSanPhamService {
         return chiTietSanPhamRepository.findAll(Sort.by("maChiTietSanPham").ascending());
     }
 
-    @Override
-    public Page<ChiTietSanPham> listByPage(int pageNumber,String sortField, String sortDir, String keyword){
-        Sort sort = Sort.by(sortField);
-        sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
-        Pageable pageable = PageRequest.of(pageNumber - 1 ,PRODUCT_DETAIL_PER_PAGE, sort);
-        if (keyword != null){
-            return chiTietSanPhamRepository.findAll(keyword,pageable);
-        }
-        return chiTietSanPhamRepository.findAll(pageable);
 
-    }
 
     @Override
     public ChiTietSanPham save(ChiTietSanPham chiTietSanPham) {
@@ -196,5 +187,27 @@ public class ChiTietSanPhamServiceImpl implements ChiTietSanPhamService {
 
         return (existingByMa == null && existingByNames == null && existingById == null);
     }
+
+    @Override
+    public Page<ChiTietSanPham> listByPageAndProductName(int pageNum, String sortField, String sortDir, String keyword, String productName) {
+        Sort sort = Sort.by(sortField);
+        sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
+        Pageable pageable = PageRequest.of(pageNum - 1, PRODUCT_DETAIL_PER_PAGE, sort);
+
+        if (StringUtils.isEmpty(productName) && StringUtils.isEmpty(keyword)) {
+            return chiTietSanPhamRepository.findAll(pageable);
+        } else if (StringUtils.isEmpty(productName)) {
+            return chiTietSanPhamRepository.findByKeyword(keyword, pageable);
+        } else if (StringUtils.isEmpty(keyword)) {
+            return chiTietSanPhamRepository.findBySanPham_TenSanPhamContainingIgnoreCase(productName, pageable);
+        } else {
+            return chiTietSanPhamRepository.findByProductNameAndKeyword(keyword, productName, pageable);
+        }
+    }
+
+
+
+
+
 }
 

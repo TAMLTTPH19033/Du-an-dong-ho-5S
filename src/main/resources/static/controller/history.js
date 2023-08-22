@@ -359,7 +359,7 @@ myApp.controller(
             if(currentUser) {
                 $scope.phanhoirequest = {
                     danhGia: $scope.ratings.current,
-                    noiDungPhanHoi: angular.element("#noiDungPhanHoi").val(),
+                    noiDungPhanHoi:$scope.noiDungPhanHoi,
                     idChiTietSanPham: h.chiTietSanPham.idChiTietSanPham,
                     idKhachHang: currentUser.idKhachHang,
                 };

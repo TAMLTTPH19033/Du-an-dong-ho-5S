@@ -45,4 +45,28 @@ public interface ChiTietSanPhamRepository extends JpaRepository<ChiTietSanPham,I
             String tenSanPham, String tenDayDeo, String tenMauSac, String tenKichCo, String tenVatLieu);
 
     ChiTietSanPham findByIdChiTietSanPham(Integer idChiTietSanPham);
+
+    // Hàm tìm kiếm theo keyword
+    @Query("""
+        SELECT ctsp
+        FROM ChiTietSanPham ctsp
+        WHERE UPPER(ctsp.maChiTietSanPham) LIKE %?1%
+            OR UPPER(ctsp.dayDeo.tenDayDeo) LIKE %?1%
+            OR UPPER(ctsp.khuyenMai.tenKhuyenMai) LIKE %?1%
+            OR UPPER(ctsp.mauSac.tenMauSac) LIKE %?1%
+            OR UPPER(ctsp.sanPham.tenSanPham) LIKE %?1%
+    """)
+    public Page<ChiTietSanPham> findByKeyword(String keyword, Pageable pageable);
+
+    // Hàm tìm kiếm theo tên sản phẩm
+    public Page<ChiTietSanPham> findBySanPham_TenSanPhamContainingIgnoreCase(String tenSanPham, Pageable pageable);
+
+    // Hàm tìm kiếm theo cả keyword và tên sản phẩm
+    @Query("""
+        SELECT ctsp
+        FROM ChiTietSanPham ctsp
+        WHERE (LOWER(CONCAT(ctsp.maChiTietSanPham, ctsp.sanPham.tenSanPham)) LIKE %?1%)
+        AND (ctsp.sanPham.tenSanPham LIKE %?2%)
+    """)
+    public Page<ChiTietSanPham> findByProductNameAndKeyword(String keyword, String productName, Pageable pageable);
 }

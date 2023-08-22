@@ -75,7 +75,13 @@ public class HoaDonChiTietServiceImpl implements HoaDonChiTietService {
     public Double getTongGia(List<HoaDonChiTietRequest> list) {
         Double result = 0D;
         for (int i = 0; i < list.size(); i++) {
-            Double giaBan = chiTietSanPhamService.getChiTietSanPhamById(list.get(i).getIdChiTietSanPham()).getGiaSanPham();
+            Double giaBan = 0.0;
+            ChiTietSanPham ctsp = chiTietSanPhamRepository.findByIdChiTietSanPham(list.get(i).getIdChiTietSanPham());
+            if( ctsp.getKhuyenMai()!= null && ctsp.getKhuyenMai().isEnabled()){
+                giaBan = ctsp.getGiaSanPham()-ctsp.getGiaSanPham()*ctsp.getKhuyenMai().getChietKhau()/100;
+            }else{
+                giaBan = ctsp.getGiaSanPham();
+            }
             result += list.get(i).getSoLuong() * giaBan;
         }
         return result;

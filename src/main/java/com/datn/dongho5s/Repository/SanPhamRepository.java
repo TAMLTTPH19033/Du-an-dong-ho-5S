@@ -41,7 +41,7 @@ public interface SanPhamRepository extends JpaRepository<SanPham, Integer> {
 //    """)
 //    Page<SanPham> getPageSanPham(Pageable pageable);
 
-    @Query("SELECT sp FROM SanPham  sp WHERE UPPER(CONCAT(sp.idSanPham,' ', sp.tenSanPham, ' ',sp.thuongHieu,' ', sp.danhMuc, ' ',sp.moTaSanPham)) LIKE %?1%")
+    @Query("SELECT sp FROM SanPham  sp WHERE UPPER(CONCAT(sp.idSanPham,' ',sp.maSanPham,' ', sp.tenSanPham, ' ',sp.thuongHieu,' ', sp.danhMuc, ' ',sp.moTaSanPham)) LIKE %?1%")
     public Page<SanPham> findAll(String keyword, Pageable pageable);
 
     //@Query("SELECT th FROM ThuongHieu th WHERE UPPER(CONCAT(th.idThuongHieu, ' ', th.tenThuongHieu, ' ', th.moTaThuongHieu)) LIKE %?1%")

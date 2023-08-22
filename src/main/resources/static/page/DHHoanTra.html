@@ -221,7 +221,7 @@
                                         <span ng-if="h.chietKhau == null"></span>
                                         <span ng-if="h.chietKhau != null">
 										<li class="price-percent-reduction small">&nbsp;{{h.chietKhau}} %</li>
-									     <li class="old-price">{{h.giaBan * 100 /(100- h.chietKhau) | number}} đ</li>
+									     <li class="old-price">{{h.giaBan * 100 /(100- h.chietKhau) | number}} đ/1sp</li>
                                      </span>
                                     </ul>
                                 </div>
@@ -230,11 +230,13 @@
                             <div style="width: 30%;margin-left: 650px  ">
                                 <div class="shipping-total-bill" >
                                     <div class="cart-prices" style="border: none">
-                                        <span class="shipping-cost">{{item.phiVanChuyen | number}} đ</span>
+                                        <span class="shipping-cost" ng-show="item.phiVanChuyen != null">{{item.phiVanChuyen | number}} đ</span>
+                                        <span class="shipping-cost" ng-show="item.phiVanChuyen == null">0 đ</span>
                                         <span>Vận chuyển</span>
                                     </div>
                                     <div class="total-shipping-prices" >
-                                        <span class="shipping-total">{{item.tongTien + item.phiVanChuyen | number}} đ</span>
+                                        <span class="shipping-total" ng-show="item.phiVanChuyen != null">{{item.tongTien + item.phiVanChuyen | number}} đ</span>
+                                        <span class="shipping-cost" ng-show="item.phiVanChuyen == null">{{item.tongTien | number}} đ</span>
                                         <span>Tổng</span>
                                     </div>
                                 </div>
@@ -255,7 +257,7 @@
                 <!-- BACK TO HOME START -->
                 <div class="home-link-menu">
                     <ul>
-                        <li><a href="#index"><i class="fa fa-chevron-left"></i> Home</a></li>
+                        <li><a href="#index"><i class="fa fa-chevron-left"></i> Trang chủ</a></li>
                     </ul>
                 </div>
                 <!-- BACK TO HOME END -->
