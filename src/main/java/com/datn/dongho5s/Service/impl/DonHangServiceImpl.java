@@ -84,6 +84,11 @@ public class DonHangServiceImpl implements DonHangService {
     }
 
     @Override
+    public List<DonHang> findDonHangChuaThanhToan(){
+        return donHangRepository.findDonHangChuaThanhToan();
+    }
+
+    @Override
     public Double tongTien(int id) {
         return donHangRepository.findTongTienByIdDonHang(id);
     }

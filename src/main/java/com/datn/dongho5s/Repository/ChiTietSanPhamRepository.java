@@ -17,7 +17,7 @@ public interface ChiTietSanPhamRepository extends JpaRepository<ChiTietSanPham,I
     @Query("""
         SELECT c 
         FROM ChiTietSanPham c
-        WHERE LOWER(CONCAT(c.maChiTietSanPham,c.sanPham.tenSanPham)) LIKE %?1%  
+        WHERE LOWER(CONCAT(c.maChiTietSanPham,c.sanPham.tenSanPham)) LIKE %?1%  AND c.sanPham.trangThai = 1
     """)
     public Page<ChiTietSanPham> searchByKey(String key,Pageable pageable);
 
