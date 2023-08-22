@@ -40,7 +40,7 @@ public interface DonHangRepository extends JpaRepository<DonHang, Integer> {
         SELECT d
         FROM DonHang d
         WHERE d.phuongThuc IS NULL 
-        AND d.trangThaiDonHang = 0
+        AND d.trangThaiDonHang = 8
         ORDER BY d.ngayTao DESC
     """)
     List<DonHang> findDonHangChuaThanhToan();

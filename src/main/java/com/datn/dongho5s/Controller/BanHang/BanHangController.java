@@ -251,7 +251,7 @@ public class BanHangController {
         DonHang donHang = DonHang
                 .builder()
                 .maDonHang(maDonHangCD)
-                .trangThaiDonHang(0)
+                .trangThaiDonHang(8)
                 .tongTien(0d)
                 .nhanVien(nhanVien)
                 .ngayCapNhap(new Date())
