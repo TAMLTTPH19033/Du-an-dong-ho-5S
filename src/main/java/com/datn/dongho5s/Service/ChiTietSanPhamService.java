@@ -12,7 +12,7 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface ChiTietSanPhamService {
-    public static final int PRODUCT_DETAIL_PER_PAGE = 5;
+    public static final int PRODUCT_DETAIL_PER_PAGE = 10;
 
     int totalPageSearchSP(String key, int pageNum);
 
@@ -58,5 +58,7 @@ public interface ChiTietSanPhamService {
 
 
     Page<ChiTietSanPham> listByPageAndProductName(int pageNum, String sortField, String sortDir, String keyword, String productName);
+
+    List<ChiTietSanPham> findByIdSp(Integer IdSP);
 }
 

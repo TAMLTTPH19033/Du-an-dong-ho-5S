@@ -113,8 +113,10 @@
                             dh.trangThaiDonHang == 2 ? "Đang giao hàng" : dh.trangThaiDonHang == 3 ? "Hoàn thành" :
                             dh.trangThaiDonHang == 4 ? "Đã hủy" : dh.trangThaiDonHang == 5 ? "Yêu cầu hoàn trả" :
                             "Đã Hoàn Trả"}]]</td>
-                        <td th:text="${#numbers.formatDecimal(dh.phiVanChuyen, 0, 'COMMA', 0, 'POINT')} +
-                         ' đ'"></td>
+                        <td>
+                            <span th:if="${dh.phiVanChuyen != null}" th:text="${#numbers.formatDecimal(dh.phiVanChuyen, 0, 'COMMA', 0, 'POINT')} + ' đ'"></span>
+                            <span th:if="${dh.phiVanChuyen == null}" th:text="${#numbers.formatDecimal(0, 0, 'COMMA', 0, 'POINT')} + ' đ'"></span>
+                        </td>
                         <td style="width: 120px" th:text="${#numbers.formatDecimal(dh.tongTien, 0, 'COMMA', 0, 'POINT')} +
                          ' đ'"></td>
                         <td>[[${dh.phuongThuc == 0 ? "Trả sau" : dh.phuongThuc == 1 ? "VN Pay" : ""}]]</td>
