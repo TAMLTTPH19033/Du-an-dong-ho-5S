@@ -84,7 +84,7 @@ public class ThuongHieuController {
         String status = enabled ? "online" : "offline";
         String message = "Thương Hiệu có id " + id + " thay đổi trạng thái thành " + status;
         redirectAttributes.addFlashAttribute("message",message);
-        return "redirect:/brands";
+        return "redirect:/admin/brands";
     }
 
     @GetMapping("/admin/brands/new")

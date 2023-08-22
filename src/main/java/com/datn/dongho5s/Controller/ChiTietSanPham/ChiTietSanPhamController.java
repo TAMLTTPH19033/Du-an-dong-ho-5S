@@ -21,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.List;
 
 @Controller
@@ -127,6 +128,24 @@ public class ChiTietSanPhamController {
         if(session.getAttribute("admin") == null ){
             return "redirect:/login-admin" ;
         }
+        List<ChiTietSanPham> list =  chiTietSanPhamService.findByIdSp(chiTietSanPham.getSanPham().getIdSanPham());
+        Integer count = 0;
+        for (ChiTietSanPham ctsp: list
+        ) {
+            if(ctsp.getMauSac()== chiTietSanPham.getMauSac() && ctsp.getVatLieu()== chiTietSanPham.getVatLieu() && ctsp.getDayDeo()== chiTietSanPham.getDayDeo()){
+                if (ctsp.getIdChiTietSanPham() == chiTietSanPham.getIdChiTietSanPham()) {
+                    count = 0;
+                } else {
+                    count++;
+                }
+            }
+
+        }
+
+        if(count > 0){
+            ra.addFlashAttribute("thongbaoTrung", "Sản phẩm đã tồn tại");
+            return "redirect:/admin/productDetails/edit/"+chiTietSanPham.getIdChiTietSanPham();
+        }
             chiTietSanPhamService.save(chiTietSanPham);
         ra.addFlashAttribute("message","Thay Đổi Thành Công.");
         return "redirect:/admin/productDetails";
@@ -165,10 +184,28 @@ public class ChiTietSanPhamController {
     }
 
     @PostMapping("/admin/productDetails/update")
-    public String updateProductDetails(ChiTietSanPham chiTietSanPham, RedirectAttributes ra) throws IOException {
+    public String updateProductDetails(ChiTietSanPham chiTietSanPham, RedirectAttributes ra) throws IOException, ChiTietSanPhamNotFountException {
         HttpSession session = request.getSession();
         if(session.getAttribute("admin") == null ){
             return "redirect:/login-admin" ;
+        }
+        List<ChiTietSanPham> list =  chiTietSanPhamService.findByIdSp(chiTietSanPham.getSanPham().getIdSanPham());
+        Integer count = 0;
+        for (ChiTietSanPham ctsp: list
+             ) {
+            if(ctsp.getMauSac()== chiTietSanPham.getMauSac() && ctsp.getVatLieu()== chiTietSanPham.getVatLieu() && ctsp.getDayDeo()== chiTietSanPham.getDayDeo()){
+                if (ctsp.getIdChiTietSanPham() == chiTietSanPham.getIdChiTietSanPham()) {
+                    count = 0;
+                } else {
+                    count++;
+                }
+            }
+
+        }
+
+        if(count > 0){
+            ra.addFlashAttribute("thongbaoTrung", "Sản phẩm đã tồn tại");
+            return "redirect:/admin/productDetails/edit/"+chiTietSanPham.getIdChiTietSanPham();
         }
         chiTietSanPhamService.save(chiTietSanPham);
         ra.addFlashAttribute("message","Thay Đổi Thành Công.");

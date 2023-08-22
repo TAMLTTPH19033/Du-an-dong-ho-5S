@@ -205,8 +205,10 @@ public class ChiTietSanPhamServiceImpl implements ChiTietSanPhamService {
         }
     }
 
-
-
+    @Override
+    public List<ChiTietSanPham> findByIdSp(Integer IdSP) {
+        return chiTietSanPhamRepository.findByIdSp(IdSP);
+    }
 
 
 }

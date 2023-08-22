@@ -10,6 +10,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Repository
 @Transactional
 public interface ChiTietSanPhamRepository extends JpaRepository<ChiTietSanPham,Integer>{
@@ -69,4 +71,9 @@ public interface ChiTietSanPhamRepository extends JpaRepository<ChiTietSanPham,I
         AND (ctsp.sanPham.tenSanPham LIKE %?2%)
     """)
     public Page<ChiTietSanPham> findByProductNameAndKeyword(String keyword, String productName, Pageable pageable);
+
+    @Query(value = "select ctsp from ChiTietSanPham ctsp where ctsp.sanPham.idSanPham = ?1")
+     List<ChiTietSanPham> findByIdSp(Integer IdSP);
+
+
 }
