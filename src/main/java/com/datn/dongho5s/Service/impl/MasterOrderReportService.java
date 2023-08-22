@@ -64,9 +64,15 @@ public class MasterOrderReportService extends AbstractReportService {
                 }
             }
             if (itemIndex >=0){
+
+
                 reportItem = listReportItems.get(itemIndex);
-                reportItem.addGrossSales(order.getTongTien() + order.getPhiVanChuyen());
                 reportItem.addNetSales(order.getTongTien());
+                if( order.getPhiVanChuyen() != null) {
+                    reportItem.addGrossSales(order.getTongTien() + order.getPhiVanChuyen());
+                }else{
+                    reportItem.addGrossSales(order.getTongTien());
+                }
                 reportItem.increaseOrderCount();
                 reportItem.addStatus(order.getTrangThaiDonHang());
             }
@@ -106,7 +112,7 @@ public class MasterOrderReportService extends AbstractReportService {
                 }
             }
 
-            // Add a ReportItem only if there's a DonHang with matching status
+//             Add a ReportItem only if there's a DonHang with matching status
             if (hasMatchingStatus) {
                 listReportItems.add(new ReportItem(dateString));
             }

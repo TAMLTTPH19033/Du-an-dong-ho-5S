@@ -212,11 +212,11 @@ public class DonHangController {
             try {
                 TaoDonHangRequestGHN donHangRequestGHN = createGHNRequest(donHang);
                 Integer code = DonHangAPI.createOrder(donHangRequestGHN);
-                if(code != 200){
-                    log.error("Lỗi gửi Giao Hàng nhanh code {}", code);
-                    redirectAttributes.addFlashAttribute("error","Lỗi hệ thống giao hàng nhanh");
-                    return "redirect:/admin/don-hang";
-                }
+//                if(code != 200){
+//                    log.error("Lỗi gửi Giao Hàng nhanh code {}", code);
+//                    redirectAttributes.addFlashAttribute("error","Lỗi hệ thống giao hàng nhanh");
+//                    return "redirect:/admin/don-hang";
+//                }
                 donHang.setTrangThaiDonHang(trangThai);
                 donHang.setNgayCapNhap(new Date());
 //                donHang.setNgayGiaoHang(new Date());
@@ -285,9 +285,9 @@ public class DonHangController {
             listHDCT.forEach(hdct->{
                 ChiTietSanPham ctsp = hdct.getChiTietSanPham();
                 Integer soLuong = hdct.getSoLuong();
-                List<Seri> listSeri = seriService.findByChiTietSanPham(ctsp,soLuong);
+                List<Seri> listSeri = seriService.findByHoaDonChiTiet(hdct.getIdHoaDonChiTiet());
                 listSeri.forEach(seri -> {
-                    seri.setTrangThai(TrangThaiImei.CHUA_BAN);
+                    seri.setTrangThai(TrangThaiImei.LOI);
                     seri.setNgayBan(null);
                     seri.setHoaDonChiTiet(null);
                 });

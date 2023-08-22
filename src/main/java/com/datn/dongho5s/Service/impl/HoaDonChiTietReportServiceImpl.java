@@ -79,8 +79,12 @@ public class HoaDonChiTietReportServiceImpl extends AbstractReportService {
 			Integer soLuong = repo.countHD(detail.getDonHang().getIdDonHang());
 			ReportItem reportItem = new ReportItem(identifier);
 			double netSales = detail.getGiaBan() * detail.getSoLuong();
-//			double grossSales = netSales + (detail.getDonHang().getPhiVanChuyen() / (double) soLuong);
-			double grossSales = netSales + (detail.getDonHang().getPhiVanChuyen());
+			double grossSales = 0.0;
+			if(detail.getDonHang().getPhiVanChuyen() == null){
+				 grossSales = netSales ;
+			}else{
+				 grossSales = netSales + detail.getDonHang().getPhiVanChuyen();
+			}
 
 			int itemIndex = listReportItems.indexOf(reportItem);
 

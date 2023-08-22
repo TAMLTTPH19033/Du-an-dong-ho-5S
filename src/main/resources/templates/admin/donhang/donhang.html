@@ -880,7 +880,7 @@
             var row = '<tr>';
             row += '<td>' + (item.maDonHang) + '</td>';
             row += '<td>' + item.khachHang.idKhachHang +  '</td>';
-            row += '<td>' + item.idNhanVien +  '</td>';
+            row += '<td>' + setTextNhanVien(item.idNhanVien) +  '</td>';
             row += '<td>' + item.ngayTao + '</td>';
             row += '<td>' + item.ngayCapNhap + '</td>';
             row += '<td>' + item.diaChi + '</td>';
@@ -955,7 +955,7 @@
                 row += '<td>' + " " + '</td>';
             }
             row += '<td>';
-            row += '<a class="icon-green btn btn-outline-danger" style="text-decoration: none"  th:href="@{\'/admin/hoa-don-chi-tiet/search/\' + ${cat.idDonHang}}">Xem</a>';
+            row += '<a class="icon-green btn btn-outline-danger" style="text-decoration: none"  href="/admin/hoa-don-chi-tiet/search/' + item.idDonHang+ '">Xem</a>';
             row += '</td>';
             row += '</tr>';
             return row;
@@ -988,6 +988,13 @@
                     return '';
             }
         }
+    function setTextNhanVien(trangThai){
+        if(trangThai != null ){
+            return trangThai;
+        }else{
+            return "";
+        }
+    }
 </script>
 </body>
 </html>
