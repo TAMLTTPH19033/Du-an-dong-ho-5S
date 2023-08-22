@@ -96,7 +96,7 @@ public class SanPhamController {
         List<ThuongHieu> listThuongHieu = thuongHieuService.getAllThuongHieu();
         List<DanhMuc> listDanhMuc = danhmucService.listAll();
         SanPham sanPham = new SanPham();
-        sanPham.setTrangThai(1);
+        sanPham.setTrangThai(0);
         model.addAttribute("sanPham",sanPham);
         model.addAttribute("listThuongHieu",listThuongHieu);
         model.addAttribute("listDanhMuc",listDanhMuc);
