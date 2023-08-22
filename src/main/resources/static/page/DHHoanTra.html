@@ -205,6 +205,7 @@
                                 <div >Mã đơn hàng : {{item.maDonHang}}</div>
                                 <div >Ngày Tạo : {{item.ngayTao | date : "short"}}</div>
                                 <div ng-show="item.diaChi != null">Địa Chỉ : {{item.diaChi}}, {{item.phuongXa}} - {{item.quanHuyen}} -  {{item.tinhThanh}}</div>
+                                <div >Lý do: {{item.lyDo}}</div>
                                 <span style="position: absolute; right: 32px;top: 10px;color: red;text-transform: uppercase;">YÊU CẦU HÒA TRẢ </span>
                             </div>
                             <div class="shipping-item"  ng-repeat="h in item.hoaDonChiTiets" style="line-height: 22px; padding: 10px;">

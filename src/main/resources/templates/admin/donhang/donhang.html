@@ -437,7 +437,7 @@
                                                 <th>Địa chỉ</th>
                                                 <th>Trạng thái đơn hàng</th>
                                                 <th>Tổng tiền</th>
-                                                <th>Ghi chú</th>
+                                                <th>Lý do</th>
                                                 <th>Action</th>
                                             </tr>
                                             </thead>
@@ -494,7 +494,7 @@
                                                 <th>Địa chỉ</th>
                                                 <th>Trạng thái đơn hàng</th>
                                                 <th>Tổng tiền</th>
-                                                <th>Ghi chú</th>
+                                                <th>Lý do</th>
                                                 <th>Action</th>
                                             </tr>
                                             </thead>
@@ -551,7 +551,7 @@
                                                 <th>Địa chỉ</th>
                                                 <th>Trạng thái đơn hàng</th>
                                                 <th>Tổng tiền</th>
-                                                <th>Ghi chú</th>
+                                                <th>Lý do</th>
                                                 <th>Action</th>
                                             </tr>
                                             </thead>
@@ -907,8 +907,8 @@
             row += '<td>' + item.diaChi + '</td>';
             row += '<td>' + setTrangThaiText(item.trangThaiDonHang) + '</td>';
             row += '<td>' + new Intl.NumberFormat('ja-JP').format(item.tongTien + item.phiVanChuyen) + 'đ</td>';
-            if(item.ghiChu != null) {
-                row += '<td>' + item.ghiChu + '</td>';
+            if(item.lyDo != null) {
+                row += '<td>' + item.lyDo + '</td>';
             }else{
                 row += '<td>' + " " + '</td>';
             }
@@ -927,8 +927,8 @@
             row += '<td>' + item.diaChi + '</td>';
             row += '<td>' + setTrangThaiText(item.trangThaiDonHang) + '</td>';
             row += '<td>' +new Intl.NumberFormat('ja-JP').format(item.tongTien + item.phiVanChuyen) + 'đ</td>';
-            if(item.ghiChu != null) {
-                row += '<td>' + item.ghiChu + '</td>';
+            if(item.lyDo != null) {
+                row += '<td>' + item.lyDo + '</td>';
             }else{
                 row += '<td>' + " " + '</td>';
             }
